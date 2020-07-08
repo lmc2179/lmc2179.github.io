@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "About the Author"
-author: "Paul Le"
+title: "Picking the model with the lowest cross validation error is not enough"
+author: "Louis Cialdella"
 categories: journal
 tags: [documentation,sample]
 image: cutting.jpg
