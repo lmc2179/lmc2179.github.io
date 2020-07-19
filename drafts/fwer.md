@@ -17,7 +17,7 @@ However, this needs to be handled more carefully than simply computing a pile of
 For example, let's say we examine two distinct null hypotheses, which are both true. Even though $H_0$ is true, we run an $\alpha$ probability risk of rejecting each one. If the test statistics are uncorrelated, this means that our chance of *any* false positives is $1 - (1-\alpha)^2$. If $\alpha = .05$, for example, this means that we have a 9.75% chance of at least one false positive. This problem gets worse the more simultaneous tests we run - if we run enough tests, we'll eventually find a null hypothesis to reject, even when all the nulls are true. This has the unfortunate implication that the more questions we ask, the more likely we are to get an answer that rejects a null hypothesis, even when all the null hypotheses are true. To borrow a quote without context, "seek, and ye shall find" - though what you find may be spurious.
 
 Here's a stylized example of the problem:
-![A classic example](https://xkcd.com/882/)
+![A classic example](https://imgs.xkcd.com/comics/significant.png)
 This is a classic example of multiple testing error - if you test 20 times at the 5% significance level, you've got a much better chance of finding a non-null relationship, and all your usual guarantees about "only happening 5% of the time" are no longer valid.
 
 ## A simulation example: Estimating multiple means
