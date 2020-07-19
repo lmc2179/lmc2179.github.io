@@ -172,7 +172,10 @@ We'd like to show that when we set the significant level to $\frac{\alpha}{m}$, 
 |  $= m_0 \frac{\alpha}{m}$  |  $\mathbb{P}(p \leq X)$ when $H_0$ is true |
 | $\leq m \frac{\alpha}{m} = \alpha $ | Because $m_0 \leq m$ |
 
-CI variant endnote
+
+## What about confidence intervals?
+
+So far we've talked about simultaneously testing a number of hypotheses by computing a number of P-values. You might wonder whether the procedure is any more complicated if we're interested in simultaneous confidence intervals, rather than P-values. It turns out that the Bonferroni procedure works without any real change if you're computing confidence intervals - all you need to do is change the significance level of all your intervals to $\frac{\alpha}{m}$.
 
 $$\mathbb{P} (\bigcup_{i=1}^{m} \mu_i \notin CI_{\frac{\alpha}{m}}(X_i) )$$
 
@@ -180,9 +183,6 @@ $$\leq \sum_{i=1}^{m} \mathbb{P}(\bigcup_{i=1}^{m} \mu_i \notin CI_{\frac{\alpha
 
 $$= m \frac{\alpha}{m} = \alpha$$
 
-## What about confidence intervals?
-
-So far we've talked about simultaneously testing a number of hypotheses by computing a number of P-values. You might wonder whether the procedure is any more complicated if we're interested in simultaneous confidence intervals, rather than P-values. It turns out that the Bonferroni procedure works without any real change if you're computing confidence intervals - all you need to do is change the significance level of all your intervals to $\frac{\alpha}{m}$.
 
 ## A more powerful procedure for P-values: Bonferroni-Holm
 
