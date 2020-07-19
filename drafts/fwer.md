@@ -10,6 +10,7 @@ Almost as soon as we start thinking of data analysis as opportunities to test hy
 
 - When we have an A/B test with more variants than just "Test" and "Control" and we want to compare them all to each other
 - When we want to compare the out-of-sample error rates of multiple machine learning models to each other
+- We want to known what happens when we choose one of the many possible subsets of features in a ML model
 - When we want to look at the significance of many coefficients in a multiple regression at the same time
 
 However, this needs to be handled more carefully than simply computing a pile of P-values and rejecting whichever ones are smaller than $\alpha$. For any given hypothesis test, we have a false positive rate of $\alpha$; we spend a lot of time making sure our test procedures keep the likelihood of a false positive below $\alpha$. But this guarantee *doesn't* hold up when we test multiple hypotheses.
@@ -159,6 +160,8 @@ The power was reduced - we only successfully rejected the null for X5 50% of the
 
 ## Why does the Bonferroni correction work?
 
+It's worth a quick recap of the proof that the Bonferroni correction keeps the FWER below $\alpha$. The [wikipedia page](https://en.wikipedia.org/wiki/Bonferroni_correction#Definition) has the proof, but I found it helpful to break it down step by step. If you're not interested in the proof, feel free to skip to the next section.
+
 We'd like to show that when we set the significant level to $\frac{\alpha}{m}$, the FWER is not more than $\alpha$. We can break down an FWER violation as the union of all events where one P-value of a true $H_0$ is less than the significance level. In the following, let's define:
 
 - $m$, the total number of hypotheses we want to test
@@ -168,24 +171,19 @@ We'd like to show that when we set the significant level to $\frac{\alpha}{m}$, 
 
 |---|---|
 |  $\mathbb{P} (\bigcup_{i=1}^{m_0} p_i \leq \frac{\alpha}{m})$   | This is the definition of the FWER under the Bonferroni-correction. |
-| $\leq \sum_{i=1}^{m_0} \mathbb{P}(p_i \leq \frac{\alpha}{m})$     |  Union bound (no assumptions, add endnote) |
+| $\leq \sum_{i=1}^{m_0} \mathbb{P}(p_i \leq \frac{\alpha}{m})$     |  This is a result of the [Union Bound](https://en.wikipedia.org/wiki/Boole%27s_inequality).<sup>[1](#foot1)</sup> |
 |  $= m_0 \frac{\alpha}{m}$  |  $\mathbb{P}(p \leq X)$ when $H_0$ is true |
 | $\leq m \frac{\alpha}{m} = \alpha $ | Because $m_0 \leq m$ |
 
-Union bound endnote: Intuition from set theory $\mathbb{P}(A_1 \cup A_2) = \mathbb{P}(A_1) + \mathbb{P}(A_2) + \mathbb{P}(A_1 \cap A_2) \leq \mathbb{P}(A_1) + \mathbb{P}(A_2)$
-
 ## What about confidence intervals?
 
-So far we've talked about simultaneously testing a number of hypotheses by computing a number of P-values. You might wonder whether the procedure is any more complicated if we're interested in simultaneous confidence intervals, rather than P-values. It turns out that the Bonferroni procedure works without any real change if you're computing confidence intervals - all you need to do is change the significance level of all your intervals to $\frac{\alpha}{m}$. Effect size
+So far we've talked about simultaneously testing a number of hypotheses by computing a number of P-values. You might wonder whether the procedure is any more complicated if we're interested in simultaneous confidence intervals, rather than P-values. It turns out that the Bonferroni procedure works without any real change if you're computing confidence intervals - all you need to do is change the significance level of all your intervals to $\frac{\alpha}{m}$. This is often what I do in practice, as I'm usually more interested in estimating the parameter value or an effect size than I am in testing a point null hypothesis.
 
-$$\mathbb{P} (\bigcup_{i=1}^{m} \mu_i \notin CI_{\frac{\alpha}{m}}(X_i) )$$
-
-$$\leq \sum_{i=1}^{m} \mathbb{P}(\bigcup_{i=1}^{m} \mu_i \notin CI_{\frac{\alpha}{m}}(X_i) )$$
-
-$$= m \frac{\alpha}{m} = \alpha$$
-
+If you're interested in a deeper look at the confidence interval case, take a look at <sup>[2](#foot2)</sup>.
 
 ## A more powerful procedure for P-values: Bonferroni-Holm
+
+The Bonferroni correction has a lot going for it! It's easy to use
 
 ```python
 is_significant = multipletests(p_values, method='holm', alpha=.05)[0]
@@ -217,6 +215,21 @@ FWER is an intuitive analogue to the usual False Positive (Type I Error) rate. H
 
 **Criticism 2**: Type I error rates of point hypotheses are not what we care about. We care about high-quality estimates of the parameters. The problematic aspects of multiple comparisons disappear if we view them from a Bayesian Perspective and fit a hierarchical model that uses all the information in the data.
 
-This is one aspect of a broader criticism of NHST
+Since this is a criticism of the Type I erro paradigm, it's not just an issue with FWER, but is one aspect of a broader criticism of NHST. My favorite bit of writing on this is Andrew Gelman's [Why we don't (usually) need to worry about multiple comparisons](http://www.stat.columbia.edu/~gelman/research/published/multiple2f.pdf).
 
-http://www.stat.columbia.edu/~gelman/research/published/multiple2f.pdf
+## Summary of the useful results
+
+
+
+## Endnotes
+
+<a name="foot1">1</a>: Intuition from set theory $\mathbb{P}(A_1 \cup A_2) = \mathbb{P}(A_1) + \mathbb{P}(A_2) + \mathbb{P}(A_1 \cap A_2) \leq \mathbb{P}(A_1) + \mathbb{P}(A_2)$
+
+<a name="foot2">2</a>: Proof the the CI case
+$$\mathbb{P} (\bigcup_{i=1}^{m} \mu_i \notin CI_{\frac{\alpha}{m}}(X_i) )$$
+
+$$\leq \sum_{i=1}^{m} \mathbb{P}(\bigcup_{i=1}^{m} \mu_i \notin CI_{\frac{\alpha}{m}}(X_i) )$$
+
+$$= m \frac{\alpha}{m} = \alpha$$
+
+More generally, arbitrary contrasts https://sci2s.ugr.es/keel/pdf/algorithm/articulo/1961-Bonferroni_Dunn-JASA.pdf
