@@ -159,12 +159,17 @@ The power was reduced - we only successfully rejected the null for X5 50% of the
 
 ## Why does the Bonferroni correction work?
 
-We'd like to show that when we set the significant level to $\frac{\alpha}{m}$, the FWER is not more than $\alpha$. We can break down an FWER violation as the union of all events where one P-value of a true $H_0$ is less than the significance level.
+We'd like to show that when we set the significant level to $\frac{\alpha}{m}$, the FWER is not more than $\alpha$. We can break down an FWER violation as the union of all events where one P-value of a true $H_0$ is less than the significance level. In the following, let's define:
+
+- $m$, the total number of hypotheses we want to test
+- $m_0$, the total number of null hypotheses which are true
+- $p_i$, the p-value for hypothesis $i$
+- $\alpha$, the significance level set by the analyst
 
 |---|---|
 |  $\mathbb{P} (\bigcup_{i=1}^{m_0} p_i \leq \frac{\alpha}{m})$   | This is the definition of the FWER under the Bonferroni-correction. |
 | $\leq \sum_{i=1}^{m_0} \mathbb{P}(p_i \leq \frac{\alpha}{m})$     |  Union bound (no assumptions, add endnote) |
-|  $m_0 \frac{\alpha}{m}$  |  $\mathbb{P}(p \leq X)$ when $H_0$ is true |
+|  $= m_0 \frac{\alpha}{m}$  |  $\mathbb{P}(p \leq X)$ when $H_0$ is true |
 | $\leq m_0 \frac{\alpha}{m} = \alpha $ | Because $m_0 \leq m$ |
 
 CI variant endnote
