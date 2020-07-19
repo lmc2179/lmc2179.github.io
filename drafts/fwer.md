@@ -163,7 +163,7 @@ We'd like to show that when we set the significant level to $\frac{\alpha}{m}$, 
 
 |---|---|
 |  $\mathbb{P} (\bigcup_{i=1}^{m_0} p_i \leq \frac{\alpha}{m})$   | This is the definition of the FWER under the Bonferroni-correction. |
-| \leq $\sum_{i=1}^{m_0} \mathbb{P}(p_i \leq \frac{\alpha}{m})$     |  Union bound (no assumptions, add endnote) |
+| $\leq \sum_{i=1}^{m_0} \mathbb{P}(p_i \leq \frac{\alpha}{m})$     |  Union bound (no assumptions, add endnote) |
 |  $m_0 \frac{\alpha}{m}$  |  $\mathbb{P}(p \leq X)$ when $H_0$ is true |
 | $\leq m_0 \frac{\alpha}{m} = \alpha $ | Because $m_0 \leq m$ |
 
