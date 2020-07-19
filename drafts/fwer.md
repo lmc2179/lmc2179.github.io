@@ -7,15 +7,17 @@ TL;DR - Multiple hypothesis testing shows up frequently in practice, but needs t
 Any time we compute a P-value to test a hypothesis, we run the risk of being unlucky and rejecting the null hypothesis when it is true. This is called a "false positive" or "Type I error", and we carefully construct our hypothesis tests so that it only happens 1% or 5% of the time - more generally, that it happens $\alpha%$ of the time. There's an analogous risk for confidence intervals; we might compute an interval that doesn't cover the true value, though again this shouldn't happen too often.
 
 Almost as soon as we start thinking of data analysis as opportunities to test hypotheses, we encounter situations where we want to test multiple hypotheses at once. For example:
--When we have an A/B test with more variants than just "Test" and "Control" and we want to compare them all to each other
--When we want to compare the out-of-sample error rates of multiple machine learning models to each other
--When we want to look at the significance of many coefficients in a multiple regression at the same time
+
+- When we have an A/B test with more variants than just "Test" and "Control" and we want to compare them all to each other
+- When we want to compare the out-of-sample error rates of multiple machine learning models to each other
+- When we want to look at the significance of many coefficients in a multiple regression at the same time
+
 However, this needs to be handled more carefully than simply computing a pile of P-values and rejecting whichever ones are smaller than $\alpha$. For any given hypothesis test, we have a false positive rate of $\alpha$; we spend a lot of time making sure our test procedures keep the likelihood of a false positive below $\alpha$. But this guarantee *doesn't* hold up when we test multiple hypotheses.
 
 For example, let's say we examine two distinct null hypotheses, which are both true. Even though $H_0$ is true, we run an $\alpha$ probability risk of rejecting each one. If the test statistics are uncorrelated, this means that our chance of *any* false positives is $1 - (1-\alpha)^2$. If $\alpha = .05$, for example, this means that we have a 9.75% chance of at least one false positive. This problem gets worse the more simultaneous tests we run - if we run enough tests, we'll eventually find a null hypothesis to reject, even when all the nulls are true. This has the unfortunate implication that the more questions we ask, the more likely we are to get an answer that rejects a null hypothesis, even when all the null hypotheses are true. To borrow a quote without context, "seek, and ye shall find" - though what you find may be spurious.
 
 Here's a stylized example of the problem:
-[A classic example](https://xkcd.com/882/)
+![A classic example](https://xkcd.com/882/)
 This is a classic example of multiple testing error - if you test 20 times at the 5% significance level, you've got a much better chance of finding a non-null relationship, and all your usual guarantees about "only happening 5% of the time" are no longer valid.
 
 ## A simulation example: Estimating multiple means
