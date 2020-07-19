@@ -175,7 +175,7 @@ We'd like to show that when we set the significant level to $\frac{\alpha}{m}$, 
 
 ## What about confidence intervals?
 
-So far we've talked about simultaneously testing a number of hypotheses by computing a number of P-values. You might wonder whether the procedure is any more complicated if we're interested in simultaneous confidence intervals, rather than P-values. It turns out that the Bonferroni procedure works without any real change if you're computing confidence intervals - all you need to do is change the significance level of all your intervals to $\frac{\alpha}{m}$.
+So far we've talked about simultaneously testing a number of hypotheses by computing a number of P-values. You might wonder whether the procedure is any more complicated if we're interested in simultaneous confidence intervals, rather than P-values. It turns out that the Bonferroni procedure works without any real change if you're computing confidence intervals - all you need to do is change the significance level of all your intervals to $\frac{\alpha}{m}$. Effect size
 
 $$\mathbb{P} (\bigcup_{i=1}^{m} \mu_i \notin CI_{\frac{\alpha}{m}}(X_i) )$$
 
@@ -196,7 +196,11 @@ Doing it in one line of Statsmodels
 
 No reason not to do it when you're doing P-value stuff
 
+Not clear how to apply it for CIs; unfortunate because effect sizes are where its at
+
 ## Why does Bonferroni-Holm work?
+
+https://www.ime.usp.br/~abe/lista/pdf4R8xPVzCnX.pdf
 
 ## FWER control procedures other than Bonferroni and Bonferroni-Holm
 
@@ -205,3 +209,7 @@ Dunnet
 MCB
 
 ## What alternatives might we use instead of the FWER? The FDR and Hierarchical model approaches
+
+FWER is an intuitive analogue to the usual False Positive (Type I Error) rate. However, methods like Bonferroni come at substantial cost. In cases where there are hundreds or thousands of simultaneous hypotheses, they may set an extremely high bar. There are at least two lines of criticism against the FWER, which leads us to some alternatives. 
+
+http://www.stat.columbia.edu/~gelman/research/published/multiple2f.pdf
