@@ -172,6 +172,7 @@ We'd like to show that when we set the significant level to $\frac{\alpha}{m}$, 
 |  $= m_0 \frac{\alpha}{m}$  |  $\mathbb{P}(p \leq X)$ when $H_0$ is true |
 | $\leq m \frac{\alpha}{m} = \alpha $ | Because $m_0 \leq m$ |
 
+Union bound endnote: Intuition from set theory $\mathbb{P}(A_1 \cup A_2) = \mathbb{P}(A_1) + \mathbb{P}(A_2) + \mathbb{P}(A_1 \cap A_2) \leq \mathbb{P}(A_1) + \mathbb{P}(A_2)$
 
 ## What about confidence intervals?
 
