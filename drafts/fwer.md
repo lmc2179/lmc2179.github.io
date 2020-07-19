@@ -212,4 +212,10 @@ MCB
 
 FWER is an intuitive analogue to the usual False Positive (Type I Error) rate. However, methods like Bonferroni come at substantial cost. In cases where there are hundreds or thousands of simultaneous hypotheses, they may set an extremely high bar. There are at least two lines of criticism against the FWER, which leads us to some alternatives. 
 
+**Criticism 1**: The FWER is both conservative and not the relevant quantity. What we care about when there are many hypotheses is knowing how many of the claimed null effects might be spurious. The thing we should control is the `Total number of spurious rejections / Total number of all rejections` in any given case.
+
+**Criticism 2**: Type I error rates of point hypotheses are not what we care about. We care about high-quality estimates of the parameters. The problematic aspects of multiple comparisons disappear if we view them from a Bayesian Perspective and fit a hierarchical model that uses all the information in the data.
+
+This is one aspect of a broader criticism of NHST
+
 http://www.stat.columbia.edu/~gelman/research/published/multiple2f.pdf
