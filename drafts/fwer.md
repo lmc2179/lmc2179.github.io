@@ -152,11 +152,12 @@ Proportion of times that we rejected H0 for X5: 0.5082
 Proportion of times we falsely rejected any null hypotheses: 0.0398
 ```
 
-The FP rate for each individual test is now $\frac{\alpha}{5} = \frac{.05}{5} = .01$.
-The FWER was successfully reduced to below $\alpha$.
-The power was reduced - we only successfully rejected the null for X5 50% of the time, compared with 75% of the time without the correction.
+We see that:
+- The FP rate for each individual test is now $\frac{\alpha}{5} = \frac{.05}{5} = .01$.
+- The FWER was successfully reduced to below $\alpha$.
+- The power was reduced - we only successfully rejected the null for X5 50% of the time, compared with 75% of the time without the correction. Since power decreases as we set $\alpha$ lower, this is not too surprising. 
 
-## The tradeoff of Bonferroni: FWER control at the cost of reduced power
+This example highlights the main tradeoff that we make in choosing FWER-controlling methods like the Bonferroni correction. We can control the FWER and be unlikely to report a false positive, but we are also less likely to report a true positive. As we add more hypotheses, the power gets lower because $\alpha$ decreases. This trade of FWER control for lower power might make any inference impossible when the sample size is small or the number of hypotheses is large, as the power is reduced too much to do anything useful. This tradeoff is not always the right one to make! The last section points out some alternative approaches that are commonly used by the FWER-skeptical.
 
 ## Why does the Bonferroni correction work?
 
@@ -172,18 +173,18 @@ We'd like to show that when we set the significant level to $\frac{\alpha}{m}$, 
 |---|---|
 |  $\mathbb{P} (\bigcup_{i=1}^{m_0} p_i \leq \frac{\alpha}{m})$   | This is the definition of the FWER under the Bonferroni-correction. |
 | $\leq \sum_{i=1}^{m_0} \mathbb{P}(p_i \leq \frac{\alpha}{m})$     |  This is a result of the [Union Bound](https://en.wikipedia.org/wiki/Boole%27s_inequality).<sup>[1](#foot1)</sup> |
-|  $= m_0 \frac{\alpha}{m}$  |  $\mathbb{P}(p \leq X)$ when $H_0$ is true |
-| $\leq m \frac{\alpha}{m} = \alpha $ | Because $m_0 \leq m$ |
+|  $= m_0 \frac{\alpha}{m}$  | Because $\mathbb{P}(p \leq X) = X$ when $H_0$ is true. |
+| $\leq m \frac{\alpha}{m} = \alpha $ | Because $m_0 \leq m$, the number of true null hypotheses is $\leq$ the total number of hypotheses. |
 
 ## What about confidence intervals?
 
-So far we've talked about simultaneously testing a number of hypotheses by computing a number of P-values. You might wonder whether the procedure is any more complicated if we're interested in simultaneous confidence intervals, rather than P-values. It turns out that the Bonferroni procedure works without any real change if you're computing confidence intervals - all you need to do is change the significance level of all your intervals to $\frac{\alpha}{m}$. This is often what I do in practice, as I'm usually more interested in estimating the parameter value or an effect size than I am in testing a point null hypothesis.
+So far we've talked about simultaneously testing a number of hypotheses by computing a number of P-values. You might wonder whether the procedure is any more complicated if we're interested in simultaneous confidence intervals, rather than P-values. It turns out that the Bonferroni procedure works without any real change if you're computing confidence intervals - all you need to do is change the significance level of all your intervals to $\frac{\alpha}{m}$. 
 
 If you're interested in a deeper look at the confidence interval case, take a look at <sup>[2](#foot2)</sup>.
 
 ## A more powerful procedure for P-values: Bonferroni-Holm
 
-The Bonferroni correction has a lot going for it! It's easy to use
+The Bonferroni correction has a lot going for it! It's easy to use and explain, which is always a positive attribute for a method. However, we noticed that it tends to reduce the power.
 
 ```python
 is_significant = multipletests(p_values, method='holm', alpha=.05)[0]
@@ -209,15 +210,13 @@ MCB
 
 ## What alternatives might we use instead of the FWER? The FDR and Hierarchical model approaches
 
-FWER is an intuitive analogue to the usual False Positive (Type I Error) rate. However, methods like Bonferroni come at substantial cost. In cases where there are hundreds or thousands of simultaneous hypotheses, they may set an extremely high bar. There are at least two lines of criticism against the FWER, which leads us to some alternatives. 
+FWER is an intuitive analogue to the usual False Positive (Type I Error) rate. However, methods like Bonferroni come at substantial cost. In cases where there are hundreds or thousands of simultaneous hypotheses, they may set an extremely high bar. There are at least two lines of criticism against the FWER, which lead us to some alternatives. 
 
-**Criticism 1**: The FWER is both conservative and not the relevant quantity. What we care about when there are many hypotheses is knowing how many of the claimed null effects might be spurious. The thing we should control is the `Total number of spurious rejections / Total number of all rejections` in any given case.
+**Criticism 1**: The FWER reduces our power substantially and is not the most relevant quantity. What we care about when there are many hypotheses is knowing how many of the *claimed* null effects after examining the data might be spurious. The thing we should control is the `Total number of spurious rejections / Total number of all rejections` in any given case. This line of criticism has found great success in settings where the number of hypotheses run into the hundreds or thousands, as in microarray studies. It leads to the [False Discovery Rate](https://en.wikipedia.org/wiki/False_discovery_rate) as an alternative to the FWER which is both more relevant and more powerful.
 
-**Criticism 2**: Type I error rates of point hypotheses are not what we care about. We care about high-quality estimates of the parameters. The problematic aspects of multiple comparisons disappear if we view them from a Bayesian Perspective and fit a hierarchical model that uses all the information in the data.
+**Criticism 2**: Type I error rates of point null hypotheses are not what we care about - the null hypothesis isn't ever true and knowing something is "not zero" isn't much information. We care about high-quality estimates of the parameters. The problematic aspects of multiple comparisons disappear if we view them from a Bayesian Perspective and fit a hierarchical model that uses all the information in the data. Instead of controlling the Type I error rate, we should introduce a prior which avoids us from making extreme claims.
 
-Since this is a criticism of the Type I erro paradigm, it's not just an issue with FWER, but is one aspect of a broader criticism of NHST. My favorite bit of writing on this is Andrew Gelman's [Why we don't (usually) need to worry about multiple comparisons](http://www.stat.columbia.edu/~gelman/research/published/multiple2f.pdf).
-
-## Summary of the useful results
+Since this is a criticism of the Type I error paradigm, it's not just an issue with FWER, but is one aspect of a broader criticism of NHST. My favorite bit of writing on this is Andrew Gelman's [Why we don't (usually) need to worry about multiple comparisons](http://www.stat.columbia.edu/~gelman/research/published/multiple2f.pdf). I find this to be a strong criticism of P-value testing; I myself commonly use and advocate for Bayesian methods. Nonetheless, even as a card carrying Bayesian the methods outlined here are useful both because people use these methods often, and because MCMC on a large dataset is costly but a quick P-value calculation might not be.
 
 
 
