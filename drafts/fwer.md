@@ -184,21 +184,12 @@ If you're interested in a deeper look at the confidence interval case, take a lo
 
 ## A more powerful procedure for P-values: Bonferroni-Holm
 
-The Bonferroni correction has a lot going for it! It's easy to use and explain, which is always a positive attribute for a method. However, we noticed that it tends to reduce the power.
-
-```python
-is_significant = multipletests(p_values, method='holm', alpha=.05)[0]
-```
+The Bonferroni correction has a lot going for it! It's easy to use and explain, which is always a positive attribute for a method. However, we noticed that it tends to reduce the power. Since its introduction, this has lead researchers to look for methods that are more powerful than the Bonferroni correction, but which still control the FWER. The most popular competitor is the [Bonferroni-Holm method](https://en.wikipedia.org/wiki/Holm%E2%80%93Bonferroni_method), which uses a similar principle but is often more powerful than the simple method we outlined.
 
 Simulation w/ BH produces only marginally more power in this case, but it can be meaningful
 
-Doing it in one line of Statsmodels
 
-No reason not to do it when you're doing P-value stuff
-
-Not clear how to apply it for CIs; unfortunate because effect sizes are where its at
-
-From the paper: 
+From [the paper (p.4)](https://www.ime.usp.br/~abe/lista/pdf4R8xPVzCnX.pdf): 
 
 The power gain obtained by using a sequentially
 rejective Bonferroni test instead of a classical Bonferroni test depends very much upon the alternative.
@@ -213,9 +204,23 @@ performing a sequentially rejective Bonferroni test
 only on those hypotheses that are not 'completely
 wrong'
 
+Doing it in one line of Statsmodels
+The Bonferroni-Holm method is easy to use in Python - you can do it in one line of Statsmodels. All we'd need to do in the code above to switch to Bonferroni-Holm instead of the usual correction is to do:
+```python
+from statsmodels.stats.multitest import multipletests
+
+is_significant = multipletests(p_values, method='holm', alpha=.05)[0]
+```
+
+
+No reason not to do it when you're doing P-value stuff
+
+Not clear how to apply it for CIs; unfortunate because effect sizes are where its at
+
+
 ## Why does Bonferroni-Holm work?
 
-https://www.ime.usp.br/~abe/lista/pdf4R8xPVzCnX.pdf
+short version
 
 ## FWER control procedures other than Bonferroni and Bonferroni-Holm
 
