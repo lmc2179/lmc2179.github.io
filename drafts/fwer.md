@@ -198,6 +198,21 @@ No reason not to do it when you're doing P-value stuff
 
 Not clear how to apply it for CIs; unfortunate because effect sizes are where its at
 
+From the paper: 
+
+The power gain obtained by using a sequentially
+rejective Bonferroni test instead of a classical Bonferroni test depends very much upon the alternative.
+It is small if all the hypotheses are 'almost true', but
+it may be considerable if a number of hypotheses are
+'completely wrong'. If m of the n basic hypotheses
+are 'completely wrong' the corresponding levels attain small values, and these hypotheses are rejected
+in the first m steps with a big probability. The
+other levels are then compared to ac/k for k = n -m,
+n-rm-l, n-rm -2, ..., 2, 1, which is equivalent to
+performing a sequentially rejective Bonferroni test
+only on those hypotheses that are not 'completely
+wrong'
+
 ## Why does Bonferroni-Holm work?
 
 https://www.ime.usp.br/~abe/lista/pdf4R8xPVzCnX.pdf
