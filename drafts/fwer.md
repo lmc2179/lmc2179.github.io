@@ -1,6 +1,6 @@
 # Bonferroni, Bonferroni-Holm - Methods that control the FWER and their costs
 
-TL;DR - Multiple hypothesis testing shows up frequently in practice, but needs to be handled carefully. Common methods like the Bonferroni correction are useful quick fixes, but they have important drawbacks that users should understand. *What do methods like Bonferroni and Bonferroni-Holm do, and why do they work? What alternatives are there?*
+TL;DR - Multiple hypothesis testing shows up frequently in practice, but needs to be handled thoughtfully. Common methods like the Bonferroni correction are useful quick fixes, but they have important drawbacks that users should understand. *What do methods like Bonferroni and Bonferroni-Holm do, and why do they work? What alternatives are there?*
 
 ## Multiple testing is everywhere, and can be tricky
 
@@ -186,8 +186,9 @@ If you're interested in a deeper look at the confidence interval case, take a lo
 
 The Bonferroni correction has a lot going for it! It's easy to use and explain, which is always a positive attribute for a method. However, we noticed that it tends to reduce the power. Since its introduction, this has lead researchers to look for methods that are more powerful than the Bonferroni correction, but which still control the FWER. The most popular competitor is the [Bonferroni-Holm method](https://en.wikipedia.org/wiki/Holm%E2%80%93Bonferroni_method), which uses a similar principle but is often more powerful than the simple method we outlined.
 
-Simulation w/ BH produces only marginally more power in this case, but it can be meaningful
+Description of BH procedure
 
+Bonferroni-Holm can be meaningfully more powerful than the simple Bonferroni correction.
 
 From [the paper (p.4)](https://www.ime.usp.br/~abe/lista/pdf4R8xPVzCnX.pdf): 
 
@@ -204,7 +205,6 @@ performing a sequentially rejective Bonferroni test
 only on those hypotheses that are not 'completely
 wrong'
 
-Doing it in one line of Statsmodels
 The Bonferroni-Holm method is easy to use in Python - you can do it in one line of Statsmodels. All we'd need to do in the code above to switch to Bonferroni-Holm instead of the usual correction is to do:
 ```python
 from statsmodels.stats.multitest import multipletests
@@ -212,11 +212,7 @@ from statsmodels.stats.multitest import multipletests
 is_significant = multipletests(p_values, method='holm', alpha=.05)[0]
 ```
 
-
-No reason not to do it when you're doing P-value stuff
-
-Not clear how to apply it for CIs; unfortunate because effect sizes are where its at
-
+At the end of the day, if you're testing a large number of hypotheses with P-values and want to control the FWER, you should always use Bonferroni-Holm over the normal Bonferroni correction. Unfortunately, unlike the ordinary Bonferroni correction, it's not immediately obvious how to use the Bonferroni-Holm procedure with confidence intervals. [This SE answer](https://stats.stackexchange.com/a/158562/29694) provides some possibilities, though it points out that there are multiple ways of doing it stated in the literature.
 
 ## Why does Bonferroni-Holm work?
 
