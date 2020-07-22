@@ -220,6 +220,8 @@ short version
 
 ## FWER control procedures other than Bonferroni and Bonferroni-Holm
 
+https://projecteuclid.org/download/pdf_1/euclid.lnms/1196285622
+
 Tukey
 Dunnet
 MCB
@@ -233,8 +235,6 @@ FWER is an intuitive analogue to the usual False Positive (Type I Error) rate. H
 **Criticism 2**: Type I error rates of point null hypotheses are not what we care about - the null hypothesis isn't ever true and knowing something is "not zero" isn't much information. We care about high-quality estimates of the parameters. The problematic aspects of multiple comparisons disappear if we view them from a Bayesian Perspective and fit a hierarchical model that uses all the information in the data. Instead of controlling the Type I error rate, we should introduce a prior which avoids us from making extreme claims.
 
 Since this is a criticism of the Type I error paradigm, it's not just an issue with FWER, but is one aspect of a broader criticism of NHST. My favorite bit of writing on this is Andrew Gelman's [Why we don't (usually) need to worry about multiple comparisons](http://www.stat.columbia.edu/~gelman/research/published/multiple2f.pdf). I find this to be a compelling criticism of NHST and the classical perspective; I myself commonly use and advocate for Bayesian methods. Nonetheless, even as a card carrying Bayesian the methods outlined here are useful both because people use these methods often, and because MCMC on a large dataset is costly but a quick P-value calculation might not be.
-
-
 
 ## Endnotes
 
