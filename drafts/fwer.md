@@ -1,4 +1,4 @@
-# Bonferroni, Bonferroni-Holm - Methods that control the FWER and their costs
+# Getting started with multiple hypotheses - Methods that control the FWER and their costs
 
 TL;DR - Multiple hypothesis testing shows up frequently in practice, but needs to be handled thoughtfully. Common methods like the Bonferroni correction are useful quick fixes, but they have important drawbacks that users should understand. *What do methods like Bonferroni and Bonferroni-Holm do, and why do they work? What alternatives are there?*
 
