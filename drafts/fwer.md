@@ -210,12 +210,17 @@ At the end of the day, if you're testing a large number of hypotheses with P-val
 
 Bonferroni and Bonferroni-Holm are not the only available methods for controlling the FWER. This was quite a rich subject of research in the 70s and 80s, when many researchers devised methods that improved on these two.
 
-Šidák has marginally more power but isn't worth using unless you want to make assumptions about the dependence structure https://en.wikipedia.org/wiki/Family-wise_error_rate#The_%C5%A0id%C3%A1k_procedure <sup>[4](#foot4)</sup>
-Shaffer is good for pairwise analysis https://projecteuclid.org/download/pdf_1/euclid.lnms/1196285622
-Tukey is also good for pairwise analysis https://en.wikipedia.org/wiki/Tukey%27s_range_test
-Dunnett specifically for multiple comparisons to control - https://en.wikipedia.org/wiki/Dunnett%27s_test
+- The [Šidák procedure](https://en.wikipedia.org/wiki/Family-wise_error_rate#The_%C5%A0id%C3%A1k_procedure) is an alternative to Bonferroni with very, very marginally more power. It does make more assumptions about the dependence structure between the hypotheses (that they are independent, see <sup>[4](#foot4)</sup>)
+- The [Hochberg procedure](https://en.wikipedia.org/wiki/Family-wise_error_rate#Hochberg's_step-up_procedure) is a variation on BH that is also implemented in Statsmodels, but similarly make some assumptions about the dependence between the hypotheses.
 
-Unfortunately, none of these are in Python
+A theme here is that Bonerroni and Bonferroni-Holm are so valuable in part because their lack of strong assumptions about the relationships between hypotheses. Some dependencies are so common, though, that they have their own tests:
+
+
+- The [Shaffer procedure](https://www.researchgate.net/publication/240122933_Modified_Sequentially_Rejective_Multiple_Test_Procedures) is used for all pairwise comparisons between groups. It is general and quite powerful as pairwise comparison methods go, but it is computationally costly and tricky to implement. The computational challenges are addressed [here](https://projecteuclid.org/download/pdf_1/euclid.lnms/1196285622).
+- [Tukey's test](https://en.wikipedia.org/wiki/Tukey%27s_range_test) is another 
+- In the specific caes where we want to compare all variants to a "reference" variant (such as "all test variants vs control"), we can use [Dunnett's test](https://en.wikipedia.org/wiki/Dunnett%27s_test). 
+
+Unfortunately, none of these specialized methods are in Python - there is a version of Tukey's test in the statsmodels beta, but I don't think it's tested.
 
 ## What alternatives might we use instead of the FWER? The FDR and Hierarchical model approaches
 
