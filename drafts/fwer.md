@@ -186,24 +186,16 @@ If you're interested in a deeper look at the confidence interval case, take a lo
 
 The Bonferroni correction has a lot going for it! It's easy to use and explain, which is always a positive attribute for a method. However, we noticed that it tends to reduce the power. Since its introduction, this has lead researchers to look for methods that are more powerful than the Bonferroni correction, but which still control the FWER. The most popular competitor is the [Bonferroni-Holm method](https://en.wikipedia.org/wiki/Holm%E2%80%93Bonferroni_method), which uses a similar principle but is often more powerful than the simple method we outlined.
 
-Description of BH procedure
+The BH procedure works something like this:
 
-Bonferroni-Holm can be meaningfully more powerful than the simple Bonferroni correction.
+- Sort all the P-values you computed from your tests in ascending order. We'll call these $P_1, ..., P_m$, and they'll correspond to hypotheses $H_1, ..., H_m$.
+- Check if $P_1 \leq \frac{\alpha}{m}$. If it isn't, don't reject any null hypotheses - you're done.
+- If it is, reject 
 
-From [the paper (p.4)](https://www.ime.usp.br/~abe/lista/pdf4R8xPVzCnX.pdf): 
+Bonferroni-Holm can be meaningfully more powerful than the simple Bonferroni correction. The reason for that is that we're being most strict on the tests that are most likely to lead to a rejection, . The exact amount of additional power can vary quite a lot though. 
 
-The power gain obtained by using a sequentially
-rejective Bonferroni test instead of a classical Bonferroni test depends very much upon the alternative.
-It is small if all the hypotheses are 'almost true', but
-it may be considerable if a number of hypotheses are
-'completely wrong'. If m of the n basic hypotheses
-are 'completely wrong' the corresponding levels attain small values, and these hypotheses are rejected
-in the first m steps with a big probability. The
-other levels are then compared to ac/k for k = n -m,
-n-rm-l, n-rm -2, ..., 2, 1, which is equivalent to
-performing a sequentially rejective Bonferroni test
-only on those hypotheses that are not 'completely
-wrong'
+<sup>[3](#foot3)</sup>
+
 
 The Bonferroni-Holm method is easy to use in Python - you can do it in one line of Statsmodels. All we'd need to do in the code above to switch to Bonferroni-Holm instead of the usual correction is to do:
 ```python
@@ -214,17 +206,16 @@ is_significant = multipletests(p_values, method='holm', alpha=.05)[0]
 
 At the end of the day, if you're testing a large number of hypotheses with P-values and want to control the FWER, you should always use Bonferroni-Holm over the normal Bonferroni correction. Unfortunately, unlike the ordinary Bonferroni correction, it's not immediately obvious how to use the Bonferroni-Holm procedure with confidence intervals. [This SE answer](https://stats.stackexchange.com/a/158562/29694) provides some possibilities, though it points out that there are multiple ways of doing it stated in the literature.
 
-## Why does Bonferroni-Holm work?
-
-short version
-
 ## FWER control procedures other than Bonferroni and Bonferroni-Holm
 
-https://projecteuclid.org/download/pdf_1/euclid.lnms/1196285622
+Bonferroni and Bonferroni-Holm are not the only available methods for controlling the FWER. This was quite a rich subject of research in the 70s and 80s, when many researchers devised methods that improved on these two.
 
-Tukey
-Dunnet
-MCB
+Šidák has marginally more power but isn't worth using unless you want to make assumptions about the dependence structure https://en.wikipedia.org/wiki/Family-wise_error_rate#The_%C5%A0id%C3%A1k_procedure <sup>[4](#foot4)</sup>
+Shaffer is good for pairwise analysis https://projecteuclid.org/download/pdf_1/euclid.lnms/1196285622
+Tukey is also good for pairwise analysis https://en.wikipedia.org/wiki/Tukey%27s_range_test
+Dunnett specifically for multiple comparisons to control - https://en.wikipedia.org/wiki/Dunnett%27s_test
+
+Unfortunately, none of these are in Python
 
 ## What alternatives might we use instead of the FWER? The FDR and Hierarchical model approaches
 
@@ -248,3 +239,9 @@ $$\leq \sum_{i=1}^{m} \mathbb{P}(\bigcup_{i=1}^{m} \mu_i \notin CI_{\frac{\alpha
 $$= m \frac{\alpha}{m} = \alpha$$
 
 More generally, arbitrary contrasts https://sci2s.ugr.es/keel/pdf/algorithm/articulo/1961-Bonferroni_Dunn-JASA.pdf
+
+<a name="foot3">3</a>: From [Holm's paper (p.4)](https://www.ime.usp.br/~abe/lista/pdf4R8xPVzCnX.pdf): 
+
+> The power gain obtained by using a sequentially rejective Bonferroni test instead of a classical Bonferroni test depends very much upon the alternative. It is small if all the hypotheses are 'almost true', but it may be considerable if a number of hypotheses are 'completely wrong'. If $m$ of the $n$ basic hypotheses are 'completely wrong' the corresponding levels attain small values, and these hypotheses are rejected in the first $m$ steps with a big probability. The other levels are then compared to $\alpha / k$ for $k = n -m, n-rm-l, n-rm -2, ..., 2, 1$, which is equivalent to performing a sequentially rejective Bonferroni test only on those hypotheses that are not 'completely wrong'.
+
+<a name="foot4">4</a>: Šidák proof
