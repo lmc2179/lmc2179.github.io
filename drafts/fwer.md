@@ -190,10 +190,10 @@ The BH procedure works something like this:
 
 - Sort all the P-values you computed from your tests in ascending order. We'll call these $P_1, ..., P_m$, and they'll correspond to hypotheses $H_1, ..., H_m$.
 - We'll define a series of significance levels $\alpha_1, ..., \alpha_m$, where $\alpha_i = \frac{\alpha}{i}$.
-- Starting with $P_1$, see if it is significant at the level of $\alpha_1$. If it is, reject it and move on to $P_2$. Continue until you find a hypothesis you can't reject, and stop.
+- Starting with $P_1$, see if it is significant at the level of $\alpha_1$. If it is, reject it and move on to testing $P_2$ at $\alpha_2$. Continue until you find a hypothesis you can't reject, and stop there.
 - Put another way: If $k$ is the first index such that we can't reject $H_k$, then reject all the hypotheses from $1, ..., k-1$.
 
-Bonferroni-Holm can be meaningfully more powerful than the simple Bonferroni correction. The reason for that is that we're being most strict on the tests that are most likely to lead to a rejection, and more lenient on the ones with a little less evidence, while still controlling the FWER. The exact amount of additional power can vary quite a lot, though. <sup>[3](#foot3)</sup>
+Bonferroni-Holm can be meaningfully more powerful than the simple Bonferroni correction. The reason for this is that we're being most strict on the tests that are most likely to lead to a rejection, and more lenient on the ones with a little less evidence, while still controlling the FWER. The exact amount of additional power can vary quite a lot, though. <sup>[3](#foot3)</sup>
 
 The Bonferroni-Holm method is easy to use in Python - you can do it in one line of Statsmodels. All we'd need to do in the code above to switch to Bonferroni-Holm instead of the usual correction is to do:
 ```python
@@ -206,9 +206,9 @@ At the end of the day, if you're testing a large number of hypotheses with P-val
 
 ## FWER control procedures other than Bonferroni and Bonferroni-Holm
 
-Bonferroni and Bonferroni-Holm are not the only available methods for controlling the FWER. This was quite a rich subject of research in the 70s and 80s, when many researchers devised methods that improved on these two.
+Bonferroni and Bonferroni-Holm are not the only available methods for controlling the FWER. This was quite a rich subject of research in the 70s and 80s, when many researchers devised methods that improved on these two. 
 
-- The [Šidák procedure](https://en.wikipedia.org/wiki/Family-wise_error_rate#The_%C5%A0id%C3%A1k_procedure) is an alternative to Bonferroni with very, very marginally more power. It does make more assumptions about the dependence structure between the hypotheses (that they are independent, see <sup>[4](#foot4)</sup>)
+- The [Šidák correction](https://en.wikipedia.org/wiki/%C5%A0id%C3%A1k_correction) is an alternative to Bonferroni with very, very marginally more power. It does make more assumptions about the dependence structure between the hypotheses (that they are independent, see <sup>[4](#foot4)</sup>)
 - The [Hochberg procedure](https://en.wikipedia.org/wiki/Family-wise_error_rate#Hochberg's_step-up_procedure) is a variation on BH that is also implemented in Statsmodels, but similarly make some assumptions about the dependence between the hypotheses.
 
 A theme here is that Bonerroni and Bonferroni-Holm are so valuable in part because their lack of strong assumptions about the relationships between hypotheses. Some dependencies are so common, though, that they have their own tests:
@@ -218,7 +218,7 @@ A theme here is that Bonerroni and Bonferroni-Holm are so valuable in part becau
 - [Tukey's test](https://en.wikipedia.org/wiki/Tukey%27s_range_test) is another option for all pairwise comparisons.
 - In the specific caes where we want to compare all variants to a "reference" variant (such as "all test variants vs control"), we can use [Dunnett's test](https://en.wikipedia.org/wiki/Dunnett%27s_test). 
 
-Unfortunately, none of these specialized methods are in Python - there is a version of Tukey's test in the statsmodels beta, but I don't think it's tested.
+Unfortunately, none of these specialized methods are in Python - there is a version of Tukey's test in the statsmodels sandbox, but I don't think it's tested.
 
 ## What alternatives might we use instead of the FWER? The FDR and Hierarchical model approaches
 
@@ -247,4 +247,14 @@ More generally, arbitrary contrasts https://sci2s.ugr.es/keel/pdf/algorithm/arti
 
 > The power gain obtained by using a sequentially rejective Bonferroni test instead of a classical Bonferroni test depends very much upon the alternative. It is small if all the hypotheses are 'almost true', but it may be considerable if a number of hypotheses are 'completely wrong'. If $m$ of the $n$ basic hypotheses are 'completely wrong' the corresponding levels attain small values, and these hypotheses are rejected in the first $m$ steps with a big probability. The other levels are then compared to $\alpha / k$ for $k = n -m, n-rm-l, n-rm -2, ..., 2, 1$, which is equivalent to performing a sequentially rejective Bonferroni test only on those hypotheses that are not 'completely wrong'.
 
-<a name="foot4">4</a>: Šidák proof
+<a name="foot4">4</a>: The proof for Šidák's method is pretty straightforward, once we set it up. 
+
+We want a FWER rate of $\alpha$. Let's define $\alpha_S$ as the Šidák-corrected value that we want to find. If all of the $m$ the tests are independent, then the FWER is given by:
+
+$$1 - (1 - \alpha_S)^{m} = \alpha$$
+
+Which we can rearrange to get:
+
+$$1 - (1 - \alpha)^\frac{1}{m} = \alpha_S$$
+
+Giving us the corrected $\alpha$. Unfortunately, this correction produces procedures that are almost exactly as powerful as the Bonferroni method.
