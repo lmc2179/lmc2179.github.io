@@ -216,8 +216,8 @@ Bonferroni and Bonferroni-Holm are not the only available methods for controllin
 A theme here is that Bonerroni and Bonferroni-Holm are so valuable in part because their lack of strong assumptions about the relationships between hypotheses. Some dependencies are so common, though, that they have their own tests:
 
 
-- The [Shaffer procedure](https://www.researchgate.net/publication/240122933_Modified_Sequentially_Rejective_Multiple_Test_Procedures) is used for all pairwise comparisons between groups. It is general and quite powerful as pairwise comparison methods go, but it is computationally costly and tricky to implement. The computational challenges are addressed [here](https://projecteuclid.org/download/pdf_1/euclid.lnms/1196285622).
-- [Tukey's test](https://en.wikipedia.org/wiki/Tukey%27s_range_test) is another 
+- The [Shaffer procedure](https://www.researchgate.net/publication/240122933_Modified_Sequentially_Rejective_Multiple_Test_Procedures) is used for collections of tests with logical dependencies, such as all pairwise comparisons between groups. It is general and quite powerful as pairwise comparison methods go, but it is computationally costly and tricky to implement. The computational challenges are addressed [here](https://projecteuclid.org/download/pdf_1/euclid.lnms/1196285622).
+- [Tukey's test](https://en.wikipedia.org/wiki/Tukey%27s_range_test) is another option for all pairwise comparisons.
 - In the specific caes where we want to compare all variants to a "reference" variant (such as "all test variants vs control"), we can use [Dunnett's test](https://en.wikipedia.org/wiki/Dunnett%27s_test). 
 
 Unfortunately, none of these specialized methods are in Python - there is a version of Tukey's test in the statsmodels beta, but I don't think it's tested.
