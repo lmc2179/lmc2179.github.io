@@ -106,7 +106,7 @@ FWER isn't the only way to think about false positives in multiple tests. Anothe
 
 The fundamental issue is that when we test more things, we're more likely to get at least one false positive. One way to solve this is to set the bar higher - if we are less likely to reject the null hypothesis overall, we'll be less likely to make a false positive.
 
-How much higher should we set the bar? That is, how should we change $\alpha$ in order to account for the increased false positive rate?
+How much higher should we set the bar? That is, how should we change $\alpha$ in order to account for the increased false positive rate? 
 
 ## A common fix: Bonferroni correction to control the FWER
 
@@ -189,13 +189,11 @@ The Bonferroni correction has a lot going for it! It's easy to use and explain, 
 The BH procedure works something like this:
 
 - Sort all the P-values you computed from your tests in ascending order. We'll call these $P_1, ..., P_m$, and they'll correspond to hypotheses $H_1, ..., H_m$.
-- Check if $P_1 \leq \frac{\alpha}{m}$. If it isn't, don't reject any null hypotheses - you're done.
-- If it is, reject 
+- We'll define a series of significance levels $\alpha_1, ..., \alpha_m$, where $\alpha_i = \frac{\alpha}{i}$.
+- Starting with $P_1$, see if it is significant at the level of $\alpha_1$. If it is, reject it and move on to $P_2$. Continue until you find a hypothesis you can't reject, and stop.
+- Put another way: If $k$ is the first index such that we can't reject $H_k$, then reject all the hypotheses from $1, ..., k-1$.
 
-Bonferroni-Holm can be meaningfully more powerful than the simple Bonferroni correction. The reason for that is that we're being most strict on the tests that are most likely to lead to a rejection, . The exact amount of additional power can vary quite a lot though. 
-
-<sup>[3](#foot3)</sup>
-
+Bonferroni-Holm can be meaningfully more powerful than the simple Bonferroni correction. The reason for that is that we're being most strict on the tests that are most likely to lead to a rejection, and more lenient on the ones with a little less evidence, while still controlling the FWER. The exact amount of additional power can vary quite a lot, though. <sup>[3](#foot3)</sup>
 
 The Bonferroni-Holm method is easy to use in Python - you can do it in one line of Statsmodels. All we'd need to do in the code above to switch to Bonferroni-Holm instead of the usual correction is to do:
 ```python
