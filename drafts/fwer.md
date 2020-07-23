@@ -220,7 +220,6 @@ Bonferroni and Bonferroni-Holm are not the only available methods for controllin
 
 A theme here is that Bonerroni and Bonferroni-Holm are so valuable in part because their lack of strong assumptions about the relationships between hypotheses. Some dependencies are so common, though, that they have their own tests:
 
-
 - The [Shaffer procedure](https://www.researchgate.net/publication/240122933_Modified_Sequentially_Rejective_Multiple_Test_Procedures) is used for collections of tests with logical dependencies, such as all pairwise comparisons between groups. It is general and quite powerful as pairwise comparison methods go, but it is computationally costly and tricky to implement. The computational challenges are addressed [here](https://projecteuclid.org/download/pdf_1/euclid.lnms/1196285622).
 - [Tukey's test](https://en.wikipedia.org/wiki/Tukey%27s_range_test) is another option for all pairwise comparisons.
 - In the specific caes where we want to compare all variants to a "reference" variant (such as "all test variants vs control"), we can use [Dunnett's test](https://en.wikipedia.org/wiki/Dunnett%27s_test). 
@@ -229,9 +228,9 @@ Unfortunately, none of these specialized methods are in Python - there is a vers
 
 ## What alternatives might we use instead of the FWER? The FDR and Hierarchical model approaches
 
-FWER is an intuitive analogue to the usual False Positive (Type I Error) rate. However, methods like Bonferroni come at substantial cost. In cases where there are hundreds or thousands of simultaneous hypotheses, they may set an extremely high bar. There are at least two lines of criticism against the FWER, which lead us to some alternatives. 
+FWER is an intuitive analogue to the usual False Positive (Type I Error) rate. However, methods like Bonferroni control the FWER at substantial cost. In cases where there are hundreds or thousands of simultaneous hypotheses, they may set an extremely high bar. There are at least two lines of criticism against the FWER, which lead us to some alternatives. 
 
-**Criticism 1**: The FWER reduces our power substantially and is not the most relevant quantity. What we care about when there are many hypotheses is knowing how many of the *claimed* null effects after examining the data might be spurious. The thing we should control is the `Total number of spurious rejections / Total number of all rejections` in any given case. This line of criticism has found great success in settings where the number of hypotheses run into the hundreds or thousands, as in microarray studies. It leads to the [False Discovery Rate](https://en.wikipedia.org/wiki/False_discovery_rate) as an alternative to the FWER which is both more relevant and more powerful.
+**Criticism 1**: The FWER reduces our power substantially and is not the most relevant quantity. What we care about is knowing how many of the *claimed* null effects after examining the data might be spurious. The thing we should control is the `Total number of spurious rejections / Total number of all rejections` in any given case. This line of criticism has found great success in settings where the number of hypotheses run into the hundreds or thousands, as in microarray studies. It leads to the [False Discovery Rate](https://en.wikipedia.org/wiki/False_discovery_rate) as an alternative to the FWER which is both more relevant and more powerful.
 
 **Criticism 2**: Type I error rates of point null hypotheses are not what we care about - the null hypothesis isn't ever true and knowing something is "not zero" isn't much information. We care about high-quality estimates of the parameters. The problematic aspects of multiple comparisons disappear if we view them from a Bayesian Perspective and fit a hierarchical model that uses all the information in the data. Instead of controlling the Type I error rate, we should introduce a prior which avoids us from making extreme claims.
 
@@ -239,16 +238,21 @@ Since this is a criticism of the Type I error paradigm, it's not just an issue w
 
 ## Endnotes
 
-<a name="foot1">1</a>: Intuition from set theory $\mathbb{P}(A_1 \cup A_2) = \mathbb{P}(A_1) + \mathbb{P}(A_2) + \mathbb{P}(A_1 \cap A_2) \leq \mathbb{P}(A_1) + \mathbb{P}(A_2)$
+<a name="foot1">1</a>: The basic idea here comes from our intuition about set theory: $\mathbb{P}(A_1 \cup A_2) = \mathbb{P}(A_1) + \mathbb{P}(A_2) + \mathbb{P}(A_1 \cap A_2) \leq \mathbb{P}(A_1) + \mathbb{P}(A_2)$
 
-<a name="foot2">2</a>: Proof the the CI case
+That is, the size of the union set is less than or equal to the sum of each individual set's size, since the union doesn't include "duplicates" (the intersection).
+
+<a name="foot2">2</a>: With an extra definition and some artful hand-waving, I think an analogous proof for the CI case might look like:
+
 $$\mathbb{P} (\bigcup_{i=1}^{m} \mu_i \notin CI_{\frac{\alpha}{m}}(X_i) )$$
 
 $$\leq \sum_{i=1}^{m} \mathbb{P}(\bigcup_{i=1}^{m} \mu_i \notin CI_{\frac{\alpha}{m}}(X_i) )$$
 
 $$= m \frac{\alpha}{m} = \alpha$$
 
-More generally, arbitrary contrasts https://sci2s.ugr.es/keel/pdf/algorithm/articulo/1961-Bonferroni_Dunn-JASA.pdf
+Where we've defined $CI_{\frac{\alpha}{m}}(X_i)$, the confidence interval of random variable $i$ at the $\frac{\alpha}{m}$ level.
+
+More generally, a simultaneous CI procedure was constructed for arbitrary contrasts between variables in [this paper](https://sci2s.ugr.es/keel/pdf/algorithm/articulo/1961-Bonferroni_Dunn-JASA.pdf).
 
 <a name="foot3">3</a>: From [Holm's paper (p.4)](https://www.ime.usp.br/~abe/lista/pdf4R8xPVzCnX.pdf): 
 
