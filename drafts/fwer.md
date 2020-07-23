@@ -4,7 +4,7 @@ title: "Getting started with multiple hypotheses - Methods that control the FWER
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
-image: cvci-regplot.png
+image: jellybeans.png
 ---
 
 TL;DR - Multiple hypothesis testing shows up frequently in practice, but needs to be handled thoughtfully. Common methods like the Bonferroni correction are useful quick fixes, but they have important drawbacks that users should understand. *What do methods like Bonferroni and Bonferroni-Holm do, and why do they work? What alternatives are there?*
