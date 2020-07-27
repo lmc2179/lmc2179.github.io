@@ -30,7 +30,9 @@ Let's assume we know the variance
 Wiki says:
 
 $$\mu | \mu_0, \sigma_0, \sigma, n \sim N(\mu_{post}, \sigma_{post}) $$
+
 $$\mu_{post} = \frac{1}{\frac{1}{\sigma_0^2} + \frac{n}{\sigma^2}} \left ( \frac{\mu_0}{\sigma_0^2} + \frac{\sum_i x_i}{\sigma^2} \right )$$
+
 $$\sigma_{post}^2 = \left (\frac{1}{\sigma_0^2} + \frac{n}{\sigma^2} \right) ^{-1}$$
 
 woah now. let's break that down - how does changing these parameters affect our inference
