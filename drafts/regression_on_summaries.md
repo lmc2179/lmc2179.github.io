@@ -1,4 +1,35 @@
+---
+layout: post
+title: "Scalable regression in Python with subgroup summaries"
+author: "Louis Cialdella"
+categories: posts
+tags: [datascience]
+image: jellybeans.png
+---
 
+Sometimes it's more convenient to work with summaries of subgroups in the data than with the raw data itself
+
+- Combining multiple datasets, as in [Meta-analysis](https://en.wikipedia.org/wiki/Meta-analysis)
+- A large number of datapoints but a small number of parameters
+- Observational analysis from data matched in strata
+
+# Sufficient statistics
+
+# Binomial outcomes: Easy with statsmodels
+
+https://www.statsmodels.org/devel/generated/statsmodels.genmod.generalized_linear_model.GLM.html
+
+# Continuous outcomes: Some assembly required
+
+WLS implementation in statsmodels doesn't work here
+
+## Digression: Sufficient statistic for the normal distribution
+
+https://en.wikipedia.org/wiki/Sufficient_statistic#Normal_distribution
+
+$$\mathcal{L}(\mu, \sigma | \bar{y}, s^2, n) = (2 \pi \sigma^2)^{\frac{n}{2}} exp \left(\frac{n - 1}{2 \sigma^2} s^2 \right ) exp \left (-\frac{n}{2 \sigma^2} (\mu - \bar{y})^2 \right)$$
+
+$$ln \mathcal{L}(\mu, \sigma | \bar{y}, s^2, n) = -\frac{n}{2} ln(2 \pi \sigma^2) - \left( \frac{n-1}{2 \sigma^2}s^2 - \frac{n}{2\sigma^2} (\mu - \bar{y})^2 \right) $$
 
 ```python
 import numpy as np
