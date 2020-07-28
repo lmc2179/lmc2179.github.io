@@ -1,11 +1,17 @@
 ---
 layout: post
-title: "Scalable regression in Python with subgroup summaries"
+title: "Speed up your analysis of giant datasets with sufficient statistics"
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
 image: jellybeans.png
 ---
+
+Applying 
+
+# Lots of rows means lots of waiting
+
+In the 
 
 Sometimes it's more convenient to work with summaries of subgroups in the data than with the raw data itself
 
@@ -14,6 +20,8 @@ Sometimes it's more convenient to work with summaries of subgroups in the data t
 - Observational analysis from data matched in strata
 
 # Sufficient statistics
+
+https://en.wikipedia.org/wiki/Sufficient_statistic
 
 # Binomial outcomes: Easy with statsmodels
 
