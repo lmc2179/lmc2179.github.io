@@ -22,7 +22,7 @@ Sometimes it's more convenient to work with summaries of subgroups in the data t
 # Sufficient statistics
 
 https://en.wikipedia.org/wiki/Sufficient_statistic
-
+https://web.ma.utexas.edu/users/gordanz/notes/likelihood_color.pdf
 # Binomial outcomes: Easy with statsmodels
 
 https://www.statsmodels.org/devel/generated/statsmodels.genmod.generalized_linear_model.GLM.html
