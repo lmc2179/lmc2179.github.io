@@ -11,6 +11,16 @@ Bayesian analysis of proportions using the beta conjugate prior is relatively ea
 
 Well, it turns out it's not too bad - there's just some assembly required. It's worth a tour of the theory to get the context, and then we'll do an example in Python.
 
+# A running example: Revenue per customer
+
+It's often helpful to think about analysis techniques in terms of an example. 
+
+You're the CBO (Chief Bayes Officer) of awesome.ly, purveyor of deep learning blockchain targeted advertising
+
+Example of data - power law maybe or exponential with whales
+
+Goal: understand revenue from a sample of random users given a new experience 
+
 # The usual story: Standard errors and confidence intervals
 
 A quick refresher: In the classical story, quantities like "the population mean" and "the population variance" are actual properties of the population floating around in the world. We assume that the data we have were sampled from the population according to some random process, and then we make some inferences about what the population quantities might be. Usually, we can't recover them exactly, but we can come up with a reasonable guess (a point estimate) and a range of variation based on the way the sampling happened (the confidence interval). If we like, we can even compute a statistic to gauge whether or not we can reject the hypothesis that our favorite population quantity is exactly zero, or test some other hypothesis we're interested in (compute a P-value).
