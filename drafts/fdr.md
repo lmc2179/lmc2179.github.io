@@ -23,6 +23,8 @@ That matrix that shows up everywhere
 
 # An example with independence
 
+https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_regression.html
+
 # An example with dependence: Pairwise comparisons
 
 https://www.statsmodels.org/dev/generated/statsmodels.stats.multitest.multipletests.html
