@@ -103,7 +103,7 @@ We observe $x$
 
 |Parameter|Updated value|Flat prior value|Posterior value when prior is flat|
 |---|---|---|---|
-|$\mu_0$|$\frac{\nu \mu_0 + n \bar{x}}{\nu + n}$|$0$|\bar{x}|
+|$\mu_0$|$\frac{\nu \mu_0 + n \bar{x}}{\nu + n}$|$0$|$\bar{x}$|
 |$\nu$|$\nu + n$|$0$|$n$|
 |$\alpha$|$\alpha + \frac{n}{2}$|$-\frac{1}{2}$|$\frac{n}{2} - \frac{1}{2}$|
 |$\beta$|$$|||
