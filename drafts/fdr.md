@@ -27,4 +27,6 @@ https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_regressi
 
 # An example with dependence: Pairwise comparisons
 
+https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html
+
 https://www.statsmodels.org/dev/generated/statsmodels.stats.multitest.multipletests.html
