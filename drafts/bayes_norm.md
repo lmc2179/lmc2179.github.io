@@ -15,7 +15,7 @@ Well, it turns out it's not too bad - there's just some assembly required. It's 
 
 It's often helpful to think about analysis techniques in terms of an example. 
 
-You're the CBO (Chief Bayes Officer) of awesome.ly, purveyor of deep learning blockchain targeted advertising
+You're the CBO (Chief Bayes Officer) of paweso.me , purveyor of deep learning blockchain AI targeted advertising for cats
 
 Example of data - power law maybe or exponential with whales
 
