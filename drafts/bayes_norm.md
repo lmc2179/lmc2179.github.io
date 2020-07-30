@@ -19,6 +19,18 @@ You're the CBO (Chief Bayes Officer) of paweso.me , purveyor of deep learning bl
 
 Example of data - power law maybe or exponential with whales
 
+```python
+from matplotlib import pyplot as plt
+import seaborn as sns
+import numpy as np
+from scipy.stats import norm, expon
+
+rev_per_customer = np.concatenate((norm(60, 5).rvs(103), 20*expon(1).rvs(1000)))
+
+sns.distplot(rev_per_customer)
+plt.show()
+```
+
 Goal: understand revenue from a sample of random users given a new experience 
 
 # The usual story: Standard errors and confidence intervals
