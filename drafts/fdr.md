@@ -41,7 +41,7 @@ n_true_pos = 100
 
 alpha = .05
 
-X, y, coef = make_regression(n_samples=n_sample, n_features=n_tests, n_informative=n_true_pos, bias=0, coef=True)
+X, y, coef = make_regression(n_samples=n_sample, n_features=n_tests, n_informative=n_true_pos, bias=0, coef=True, noise=1)
 p = OLS(y, X).fit().pvalues
 reject = p <= alpha
 true_null = (coef == 0)
