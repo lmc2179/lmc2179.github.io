@@ -23,7 +23,30 @@ That matrix that shows up everywhere
 
 # An example with independence
 
-https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_regression.html
+```python
+from sklearn.datasets import make_regression
+from statsmodels.api import OLS
+import numpy as np
+
+n_sim = 100
+n_tests = 20
+n_sample = 100
+n_true_pos = 10
+count_discoveries = 0
+count_false_discoveries = 0
+count_tests = 0
+
+alpha = .05
+
+for _ in range(n_sim):
+  X, y, coef = make_regression(n_samples=n_sample, n_features=n_tests, n_informative=n_true_pos, bias=0, coef=True)
+  p = OLS(y, X).fit().pvalues
+  reject = p <= alpha
+  true_null = (coef == 0)
+  count_discoveries += np.sum(reject)
+  count_false_discoveries += np.sum(reject & true_null)
+  count_tests += n_tests
+```
 
 # An example with dependence: Pairwise comparisons
 
