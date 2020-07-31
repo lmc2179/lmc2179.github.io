@@ -27,14 +27,17 @@ That matrix that shows up everywhere
 from sklearn.datasets import make_regression
 from statsmodels.api import OLS
 import numpy as np
+from statsmodels.stats.multitest import multipletests
 
-n_sim = 100
+n_sim = 1000
 n_tests = 20
 n_sample = 100
 n_true_pos = 10
+
 count_discoveries = 0
 count_false_discoveries = 0
-count_tests = 0
+count_discoveries_bh = 0
+count_false_discoveries_bh = 0
 
 alpha = .05
 
@@ -45,7 +48,13 @@ for _ in range(n_sim):
   true_null = (coef == 0)
   count_discoveries += np.sum(reject)
   count_false_discoveries += np.sum(reject & true_null)
-  count_tests += n_tests
+  
+  reject_bh = multipletests(p, method='fdr_bh')[0]
+  count_discoveries_bh += np.sum(reject_bh)
+  count_false_discoveries_bh += np.sum(reject_bh & true_null)
+
+print(count_false_discoveries / count_discoveries)
+print(count_false_discoveries_bh / count_discoveries_bh)
 ```
 
 # An example with dependence: Pairwise comparisons
