@@ -13,25 +13,12 @@ Well, it turns out it's not too bad - there's just some assembly required. It's 
 
 # A running example: Revenue per customer
 
-It's often helpful to think about analysis techniques in terms of an example. 
+It's often helpful to think about analysis techniques in terms of an example. We'll take a look at an actual set of data to get a feel for how we might apply a normal conjugate prior in practice to understand the mean and variance of a distribution.
 
-You're the CBO (Chief Bayes Officer) of paweso.me , purveyor of deep learning blockchain AI targeted advertising for cats
+Let me set the scene. You're the CBO (Chief Bayes Officer) of paweso.me, purveyor of deep learning blockchain AI targeted advertising for cats. You recently worked with some of your engineers to launch ChonkNet™, a Neural Network which predicts which users will buy which products (you're hoping it's an improvement on your current targeting model, DeepMeow™). You show a few thousand random users products based on the new algorithm, and measure their revenue over a fixed window of time. The resulting per-user revenue looks like this:<sup>[1](#foot1)</sup> 
 
-Example of data - power law maybe or exponential with whales
 
-```python
-from matplotlib import pyplot as plt
-import seaborn as sns
-import numpy as np
-from scipy.stats import norm, expon
-
-rev_per_customer = np.concatenate((norm(60, 5).rvs(103), 20*expon(1).rvs(1000)))
-
-sns.distplot(rev_per_customer)
-plt.show()
-```
-
-Goal: understand revenue from a sample of random users given a new experience 
+You'd like to know: What does the posterior of the mean and variance of revenue-per-user look like?
 
 # The usual story: Standard errors and confidence intervals
 
@@ -46,6 +33,21 @@ $$SE_\mu = \frac{\sigma}{\sqrt{n}}$$
 In practice, we often don't know the population standard deviation, $\sigma$. When the sample is "large", we're usually willing to use a point estimate of sigma computed from the data. This sweeps a bit of uncertainty associated with sigma under the rug - if we wanted to avoid doing so, we'd use a [slightly different procedure based on the T-distribution](https://en.wikipedia.org/wiki/Standard_error#Student_approximation_when_%CF%83_value_is_unknown). 
 
 The standard error is so valuable in part because it lets us construct a confidence interval around the sample mean. The idea is that if we always constructed the CI at level $\alpha$ around the sample mean, our interval will contain the true mean most of the time. Specifically, we'd only leave it out $\alpha$ proportion of the time.
+
+In the case of our datast from above, we might produce something like this:
+
+```python
+from scipy.stats import norm
+
+se = np.std(rev_per_customer) / np.sqrt(len(rev_per_customer))
+
+print('The 99% confidence interval: {0}'.format(norm.interval(0.99, loc=np.mean(rev_per_customer), scale=se)))
+```
+
+Output:
+```
+The 99% confidence interval: (40.52948176704112, 43.54336132115466)
+```
 
 # The Bayesian version
 
@@ -198,3 +200,27 @@ Large sample size usually makes up for non-normality; https://dspace.mit.edu/bit
 compare with Bayesian bootstrap
 
 https://scholarsarchive.byu.edu/cgi/viewcontent.cgi?article=1277&context=facpub
+
+# An extra tip: What if my data is Log Normal instead of Normal?
+
+Here's a neat trick.
+
+# Endnotes
+
+<a name="foot1">1</a> Okay, fine, that's not real data; ChonkNet™ remains just an unrealized daydream in the head of one data scientist. I actually generated this data with this code: 
+
+```python
+from matplotlib import pyplot as plt
+import seaborn as sns
+import numpy as np
+from scipy.stats import norm, expon
+
+np.random.seed(7312020)
+
+rev_per_customer = np.concatenate((norm(60, 5).rvs(103), 20*expon(1).rvs(1000)))
+
+sns.distplot(rev_per_customer)
+plt.show()
+```
+
+But don't tell anyone!
