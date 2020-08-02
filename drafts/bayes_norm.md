@@ -17,6 +17,7 @@ It's often helpful to think about analysis techniques in terms of an example. We
 
 Let me set the scene. You're the CBO (Chief Bayes Officer) of paweso.me, purveyor of deep learning blockchain AI targeted advertising for cats. You recently worked with some of your engineers to launch ChonkNet™, a Neural Network which predicts which users will buy which products (you're hoping it's an improvement on your current targeting model, DeepMeow™). You show a few thousand random users products based on the new algorithm, and measure their revenue over a fixed window of time. The resulting per-user revenue looks like this:<sup>[1](#foot1)</sup> 
 
+![Revenue per customer histogram](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/rev_per_customer.png)
 
 You'd like to know: What does the posterior of the mean and variance of revenue-per-user look like?
 
