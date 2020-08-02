@@ -220,9 +220,9 @@ from scipy.stats import norm, expon
 
 np.random.seed(7312020)
 
-rev_per_customer = np.concatenate((norm(60, 5).rvs(103), 20*expon(1).rvs(1000)))
+changes_in_clicks = skellam(5, 1).rvs(1000)
 
-sns.distplot(rev_per_customer)
+sns.distplot(changes_in_clicks, kde=False, bins=np.arange(-5, 15))
 plt.show()
 ```
 
