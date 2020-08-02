@@ -21,6 +21,9 @@ That matrix that shows up everywhere
 
 # FDR control under arbitrary dependence: Benjamini–Yekutieli
 
+However the power is lower
+http://www.math.tau.ac.il/~ybenja/MyPapers/benjamini_yekutieli_ANNSTAT2001.pdf
+
 # An example with independence
 
 ```python
