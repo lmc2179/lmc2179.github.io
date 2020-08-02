@@ -15,7 +15,7 @@ Well, it turns out it's not too bad - there's just some assembly required. It's 
 
 It's often helpful to think about analysis techniques in terms of an example. We'll take a look at an actual set of data to get a feel for how we might apply a normal conjugate prior in practice to understand the mean and variance of a distribution.
 
-Let me set the scene. You're the CBO (Chief Bayes Officer) of paweso.me, purveyor of deep learning blockchain AI targeted advertising for cats. You recently worked with some of your engineers to launch ChonkNet™, a Neural Network which predicts which users will buy which products (you're hoping it's an improvement on your current targeting model, DeepMeow™). You show a few thousand random users products based on the new algorithm, and measure their revenue over a fixed window of time. The resulting per-user revenue looks like this:<sup>[1](#foot1)</sup> 
+Let me set the scene. You're the CBO (Chief Bayes Officer) of paweso.me, purveyor of deep learning blockchain AI targeted advertising for cats. You recently worked with some of your engineers to launch ChonkNet™, a Neural Network which predicts which users will buy which products (you're hoping it's an improvement on your current targeting model, DeepMeow™). You show a few thousand random users products based on the new algorithm, and measure the number of ads they clicks this week compared to compared to last week. The resulting per-user `this week clicks - last week clicks` looks like this:<sup>[1](#foot1)</sup> 
 
 ![Revenue per customer histogram](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/rev_per_customer.png)
 
@@ -49,6 +49,8 @@ Output:
 ```
 The 99% confidence interval: (40.52948176704112, 43.54336132115466)
 ```
+
+# A Refresher: Priors, Posteriors, Likelihoods, and Bayesian updates
 
 # The Bayesian version
 
