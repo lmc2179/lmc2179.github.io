@@ -11,13 +11,11 @@ Bayesian analysis of proportions using the beta conjugate prior is relatively ea
 
 Well, it turns out it's not too bad - there's just some assembly required. It's worth a tour of the theory to get the context, and then we'll do an example in Python.
 
-# A running example: Revenue per customer
+# A running example: Changes in clicks per customer
 
 It's often helpful to think about analysis techniques in terms of an example. We'll take a look at an actual set of data to get a feel for how we might apply a normal conjugate prior in practice to understand the mean and variance of a distribution.
 
 Let me set the scene. You're the CBO (Chief Bayes Officer) of paweso.me, purveyor of deep learning blockchain AI targeted advertising for cats. You recently worked with some of your engineers to launch ChonkNet™, a Neural Network which predicts which users will buy which products (you're hoping it's an improvement on your current targeting model, DeepMeow™). You show a few thousand random users products based on the new algorithm, and measure the number of ads they clicks this week compared to compared to last week. The resulting per-user `this week clicks - last week clicks` looks like this:<sup>[1](#foot1)</sup> 
-
-![Revenue per customer histogram](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/rev_per_customer.png)
 
 You'd like to know: What does the posterior of the mean and variance of revenue-per-user look like?
 
