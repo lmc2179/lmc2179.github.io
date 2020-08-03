@@ -17,7 +17,7 @@ It's often helpful to think about analysis techniques in terms of an example. We
 
 Let me set the scene. You're the CBO (Chief Bayes Officer) of paweso.me, purveyor of deep learning blockchain AI targeted advertising for cats. You recently worked with some of your engineers to launch ChonkNet™, a Neural Network which predicts which users will buy which products (you're hoping it's an improvement on your current targeting model, DeepMeow™). You show a few thousand random users products based on the new algorithm, and measure the number of ads they clicks this week compared to compared to last week. The resulting per-user `this week clicks - last week clicks` looks like this:<sup>[1](#foot1)</sup> 
 
-![clicks per user histogram](https://github.com/lmc2179/lmc2179.github.io/blob/master/assets/img/bayes_norm/clicksperuser.png)
+![clicks per user histogram](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/bayes_norm/clicksperuser.png)
 
 You'd like to know: What does the posterior of the mean and variance of revenue-per-user look like?
 
@@ -56,9 +56,9 @@ So the classical analysis would tell us that the week-over-week change in clicks
 
 The Bayesian perspective is a little different. Like the classical picture, it involves two parameters of interest - the mean and the variance, commonly referred to as $\mu$ and $\sigma^2$.. We'd like to learn something about these values of these parameters from the data. The Bayesian procedure involves a few steps:
 - Write down your prior, $\mathbb{P}(\mu, \sigma)$, which summarizes all the information you have about $\mu$ and $\sigma$ before you see the data. This might be as vague as "every value of these parameters is equally likely" or as specific as "I'm almost entirely sure that $\mu$ is between 2 and 4".
-- Pick a Likelihood function $\mathcal{L}(X_1, ..., X_n | \mu, \sigma)$ that relates the data to a potential value of the parameters.
+- Pick a Likelihood function $\mathcal{L}(X_1, ..., X_n \| \mu, \sigma)$ that relates the data to a potential value of the parameters.
 - Look at the observed data, the values of $X$ that actually showed up in our dataset.
-- Use Bayes Theorem to update the prior and get the posterior, $\mathbb{P}(\mu, \sigma | X_1, ..., X_n)$. 
+- Use Bayes Theorem to update the prior and get the posterior, $\mathbb{P}(\mu, \sigma \| X_1, ..., X_n)$. 
 
 We can look at the posterior to learn everything we want to know
 
