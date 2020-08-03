@@ -126,6 +126,16 @@ $$\lim_{\mu_0 \rightarrow 0, \sigma_0 \rightarrow \infty} \sigma_{post}^2
 = \left (\frac{1}{\sigma_0^2} + \frac{n}{\sigma^2} \right) ^{-1}
 = \frac{\sigma^2}{n} = \sqrt{SE_\mu}$$
 
+# How should I pick my prior?
+
+https://github.com/stan-dev/stan/wiki/Prior-Choice-Recommendations
+
+Different options: Super-vague prior, weak prior, specific informed prior based on previous weeks
+
+For the Bayes-skeptical
+
+Those of you who have not yet accepted Reverend Thomas Bayes into your heart may
+
 # But I _don't_ know the variance!!
 
 Okay, okay! Let's see how we might incorporate the uncertainty about the variance into our analysis, and how that changes our analysis if we mainly care about the mean - if the variance is a "nuisance parameter", as it often is.
@@ -190,11 +200,9 @@ https://stackoverflow.com/questions/42150965/how-to-plot-gamma-distribution-with
 
 https://en.wikipedia.org/wiki/Normal-gamma_distribution#Generating_normal-gamma_random_variates
 
-# How should I pick my prior?
+# How should I pick my prior? Variance edition
 
-For the Bayes-skeptical
 
-Those of you who have not yet accepted Reverend Thomas Bayes into your heart may
 
 v = 0, mean = 0, alpha=0, beta=0
 
