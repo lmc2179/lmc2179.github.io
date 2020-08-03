@@ -6,6 +6,7 @@ Have read/use as reference
 - Shalizi TALR
 - Bishop PRML
 - ESL
+- MHE
 
 Have heard about
 - Morgan and winship
