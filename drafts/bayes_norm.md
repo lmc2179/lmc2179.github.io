@@ -227,4 +227,4 @@ plt.xlabel('Observed change in clicks per user')
 plt.show()
 ```
 
-But don't tell anyone!
+The idea is that the number of clicks is Poisson distributed in each week, and the [Skellam distribution](https://en.wikipedia.org/wiki/Skellam_distribution) is the distribution of the difference between two Poisson distributions. So this is hopefully a plausible set of data that we might see from the difference of two weekly click datasets.
