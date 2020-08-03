@@ -40,17 +40,27 @@ In the case of our datast from above, we might produce something like this:
 ```python
 from scipy.stats import norm
 
-se = np.std(rev_per_customer) / np.sqrt(len(rev_per_customer))
+se = np.std(changes_in_clicks ) / np.sqrt(len(changes_in_clicks ))
 
-print('The 99% confidence interval: {0}'.format(norm.interval(0.99, loc=np.mean(rev_per_customer), scale=se)))
+print('The 99% confidence interval: {0}'.format(norm.interval(0.99, loc=np.mean(changes_in_clicks ), scale=se)))
 ```
 
 Output:
 ```
-The 99% confidence interval: (40.52948176704112, 43.54336132115466)
+The 99% confidence interval: (3.8489829444627057, 4.2390170555372935)
 ```
 
+So the classical analysis would tell us that the week-over-week change in clicks per user is between about 3.84 and 4.24 at the 99% level.
+
 # A Refresher: Priors, Posteriors, Likelihoods, and Bayesian updates
+
+The Bayesian perspective is a little different. Like the classical picture, it involves two parameters of interest - the mean and the variance, commonly referred to as $\mu$ and $\sigma^2$.. We'd like to learn something about these values of these parameters from the data. The Bayesian procedure involves a few steps:
+- Write down your prior, $\mathbb{P}(\mu, \sigma)$, which summarizes all the information you have about $\mu$ and $\sigma$ before you see the data. This might be as vague as "every value of these parameters is equally likely" or as specific as "I'm almost entirely sure that $\mu$ is between 2 and 4".
+- Pick a Likelihood function $\mathcal{L}(X_1, ..., X_n | \mu, \sigma)$ that relates the data to a potential value of the parameters.
+- Look at the observed data, the values of $X$ that actually showed up in our dataset.
+- Use Bayes Theorem to update the prior and get the posterior, $\mathbb{P}(\mu, \sigma | X_1, ..., X_n)$. 
+
+We can look at the posterior to learn everything we want to know
 
 # The Bayesian version
 
