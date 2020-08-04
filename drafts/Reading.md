@@ -16,6 +16,7 @@ Have heard about
 - Pawitan, in all likelihood
 - Agresti Linear Models
 - Nelder + Mead linear models
+- Jaynes
 
 Papers
 - Shmueli
