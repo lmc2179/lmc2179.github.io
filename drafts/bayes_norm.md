@@ -124,7 +124,7 @@ $$\sigma_{post}^2 = \left (\frac{1}{\sigma_0^2} + \frac{n}{\sigma^2} \right) ^{-
 
 $$\lim_{\mu_0 \rightarrow 0, \sigma_0 \rightarrow \infty} \sigma_{post}^2 
 = \left (\frac{1}{\sigma_0^2} + \frac{n}{\sigma^2} \right) ^{-1}
-= \frac{\sigma^2}{n} = \sqrt{SE_\mu}$$
+= \frac{\sigma^2}{n} = SE_\mu^2
 
 # How should I pick my prior?
 
