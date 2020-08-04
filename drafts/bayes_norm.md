@@ -124,19 +124,31 @@ $$\sigma_{post}^2 = \left (\frac{1}{\sigma_0^2} + \frac{n}{\sigma^2} \right) ^{-
 
 $$\lim_{\mu_0 \rightarrow 0, \sigma_0 \rightarrow \infty} \sigma_{post}^2 
 = \left (\frac{1}{\sigma_0^2} + \frac{n}{\sigma^2} \right) ^{-1}
-= \frac{\sigma^2}{n} = SE_\mu^2
+= \frac{\sigma^2}{n} = SE_\mu^2$$
 
 # How should I pick my prior?
 
-https://github.com/stan-dev/stan/wiki/Prior-Choice-Recommendations
+We usually aren't *totally* ignorant about the quantity of interest. For example, in the case of the change in clicks per user, we usually have seen this quantity in the past. Let's say that in the past:
+- The average change in clicks per user WoW is about zero. Maybe that's different for holiday weeks or [National Cat Day](https://en.wikipedia.org/wiki/National_Cat_Day), but the week in question isn't one of those.
+- The average change in clicks per user WoW is "almost never" more than +10 or -10. (Perhaps those are the 1st and 99th percentiles of the empirical data we have).
 
-Different options: Super-vague prior, weak prior, specific informed prior based on previous weeks
+This is exactly the kind of substantive information we often have access to in a realistic setting, even a very simple one. We'll use these basic pieces of information to discuss a few possible choices of prior, based on [some recommendations from the Stan docs](https://github.com/stan-dev/stan/wiki/Prior-Choice-Recommendations). We'll also look at how sensitive our inference is to the choice of prior, at least for this dataset.
 
-For the Bayes-skeptical
+### A super-vague prior: N(0, 100000)
 
-Those of you who have not yet accepted Reverend Thomas Bayes into your heart may
+Often, when we talk about a "flat prior", or and "uninformative prior" (both somewhat misleading terms), this is what we're talking about. Sometimes, we justify this to ourselves by saying that it "lets the data speak for itself", despite the fact that that phrase is always a vicious lie. This prior will produce just about the same result as the classical analysis. Though you'll get to tell your boss you used a "Bayesian method", and maybe that's worth something to you.
 
-# But I _don't_ know the variance!!
+For the Bayes-skeptical, this is a choice that will let you feel like you're on familiar ground. Those of you who have not yet accepted Reverend Thomas Bayes into your heart may .
+
+### A weak informed prior: N(0, 10)
+
+This looks a little more informed, but it's still quite permissive.
+
+### An actually informed prior: N(0, 4)
+
+This actually reflects the facts above.
+
+# But I _don't_ know the variance!! All this talk of $\hat{\sigma}$ is making me very nervous
 
 Okay, okay! Let's see how we might incorporate the uncertainty about the variance into our analysis, and how that changes our analysis if we mainly care about the mean - if the variance is a "nuisance parameter", as it often is.
 
