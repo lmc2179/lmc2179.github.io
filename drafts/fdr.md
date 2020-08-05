@@ -66,3 +66,43 @@ print(count_false_discoveries_bh / count_discoveries_bh)
 https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html
 
 https://www.statsmodels.org/dev/generated/statsmodels.stats.multitest.multipletests.html
+
+```python
+from scipy.stats import ttest_ind
+from scipy.stats import norm
+from statsmodels.stats.multitest import multipletests
+
+#TRUE_MU = [0] * 40 + list(range(1, 20))
+TRUE_MU = [0]*60 + [1]
+k = len(TRUE_MU)
+TRUE_SIGMA = 2
+
+alpha = .05
+n_sample = 10000
+
+count_discoveries = 0
+count_false_discoveries = 0
+
+test_indices = [(i, j) for i in range(0, k) for j in range(i+1, k)]
+
+X = [norm(m, TRUE_SIGMA).rvs(n_sample) for m in TRUE_MU]
+p = np.array([ttest_ind(X[i], X[j])[1] for i, j in test_indices])
+
+true_null = np.array([TRUE_MU[i] == TRUE_MU[j]  for i, j in test_indices])
+reject = (p <= alpha)
+
+count_discoveries = sum(reject)
+count_false_discoveries = sum(reject & true_null)
+
+reject_bh = multipletests(p, method='fdr_bh', alpha=alpha)[0]
+count_discoveries_bh = np.sum(reject_bh)
+count_false_discoveries_bh = np.sum(reject_bh & true_null)
+
+reject_by = multipletests(p, method='fdr_by', alpha=alpha)[0]
+count_discoveries_by = np.sum(reject_bh)
+count_false_discoveries_by = np.sum(reject_by & true_null)
+
+print(count_false_discoveries / count_discoveries)
+print(count_false_discoveries_bh / count_discoveries_bh)
+print(count_false_discoveries_by / count_discoveries_by)
+```
