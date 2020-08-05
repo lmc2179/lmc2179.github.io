@@ -31,7 +31,7 @@ The standard error of the mean is such an important formula that I'll note it he
 
 $$SE_\mu = \frac{\sigma}{\sqrt{n}}$$
 
-In practice, we often don't know the population standard deviation, $\sigma$. When the sample is "large", we're usually willing to use \hat{\sigma}, a point estimate of sigma computed from the data. This sweeps a bit of uncertainty associated with sigma under the rug - if we wanted to avoid doing so, we'd use a [slightly different procedure based on the T-distribution](https://en.wikipedia.org/wiki/Standard_error#Student_approximation_when_%CF%83_value_is_unknown). 
+In practice, we often don't know the population standard deviation, $\sigma$. When the sample is "large", we're usually willing to use $\hat{\sigma}$, a point estimate of sigma computed from the data. This sweeps a bit of uncertainty associated with sigma under the rug - if we wanted to avoid doing so, we'd use a [slightly different procedure based on the T-distribution](https://en.wikipedia.org/wiki/Standard_error#Student_approximation_when_%CF%83_value_is_unknown). 
 
 The standard error is so valuable in part because it lets us construct a confidence interval around the sample mean. The idea is that if we always constructed the CI at level $\alpha$ around the sample mean, our interval will contain the true mean most of the time. Specifically, we'd only leave it out $\alpha$ proportion of the time.
 
