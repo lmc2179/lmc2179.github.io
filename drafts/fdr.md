@@ -33,32 +33,47 @@ from sklearn.datasets import make_regression
 from statsmodels.api import OLS
 import numpy as np
 from statsmodels.stats.multitest import multipletests
+from tqdm import tqdm
+from matplotlib import pyplot as plt
+import seaborn as sns
 
-#n_sim = 1000
-n_tests = 1000
-n_sample = 5000
-n_true_pos = 100
+def simulate_fdr():
+  n_tests = 1000
+  n_sample = 5000
+  n_true_pos = 100
 
-#count_discoveries = 0
-#count_false_discoveries = 0
-#count_discoveries_bh = 0
-#count_false_discoveries_bh = 0
+  #count_discoveries = 0
+  #count_false_discoveries = 0
+  #count_discoveries_bh = 0
+  #count_false_discoveries_bh = 0
 
-alpha = .05
+  alpha = .05
 
-X, y, coef = make_regression(n_samples=n_sample, n_features=n_tests, n_informative=n_true_pos, bias=0, coef=True, noise=1)
-p = OLS(y, X).fit().pvalues
-reject = p <= alpha
-true_null = (coef == 0)
-count_discoveries = np.sum(reject)
-count_false_discoveries = np.sum(reject & true_null)
+  X, y, coef = make_regression(n_samples=n_sample, n_features=n_tests, n_informative=n_true_pos, bias=0, coef=True, noise=1)
+  p = OLS(y, X).fit().pvalues
+  reject = p <= alpha
+  true_null = (coef == 0)
+  count_discoveries = np.sum(reject)
+  count_false_discoveries = np.sum(reject & true_null)
 
-reject_bh = multipletests(p, method='fdr_bh', alpha=alpha)[0]
-count_discoveries_bh = np.sum(reject_bh)
-count_false_discoveries_bh = np.sum(reject_bh & true_null)
+  reject_bh = multipletests(p, method='fdr_bh', alpha=alpha)[0]
+  count_discoveries_bh = np.sum(reject_bh)
+  count_false_discoveries_bh = np.sum(reject_bh & true_null)
 
-print(count_false_discoveries / count_discoveries)
-print(count_false_discoveries_bh / count_discoveries_bh)
+  naive_fdr = count_false_discoveries / count_discoveries
+  bh_fdr = count_false_discoveries_bh / count_discoveries_bh
+  return naive_fdr, bh_fdr
+  
+simulations = [simulate_fdr() for _ in tqdm(range(1000))]
+
+naive_fdr_dist, bh_fdr_dist = zip(*simulations)
+
+sns.distplot(naive_fdr_dist, label='Naive method')
+sns.distplot(bh_fdr_dist, label='BH method')
+plt.legend()
+plt.title('FDR distribution from 1000 simulations')
+plt.axvline(.05, linestyle='dotted')
+plt.show()
 ```
 
 # An example with dependence: Pairwise comparisons
