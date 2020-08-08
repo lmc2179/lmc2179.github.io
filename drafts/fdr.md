@@ -18,7 +18,7 @@ Let's imagine a scenario where instead of testing 5 hypotheses, we're testing 50
 - [Microarray](https://en.wikipedia.org/wiki/DNA_microarray) studies involve looking at the expression of thousands of genes
 - Experiments might cast a wide net and screen many possible treatments for potential value
 
-In a case like this, our analysis might produce a giant number of significant results. An experiment like this might involve rejecting hundreds of null hypotheses. If that's the case, the FWER is pretty strict - it will ensure that we very rarely make even one false statement. But in a lot of these cases, we're intentionally casting a wide net, and we don't need to be so conservative. We're often perfectly happy to reject 250 null hypotheses when we should have only rejected 248 of them; we still found 148 new and exciting relationships we can explore! The FWER-controlling methods, though, will work hard to make sure this doesn't happen.
+In a case like this, our analysis might produce a giant number of significant results. An experiment like this might involve rejecting hundreds of null hypotheses. If that's the case, the FWER is pretty strict - it will ensure that we very rarely make even one false statement. But in a lot of these cases, we're intentionally casting a wide net, and we don't need to be so conservative. We're often perfectly happy to reject 250 null hypotheses when we should have only rejected 248 of them; we still found 248 new and exciting relationships we can explore! The FWER-controlling methods, though, will work hard to make sure this doesn't happen.
 
 # The goal of FDR control: Make sure few of your findings are spurious
 
