@@ -36,11 +36,11 @@ This is a bit of a mouthful, so we often summarize the four possible outcomes in
 
 *Table from the excellent [Computer Age Statistical Inference](https://web.stanford.edu/~hastie/CASI_files/PDF/casi.pdf), Ch. 15. My explanation glosses over some details around the definition of the FDR, and the original chapter is well worth a read.*
 
-- There are $N$ hypotheses overall.
-- There are $N_0$ hypotheses for which the null is true, and $N_1$ hypotheses for which the alternative is true.
-- There are $a$ False positives and $b$ True positives.
+- There are $N$ hypotheses overall. (We know this when we set up our analysis.)
+- There are $N_0$ hypotheses for which the null is true, and $N_1$ hypotheses for which the alternative is true. (We don't know this when we set up our experiment.)
+- There are $a$ False positives and $b$ True positives. (We don't know this either.)
 
-We can use this matrix to define the FWER and FDR in terms of the decisions and results:
+We can use this matrix to define the FWER and FDR in terms of the decisions and results under different kinds of procedures:
 - FWER-controlling methods attempt to keep $\frac{a}{N_0 + N_1} \leq \alpha$
 - FDR-controlling methods attempt to keep the average $\frac{a}{a + b}$ at $\alpha$ That is, they make is so that $\mathbb{E}[\frac{a}{a + b}] = \alpha$.
 
