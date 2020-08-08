@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "An alternative to the FWER for multiple comparisons: The False-Discovery Rate"
+title: "The False-Discovery Rate: An alternative to the FWER for multiple comparisons"
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
