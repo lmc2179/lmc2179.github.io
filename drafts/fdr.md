@@ -120,3 +120,5 @@ plt.show()
 ```
 
 # What else might we do?
+
+Estimating multiple values simultaneously is a James-Stein/Shrinkage/Hierarchical analysis problem; rather than looking at the long-run null rates, look at the quality of the estimate
