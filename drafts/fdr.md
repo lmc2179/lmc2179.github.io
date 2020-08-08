@@ -25,22 +25,28 @@ In a case like this, our analysis might produce a giant number of significant re
 The FWER, it turns out, is just one way of thinking about the Type I error rate when we test multiple hypotheses. In the case above, we had two false positives; but we had so many true positives that it wasn't an especially big deal.
 
 For every hypothesis, there are four outcomes:
-- False Positive
-- True Positive
-- False Negative
-- True Negative
+- A null hypotheses could be true, but we reject it, claiming a discovery when there is none. This is as False Positive.
+- A null hypotheses could be false, and we reject it, claiming a discovery when there is one, hooray! This is as True Positive.
+- A null hypotheses could be false, and we fail to reject it, missing out on a discovery we could have made. This is a False Negative. 
+- A null hypothesis could be true, and we fail to reject it, avoiding claiming a discovery because there isn't one. This is a True Negative.
+
+This is a bit of a mouthful, so we often summarize the four possible outcomes in a matrix like the following:
 
 ![Matrix](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/fdr/fdr_matrix.png)
 
-- There are $a$ False positives, $b$ True positives,
+*Table from the excellent [Computer Age Statistical Inference](https://web.stanford.edu/~hastie/CASI_files/PDF/casi.pdf), Ch. 15. My explanation glosses over some details around the definition of the FDR, and the original chapter is well worth a read.*
 
-https://web.stanford.edu/~hastie/CASI_files/PDF/casi.pdf, ch.15, epage 289
+- There are $N$ hypotheses overall.
+- There are $N_0$ hypotheses for which the null is true, and $N_1$ hypotheses for which the alternative is true.
+- There are $a$ False positives and $b$ True positives.
 
-We can use this matrix to summarize the FWER and FDR:
+We can use this matrix to define the FWER and FDR in terms of the decisions and results:
 - FWER-controlling methods attempt to keep $\frac{a}{N_0 + N_1} \leq \alpha$
 - FDR-controlling methods attempt to keep the average $\frac{a}{a + b}$ at $\alpha$.
 
-# FDR control when the hypotheses are independent: Benjamini-Hochberg
+Whether you decide to use the FDR or the FWER is driven by what you'd like to get our of your analysis - they solve different problems, so neither is better. If you're extremely sensitive to False Positives, then controlling the FWER might make sense; if you have many hypotheses and are willing to tolerate a small fraction of false discoveries then you might choose to control the FDR instead.
+
+# The classic method of controlling the FDR: Benjamini-Hochberg
 
 http://www.math.tau.ac.il/~ybenja/MyPapers/benjamini_hochberg1995.pdf
 
