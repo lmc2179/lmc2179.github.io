@@ -67,17 +67,12 @@ import seaborn as sns
 
 def simulate_fdr():
   n_tests = 1000
-  n_sample = 5000
+  n_sample = 2000
   n_true_pos = 100
-
-  #count_discoveries = 0
-  #count_false_discoveries = 0
-  #count_discoveries_bh = 0
-  #count_false_discoveries_bh = 0
 
   alpha = .05
 
-  X, y, coef = make_regression(n_samples=n_sample, n_features=n_tests, n_informative=n_true_pos, bias=0, coef=True, noise=1)
+  X, y, coef = make_regression(n_samples=n_sample, n_features=n_tests, n_informative=n_true_pos, bias=0, coef=True, noise=200)
   p = OLS(y, X).fit().pvalues
   reject = p <= alpha
   true_null = (coef == 0)
