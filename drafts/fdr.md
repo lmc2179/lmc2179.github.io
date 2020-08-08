@@ -42,7 +42,7 @@ This is a bit of a mouthful, so we often summarize the four possible outcomes in
 
 We can use this matrix to define the FWER and FDR in terms of the decisions and results under different kinds of procedures:
 - FWER-controlling methods attempt to keep $\frac{a}{N_0 + N_1} \leq \alpha$
-- FDR-controlling methods attempt to keep the average $\frac{a}{a + b}$ at $\alpha$ That is, they make is so that $\mathbb{E}[\frac{a}{a + b}] = \alpha$.
+- FDR-controlling methods attempt to keep the average $\frac{a}{a + b}$ at $\alpha$. That is, they make is so that $\mathbb{E}[\frac{a}{a + b}] = \alpha$.
 
 Whether you decide to use the FDR or the FWER is driven by what you'd like to get our of your analysis - they solve different problems, so neither is better. If you're extremely sensitive to False Positives, then controlling the FWER might make sense; if you have many hypotheses and are willing to tolerate a small fraction of false discoveries then you might choose to control the FDR instead.
 
