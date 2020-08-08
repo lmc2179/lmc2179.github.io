@@ -120,6 +120,8 @@ plt.legend()
 plt.show()
 ```
 
+![A comparison between FWER and FDR](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/fdr/fwer_fdr_comparison.png)
+
 # What else might we do?
 
 Estimating multiple values simultaneously is a James-Stein/Shrinkage/Hierarchical analysis problem; rather than looking at the long-run null rates, look at the quality of the estimate
