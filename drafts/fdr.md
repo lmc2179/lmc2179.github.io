@@ -25,10 +25,10 @@ In a case like this, our analysis might produce a giant number of significant re
 The FWER, it turns out, is just one way of thinking about the Type I error rate when we test multiple hypotheses. In the case above, we had two false positives; but we had so many true positives that it wasn't an especially big deal.
 
 For every hypothesis, there are four outcomes:
-- A null hypotheses could be true, but we reject it, claiming a discovery when there is none. This is as False Positive.
-- A null hypotheses could be false, and we reject it, claiming a discovery when there is one, hooray! This is as True Positive.
-- A null hypotheses could be false, and we fail to reject it, missing out on a discovery we could have made. This is a False Negative. 
-- A null hypothesis could be true, and we fail to reject it, avoiding claiming a discovery because there isn't one. This is a True Negative.
+- A null hypotheses could be true, but we reject it, **claiming a discovery when there is none. This is a False Positive**.
+- A null hypotheses could be false, and we reject it, **claiming a discovery when there is one, hooray! This is a True Positive**.
+- A null hypotheses could be false, and we fail to reject it, **missing out on a discovery we could have made. This is a False Negative**. 
+- A null hypothesis could be true, and we fail to reject it, **avoiding claiming a discovery when there isn't one. This is a True Negative**.
 
 This is a bit of a mouthful, so we often summarize the four possible outcomes in a matrix like the following:
 
