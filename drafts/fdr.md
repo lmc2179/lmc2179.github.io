@@ -101,4 +101,22 @@ plt.show()
 
 ![FDR simulation results](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/fdr/fdr_regression.png)
 
+```python
+sorted_p, sorted_true_null = zip(*sorted(zip(p, true_null)))
+sorted_p = np.array(sorted_p)
+sorted_true_discoveries = (1. - np.array(sorted_true_null)).astype(np.bool)
+
+alpha = .05
+i = np.arange(len(sorted_p)) + 1
+m = len(sorted_p)
+holm_cutoffs = alpha / (m + 1 - i)
+hochberg_cutoffs = (alpha * i) / len(sorted_p)
+plt.plot(sorted_p, label='P-values, sorted')
+plt.plot(holm_cutoffs, label='Bonferroni-Holm')
+plt.plot(hochberg_cutoffs, label='Benjamini-Hochberg')
+plt.scatter(i[sorted_true_discoveries]-1, sorted_p[sorted_true_discoveries], marker='x')
+plt.legend()
+plt.show()
+```
+
 # What else might we do?
