@@ -93,9 +93,10 @@ naive_fdr_dist, bh_fdr_dist = zip(*simulations)
 
 sns.distplot(naive_fdr_dist, label='Naive method')
 sns.distplot(bh_fdr_dist, label='BH method')
-plt.legend()
 plt.title('FDR distribution from 1000 simulations')
 plt.axvline(.05, linestyle='dotted')
+plt.axvline(np.mean(bh_fdr_dist), label='Observed FDR for BH', color='green')
+plt.legend()
 plt.show()
 ```
 
