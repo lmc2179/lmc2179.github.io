@@ -11,22 +11,50 @@ image: jellybeans.png
 
 # What happens to the FWER when we test hundreds or thousands of hypotheses?
 
+In our discussion of the FWER, we walked through some strategies for avoiding Type I errors when we test multiple simulataneous hypotheses. It turned out that when we tested 5 hypotheses instead of one, we might accidentally reject a true null hypothesis much more often than $\alpha$, our significant level. We looked at the Bonferroni and Bonferroni-Holm methods, which let us ensure that the probabilty of any false claims at all was less than $\alpha$.
+
+Let's imagine a scenario where instead of testing 5 hypotheses, we're testing 5000. While this might seem a little far fetched, it occurs pretty frequently:
+- Machine learning models might have hundreds or thousands of features which we'd like to test for their correlation with the output
+- [Microarray](https://en.wikipedia.org/wiki/DNA_microarray) studies involve looking at the expression of thousands of genes
+- Experiments might cast a wide net and screen many possible treatments for potential value
+
+In a case like this, our analysis might produce a giant number of significant results. An experiment like this might involve rejecting hundreds of null hypotheses. If that's the case, the FWER is pretty strict - it will ensure that we very rarely make even one false statement. But in a lot of these cases, we're intentionally casting a wide net, and we don't need to be so conservative. We're often perfectly happy to reject 250 null hypotheses when we should have only rejected 248 of them; we still found 148 new and exciting relationships we can explore! The FWER-controlling methods, though, will work hard to make sure this doesn't happen.
+
 # The goal of FDR control: Make sure few of your findings are spurious
+
+The FWER, it turns out, is just one way of thinking about the Type I error rate when we test multiple hypotheses. In the case above, we had two false positives; but we had so many true positives that it wasn't an especially big deal.
+
+For every hypothesis, there are four outcomes:
+- False Positive
+- True Positive
+- False Negative
+- True Negative
+
+![Matrix](?)
+
+- There are $a$ False positives, $b$ True positives,
 
 https://web.stanford.edu/~hastie/CASI_files/PDF/casi.pdf, ch.15, epage 289
 
-That matrix that shows up everywhere
+We can use this matrix to summarize the FWER and FDR:
+- FWER-controlling methods attempt to keep $\frac{a}{N_0 + N_1} \leq \alpha$
+- FDR-controlling methods attempt to keep the average $\frac{a}{a + b}$ at $\alpha$.
 
 # FDR control when the hypotheses are independent: Benjamini-Hochberg
 
 http://www.math.tau.ac.il/~ybenja/MyPapers/benjamini_hochberg1995.pdf
 
-# FDR control under arbitrary dependence: Benjamini–Yekutieli
+# Alternatives to the Benjamini-Hochberg procedure
 
+Benjamini–Yekutieli
+no independence assumption
 However the power is lower
 http://www.math.tau.ac.il/~ybenja/MyPapers/benjamini_yekutieli_ANNSTAT2001.pdf
 
-# An example with independence
+A close relative of the FDR is the False coverage rate 
+https://en.wikipedia.org/wiki/False_coverage_rate
+
+# An example: Feature selection in a linear model
 
 ```python
 from sklearn.datasets import make_regression
@@ -76,48 +104,4 @@ plt.axvline(.05, linestyle='dotted')
 plt.show()
 ```
 
-# An example with dependence: Pairwise comparisons
-
-https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html
-
-https://www.statsmodels.org/dev/generated/statsmodels.stats.multitest.multipletests.html
-
-```python
-from scipy.stats import ttest_ind
-from scipy.stats import norm
-from statsmodels.stats.multitest import multipletests
-
-#TRUE_MU = [0] * 40 + list(range(1, 20))
-TRUE_MU = [0]*60 + [1]
-k = len(TRUE_MU)
-TRUE_SIGMA = 2
-
-alpha = .05
-n_sample = 10000
-
-count_discoveries = 0
-count_false_discoveries = 0
-
-test_indices = [(i, j) for i in range(0, k) for j in range(i+1, k)]
-
-X = [norm(m, TRUE_SIGMA).rvs(n_sample) for m in TRUE_MU]
-p = np.array([ttest_ind(X[i], X[j])[1] for i, j in test_indices])
-
-true_null = np.array([TRUE_MU[i] == TRUE_MU[j]  for i, j in test_indices])
-reject = (p <= alpha)
-
-count_discoveries = sum(reject)
-count_false_discoveries = sum(reject & true_null)
-
-reject_bh = multipletests(p, method='fdr_bh', alpha=alpha)[0]
-count_discoveries_bh = np.sum(reject_bh)
-count_false_discoveries_bh = np.sum(reject_bh & true_null)
-
-reject_by = multipletests(p, method='fdr_by', alpha=alpha)[0]
-count_discoveries_by = np.sum(reject_bh)
-count_false_discoveries_by = np.sum(reject_by & true_null)
-
-print(count_false_discoveries / count_discoveries)
-print(count_false_discoveries_bh / count_discoveries_bh)
-print(count_false_discoveries_by / count_discoveries_by)
-```
+# What else might we do?
