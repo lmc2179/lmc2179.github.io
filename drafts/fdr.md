@@ -30,7 +30,7 @@ For every hypothesis, there are four outcomes:
 - False Negative
 - True Negative
 
-![Matrix](?)
+![Matrix](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/fdr/fdr_matrix.png)
 
 - There are $a$ False positives, $b$ True positives,
 
@@ -103,5 +103,7 @@ plt.title('FDR distribution from 1000 simulations')
 plt.axvline(.05, linestyle='dotted')
 plt.show()
 ```
+
+![FDR simulation results](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/fdr/fdr_regression.png)
 
 # What else might we do?
