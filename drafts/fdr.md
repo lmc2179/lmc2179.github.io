@@ -44,23 +44,25 @@ We can use this matrix to define the FWER and FDR in terms of the decisions and 
 - FWER-controlling methods attempt to keep $\frac{a}{N_0 + N_1} \leq \alpha$
 - FDR-controlling methods attempt to keep the average $\frac{a}{a + b}$ at $\alpha$. That is, they make is so that $\mathbb{E}[\frac{a}{a + b}] = \alpha$.
 
-Whether you decide to use the FDR or the FWER is driven by what you'd like to get our of your analysis - they solve different problems, so neither is better. If you're extremely sensitive to False Positives, then controlling the FWER might make sense; if you have many hypotheses and are willing to tolerate a small fraction of false discoveries then you might choose to control the FDR instead.
+Whether you decide to control the FDR or the FWER is driven by what you'd like to get our of your analysis - they solve different problems, so neither is better. If you're extremely sensitive to False Positives, then controlling the FWER might make sense; if you have many hypotheses and are willing to tolerate a small fraction of false discoveries then you might choose to control the FDR instead.
 
 # The classic method of controlling the FDR: Benjamini-Hochberg
 
-http://www.math.tau.ac.il/~ybenja/MyPapers/benjamini_hochberg1995.pdf
+The most well-known method of controlling the FDR is the [Benjamini-Hochberg procedure](https://en.wikipedia.org/wiki/False_discovery_rate#Benjamini%E2%80%93Hochberg_procedure).
 
-# Alternatives to the Benjamini-Hochberg procedure
+If you'd like to go a little deeper, the [original 1995 paper](http://www.math.tau.ac.il/~ybenja/MyPapers/benjamini_hochberg1995.pdf) remains pretty accessible.
 
-Benjamini–Yekutieli
-no independence assumption
-However the power is lower
-http://www.math.tau.ac.il/~ybenja/MyPapers/benjamini_yekutieli_ANNSTAT2001.pdf
+The details of the method don't need to be implemented, luckily; we simply need to call the [multipletests](https://www.statsmodels.org/dev/generated/statsmodels.stats.multitest.multipletests.html) method from statsmodels, and select `fdr_bh` as the method.
 
-A close relative of the FDR is the False coverage rate 
-https://en.wikipedia.org/wiki/False_coverage_rate
+# Alternatives to the Benjamini-Hochberg procedure and related methods
 
-# An example: Feature selection in a linear model
+The Benjamini-Hochberg procedure assumes that the hypotheses are independent. In some cases, this is clearly untrue; in others, it's not as obvious. Nonethless, it appears that empirically the BH procedure is relatively robust to this assumption. An alternative which does *not* make this assumption is the  [Benjamini–Yekutieli](http://www.math.tau.ac.il/~ybenja/MyPapers/benjamini_yekutieli_ANNSTAT2001.pdf), but the power of this procedure can be much lower.
+
+A close relative of the FDR is the [False coverage rate](https://en.wikipedia.org/wiki/False_coverage_rate), its confidence interval equivalent. Once we have performed the BH procedure to control the FDR, we can then compute [adjusted confidence intervals](https://en.wikipedia.org/wiki/False_coverage_rate#FCR-adjusted_BH-selected_CIs) for the parameters for which we rejected the null hypothesis.
+
+# An example: Feature selection in a linear model simulation
+
+Let's look at a concrete example. We'll look at a large number of simulations in which we're attempting to figure out which regression coefficients are non-zero in a linear model. In each simulation there will be 1000 covariates and 2000 samples. Of those, 100 covariates will be non-zero; the rest will be red herrings. So in each simulation we'll run 100 simultaneous [T-tests](https://stats.stackexchange.com/questions/286179/why-is-a-t-distribution-used-for-hypothesis-testing-a-linear-regression-coeffici) using [statsmodels](https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.OLSResults.pvalues.html).
 
 ```python
 from sklearn.datasets import make_regression
@@ -108,6 +110,8 @@ plt.show()
 
 ![FDR simulation results](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/fdr/fdr_regression.png)
 
+Let's take a look at a single simulation to explore the difference between Benjamini-Hochberg and Bonferroni-Holm.
+
 ```python
 sorted_p, sorted_true_null = zip(*sorted(zip(p, true_null)))
 sorted_p = np.array(sorted_p)
@@ -127,6 +131,10 @@ plt.show()
 ```
 
 ![A comparison between FWER and FDR](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/fdr/fwer_fdr_comparison.png)
+
+We're only looking at the first 100 hypotheses here. The "genuine discoveries" are indicated by an `X`.
+
+We see that Benjamini-Hochberg is meaningfully more strict than Bonferroni-Holm
 
 # What else might we do?
 
