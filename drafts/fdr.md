@@ -49,6 +49,10 @@ Whether you decide to control the FDR or the FWER is driven by what you'd like t
 # The classic method of controlling the FDR: Benjamini-Hochberg
 
 The most well-known method of controlling the FDR is the [Benjamini-Hochberg procedure](https://en.wikipedia.org/wiki/False_discovery_rate#Benjamini%E2%80%93Hochberg_procedure). The procedure is quite simple to the Bonferroni-Holm method we discussed before. It goes something like this:
+- Sort all the P-values you computed from your tests in ascending order. We'll call these $P_1, ..., P_m$, and they'll correspond to hypotheses $H_1, ..., H_m$.
+- We'll define a series of significance levels $\alpha_1, ..., \alpha_m$, where $\alpha_i = \frac{\alpha \times i}{m}$.
+- Starting with $P_1$, see if it is significant at the level of $\alpha_1$. If it is, reject it and move on to testing $P_2$ at $\alpha_2$. Continue until you find a hypothesis you can't reject, and stop there.
+- Put another way: If $k$ is the first index such that we can't reject $H_k$, then reject all the hypotheses from $1, ..., k-1$.
 
 If you'd like to go a little deeper, the [original 1995 paper](http://www.math.tau.ac.il/~ybenja/MyPapers/benjamini_hochberg1995.pdf) remains pretty accessible.
 
