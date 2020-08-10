@@ -4,7 +4,7 @@ title: "The False-Discovery Rate: An alternative to the FWER for multiple compar
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
-image: fdr/fdr_matrix.png
+image: fdr/fdr_regression.png
 ---
 
 *We've [previously explored](https://lmc2179.github.io/posts/fwer.html) one common method for dealing with testing multiple simultaneous hypotheses, methods that control the Family-wise error rate. However, we realized that the FWER can be quite conservative. The False-Discovery rate is a powerful alternative to the FWER, which is often used in cases where hundreds or thousands of simultaneous hypotheses are tested. What is the FDR, and how is it different from the FWER? How do we control it?*
