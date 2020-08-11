@@ -31,6 +31,51 @@ https://www.statsmodels.org/devel/generated/statsmodels.genmod.generalized_linea
 
 WLS implementation in statsmodels doesn't work here
 
+```python
+from scipy.optimize import curve_fit
+import numpy as np
+from scipy.stats import norm
+import pandas as pd
+from statsmodels.api import formula as smf
+from statsmodels import api as sm
+
+n_per_group = 1000
+
+df = pd.DataFrame({'x': [0] * n_per_group + [1] * n_per_group, 'y': np.concatenate((norm(1, 4).rvs(n_per_group), norm(3, 4).rvs(n_per_group)))})
+
+def summarize(df, x_cols, y_col):
+  X_summary = []
+  y_summary = []
+  se_summary = []
+  for X_values, group_df in df.groupby(x_cols):
+    X_summary.append(X_values)
+    y_summary.append(np.mean(group_df[y_col]))
+    se_summary.append(np.std(group_df[y_col]) / np.sqrt(len(group_df)))
+  X_summary = pd.DataFrame(X_summary, columns=X.columns)
+  y_summary = np.array(y_summary)
+  se_summary = np.array(se_summary)
+  return X_summary, y_summary, se_summary
+  
+X_summary, y_summary, se_summary = summarize(df, ['x'], 'y')
+
+def ols_summaries(X, y, se):
+  def f(X, *v):
+    a, b = v[0], v[1:]
+    return a + np.dot(X, b)
+  r, c = X.shape
+  params, cov = curve_fit(f, X, y, sigma=se, absolute_sigma=True, p0=np.ones(c+1))
+  params_se = np.sqrt(np.diag(cov))
+  return params, params_se
+  
+p_summary, p_se_summary = ols_summaries(X_summary, y_summary, se_summary)
+
+print(p_summary, p_se_summary)
+
+print(smf.ols('y ~ x', df).fit().summary())
+
+print(sm.WLS(y_summary, sm.add_constant(X_summary), 1./se_summary**2).fit().summary())
+```
+
 ## Digression: Sufficient statistic for the normal distribution
 
 https://en.wikipedia.org/wiki/Sufficient_statistic#Normal_distribution
