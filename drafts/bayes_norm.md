@@ -82,7 +82,41 @@ $$\sigma_{post}^2 = \left (\frac{1}{\sigma_0^2} + \frac{n}{\sigma^2} \right) ^{-
 woah now. let's break that down - how does changing these parameters affect our inference
 
 
-Sometimes, we say we don't have any prior information, and so we pick a "flat" prior (I'll refrain from calling it uninformative)
+
+# Digression: The posterior of the mean is closely connected to the standard error of the mean
+
+You might start to wonder at this point whether or not all this Bayesian business offers a solution that contradicts the classical analysis. It turns out that they're very closely related.
+
+$$\lim_{\mu_0 \rightarrow 0, \sigma_0 \rightarrow \infty}\mu_{post}  = 
+\frac{1}{0 + \frac{n}{\sigma^2}} \left ( 0 + \frac{\sum_i x_i}{\sigma^2} \right ) =\frac{\frac{\sum_i x_i}{\sigma^2}}{\frac{n}{\sigma^2}} = \frac{\sum_i x_i}{n}$$
+
+$$\lim_{\mu_0 \rightarrow 0, \sigma_0 \rightarrow \infty} \sigma_{post}^2 
+= \left (\frac{1}{\sigma_0^2} + \frac{n}{\sigma^2} \right) ^{-1}
+= \frac{\sigma^2}{n} = SE_\mu^2$$
+
+# How should I pick my prior?
+
+We usually aren't *totally* ignorant about the quantity of interest. For example, in the case of the change in clicks per user, we usually have seen this quantity in the past. Let's say that in the past:
+- The average change in clicks per user WoW is about zero. Maybe that's different for holiday weeks or [National Cat Day](https://en.wikipedia.org/wiki/National_Cat_Day), but the week in question isn't one of those.
+- The average change in clicks per user WoW is "almost never" more than +10 or -10. (Perhaps those are the 1st and 99th percentiles of the empirical data we have).
+
+This is exactly the kind of substantive information we often have access to in a realistic setting, even a very simple one. We'll use these basic pieces of information to discuss a few possible choices of prior, based on [some recommendations from the Stan docs](https://github.com/stan-dev/stan/wiki/Prior-Choice-Recommendations). We'll also look at how sensitive our inference is to the choice of prior, at least for this dataset.
+
+### A super-vague prior: N(0, 100000)
+
+Often, when we talk about a "flat prior", or and "uninformative prior" (both somewhat misleading terms), this is what we're talking about. Sometimes, we justify this to ourselves by saying that it "lets the data speak for itself", despite the fact that that phrase is always a vicious lie. As we noted in the last section, this prior will produce just about the same result as the classical analysis. Though you'll get to tell your boss you used a "Bayesian method", and maybe that's worth something to you.
+
+For the Bayes-skeptical, this is a choice that will let you feel like you're on familiar ground. Those of you who have not yet accepted Reverend Thomas Bayes into your heart may .
+
+### A weak informed prior: N(0, 10)
+
+This looks a little more informed, but it's still quite permissive.
+
+### An actually informed prior: N(0, 4)
+
+This actually reflects the facts above.
+
+Lets compare all of these
 
 ```python
 import numpy as np
@@ -112,41 +146,6 @@ plt.scatter([lower, upper], [0, 0], marker='s', color='green', s=100, label='CI 
 plt.legend()
 plt.show()
 ```
-
-# The posterior of the mean is closely connected to the standard error of the mean
-
-f
-
-$$\lim_{\mu_0 \rightarrow 0, \sigma_0 \rightarrow \infty}\mu_{post}  = 
-\frac{1}{0 + \frac{n}{\sigma^2}} \left ( 0 + \frac{\sum_i x_i}{\sigma^2} \right ) =\frac{\frac{\sum_i x_i}{\sigma^2}}{\frac{n}{\sigma^2}} = \frac{\sum_i x_i}{n}$$
-
-$$\sigma_{post}^2 = \left (\frac{1}{\sigma_0^2} + \frac{n}{\sigma^2} \right) ^{-1}$$
-
-$$\lim_{\mu_0 \rightarrow 0, \sigma_0 \rightarrow \infty} \sigma_{post}^2 
-= \left (\frac{1}{\sigma_0^2} + \frac{n}{\sigma^2} \right) ^{-1}
-= \frac{\sigma^2}{n} = SE_\mu^2$$
-
-# How should I pick my prior?
-
-We usually aren't *totally* ignorant about the quantity of interest. For example, in the case of the change in clicks per user, we usually have seen this quantity in the past. Let's say that in the past:
-- The average change in clicks per user WoW is about zero. Maybe that's different for holiday weeks or [National Cat Day](https://en.wikipedia.org/wiki/National_Cat_Day), but the week in question isn't one of those.
-- The average change in clicks per user WoW is "almost never" more than +10 or -10. (Perhaps those are the 1st and 99th percentiles of the empirical data we have).
-
-This is exactly the kind of substantive information we often have access to in a realistic setting, even a very simple one. We'll use these basic pieces of information to discuss a few possible choices of prior, based on [some recommendations from the Stan docs](https://github.com/stan-dev/stan/wiki/Prior-Choice-Recommendations). We'll also look at how sensitive our inference is to the choice of prior, at least for this dataset.
-
-### A super-vague prior: N(0, 100000)
-
-Often, when we talk about a "flat prior", or and "uninformative prior" (both somewhat misleading terms), this is what we're talking about. Sometimes, we justify this to ourselves by saying that it "lets the data speak for itself", despite the fact that that phrase is always a vicious lie. This prior will produce just about the same result as the classical analysis. Though you'll get to tell your boss you used a "Bayesian method", and maybe that's worth something to you.
-
-For the Bayes-skeptical, this is a choice that will let you feel like you're on familiar ground. Those of you who have not yet accepted Reverend Thomas Bayes into your heart may .
-
-### A weak informed prior: N(0, 10)
-
-This looks a little more informed, but it's still quite permissive.
-
-### An actually informed prior: N(0, 4)
-
-This actually reflects the facts above.
 
 # But I _don't_ know the variance!! All this talk of $\hat{\sigma}$ is making me very nervous
 
