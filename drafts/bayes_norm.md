@@ -112,7 +112,7 @@ For the Bayes-skeptical, this is a choice that will let you feel like you're on 
 
 This looks a little more informed, but it's still quite permissive.
 
-### An actually informed prior: N(0, 4)
+### An actually informed prior: N(0, 3)
 
 This actually reflects the facts above.
 
@@ -124,27 +124,17 @@ import seaborn as sns
 from matplotlib import pyplot as plt
 from scipy.stats import norm
 
-n = 100
-true_mu = 5
-true_sd = 2
-
-rng = np.random.default_rng()
-
-x = rng.normal(true_mu, true_sd, n)
-
-sample_sd = np.std(x, ddof=1)
-sample_mean = np.mean(x)
-estimated_se = sample_sd /  np.sqrt(len(x))
-
-posterior_mean_samples = rng.normal(sample_mean, estimated_se, 1000)
-
-sns.distplot(posterior_mean_samples)
-plt.axvline(sample_mean, label='Sample mean')
-plt.axvline(true_mu, label='True mean', color='orange')
-lower, upper = np.quantile(posterior_mean_samples, (.01, .99))
-plt.scatter([lower, upper], [0, 0], marker='s', color='green', s=100, label='CI bounds')
-plt.legend()
-plt.show()
+def unknown_mean_conjugate_analysis(X, mu_0, sig_0):
+  n = len(X)
+  sd = np.std(X)
+  m = np.mean(X)
+  mu_post = ((mu_0/sig_0**2) + (m / sd**2)) / ((1/sig_0**2) + (n / sd**2))
+  sig_2_post = 1. / ((1./sig_0**2) + (n / sd**2))
+  return norm(mu_post, np.sqrt(sig_2_post))
+  
+posterior_super_vague = unknown_mean_conjugate_analysis(changes_in_clicks, 0, 100000)
+posterior_weak = unknown_mean_conjugate_analysis(changes_in_clicks, 0, 10)
+posterior_informed = unknown_mean_conjugate_analysis(changes_in_clicks, 0, 3)
 ```
 
 # But I _don't_ know the variance!! All this talk of $\hat{\sigma}$ is making me very nervous
@@ -245,7 +235,7 @@ Here's a neat trick.
 from matplotlib import pyplot as plt
 import seaborn as sns
 import numpy as np
-from scipy.stats import norm, expon
+from scipy.stats import skellam
 
 np.random.seed(7312020)
 
