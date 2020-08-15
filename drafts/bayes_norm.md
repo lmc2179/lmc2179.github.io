@@ -239,9 +239,9 @@ from scipy.stats import skellam
 
 np.random.seed(7312020)
 
-changes_in_clicks = skellam(5, 1).rvs(1000)
+changes_in_clicks = skellam(40, 20).rvs(1000)
 
-sns.distplot(changes_in_clicks, kde=False, bins=np.arange(-5, 15))
+sns.distplot(changes_in_clicks, kde=False)
 plt.xlabel('Observed change in clicks per user')
 plt.show()
 ```
