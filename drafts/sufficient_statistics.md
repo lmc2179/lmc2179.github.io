@@ -27,6 +27,25 @@ https://web.ma.utexas.edu/users/gordanz/notes/likelihood_color.pdf
 
 https://www.statsmodels.org/devel/generated/statsmodels.genmod.generalized_linear_model.GLM.html
 
+```python
+import pandas as pd
+from statsmodels.api import formula as smf
+from statsmodels import api as sm
+
+df_long = pd.DataFrame({'x': [0] * 100 + [1]*100, 'y':[0] * 95 + [1]*5 + [0] * 5 + [1]*95})
+
+long_model = smf.logit('y ~ x', df_long)
+long_fit = long_model.fit()
+print(long_fit.summary())
+
+df_short = pd.DataFrame({'x': [0, 0, 1, 1], 'y':[1, 0, 1, 0]})
+n_trials = pd.Series([5, 95, 95, 5])
+
+short_model = smf.glm('y ~ x', df_short, n_trials=n_trials, family=sm.families.Binomial())
+short_fit = short_model.fit()
+print(short_fit.summary())
+```
+
 # Continuous outcomes: Some assembly required
 
 WLS implementation in statsmodels doesn't work here
