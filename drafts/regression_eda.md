@@ -33,12 +33,12 @@ def group_covariates(terms, cols):
 
 def clean_categorical_name(n):
   i = n.index('[')
-  return n[i+1:-1]
+  return n[i+3:-1]
   
 def is_level(group_name, col_name):
   return group_name != col_name
 
-def forestplot(model, fit_results, alpha=.05):
+def forestplot(model, fit_results, alpha=.05, cols_to_include=None):
   summary_matrix = pd.DataFrame({'point': fit_results.params,
                                  'low': fit_results.conf_int(alpha)[0],
                                  'high': fit_results.conf_int(alpha)[1],
@@ -51,10 +51,14 @@ def forestplot(model, fit_results, alpha=.05):
   term_colors = plt.cm.rainbow(np.linspace(0, 1, n_terms))
   summary_matrix['color'] = [term_colors[g] for g in term_group]
   summary_matrix['clean_name'] = [clean_categorical_name(c) if is_level(t, c) else c for t, c in summary_matrix[['term', 'name']].values]
+  if cols_to_include is None:
+    cols = set(terms)
+  else:
+    cols = set(cols_to_include)
+  summary_matrix = summary_matrix[summary_matrix['term'].apply(lambda x: x in cols)]
   plt.scatter(summary_matrix['point'], summary_matrix['position'], c=summary_matrix['color'])
   for p, l, h, c in summary_matrix[['position', 'low', 'high', 'color']].values:
     plt.plot([l, h], [p, p], c=c)
   plt.axvline(0, linestyle='dotted', color='black')
   plt.yticks(summary_matrix['position'], summary_matrix['clean_name'])
-  
 ```
