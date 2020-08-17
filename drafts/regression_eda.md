@@ -13,7 +13,7 @@ df = pd.read_csv('census.csv')
 df.columns = 'age workclass fnlwgt education education_num marital_status occupation relationship race sex capital_gain capital_loss hours_per_week native_country high_income'.split(' ')
 df['high_income'] = df['high_income'].apply(lambda x: 1 if x == ' >50K' else 0)
 
-model = smf.logit('high_income ~ age + workclass + education + marital_status', df)
+model = smf.logit('high_income ~ age + workclass + education + marital_status + age:workclass', df)
 results = model.fit()
 ```
 
@@ -66,3 +66,5 @@ def forestplot(model, fit_results, alpha=.05, cols_to_include=None, bonferroni_c
   plt.axvline(0, linestyle='dotted', color='black')
   plt.yticks(summary_matrix['position'], summary_matrix['clean_name'])
 ```
+
+Need: bspline support and interaction support
