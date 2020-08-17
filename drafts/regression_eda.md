@@ -38,10 +38,14 @@ def clean_categorical_name(n):
 def is_level(group_name, col_name):
   return group_name != col_name
 
-def forestplot(model, fit_results, alpha=.05, cols_to_include=None):
+def forestplot(model, fit_results, alpha=.05, cols_to_include=None, bonferroni_correct=False):
+  if bonferroni_correct:
+    a = alpha / len(fit_results.params)
+  else:
+    a = alpha
   summary_matrix = pd.DataFrame({'point': fit_results.params,
-                                 'low': fit_results.conf_int(alpha)[0],
-                                 'high': fit_results.conf_int(alpha)[1],
+                                 'low': fit_results.conf_int(a)[0],
+                                 'high': fit_results.conf_int(a)[1],
                                  'name': model.data.design_info.column_names,
                                  'position': -np.arange(len(fit_results.params))})
   terms = model.data.design_info.term_names
