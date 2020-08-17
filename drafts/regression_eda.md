@@ -1,18 +1,60 @@
 
 
 ```bash
-#https://archive.ics.uci.edu/ml/datasets/Credit+Approval
-curl https://archive.ics.uci.edu/ml/machine-learning-databases/credit-screening/crx.data > credit.csv
+#https://archive.ics.uci.edu/ml/datasets/Census+Income
+curl https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data > census.csv
 ```
 
 ```python
 import pandas as pd
 from statsmodels.api import formula as smf
 
-df = pd.read_csv('credit.csv')
-df.columns = ['A{0}'.format(i) for i in range(1, 16)] + ['approved']
-df['approved'] = df['approved'].apply(lambda x: 1 if x == '+' else 0) 
+df = pd.read_csv('census.csv')
+df.columns = 'age workclass fnlwgt education education_num marital_status occupation relationship race sex capital_gain capital_loss hours_per_week native_country high_income'.split(' ')
+df['high_income'] = df['high_income'].apply(lambda x: 1 if x == ' >50K' else 0)
 
-model = smf.logit('approved ~ A1 + A2 + A3 + A4 + A5 + A6 + A7 + A8 + A9 + A10 + A11 + A12 + A13 + A14 + A15', df)
-results = model.fit() # Ugh singular
+model = smf.logit('high_income ~ age + workclass + education + marital_status', df)
+results = model.fit()
+```
+
+```python
+from matplotlib import pyplot as plt
+import seaborn as sns
+import numpy as np
+
+def group_covariates(terms, cols):
+  groups = -np.ones(len(cols))
+  g = 0
+  for i, c in enumerate(cols):
+    if c[:len(terms[g])] != terms[g]: # Check first part of string
+      g +=1
+    groups[i] = g
+  return groups.astype('int')
+
+def clean_categorical_name(n):
+  i = n.index('[')
+  return n[i+1:-1]
+  
+def is_level(group_name, col_name):
+  return group_name != col_name
+
+def forestplot(model, fit_results, alpha=.05):
+  summary_matrix = pd.DataFrame({'point': fit_results.params,
+                                 'low': fit_results.conf_int(alpha)[0],
+                                 'high': fit_results.conf_int(alpha)[1],
+                                 'name': model.data.design_info.column_names,
+                                 'position': -np.arange(len(fit_results.params))})
+  terms = model.data.design_info.term_names
+  n_terms = len(terms)
+  term_group = group_covariates(terms, summary_matrix['name'])
+  summary_matrix['term'] = [terms[g] for g in term_group]
+  term_colors = plt.cm.rainbow(np.linspace(0, 1, n_terms))
+  summary_matrix['color'] = [term_colors[g] for g in term_group]
+  summary_matrix['clean_name'] = [clean_categorical_name(c) if is_level(t, c) else c for t, c in summary_matrix[['term', 'name']].values]
+  plt.scatter(summary_matrix['point'], summary_matrix['position'], c=summary_matrix['color'])
+  for p, l, h, c in summary_matrix[['position', 'low', 'high', 'color']].values:
+    plt.plot([l, h], [p, p], c=c)
+  plt.axvline(0, linestyle='dotted', color='black')
+  plt.yticks(summary_matrix['position'], summary_matrix['clean_name'])
+  
 ```
