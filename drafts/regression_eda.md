@@ -1,15 +1,23 @@
 # Forest plots and regression models are great Exploratory Data Analysis tools
 
-# What on earth is a forest plot
+# EDA has no clear-cut recipe
 
-# Why do EDA?
+# Why do EDA? (What are examples of EDA insights)
 
 - Build intuition about potential intervention points (points of leverage)
 - Check assumptions we have about which variables are associated with the outcome
 - Challenges: many variables, maybe many subgroups, hard to intuit the "unique impact" of each
-- Berk: Describing the data is most of what we do
 
-# The ideal visualization: Association of each variable with the outcome
+
+# Regression is a great descriptive tool
+- Berk: Describing the data is most of what we do
+- Coefficients represent partial correlations
+- Dummy encoding shows us extreme subgroups
+
+# Isn't this a fishing expedition?
+- Isn't everything
+- From the Type I (FWER/FDR perspective, we can do some stuff); Data splitting
+- Or just live that Bayes life
 
 # Examples: What is associated with high income?
 
