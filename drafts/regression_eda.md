@@ -49,6 +49,8 @@ def forestplot_sorted(middle, lower, upper, name, colormap):
   df['position'] = -np.arange(len(df))
   colors = colormap(np.linspace(0, 1, len(df)))
   plt.scatter(df['mid'], df['position'], color=colors)
+  plt.scatter(df['low'], df['position'], color=colors, marker='|')
+  plt.scatter(df['high'], df['position'], color=colors, marker='|')
   plt.hlines(df['position'], df['low'], df['high'], color=colors)
   plt.yticks(df['position'], df['name'])
   
