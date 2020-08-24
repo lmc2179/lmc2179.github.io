@@ -4,9 +4,12 @@
 
 # Why do EDA?
 
-# The ideal visualization: Effect of each variable
+- Build intuition about potential intervention points (points of leverage)
+- Check assumptions we have about which variables are associated with the outcome
+- Challenges: many variables, maybe many subgroups, hard to intuit the "unique impact" of each
+- Berk: Describing the data is most of what we do
 
-# Forest plots and regression models: Not ideal, but pretty good at summarizing the data
+# The ideal visualization: Association of each variable with the outcome
 
 # Examples: What is associated with high income?
 
