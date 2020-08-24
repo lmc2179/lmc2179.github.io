@@ -8,11 +8,7 @@
 
 # Forest plots and regression models: Not ideal, but pretty good at summarizing the data
 
-# Examples: What is associated with
-
-# Why isn't this a causal interpretation? When might it be?
-
-# What else might go into an EDA?
+# Examples: What is associated with high income?
 
 ```bash
 #https://archive.ics.uci.edu/ml/datasets/Census+Income
@@ -30,6 +26,36 @@ df['high_income'] = df['high_income'].apply(lambda x: 1 if x == ' >50K' else 0)
 model = smf.logit('high_income ~ age + workclass + education + marital_status + age:workclass', df)
 results = model.fit()
 ```
+
+# Why isn't this a causal interpretation? When might it be?
+
+# What else might go into an EDA?
+
+# Appendix: Python functions for forest plots
+
+
+```python
+from matplotlib import pyplot as plt
+import seaborn as sns
+import numpy as np
+import pandas as pd
+
+def forestplot_sorted(middle, lower, upper, name, colormap):
+  df = pd.DataFrame({'mid': middle,
+                     'low': lower,
+                     'high': upper,
+                     'name': name})
+  df = df.sort_values('mid')
+  df['position'] = -np.arange(len(df))
+  colors = colormap(np.linspace(0, 1, len(df)))
+  plt.scatter(df['mid'], df['position'], color=colors)
+  plt.hlines(df['position'], df['low'], df['high'], color=colors)
+  plt.yticks(df['position'], df['name'])
+  
+forestplot_sorted([0, 1, 2, 3], [-1, 0, 1, 2], [1, 2, 3, 4], ['a', 'b', 'c', 'd'], plt.cm.plasma)
+plt.show()
+```
+
 
 ```python
 from matplotlib import pyplot as plt
