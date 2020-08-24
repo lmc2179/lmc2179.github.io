@@ -1,4 +1,18 @@
+# Forest plots and regression models are great Exploratory Data Analysis tools
 
+# What on earth is a forest plot
+
+# Why do EDA?
+
+# The ideal visualization: Effect of each variable
+
+# Forest plots and regression models: Not ideal, but pretty good at summarizing the data
+
+# Examples: What is associated with
+
+# Why isn't this a causal interpretation? When might it be?
+
+# What else might go into an EDA?
 
 ```bash
 #https://archive.ics.uci.edu/ml/datasets/Census+Income
