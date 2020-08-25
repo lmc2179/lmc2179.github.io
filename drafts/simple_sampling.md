@@ -38,6 +38,20 @@ print(latex(F))
 - Evaluate $f$ over the grid
 - Weighted sample according to $f$
 
+```python
+import numpy as np
+from scipy.stats import norm 
+from matplotlib import pyplot as plt
+import seaborn as sns
+
+x_plot = np.linspace(-10, 10, 5000)
+log_p = norm(0, 1).logpdf(x_plot) + 500
+p_sample = np.exp(log_p - np.logaddexp.reduce(log_p))
+sns.distplot(np.random.choice(x_plot, p=p_sample, size=10000))
+plt.plot(x_plot, norm(0, 1).pdf(x_plot))
+plt.show()
+```
+
 # Unimodal distributions, however many dimensions they have: Laplace's approximation
 
 - Find maximum
