@@ -1,6 +1,6 @@
 # Why would we use a log transform in regression? Multiplicative models and time series decompositions
 
-*TL;DR - Sometimes, analysts will recommend a log transformation of the outcome variable to "make the residuals look normal". Sometimes, this is just papering other issues, but sometimes this kind of transformation genuinely produces a better fitting model. In what cases does this happen? Why does the log transformation work the way it does? Case studies from experiment analysis and Time Series Decomposition.*
+*TL;DR - Sometimes, analysts will recommend a log transformation of the outcome variable to "make the residuals look normal". Sometimes, this is just papering other issues, but sometimes this kind of transformation genuinely produces a better fitting model. In what cases does this happen? Why does the log transformation work the way it does?*
 
 https://xkcd.com/451/
 
