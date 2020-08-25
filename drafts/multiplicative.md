@@ -40,6 +40,8 @@ Example: Treatment effect multiplies instead of adding
 
 # A common use case: Multiplicative time series decomposition
 
+https://en.wikipedia.org/wiki/Decomposition_of_time_series
+
 https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv
 
 ```python
