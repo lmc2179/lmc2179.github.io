@@ -1,8 +1,14 @@
-Log transformations, multiplicative models, and time series decompositions
+# Why would we use a log transform in regression? Multiplicative models and time series decompositions
+
+*TL;DR - Sometimes, analysts will recommend a log transformation of the outcome variable to "make the residuals look normal". Sometimes, this is just papering over data that has quality issues, but sometimes this kind of transformation genuinely produces a better fitting model. In what cases does this happen? Why does the log transformation work the way it does? Case studies from experiment analysis and Time Series Decomposition.*
+
+https://xkcd.com/451/
+
+# An example: Multiplicative treatment effect
 
 https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv
 
-https://xkcd.com/451/
+# Another common use case: Time series decomposition
 
 ```python
 import numpy as np
