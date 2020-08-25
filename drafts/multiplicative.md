@@ -1,14 +1,46 @@
 # Why would we use a log transform in regression? Multiplicative models and time series decompositions
 
-*TL;DR - Sometimes, analysts will recommend a log transformation of the outcome variable to "make the residuals look normal". Sometimes, this is just papering over data that has quality issues, but sometimes this kind of transformation genuinely produces a better fitting model. In what cases does this happen? Why does the log transformation work the way it does? Case studies from experiment analysis and Time Series Decomposition.*
+*TL;DR - Sometimes, analysts will recommend a log transformation of the outcome variable to "make the residuals look normal". Sometimes, this is just papering other issues, but sometimes this kind of transformation genuinely produces a better fitting model. In what cases does this happen? Why does the log transformation work the way it does? Case studies from experiment analysis and Time Series Decomposition.*
 
 https://xkcd.com/451/
 
-# An example: Multiplicative treatment effect
+# One common reason: Because log-transformed data fits the model assumptions than any other distribution
+
+https://stats.stackexchange.com/a/3530/29694
+
+## Log transformations do not automatically fix model assumption problems
+
+```python
+import numpy as np
+import pandas as pd
+from matplotlib import pyplot as plt
+import seaborn as sns
+from statsmodels.api import formula as smf
+from scipy.stats import norm
+
+df = pd.DataFrame({'x': [0] * 100 + [1] * 100, 'y': np.random.normal([10] * 100 + [20] * 100, [2]*100 + [1]*100)})
+
+model = smf.ols('y ~ x', df)
+fit = model.fit()
+
+plt.scatter(df['x'], df['y'] - fit.predict(df))
+plt.show()
+
+log_model = smf.ols('np.log(y) ~ x', df)
+log_fit = log_model.fit()
+
+plt.scatter(df['x'], log_fit.resid)
+plt.show()
+
+```
+
+# Another reason: Because you'd like a model where coefficients combine by multiplying instead of adding
+
+Example: Treatment effect multiplies instead of adding
+
+# A common use case: Multiplicative time series decomposition
 
 https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv
-
-# Another common use case: Time series decomposition
 
 ```python
 import numpy as np
