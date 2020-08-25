@@ -7,6 +7,7 @@ https://xkcd.com/451/
 # One common reason: Because log-transformed data fits the model assumptions than any other transformation
 
 https://stats.stackexchange.com/a/3530/29694
+http://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/07/lecture-07.pdf
 
 ## Log transformations do not automatically fix model assumption problems
 
