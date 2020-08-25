@@ -1,10 +1,10 @@
 # Why would we use a log transform in regression? Multiplicative models and time series decompositions
 
-*TL;DR - Sometimes, analysts will recommend a log transformation of the outcome variable to "make the residuals look normal". Sometimes, this is just papering other issues, but sometimes this kind of transformation genuinely produces a better fitting model. In what cases does this happen? Why does the log transformation work the way it does?*
+*TL;DR - Sometimes, analysts will recommend a log transformation of the outcome variable to "make the residuals look normal". In some cases this is just papering over other issues, but sometimes this kind of transformation genuinely improves the inference or produces a better fitting model. In what cases does this happen? Why does the log transformation work the way it does?*
 
 https://xkcd.com/451/
 
-# One common reason: Because log-transformed data fits the model assumptions than any other distribution
+# One common reason: Because log-transformed data fits the model assumptions than any other transformation
 
 https://stats.stackexchange.com/a/3530/29694
 
