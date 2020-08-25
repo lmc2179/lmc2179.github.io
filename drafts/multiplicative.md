@@ -1,5 +1,7 @@
 Log transformations, multiplicative models, and time series decompositions
 
+https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv
+
 https://xkcd.com/451/
 
 ```python
