@@ -18,9 +18,9 @@ s_c = 1
 s_p = 1
 s_y = 1
 
-a_p = 1
+a_p = 0
 b_cp = 1
-a_y = 1
+a_y = 0
 b_ty = 1
 b_cy = 1
 
@@ -31,7 +31,7 @@ y = np.random.normal(a_y + b_ty*t + b_cy*c, s_y)
 
 df = pd.DataFrame({'c': c, 't': t, 'p': p, 'y': y})
 
-print(smf.ols('y ~ t + c', df).fit().summary())
+print(smf.ols('y ~ t', df).fit().summary())
 print(smf.ols('y ~ t + c', df).fit().summary())
 print(smf.ols('y ~ t + p', df).fit().summary())
 
