@@ -1,4 +1,4 @@
-# Why would we use a log transform in regression? Multiplicative models and time series decompositions
+# When do we log transform the response variable? Model assumptions, multiplicative models and time series decompositions
 
 *TL;DR - Sometimes, analysts will recommend a log transformation of the outcome variable to "make the residuals look normal". In some cases this is just papering over other issues, but sometimes this kind of transformation genuinely improves the inference or produces a better fitting model. In what cases does this happen? Why does the log transformation work the way it does?*
 
@@ -8,6 +8,8 @@ https://xkcd.com/451/
 
 https://stats.stackexchange.com/a/3530/29694
 http://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/07/lecture-07.pdf
+
+It's worth pointing out that this is _not_ always the right move.
 
 ## Log transformations do not automatically fix model assumption problems
 
@@ -35,11 +37,13 @@ plt.show()
 
 ```
 
-# Another reason: Because you'd like a model where coefficients combine by multiplying instead of adding
+# Another reason: Because you'd like a model where coefficients multiplicatively instead of additively
 
 Example: Treatment effect multiplies instead of adding
 
 # A common use case: Multiplicative time series decomposition
+
+There's a use case where multiplicative combinations are common enough that it's worth walking through it here. 
 
 https://en.wikipedia.org/wiki/Decomposition_of_time_series
 
