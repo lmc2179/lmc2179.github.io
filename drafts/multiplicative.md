@@ -37,7 +37,7 @@ plt.show()
 
 ```
 
-# Another reason: Because you'd like a model where coefficients multiplicatively instead of additively
+# Another reason: Because you'd like a model where coefficients combine multiplicatively instead of additively
 
 Example: Treatment effect multiplies instead of adding
 
