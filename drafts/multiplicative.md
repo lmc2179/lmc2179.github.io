@@ -6,10 +6,20 @@ https://xkcd.com/451/
 
 # One common reason: Because log-transformed data fits the model assumptions than any other transformation
 
+A commonly cited justification for log transforming the response variable is that the OLS assumptions are being violated, and the transformation will remedy this. These arguments often go something like:
+
+- My residuals are non-normal because they are skewed or have outliers; a log transform makes them more symmetric.
+- My residuals show evidence of heteroskedasticity; log transforming the response makes the residual variance seem constant.
+- My dependent variable is constrained to be positive, but in an OLS model the outcome variable can be negative.
+A log transformation of the response variable may sometimes resolve these issues, and is worth considering. However, each of these problems has other potential solutions:
+- Asymmetric residuals could be resolved by a different non-linear transformation of the outcome; the log transform is not special. A square root, for example, may have the same effect. You might also consider a model with an asymmetric or heavy-tailed residual distribution.
+- Heteroskedasticity can be accounted for by making the non-constant variance part of your model. In the linear model framework, [WLS](http://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/24/lecture-24--25.pdf) is a common solution.
+- A dependent variable which is definitionally positive can be accounted for with a GLM other than OLS, like a Negative-binomial model or Gamma model. 
+
+The point here is _not_ that a log transformation can't solve these problems - it sometimes can! Rather, the point is that it will not _always_ solve these problems. It's worth looking at an example where the OLS assumptions are violated but the log transform doesn't help. 
+
 https://stats.stackexchange.com/a/3530/29694
 http://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/07/lecture-07.pdf
-
-It's worth pointing out that this is _not_ always the right move.
 
 ## Log transformations do not automatically fix model assumption problems
 
