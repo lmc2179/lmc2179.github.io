@@ -31,22 +31,22 @@ https://stats.stackexchange.com/a/3530/29694
 
 ## Log transformations do not automatically fix model assumption problems
 
-```python
-import numpy as np
-import pandas as pd
-from matplotlib import pyplot as plt
-import seaborn as sns
-from statsmodels.api import formula as smf
-from scipy.stats import norm
+It's worth
 
-df = pd.DataFrame({'x': [0] * 100 + [1] * 100, 'y': np.random.normal([10] * 100 + [20] * 100, [2]*100 + [1]*100)})
+*You can find the import statements for the code at the bottom of the post.
+
+```python
+df = pd.DataFrame({'x': [0] * 100 + [1] * 100, 
+                   'y': np.random.normal([10] * 100 + [20] * 100, [2]*100 + [1]*100)})
 
 model = smf.ols('y ~ x', df)
 fit = model.fit()
 
 plt.scatter(df['x'], df['y'] - fit.predict(df))
 plt.show()
+```
 
+```python
 log_model = smf.ols('np.log(y) ~ x', df)
 log_fit = log_model.fit()
 
@@ -78,7 +78,7 @@ Let's consider a more elaborate example
 
 $$y = \alpha + \gamma X +  \beta T + \epsilon$$
 
-$$log y = \alpha + \gamma X +  \beta T + \epsilon$$
+$$log(y) = \alpha + \gamma X +  \beta T + \epsilon$$
 
 This will be a better fit is the treatment is not strictly additive
 
@@ -116,5 +116,16 @@ plt.show()
 plt.plot(additive_fit.fittedvalues - df['Passengers'])
 plt.plot(np.exp(multiplicative_fit.fittedvalues) - df['Passengers'])
 plt.show()
+```
+
+# Appendix: Imports
+
+```python
+import numpy as np
+import pandas as pd
+from matplotlib import pyplot as plt
+import seaborn as sns
+from statsmodels.api import formula as smf
+from scipy.stats import norm
 ```
 
