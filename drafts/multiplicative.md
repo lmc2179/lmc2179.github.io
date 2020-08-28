@@ -31,7 +31,15 @@ https://stats.stackexchange.com/a/3530/29694
 
 ## Log transformations do not automatically fix model assumption problems
 
-It's worth
+It's worth walking through an example where a logarithm transform of the response doesn't work, in order to get some intuition as to why.
+
+Let's look at a dataset on which we apply a simple regression model. The dataset has one binary dependent variable, and one continuous outcome variable. The true distribution of the data is:
+
+$$y | x = 0 ~ N(10, 2)$$
+
+$$y | x = 1 ~ N(20, 1)$$
+
+That is, as $x$ increases, so does the expected value of $y$. And as $x$ increases, the variance of $y$ _decreases_, a classically heteroskedastic situation. Let's construct a sample from this dataset, and then fit a linear model to it. We'll plot the residuals against $x$, a standard diagnostic for heteroskedasticity.
 
 *You can find the import statements for the code at the bottom of the post.
 
@@ -46,6 +54,8 @@ plt.scatter(df['x'], df['y'] - fit.predict(df))
 plt.show()
 ```
 
+The result is what we expect - the variance of the residuals changes with $x$. As I mentioned, this is sometimes a case in which a log transform is used. Let's try one out and see why happens with this model's residuals:
+
 ```python
 log_model = smf.ols('np.log(y) ~ x', df)
 log_fit = log_model.fit()
@@ -55,10 +65,13 @@ plt.show()
 
 ```
 
+Oh my - the problem seems to have gotten _worse_. What happened? Well, the "log transform to create homoskedasticity" trick does sometimes works, but it only works in situations where the variance _increases_ as the predictor increases. In this case, the variance decreases as the predictor increases - a log transform makes the problem _worse_.
+
+Again, this doesn't mean that a log transform of the dependent variable will never solve your problem. This is, instead, a word of caution on doing so - it may not solve your problem, and there are other solutions worth considering.
+
 # Another reason: Because you'd like a model where coefficients combine multiplicatively instead of additively
 
-Section 3
-http://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/07/lecture-07.pdf
+_Part of this was adapted from [osma Shalizi's excellent regression lecture notes](http://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/07/lecture-07.pdf), see section 3._
 
 An attempt to correct bad OLS assumptions isn't the only reason we might log transform the response variable. Fitting a model like this will change the way that the coefficients combine in the predicted value of y.
 
