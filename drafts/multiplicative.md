@@ -7,7 +7,7 @@ tags: [datascience]
 image: logarithms.png
 ---
 
-*TL;DR - Sometimes, analysts will recommend a log transformation of the outcome variable to "make the residuals look normal". In some cases this is just papering over other issues, but sometimes this kind of transformation genuinely improves the inference or produces a better fitting model. In what cases does this happen? Why does the log transformation work the way it does?*
+*TL;DR - Sometimes, analysts will perform a log transformation of the outcome variable to "make the residuals look normal". In some cases this is just papering over other issues, but sometimes this kind of transformation genuinely improves the inference or produces a better fitting model. In what cases does this happen? Why does the log transformation work the way it does?*
 
 https://xkcd.com/451/
 
@@ -60,15 +60,23 @@ plt.show()
 
 An attempt to correct bad OLS assumptions isn't the only reason we might log transform the response variable. Fitting a model like this will change the way that the coefficients combine in the predicted value of y.
 
-Let's start with a simple example. We've observed
+Let's start with a simple example. We've run an experiment where half of our website's users
 
 $$y = \alpha +  \beta T + \epsilon$$
 
 $$log y = \alpha +  \beta T + \epsilon$$
 
-$exp(\beta)$
+$exp(\beta)$ recovers the effect
 
 This is sometimes called a [log-linear model](https://en.wikipedia.org/wiki/Log-linear_model#:~:text=A%20log%2Dlinear%20model%20is,(possibly%20multivariate)%20linear%20regression) - the logarithm of y is a linear function of X. 
+
+Let's consider a more elaborate example
+
+$$y = \alpha + \gamma X +  \beta T + \epsilon$$
+
+$$log y = \alpha + \gamma X +  \beta T + \epsilon$$
+
+This will be a better fit is the treatment is not strictly additive
 
 # A common use case: Multiplicative time series decomposition
 
