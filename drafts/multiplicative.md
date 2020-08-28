@@ -1,4 +1,11 @@
-# When do we log transform the response variable? Model assumptions, multiplicative models and time series decompositions
+---
+layout: post
+title: "When do we log transform the response variable? Model assumptions, multiplicative models and time series decompositions"
+author: "Louis Cialdella"
+categories: posts
+tags: [datascience]
+image: logarithms.png
+---
 
 *TL;DR - Sometimes, analysts will recommend a log transformation of the outcome variable to "make the residuals look normal". In some cases this is just papering over other issues, but sometimes this kind of transformation genuinely improves the inference or produces a better fitting model. In what cases does this happen? Why does the log transformation work the way it does?*
 
