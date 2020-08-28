@@ -11,7 +11,7 @@ image: logarithms.png
 
 https://xkcd.com/451/
 
-# One common reason: Because log-transformed data fits the model assumptions than any other transformation
+# One common reason: Because log-transformed data fits the model assumptions better than any other transformation
 
 A commonly cited justification for log transforming the response variable is that the OLS assumptions are being violated, and the transformation will remedy this. These arguments often go something like:
 
