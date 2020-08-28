@@ -51,15 +51,19 @@ plt.show()
 
 # Another reason: Because you'd like a model where coefficients combine multiplicatively instead of additively
 
+An attempt to correct bad OLS assumptions isn't the only reason we might log transform the response variable. Fitting a model like this will change the way that the coefficients combine in the predicted value of y. 
+
+This is sometimes called a [log-linear model](https://en.wikipedia.org/wiki/Log-linear_model#:~:text=A%20log%2Dlinear%20model%20is,(possibly%20multivariate)%20linear%20regression) - the logarithm of y is a linear function of X. 
+
 Example: Treatment effect multiplies instead of adding
 
 # A common use case: Multiplicative time series decomposition
 
-There's a use case where multiplicative combinations are common enough that it's worth walking through it here. 
+There's a use case for a multiplicative combinations which is common enough that it's worth walking through it here. 
 
 https://en.wikipedia.org/wiki/Decomposition_of_time_series
 
-https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv
+To see the difference between these two models in action, we're going to look at a [classic time series dataset of monthly airline passenger counts from 1949 to 1960](https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv). Plotting the dataset, we see some common features of time series data: there are clear seasonal trends, and a steady increase year over year.
 
 ```python
 import numpy as np
@@ -88,3 +92,4 @@ plt.plot(additive_fit.fittedvalues - df['Passengers'])
 plt.plot(np.exp(multiplicative_fit.fittedvalues) - df['Passengers'])
 plt.show()
 ```
+
