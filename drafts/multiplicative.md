@@ -28,7 +28,6 @@ A log transformation of the response variable may *sometimes* resolve these issu
 The point here is _not_ that a log transformation can't solve these problems - it sometimes can! Rather, the point is that it will not _always_ solve these problems. It's worth looking at an example where the OLS assumptions are violated but the log transform doesn't help. 
 
 https://stats.stackexchange.com/a/3530/29694
-http://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/07/lecture-07.pdf
 
 ## Log transformations do not automatically fix model assumption problems
 
@@ -58,15 +57,20 @@ plt.show()
 
 # Another reason: Because you'd like a model where coefficients combine multiplicatively instead of additively
 
+Section 3
+http://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/07/lecture-07.pdf
+
 An attempt to correct bad OLS assumptions isn't the only reason we might log transform the response variable. Fitting a model like this will change the way that the coefficients combine in the predicted value of y.
 
 Let's start with a simple example. We've run an experiment where half of our website's users
 
 $$y = \alpha +  \beta T + \epsilon$$
 
-$$log y = \alpha +  \beta T + \epsilon$$
+$$log(y) = \alpha +  \beta T + \epsilon$$
 
-$exp(\beta)$ recovers the effect
+$$y = e^{\alpha +  \beta T + \epsilon}$$
+
+$exp(\beta)$ recovers the multiplier of the treatment effect
 
 This is sometimes called a [log-linear model](https://en.wikipedia.org/wiki/Log-linear_model#:~:text=A%20log%2Dlinear%20model%20is,(possibly%20multivariate)%20linear%20regression) - the logarithm of y is a linear function of X. 
 
