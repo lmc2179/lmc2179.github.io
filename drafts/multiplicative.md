@@ -25,9 +25,11 @@ A log transformation of the response variable may *sometimes* resolve these issu
 - Heteroskedasticity can be accounted for by making the non-constant variance part of your model. In the linear model framework, [WLS](http://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/24/lecture-24--25.pdf) is a common solution.
 - A dependent variable which is definitionally positive can be accounted for with a GLM other than OLS, like a Negative-binomial model or Gamma model. 
 
+Variance-stabilizing transformations like the [Box-Cox transformation](https://en.wikipedia.org/wiki/Power_transform#Box%E2%80%93Cox_transformation) are also popular methods for dealing with these problems, and are more complex than simply taking a log.
+
 The point here is _not_ that a log transformation can't solve these problems - it sometimes can! Rather, the point is that it will not _always_ solve these problems. It's worth looking at an example where the OLS assumptions are violated but the log transform doesn't help. 
 
-https://stats.stackexchange.com/a/3530/29694
+
 
 ## Log transformations do not automatically fix model assumption problems
 
@@ -69,31 +71,51 @@ Oh my - the problem seems to have gotten _worse_. What happened? Well, the "log 
 
 Again, this doesn't mean that a log transform of the dependent variable will never solve your problem. This is, instead, a word of caution on doing so - it may not solve your problem, and there are other solutions worth considering.
 
-# Another reason: Because you'd like a model where coefficients combine multiplicatively instead of additively
+# Another reason: Because you'd like a model where coefficients combine multiplicatively instead of additively (log-linear model)
 
-_Part of this was adapted from [osma Shalizi's excellent regression lecture notes](http://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/07/lecture-07.pdf), see section 3._
 
 An attempt to correct bad OLS assumptions isn't the only reason we might log transform the response variable. Fitting a model like this will change the way that the coefficients combine in the predicted value of y.
 
-Let's start with a simple example. We've run an experiment where half of our website's users
+Let's consider an example. Imagine that you've recently been spending a lot of time indoors (for some of us this requires very little imagination), time which you've spent making extremely detailed tiny sculptures of cats so you can sell them online. This has proven a surprisingly lucrative revenue stream, and you'd like to do an analysis of the customers on your email list. For each customer, you know a few basic facts:
 
-$$y = \alpha +  \beta T + \epsilon$$
+- How much revenue they produced from their purchases last month, in dollars, which we'll call $y$
+- Whether they were a returning customer or a new customer, a binary variable we'll call $X_{returning}$
+- Whether they are in country A or country B (you live in country A, but the denizens of country B seem to absolutely adore cat sculptures), another binary variable, $X_{B}$
 
-$$log(y) = \alpha +  \beta T + \epsilon$$
+You'd like to understand the relationship between the revenue of a customer and their demographic variables. A common model for data like this is something like
 
-$$y = e^{\alpha +  \beta T + \epsilon}$$
+$$y = \alpha + \beta_{returning} X_{returning} + \beta_{B} X_{B} + \epsilon$$
 
-$exp(\beta)$ recovers the multiplier of the treatment effect
+We can fit this model with OLS, producing $\hat{\alpha}$, $\hat{\beta_{returning}}$, and $\hat{\beta_{B}}$. When we look at this fit, we can inspect these variables and interpret them like this:
 
-This is sometimes called a [log-linear model](https://en.wikipedia.org/wiki/Log-linear_model#:~:text=A%20log%2Dlinear%20model%20is,(possibly%20multivariate)%20linear%20regression) - the logarithm of y is a linear function of X. 
+-$\hat{\alpha}$ is the "baseline", the average revenue for new customers in country A.
+-$\hat{\beta_{returning}}$, and $\hat{\beta_{B}}$ are the expected added revenue from learning that a customer is returning and that a customer is in country B, respectively. We interpret this as the change in the expected value for each variable, "holding all others constant".
 
-Let's consider a more elaborate example
+This model has three coefficient parameters (we'll avoid talking about the nuisance parameter for noise) and no interaction term. It's totally plausible that there is an interaction between these two dependent variables. Perhaps returning customers produce more revenue than new ones, and country B customers produce more than country A, and a user who is both produces _much_ more revenue. In that case, the interaction term would be positive, indicating that observing both is correlated with more than either attribute counted individually. It's also plausible that the interaction term is negative, indicating that there are "diminishing returns", and the whole is less than the sum of its parts. Either way, adding this kind of interaction to your model will cost you an extra parameter.
 
-$$y = \alpha + \gamma X +  \beta T + \epsilon$$
+Let's now consider an alternative 3 parameter model:
 
-$$log(y) = \alpha + \gamma X +  \beta T + \epsilon$$
+$$log(y) = \alpha + \beta_{returning} X_{returning} + \beta_{B} X_{B} + \epsilon$$
 
-This will be a better fit is the treatment is not strictly additive
+How is this different from the previous model? The parameters now have a different interpretation. For example, $\hat{\beta_{returning}}$ is no longer the value _added_ to the expected value when we learn a customer is returning. Rather, this now _multiplies_ the expected value by $e^{\hat{\beta_{returning}}}$. This is sometimes called a [log-linear model](https://en.wikipedia.org/wiki/Log-linear_model#:~:text=A%20log%2Dlinear%20model%20is,(possibly%20multivariate)%20linear%20regression) - the logarithm of y is a linear function of X. 
+
+This kind of model makes sense if:
+- Your values of $y$ are strictly positive
+- It would be convenient to have a model where you can interpret the coefficients as multipliers, rather than additive changes
+- You think that the effects of your covariates combine non-additively. Specifically, they combine multiplicatively in the positive direction.
+
+If this last one is true, your model may fit the data better than the additive model with the same number of parameters.
+
+A comparison of the expected value of each subgroup under each model can be found in the table below.
+
+|Customer type|Country|Expected value under additive model||Expected value under log model|
+|---|---|---|---|
+|New|A|$\alpha$|$e^{\alpha}$|
+|Returning|A|$\alpha$|$e^{\alpha} e^{\beta_{returning}}$|
+|New|B|$\alpha$|$e^{\alpha} e^{\beta_{B}}$|
+|Returning|B|$\alpha$|$e^{\alpha} e^{\beta_{returning}} e^{\beta_{B}}$|
+
+The most important entry here is the last one, demonstrating the non-additive combination of regression terms.
 
 # A common use case: Multiplicative time series decomposition
 
@@ -141,4 +163,8 @@ import seaborn as sns
 from statsmodels.api import formula as smf
 from scipy.stats import norm
 ```
+# Appendix: Further reading
 
+https://stats.stackexchange.com/a/3530/29694
+
+[Cosma Shalizi's excellent regression lecture notes](http://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/07/lecture-07.pdf)
