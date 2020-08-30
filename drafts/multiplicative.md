@@ -86,10 +86,10 @@ You'd like to understand the relationship between the revenue of a customer and 
 
 $$y = \alpha + \beta_{returning} X_{returning} + \beta_{B} X_{B} + \epsilon$$
 
-We can fit this model with OLS, producing $\hat{\alpha}$, $\hat{\beta_{returning}}$, and $\hat{\beta_{B}}$. When we look at this fit, we can inspect these variables and interpret them like this:
+We can fit this model with OLS, producing $\widehat{\alpha}$, $\widehat{\beta_{returning}}$, and $\widehat{\beta_{B}}$. When we look at this fit, we can inspect these variables and interpret them like this:
 
--$\hat{\alpha}$ is the "baseline", the average revenue for new customers in country A.
--$\hat{\beta_{returning}}$, and $\hat{\beta_{B}}$ are the expected added revenue from learning that a customer is returning and that a customer is in country B, respectively. We interpret this as the change in the expected value for each variable, "holding all others constant".
+- $\widehat{\alpha}$ is the "baseline", the average revenue for new customers in country A.
+- $\widehat{\beta_{returning}}$, and $\widehat{\beta_{B}}$ are the expected added revenue from learning that a customer is returning and that a customer is in country B, respectively. We interpret this as the change in the expected value for each variable, "holding all others constant".
 
 This model has three coefficient parameters (we'll avoid talking about the nuisance parameter for noise) and no interaction term. It's totally plausible that there is an interaction between these two dependent variables. Perhaps returning customers produce more revenue than new ones, and country B customers produce more than country A, and a user who is both produces _much_ more revenue. In that case, the interaction term would be positive, indicating that observing both is correlated with more than either attribute counted individually. It's also plausible that the interaction term is negative, indicating that there are "diminishing returns", and the whole is less than the sum of its parts. Either way, adding this kind of interaction to your model will cost you an extra parameter.
 
@@ -97,7 +97,7 @@ Let's now consider an alternative 3 parameter model:
 
 $$log(y) = \alpha + \beta_{returning} X_{returning} + \beta_{B} X_{B} + \epsilon$$
 
-How is this different from the previous model? The parameters now have a different interpretation. For example, $\hat{\beta_{returning}}$ is no longer the value _added_ to the expected value when we learn a customer is returning. Rather, this now _multiplies_ the expected value by $e^{\hat{\beta_{returning}}}$. This is sometimes called a [log-linear model](https://en.wikipedia.org/wiki/Log-linear_model#:~:text=A%20log%2Dlinear%20model%20is,(possibly%20multivariate)%20linear%20regression) - the logarithm of y is a linear function of X. 
+How is this different from the previous model? The parameters now have a different interpretation. For example, $\widehat{\beta_{returning}}$ is no longer the value _added_ to the expected value when we learn a customer is returning. Rather, this now _multiplies_ the expected value by $e^{\widehat{\beta_{returning}}}$. This is sometimes called a [log-linear model](https://en.wikipedia.org/wiki/Log-linear_model#:~:text=A%20log%2Dlinear%20model%20is,(possibly%20multivariate)%20linear%20regression) - the logarithm of y is a linear function of X. 
 
 This kind of model makes sense if:
 - Your values of $y$ are strictly positive
@@ -108,7 +108,7 @@ If this last one is true, your model may fit the data better than the additive m
 
 A comparison of the expected value of each subgroup under each model can be found in the table below.
 
-|Customer type|Country|Expected value under additive model||Expected value under log model|
+|Customer type|Country|Expected value under additive model|Expected value under log model|
 |---|---|---|---|
 |New|A|$\alpha$|$e^{\alpha}$|
 |Returning|A|$\alpha$|$e^{\alpha} e^{\beta_{returning}}$|
