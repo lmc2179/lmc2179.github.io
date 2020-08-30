@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "When do we log transform the response variable? Model assumptions, multiplicative models and time series decompositions"
+title: "When do we log transform the response variable? Model assumptions, multiplicative combinations and log-linear models"
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
@@ -73,10 +73,9 @@ Again, this doesn't mean that a log transform of the dependent variable will nev
 
 # Another reason: Because you'd like a model where coefficients combine multiplicatively instead of additively (log-linear model)
 
+An attempt to correct bad OLS assumptions isn't the only reason we might log transform the response variable. Fitting a model like this will change the way that the coefficients combine in the predicted value of y. This is often done reflexively when the data is positive; Andrew Gelman even recommends trying it [any time your data are all-positive](https://statmodeling.stat.columbia.edu/2019/08/21/you-should-usually-log-transform-your-positive-data/).
 
-An attempt to correct bad OLS assumptions isn't the only reason we might log transform the response variable. Fitting a model like this will change the way that the coefficients combine in the predicted value of y.
-
-Let's consider an example. Imagine that you've recently been spending a lot of time indoors (for some of us this requires very little imagination), time which you've spent making extremely detailed tiny sculptures of cats so you can sell them online. This has proven a surprisingly lucrative revenue stream, and you'd like to do an analysis of the customers on your email list. For each customer, you know a few basic facts:
+Let's consider an example to see how this transformation actually changes the model. Imagine that you've recently been spending a lot of time indoors (for some of us this requires very little imagination), time which you've spent making extremely detailed tiny sculptures of cats so you can sell them online. This has proven a surprisingly lucrative revenue stream, and you'd like to do an analysis of the customers on your email list. For each customer, you know a few basic facts:
 
 - How much revenue they produced from their purchases last month, in dollars, which we'll call $y$
 - Whether they were a returning customer or a new customer, a binary variable we'll call $X_{returning}$
@@ -121,7 +120,7 @@ A comparison of the expected value of each subgroup under each model can be foun
 
 The most important entry here is the last one, demonstrating the non-additive combination of regression terms.
 
-# A common use case: Multiplicative time series decomposition
+# A time series example
 
 There's a use case for a multiplicative combinations which is common enough that it's worth walking through it here. 
 
@@ -130,12 +129,6 @@ https://en.wikipedia.org/wiki/Decomposition_of_time_series
 To see the difference between these two models in action, we're going to look at a [classic time series dataset of monthly airline passenger counts from 1949 to 1960](https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv). Plotting the dataset, we see some common features of time series data: there are clear seasonal trends, and a steady increase year over year.
 
 ```python
-import numpy as np
-import pandas as pd
-from matplotlib import pyplot as plt
-import seaborn as sns
-from statsmodels.api import formula as smf
-
 df = pd.read_csv('airline.csv')
 
 df['year'] = df['Month'].apply(lambda x: int(x.split('-')[0]))
@@ -152,8 +145,13 @@ plt.plot(additive_fit.fittedvalues)
 plt.plot(np.exp(multiplicative_fit.fittedvalues))
 plt.show()
 
-plt.plot(additive_fit.fittedvalues - df['Passengers'])
-plt.plot(np.exp(multiplicative_fit.fittedvalues) - df['Passengers'])
+ols_relative_error = np.abs((additive_fit.fittedvalues - df['Passengers'])/df['Passengers'])
+lin_log_relative_error = np.abs((np.exp(multiplicative_fit.fittedvalues) - df['Passengers'])/df['Passengers'])
+
+plt.title('Relative in-sample error')
+plt.plot(ols_relative_error, label='OLS model error, Mean= {0:.2f}'.format(np.mean(ols_relative_error)))
+plt.plot(lin_log_relative_error, label='Log-transformed model error, Mean={0:.2f}'.format(np.mean(lin_log_relative_error)))
+plt.legend()
 plt.show()
 ```
 
