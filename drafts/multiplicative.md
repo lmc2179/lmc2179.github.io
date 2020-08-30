@@ -111,9 +111,9 @@ A comparison of the expected value of each subgroup under each model can be foun
 |Customer type|Country|Expected value under additive model|Expected value under log model|
 |---|---|---|---|
 |New|A|$\alpha$|$e^{\alpha}$|
-|Returning|A|$\alpha$|$e^{\alpha} e^{\beta_{returning}}$|
-|New|B|$\alpha$|$e^{\alpha} e^{\beta_{B}}$|
-|Returning|B|$\alpha$|$e^{\alpha} e^{\beta_{returning}} e^{\beta_{B}}$|
+|Returning|A|$\alpha + \beta_{returning}$|$e^{\alpha} e^{\beta_{returning}}$|
+|New|B|$\alpha + \beta_{B}$|$e^{\alpha} e^{\beta_{B}}$|
+|Returning|B|$\alpha + \beta_{returning} + \beta_{B}$|$e^{\alpha} e^{\beta_{returning}} e^{\beta_{B}}$|
 
 The most important entry here is the last one, demonstrating the non-additive combination of regression terms.
 
