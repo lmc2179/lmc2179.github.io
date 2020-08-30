@@ -7,7 +7,7 @@ tags: [datascience]
 image: logarithms.png
 ---
 
-*TL;DR - Sometimes, analysts will perform a log transformation of the outcome variable to "make the residuals look normal". In some cases this is just papering over other issues, but sometimes this kind of transformation genuinely improves the inference or produces a better fitting model. In what cases does this happen? Why does the log transformation work the way it does?*
+*TL;DR - Sometimes, analysts will perform a log transformation of the outcome variable to "make the residuals look normal". In some cases this is just papering over other issues, but sometimes this kind of transformation genuinely improves the inference or produces a better fitting model. In what cases does this happen? Why does the log transformation work the way it does? How do we interpret the transformed model?*
 
 https://xkcd.com/451/
 
@@ -122,11 +122,18 @@ The most important entry here is the last one, demonstrating the non-additive co
 
 # A time series example
 
-There's a use case for a multiplicative combinations which is common enough that it's worth walking through it here. 
+Let's look at another comparison between a linear and log-linear model, this time in the time series domain. We'll compare the usual additive model to a log-transformed model. 
+To see the difference between these two models in action, we're going to look at a [classic time series dataset of monthly airline passenger counts from 1949 to 1960](https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv). This dataset has the number of passengers, $y$, the year $X_{year}$, and the month $X_month$. We'll compare the additive model
 
-https://en.wikipedia.org/wiki/Decomposition_of_time_series
+$$$$
 
-To see the difference between these two models in action, we're going to look at a [classic time series dataset of monthly airline passenger counts from 1949 to 1960](https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv). Plotting the dataset, we see some common features of time series data: there are clear seasonal trends, and a steady increase year over year.
+With the log-linear model
+
+$$$$
+
+I want to point out that this should _not_ be confused with the classical [multiplicative time series decomposition](https://otexts.com/fpp2/components.html), the log-log model. In that case, we'd need to transform both the response and the covariates. However, the model we construct still does have a multiplicative interpretation as we noted in the previous example.
+
+Plotting the dataset, we see some common features of time series data: there are clear seasonal trends, and a steady increase year over year.
 
 ```python
 df = pd.read_csv('airline.csv')
@@ -134,6 +141,14 @@ df = pd.read_csv('airline.csv')
 df['year'] = df['Month'].apply(lambda x: int(x.split('-')[0]))
 df['month_number'] = df['Month'].apply(lambda x: int(x.split('-')[1]))
 
+plt.plot(df['Passengers'])
+plt.show()
+```
+
+Note that the size of the swings are proportional to the average level of the series - years with a higher average also have larger seasonal swings.
+
+We can fit two models
+```python
 additive_model = smf.ols('Passengers ~ year + C(month_number)', df)
 additive_fit = additive_model.fit()
 
@@ -144,7 +159,23 @@ plt.plot(df['Passengers'])
 plt.plot(additive_fit.fittedvalues)
 plt.plot(np.exp(multiplicative_fit.fittedvalues))
 plt.show()
+```
+First, let's see if the residuals look the way we expect
 
+```python
+plt.title('Linear model residuals')
+sns.distplot(additive_fit.resid)
+plt.show()
+
+plt.title('Log-linear model residuals')
+sns.distplot(multiplicative_fit.resid)
+plt.show()
+```
+
+So far, so good. But perhaps you're more interested in the prediction error of the two models
+
+
+```python
 ols_relative_error = np.abs((additive_fit.fittedvalues - df['Passengers'])/df['Passengers'])
 lin_log_relative_error = np.abs((np.exp(multiplicative_fit.fittedvalues) - df['Passengers'])/df['Passengers'])
 
@@ -154,6 +185,8 @@ plt.plot(lin_log_relative_error, label='Log-transformed model error, Mean={0:.2f
 plt.legend()
 plt.show()
 ```
+
+Even though they have the same number of parameters, the log-linear model does a better job of getting the changing scale right
 
 # Appendix: Imports
 
