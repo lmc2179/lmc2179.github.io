@@ -103,7 +103,7 @@ How is this different from the previous model? The parameters now have a differe
 
 We can see this multiplicative effect a little mode clearly by taking the $exp$ of both sides to put $y$ on the original scale:
 
-$$y = e^{\alpha + \beta_{returning} X_{returning} + \beta_{B} X_{B} + \epsilon} = \alpha + \beta_{returning} + \beta_{B}$|$e^{\alpha} e^{\beta_{returning}} e^{\beta_{B}} e^\epsilon$$
+$$y = e^{\alpha + \beta_{returning} X_{returning} + \beta_{B} X_{B} + \epsilon} = e^{\alpha} e^{\beta_{returning}} e^{\beta_{B}} e^\epsilon $$
 
 This kind of model makes sense if:
 - Your values of $y$ are strictly positive
