@@ -205,6 +205,7 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 from statsmodels.api import formula as smf
 from scipy.stats import norm
+from statsmodels.graphics.gofplots import qqplot
 ```
 # Appendix: Further reading
 
