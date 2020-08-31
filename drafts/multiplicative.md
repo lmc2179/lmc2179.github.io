@@ -220,5 +220,5 @@ from statsmodels.graphics.gofplots import qqplot
 ```
 # Appendix: Further reading
 
-- I found [this](https://stats.stackexchange.com/a/3530/29694) stackexchange answer to be useful.
+- I found [this](https://stats.stackexchange.com/a/3530/29694) stackexchange answer to be useful in understanding when a log transform helps us with model assumptions.
 - [Cosma Shalizi's excellent regression lecture notes](http://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/07/lecture-07.pdf) have a good section on log and log-like transforms of the response variable.
