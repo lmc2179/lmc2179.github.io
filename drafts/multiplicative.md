@@ -155,7 +155,8 @@ plt.show()
 
 Note that the size of the swings are proportional to the average level of the series - years with a higher average also have larger seasonal swings.
 
-We can fit the two models using statsmodels.
+We can fit the two models using statsmodels. We only need to add an `np.log` to the model specification to fit the log-linear model. We'll plot their predictions along with the observed data.
+
 ```python
 additive_model = smf.ols('Passengers ~ year + C(month_number)', df)
 additive_fit = additive_model.fit()
@@ -174,10 +175,9 @@ plt.show()
 
 (Note that the LL model outputs on the log scale, so we need to $exp$ the predictions.)
 
-First, let's see if the residuals look the way we expect with a qqplot
+Note that the scale of the additive model doesn't change as we move from left to right; the additive model predicts monthly fluctuations that are too large in the early part of the data, and too small in the later part of the data.
 
-https://stats.stackexchange.com/questions/101274/how-to-interpret-a-qq-plot
-https://xiongge.shinyapps.io/QQplots/
+In addition, let's see if the residuals look the way we expect with a qqplot:
 
 ```python
 fig, (ax1, ax2) = plt.subplots(1, 2)
@@ -190,7 +190,7 @@ plt.show()
 
 ![Original data](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/multiplicative/5.png)
 
-So far, so good. But really we're more interested in the prediction error of the two models
+So far, so good - the transformed model residuals do look more normal. ([This](https://stats.stackexchange.com/questions/101274/how-to-interpret-a-qq-plot) and [this](https://xiongge.shinyapps.io/QQplots/) are useful for building intuition about how to interpret QQ plots). But really we're more interested in the prediction error of the two models. Let's plot the relative error (residual size as a proportion of the observation) for each monthly observation. 
 
 ```python
 ols_relative_error = np.abs((additive_fit.fittedvalues - df['Passengers'])/df['Passengers'])
@@ -205,7 +205,7 @@ plt.show()
 
 ![Original data](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/multiplicative/6.png)
 
-Even though they have the same number of parameters, the log-linear model does a better job of getting the changing scale right
+Even though they have the same number of parameters, the log-linear model makes better in-sample predictions in the earlier part of the dataset; the average error is smaller. This is not to say, of course, that this is the one true model of this time series - only that the log-linear model is a better fit, presumably because the yearly and monthly effects combine multiplicatively.
 
 # Appendix: Imports
 
@@ -220,6 +220,5 @@ from statsmodels.graphics.gofplots import qqplot
 ```
 # Appendix: Further reading
 
-https://stats.stackexchange.com/a/3530/29694
-
-[Cosma Shalizi's excellent regression lecture notes](http://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/07/lecture-07.pdf)
+- I found [this](https://stats.stackexchange.com/a/3530/29694) stackexchange answer to be useful.
+- [Cosma Shalizi's excellent regression lecture notes](http://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/07/lecture-07.pdf) have a good section on log and log-like transforms of the response variable.
