@@ -7,10 +7,9 @@ tags: [datascience]
 image: logarithms.png
 ---
 
-_From [XKCD 451](https://xkcd.com/451/)._
-
 *Sometimes, analysts will perform a log transformation of the outcome variable to "make the residuals look normal". In some cases this is just papering over other issues, but sometimes this kind of transformation genuinely improves the inference or produces a better fitting model. In what cases does this happen? Why does the log transformation work the way it does? How do we interpret the transformed model?*
 
+_Banner from [XKCD 451](https://xkcd.com/451/)._
 
 # One common reason: Because log-transformed data fits the model assumptions better than any other transformation
 
