@@ -56,6 +56,8 @@ plt.scatter(df['x'], df['y'] - fit.predict(df))
 plt.show()
 ```
 
+IMG
+
 The result is what we expect - the variance of the residuals changes with $x$. As I mentioned, this is sometimes a case in which a log transform is used. Let's try one out and see why happens with this model's residuals:
 
 ```python
@@ -64,8 +66,9 @@ log_fit = log_model.fit()
 
 plt.scatter(df['x'], log_fit.resid)
 plt.show()
-
 ```
+
+IMG
 
 Oh my - the problem seems to have gotten _worse_. What happened? Well, the "log transform to create homoskedasticity" trick does sometimes works, but it only works in situations where the variance _increases_ as the predictor increases. In this case, the variance decreases as the predictor increases - a log transform makes the problem _worse_.
 
@@ -148,6 +151,8 @@ plt.xlabel('Month')
 plt.show()
 ```
 
+IMG
+
 Note that the size of the swings are proportional to the average level of the series - years with a higher average also have larger seasonal swings.
 
 We can fit the two models using statsmodels.
@@ -165,6 +170,8 @@ plt.legend()
 plt.show()
 ```
 
+IMG
+
 (Note that the LL model outputs on the log scale, so we need to $exp$ the predictions.)
 
 First, let's see if the residuals look the way we expect with a qqplot
@@ -180,6 +187,8 @@ qqplot(additive_fit.resid, line='s', ax=ax1)
 qqplot(log_linear_model_fit.resid, line='s', ax=ax2)
 plt.show()
 ```
+
+IMG
 
 So far, so good. But really we're more interested in the prediction error of the two models
 
