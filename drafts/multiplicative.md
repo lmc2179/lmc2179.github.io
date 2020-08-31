@@ -56,7 +56,7 @@ plt.scatter(df['x'], df['y'] - fit.predict(df))
 plt.show()
 ```
 
-IMG
+![Original data](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/multiplicative/1.png)
 
 The result is what we expect - the variance of the residuals changes with $x$. As I mentioned, this is sometimes a case in which a log transform is used. Let's try one out and see why happens with this model's residuals:
 
@@ -68,7 +68,7 @@ plt.scatter(df['x'], log_fit.resid)
 plt.show()
 ```
 
-IMG
+![Original data](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/multiplicative/2.png)
 
 Oh my - the problem seems to have gotten _worse_. What happened? Well, the "log transform to create homoskedasticity" trick does sometimes works, but it only works in situations where the variance _increases_ as the predictor increases. In this case, the variance decreases as the predictor increases - a log transform makes the problem _worse_.
 
@@ -151,7 +151,7 @@ plt.xlabel('Month')
 plt.show()
 ```
 
-IMG
+![Original data](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/multiplicative/3.png)
 
 Note that the size of the swings are proportional to the average level of the series - years with a higher average also have larger seasonal swings.
 
@@ -170,7 +170,7 @@ plt.legend()
 plt.show()
 ```
 
-IMG
+![Original data](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/multiplicative/4.png)
 
 (Note that the LL model outputs on the log scale, so we need to $exp$ the predictions.)
 
@@ -188,7 +188,7 @@ qqplot(log_linear_model_fit.resid, line='s', ax=ax2)
 plt.show()
 ```
 
-IMG
+![Original data](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/multiplicative/5.png)
 
 So far, so good. But really we're more interested in the prediction error of the two models
 
@@ -202,6 +202,8 @@ plt.plot(lin_log_relative_error, label='Log-transformed model error, Mean={0:.2f
 plt.legend()
 plt.show()
 ```
+
+![Original data](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/multiplicative/6.png)
 
 Even though they have the same number of parameters, the log-linear model does a better job of getting the changing scale right
 
