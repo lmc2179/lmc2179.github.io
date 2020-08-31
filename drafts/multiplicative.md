@@ -194,7 +194,7 @@ So far, so good. But really we're more interested in the prediction error of the
 
 ```python
 ols_relative_error = np.abs((additive_fit.fittedvalues - df['Passengers'])/df['Passengers'])
-lin_log_relative_error = np.abs((np.exp(multiplicative_fit.fittedvalues) - df['Passengers'])/df['Passengers'])
+lin_log_relative_error = np.abs((np.exp(log_linear_model_fit.fittedvalues) - df['Passengers'])/df['Passengers'])
 
 plt.title('Relative in-sample error')
 plt.plot(ols_relative_error, label='OLS model error, Mean= {0:.2f}'.format(np.mean(ols_relative_error)))
