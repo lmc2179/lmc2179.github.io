@@ -128,11 +128,11 @@ The most important entry here is the last one, demonstrating the non-additive co
 Let's look at another comparison between a linear and log-linear model, this time in the time series domain. We'll compare the usual additive model to a log-transformed model. 
 To see the difference between these two models in action, we're going to look at a [classic time series dataset of monthly airline passenger counts from 1949 to 1960](https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv). This dataset has the number of passengers, $y$, the year $X_{year}$, and the month $X_month$. We'll compare the additive model
 
-$$y = \beta_{year} X_{year} + \beta_{january} X__{january} + ... + \beta_{december} X_{december} + \epsilon $$
+$$ y = \beta_{year} X_{year} + \beta_{january} X__{january} + \cdots + \beta_{december} X_{december} + \epsilon $$
 
 With the log-linear model
 
-$$log(y) = \beta_{year} X_{year} + \beta_{january} X__{january} + ... + \beta_{december} X_{december} + \epsilon $$
+$$log(y) = \beta_{year} X_{year} + \beta_{january} X__{january} + \cdots + \beta_{december} X_{december} + \epsilon $$
 
 I want to point out that this should _not_ be confused with the classical [multiplicative time series decomposition](https://otexts.com/fpp2/components.html), the log-log model. In that case, we'd need to transform both the response and the covariates. However, the model we construct still does have a multiplicative interpretation as we noted in the previous example.
 
