@@ -125,11 +125,11 @@ The most important entry here is the last one, demonstrating the non-additive co
 Let's look at another comparison between a linear and log-linear model, this time in the time series domain. We'll compare the usual additive model to a log-transformed model. 
 To see the difference between these two models in action, we're going to look at a [classic time series dataset of monthly airline passenger counts from 1949 to 1960](https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv). This dataset has the number of passengers, $y$, the year $X_{year}$, and the month $X_month$. We'll compare the additive model
 
-$$$$
+$$y = \beta_{year} X_{year} + \beta_{january} X__{january} + ... + \beta_{december} X_{december} + \epsilon $$
 
 With the log-linear model
 
-$$$$
+$$log(y) = \beta_{year} X_{year} + \beta_{january} X__{january} + ... + \beta_{december} X_{december} + \epsilon $$
 
 I want to point out that this should _not_ be confused with the classical [multiplicative time series decomposition](https://otexts.com/fpp2/components.html), the log-log model. In that case, we'd need to transform both the response and the covariates. However, the model we construct still does have a multiplicative interpretation as we noted in the previous example.
 
@@ -142,38 +142,46 @@ df['year'] = df['Month'].apply(lambda x: int(x.split('-')[0]))
 df['month_number'] = df['Month'].apply(lambda x: int(x.split('-')[1]))
 
 plt.plot(df['Passengers'])
+plt.title('Airline passengers by month')
+plt.ylabel('Total passengers')
+plt.xlabel('Month')
 plt.show()
 ```
 
 Note that the size of the swings are proportional to the average level of the series - years with a higher average also have larger seasonal swings.
 
-We can fit two models
+We can fit the two models using statsmodels.
 ```python
 additive_model = smf.ols('Passengers ~ year + C(month_number)', df)
 additive_fit = additive_model.fit()
 
-multiplicative_model = smf.ols('np.log(Passengers) ~ year + C(month_number)', df)
-multiplicative_fit = multiplicative_model.fit()
+log_linear_model = smf.ols('np.log(Passengers) ~ year + C(month_number)', df)
+log_linear_model_fit = log_linear_model.fit()
 
-plt.plot(df['Passengers'])
-plt.plot(additive_fit.fittedvalues)
-plt.plot(np.exp(multiplicative_fit.fittedvalues))
+plt.plot(df['Passengers'], label='Observations')
+plt.plot(additive_fit.fittedvalues, label='Additive model', linestyle='--')
+plt.plot(np.exp(log_linear_model_fit.fittedvalues), label='Log-Linear model', linestyle='--')
+plt.legend()
 plt.show()
 ```
-First, let's see if the residuals look the way we expect
+
+(Note that the LL model outputs on the log scale, so we need to $exp$ the predictions.)
+
+First, let's see if the residuals look the way we expect with a qqplot
+
+https://stats.stackexchange.com/questions/101274/how-to-interpret-a-qq-plot
+https://xiongge.shinyapps.io/QQplots/
 
 ```python
-plt.title('Linear model residuals')
-sns.distplot(additive_fit.resid)
-plt.show()
-
-plt.title('Log-linear model residuals')
-sns.distplot(multiplicative_fit.resid)
+fig, (ax1, ax2) = plt.subplots(1, 2)
+ax1.set_title('Additive model residuals')
+ax2.set_title('Log-linear model residuals')
+qqplot(additive_fit.resid, line='s', ax=ax1)
+qqplot(log_linear_model_fit.resid, line='s', ax=ax2)
 plt.show()
 ```
 
-So far, so good. But perhaps you're more interested in the prediction error of the two models
-
+So far, so good. But really we're more interested in the prediction error of the two models
 
 ```python
 ols_relative_error = np.abs((additive_fit.fittedvalues - df['Passengers'])/df['Passengers'])
