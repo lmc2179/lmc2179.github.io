@@ -126,7 +126,7 @@ The most important entry here is the last one, demonstrating the non-additive co
 # A time series example
 
 Let's look at another comparison between a linear and log-linear model, this time in the time series domain. We'll compare the usual additive model to a log-transformed model. 
-To see the difference between these two models in action, we're going to look at a [classic time series dataset of monthly airline passenger counts from 1949 to 1960](https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv). This dataset has the number of passengers, $y$, the year $X_{year}$, and the month $X_month$. We'll compare the additive model
+To see the difference between these two models in action, we're going to look at a [classic time series dataset of monthly airline passenger counts from 1949 to 1960](https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv). This dataset has the number of passengers, $y$, the year $X_{year}$, and the month $X_{january}, \cdots, X_{december}$. We'll compare the additive model
 
 $$ y = \beta_{year} X_{year} + \beta_{january} X__{january} + \cdots + \beta_{december} X_{december} + \epsilon $$
 
