@@ -70,7 +70,7 @@ plt.show()
 
 ![Original data](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/multiplicative/2.png)
 
-Oh my - the problem seems to have gotten _worse_. What happened? Well, the "log transform to create homoskedasticity" trick does sometimes works, but it only works in situations where the variance _increases_ as the predictor increases. In this case, the variance decreases as the predictor increases - a log transform makes the problem _worse_.
+Oh my - the problem does not seem to have gone away. What happened? Well, the "log transform to create homoskedasticity" trick does sometimes works, but it only works in situations where the variance _increases_ as the predictor increases. In this case, the variance decreases as the predictor increases - a log transform makes the problem _worse_.
 
 Again, this doesn't mean that a log transform of the dependent variable will never solve your problem. This is, instead, a word of caution on doing so - it may not solve your problem, and there are other solutions worth considering.
 
