@@ -37,9 +37,9 @@ It's worth walking through an example where a logarithm transform of the respons
 
 Let's look at a dataset on which we apply a simple regression model. The dataset has one binary dependent variable, and one continuous outcome variable. The true distribution of the data is:
 
-$$y | x = 0 ~ N(10, 2)$$
+$$y | x = 0 \sim N(10, 2)$$
 
-$$y | x = 1 ~ N(20, 1)$$
+$$y | x = 1 \sim N(20, 1)$$
 
 That is, as $x$ increases, so does the expected value of $y$. And as $x$ increases, the variance of $y$ _decreases_, a classically heteroskedastic situation. Let's construct a sample from this dataset, and then fit a linear model to it. We'll plot the residuals against $x$, a standard diagnostic for heteroskedasticity.
 
