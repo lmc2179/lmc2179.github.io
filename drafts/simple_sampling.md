@@ -61,6 +61,12 @@ plt.show()
 
 ## An interesting connection between the Bayesian and Frequentist worlds: Laplace and the Fisher information
 
+http://gregorygundersen.com/blog/2019/11/28/asymptotic-normality-mle/
+
+https://stephens999.github.io/fiveMinuteStats/asymptotic_normality_mle.html
+
+https://ocw.mit.edu/courses/mathematics/18-443-statistics-for-applications-fall-2006/lecture-notes/lecture3.pdf
+
 # Comparing these methods
 
 |Method|Dimensionality|Summary|
