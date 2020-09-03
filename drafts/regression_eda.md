@@ -120,4 +120,17 @@ def forestplot(model, fit_results, alpha=.05, cols_to_include=None, bonferroni_c
   plt.yticks(summary_matrix['position'], summary_matrix['clean_name'])
 ```
 
-Need: bspline support and interaction support
+```
+import patsy
+import pandas as pd
+
+df = pd.DataFrame({'X': [1, 0, 1, 2, 3], 'Z': [1, 0, 1, 2, 3], 'y': 0})
+endog, exog = patsy.dmatrices('y ~ X + C(X) + bs(X, df=3) + X:Z + C(Z) + C(X):C(Z)', df)
+
+term_names = [t.name() for t in exog.design_info.terms]
+term_slices = list(exog.design_info.term_slices.values())
+
+factor_names = [evf.name() for evf in exog.design_info.factor_infos.keys()]
+factor_levels = [fi.categories for fi in exog.design_info.factor_infos.values()]
+factor_lookup = {n: l for n, l in zip(factor_names, factor_levels) if l is not None}
+```
