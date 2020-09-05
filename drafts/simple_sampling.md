@@ -32,6 +32,42 @@ print(latex(F))
 
 ## A numerical solution with Scipy
 
+```python
+from matplotlib import pyplot as plt
+import seaborn as sns
+from scipy.interpolate import InterpolatedUnivariateSpline
+from scipy.stats import uniform
+
+# https://stackoverflow.com/questions/47275957/invert-interpolation-to-give-the-variable-associated-with-a-desired-interpolatio
+
+def f(x):
+  return x * (1-x)**3
+  
+n_points = 1000
+grid_points = np.linspace(0, 1, n_points)
+density = f(grid_points)
+
+approx_f = InterpolatedUnivariateSpline(grid_points, density)
+
+plt.scatter(grid_points, density)
+plt.plot(grid_points, approx_f(grid_points), color='orange')
+plt.show()
+
+approx_cdf = np.vectorize(lambda x: approx_f.integral(0, x) / approx_f.integral(0, 1))
+plt.plot(grid_points, approx_cdf(grid_points))
+plt.show()
+
+inv_approx_cdf = InterpolatedUnivariateSpline(approx_cdf(grid_points), grid_points)
+plt.plot(grid_points, inv_approx_cdf(grid_points))
+plt.show()
+
+x_uniform = uniform(0, 1).rvs(1000)
+samples = inv_approx_cdf(x_uniform)
+sns.distplot(samples)
+plt.plot(grid_points, density / approx_f.integral(0, 1))
+plt.show()
+```
+
 # Low-dimensional dimensions: Grid sampling
 
 - Select grid bounds and resolution
