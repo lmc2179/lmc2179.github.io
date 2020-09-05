@@ -129,7 +129,7 @@ def approx_dist(lnprob, v_init=None, v_max=None, hessian=None):
 
 ```
 
-## An interesting connection between the Bayesian and Frequentist worlds: Laplace and the Fisher information
+## An interesting connection between the large-sample properties of the Bayesian and Frequentist worlds: Laplace's approximation and the Fisher information
 
 http://gregorygundersen.com/blog/2019/11/28/asymptotic-normality-mle/
 
