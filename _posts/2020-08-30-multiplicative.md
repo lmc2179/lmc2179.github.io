@@ -29,8 +29,6 @@ Variance-stabilizing transformations like the [Box-Cox transformation](https://e
 
 The point here is _not_ that a log transformation can't solve these problems - it sometimes can! Rather, the point is that it will not _always_ solve these problems. It's worth looking at an example where the OLS assumptions are violated but the log transform doesn't help. 
 
-
-
 ## Log transformations do not automatically fix model assumption problems
 
 It's worth walking through an example where a logarithm transform of the response doesn't work, in order to get some intuition as to why.
@@ -58,7 +56,7 @@ plt.show()
 
 ![Original data](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/multiplicative/1.png)
 
-The result is what we expect - the variance of the residuals changes with $x$. As I mentioned, this is sometimes a case in which a log transform is used. Let's try one out and see why happens with this model's residuals:
+The result is what we expect - the variance of the residuals changes with $x$. As I mentioned, this is sometimes a case in which a log transform is used. Let's try one out and see what happens with this model's residuals:
 
 ```python
 log_model = smf.ols('np.log(y) ~ x', df)
