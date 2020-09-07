@@ -51,11 +51,23 @@ import seaborn as sns
 import numpy as np
 import pandas as pd
 
-def forestplot_sorted(middle, lower, upper, name, colormap):
+def forestplot(middle, lower, upper, names):
   df = pd.DataFrame({'mid': middle,
                      'low': lower,
                      'high': upper,
-                     'name': name})
+                     'name': names})
+  df['position'] = -np.arange(len(df))
+  plt.scatter(df['mid'], df['position'])
+  plt.scatter(df['low'], df['position'], marker='|', color='black')
+  plt.scatter(df['high'], df['position'], marker='|', color='black')
+  plt.hlines(df['position'], df['low'], df['high'])
+  plt.yticks(df['position'], df['name'])
+    
+def forestplot_sorted( middle, lower, upper, names, colormap):
+  df = pd.DataFrame({'mid': middle,
+                     'low': lower,
+                     'high': upper,
+                     'name': names})
   df = df.sort_values('mid')
   df['position'] = -np.arange(len(df))
   colors = colormap(np.linspace(0, 1, len(df)))
@@ -64,7 +76,13 @@ def forestplot_sorted(middle, lower, upper, name, colormap):
   plt.scatter(df['high'], df['position'], color=colors, marker='|')
   plt.hlines(df['position'], df['low'], df['high'], color=colors)
   plt.yticks(df['position'], df['name'])
-  
+    
+def forestplot_grouped(middle, lower, upper, names, colormap, groups):
+  pass
+
+forestplot([0, 1, 2, 3], [-1, 0, 1, 2], [1, 2, 3, 4], ['a', 'b', 'c', 'd'])
+plt.show()
+
 forestplot_sorted([0, 1, 2, 3], [-1, 0, 1, 2], [1, 2, 3, 4], ['a', 'b', 'c', 'd'], plt.cm.plasma)
 plt.show()
 ```
