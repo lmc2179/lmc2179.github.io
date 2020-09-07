@@ -78,12 +78,28 @@ def forestplot_sorted( middle, lower, upper, names, colormap):
   plt.yticks(df['position'], df['name'])
     
 def forestplot_grouped(middle, lower, upper, names, colormap, groups):
-  pass
+  df = pd.DataFrame({'mid': middle,
+                     'low': lower,
+                     'high': upper,
+                     'name': names,
+                     'groups': groups})
+  unique_groups = list(set(df['groups']))
+  color_lookup = {g: c for g, c in zip(unique_groups, colormap(np.linspace(0, 1, len(unique_groups))))}
+  colors = [color_lookup[g] for g in groups]
+  df['position'] = -np.arange(len(df))
+  plt.scatter(df['mid'], df['position'], color=colors)
+  plt.scatter(df['low'], df['position'], color=colors, marker='|')
+  plt.scatter(df['high'], df['position'], color=colors, marker='|')
+  plt.hlines(df['position'], df['low'], df['high'], color=colors)
+  plt.yticks(df['position'], df['name'])
 
 forestplot([0, 1, 2, 3], [-1, 0, 1, 2], [1, 2, 3, 4], ['a', 'b', 'c', 'd'])
 plt.show()
 
 forestplot_sorted([0, 1, 2, 3], [-1, 0, 1, 2], [1, 2, 3, 4], ['a', 'b', 'c', 'd'], plt.cm.plasma)
+plt.show()
+
+forestplot_grouped([0, 1, 2, 3], [-1, 0, 1, 2], [1, 2, 3, 4], ['a', 'b', 'c', 'd'], plt.cm.plasma, [0, 0, 1, 2])
 plt.show()
 ```
 
