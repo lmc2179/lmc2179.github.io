@@ -68,7 +68,7 @@ plt.plot(grid_points, density / approx_f.integral(0, 1))
 plt.show()
 ```
 
-# Low-dimensional dimensions: Grid sampling
+# Low-dimensional distributions: Grid sampling
 
 - Select grid bounds and resolution
 - Evaluate $f$ over the grid
@@ -88,7 +88,7 @@ plt.plot(x_plot, norm(0, 1).pdf(x_plot))
 plt.show()
 ```
 
-# Unimodal distributions, however many dimensions they have: Laplace's approximation
+# Unimodal normal-like distributions, however many dimensions they have: Laplace's approximation
 
 - Find maximum
 - Compute inverse hessian
