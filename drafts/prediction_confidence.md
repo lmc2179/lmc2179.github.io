@@ -45,7 +45,7 @@ plt.show()
 
 # Confidence intervals around the predictions
 # Prediction intervals
-# What about a non-OLS model?
+# What about a different GLM, like a logit model?
 
 Logit: https://stackoverflow.com/questions/47414842/confidence-interval-of-probability-prediction-from-logistic-regression-statsmode
 
