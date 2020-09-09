@@ -46,4 +46,7 @@ plt.show()
 # Confidence intervals around the predictions
 # Prediction intervals
 # What about a non-OLS model?
+
+Logit: https://stackoverflow.com/questions/47414842/confidence-interval-of-probability-prediction-from-logistic-regression-statsmode
+
 # What if my model is misspecified?
