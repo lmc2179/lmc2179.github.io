@@ -59,11 +59,23 @@ plt.show()
 
 ## What does the CI for the predictions represent?
 
+CI around E[y|X]
+
+## Where does it come from?
+
+Section 8.1 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf
+
+# Prediction intervals
+
+## What does the prediction interval represent?
+
+Range of observed y | X
+
 ## Where does it come from?
 
 Section 8.2 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf
 
-# Prediction intervals
+## We can check to see if the prediction intervals have the expected coverage
 
 # What about a different GLM, like a logit model?
 
@@ -84,6 +96,6 @@ Works out of the box with a GLM for logit models
 
 Yes but it's not useful
 
-# What happens if my model is misspecified?
+
 
 # Appendix: Imports
