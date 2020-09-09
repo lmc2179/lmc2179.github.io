@@ -55,8 +55,14 @@ plt.show()
 
 Logit: https://stackoverflow.com/questions/47414842/confidence-interval-of-probability-prediction-from-logistic-regression-statsmode
 
+## The asymptotic version: The delta method
+
 Brief mention of delta method, link to p. 69 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf, see https://en.wikipedia.org/wiki/Delta_method#Multivariate_delta_method
 
 need to use patsy dmatrix, which is admittedly annoying
+
+## An alternative version: The bootstrap
+
+?
 
 # What if my model is misspecified?
