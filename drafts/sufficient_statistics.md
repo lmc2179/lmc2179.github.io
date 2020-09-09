@@ -70,7 +70,7 @@ def summarize(df, x_cols, y_col):
     X_summary.append(X_values)
     y_summary.append(np.mean(group_df[y_col]))
     se_summary.append(np.std(group_df[y_col]) / np.sqrt(len(group_df)))
-  X_summary = pd.DataFrame(X_summary, columns=X.columns)
+  X_summary = pd.DataFrame(X_summary, columns=x_cols)
   y_summary = np.array(y_summary)
   se_summary = np.array(se_summary)
   return X_summary, y_summary, se_summary
