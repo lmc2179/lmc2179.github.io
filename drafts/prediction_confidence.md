@@ -45,11 +45,21 @@ plt.show()
 
 -Picture
 
+# Recap: What is the OLS model doing?
+
 # Confidence intervals around the parameters
+
+## What does the CI for the parameters represent?
+
+## Where does it come from?
 
 12.4.2 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf
 
 # Confidence intervals around the predictions
+
+## What does the CI for the predictions represent?
+
+## Where does it come from?
 
 Section 8.2 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf
 
@@ -59,7 +69,7 @@ Section 8.2 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf
 
 Logit: https://stackoverflow.com/questions/47414842/confidence-interval-of-probability-prediction-from-logistic-regression-statsmode
 
-## The asymptotic version: The delta method
+## The asymptotic version for the CI of the predictions: The delta method
 
 Brief mention of delta method, link to p. 69 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf, see https://en.wikipedia.org/wiki/Delta_method#Multivariate_delta_method
 
@@ -69,6 +79,11 @@ Works out of the box with a GLM for logit models
 
 ?
 
-# What if my model is misspecified?
+
+## Can a logit model have a prediction interval?
+
+Yes but it's not useful
+
+# What happens if my model is misspecified?
 
 # Appendix: Imports
