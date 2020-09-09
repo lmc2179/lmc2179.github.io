@@ -47,7 +47,11 @@ plt.show()
 
 # Confidence intervals around the parameters
 
+12.4.2 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf
+
 # Confidence intervals around the predictions
+
+Section 8.2 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf
 
 # Prediction intervals
 
@@ -66,3 +70,5 @@ need to use patsy dmatrix, which is admittedly annoying
 ?
 
 # What if my model is misspecified?
+
+# Appendix: Imports
