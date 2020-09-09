@@ -48,7 +48,7 @@ print(short_fit.summary())
 
 # Continuous outcomes: Some assembly required
 
-WLS implementation in statsmodels doesn't work here
+WLS implementation in statsmodels doesn't work here? Try GLM https://www.statsmodels.org/devel/examples/notebooks/generated/glm_weights.html
 
 ```python
 from scipy.optimize import curve_fit
