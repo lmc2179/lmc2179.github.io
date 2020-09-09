@@ -1,13 +1,17 @@
 ---
 layout: post
-title: "Understanding the difference between prediction and confidence intervals in Python"
+title: "Understanding the difference between prediction and confidence intervals of linear models in Python"
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
 image: prediction_confidence.png
 ---
 
+*The difference between prediction and confidence intervals is often confusing to newcomers, as the distinction between them is often described in statistics jargon that's hard to follow intuitively. This is unfortunate, because they are useful concepts, and worth exploring for practitioners, even those who don't much care for statistics jargon. This post will walk through some ways of thinking about these important concepts, and demonstrate how we can calculate them for OLS and Logit models in Python.*
+
 # Prediction and confidence intervals are a common source of confusion
+
+
 
 # Example: An OLS regression model
 
@@ -44,9 +48,15 @@ plt.show()
 # Confidence intervals around the parameters
 
 # Confidence intervals around the predictions
+
 # Prediction intervals
+
 # What about a different GLM, like a logit model?
 
 Logit: https://stackoverflow.com/questions/47414842/confidence-interval-of-probability-prediction-from-logistic-regression-statsmode
+
+Brief mention of delta method, link to p. 69 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf
+
+need to use patsy dmatrix, which is admittedly annoying
 
 # What if my model is misspecified?
