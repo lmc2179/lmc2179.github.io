@@ -63,7 +63,7 @@ Logit: https://stackoverflow.com/questions/47414842/confidence-interval-of-proba
 
 Brief mention of delta method, link to p. 69 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf, see https://en.wikipedia.org/wiki/Delta_method#Multivariate_delta_method
 
-need to use patsy dmatrix, which is admittedly annoying
+Works out of the box with a GLM for logit models
 
 ## An alternative version: The bootstrap
 
