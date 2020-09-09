@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Understanding the difference between prediction and confidence intervals of linear models in Python"
+title: "Understanding the difference between prediction and confidence intervals for linear models in Python"
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
