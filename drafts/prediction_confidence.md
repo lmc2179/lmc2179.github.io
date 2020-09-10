@@ -4,10 +4,12 @@ title: "Understanding the difference between prediction and confidence intervals
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
-image: prediction_confidence.png
+image: cat_sunglasses.png
 ---
 
 *The difference between prediction and confidence intervals is often confusing to newcomers, as the distinction between them is often described in statistics jargon that's hard to follow intuitively. This is unfortunate, because they are useful concepts, and worth exploring for practitioners, even those who don't much care for statistics jargon. This post will walk through some ways of thinking about these important concepts, and demonstrate how we can calculate them for OLS and Logit models in Python.*
+
+https://www.amazon.com/Coolrunner-Sunglasses-Classic-Circular-Fashion/dp/B07748RLF5/ref=asc_df_B07748RLF5/?tag=hyprod-20&linkCode=df0&hvadid=241996956146&hvpos=&hvnetw=g&hvrand=7196555194832522535&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1019973&hvtargid=pla-445582810531&psc=1
 
 # Prediction and confidence intervals are a common source of confusion
 
