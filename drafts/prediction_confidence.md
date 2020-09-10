@@ -9,13 +9,13 @@ image: cat_sunglasses.jpg
 
 *The difference between prediction and confidence intervals is often confusing to newcomers, as the distinction between them is often described in statistics jargon that's hard to follow intuitively. This is unfortunate, because they are useful concepts, and worth exploring for practitioners, even those who don't much care for statistics jargon. This post will walk through some ways of thinking about these important concepts, and demonstrate how we can calculate them for OLS and Logit models in Python.*
 
-https://www.amazon.com/Coolrunner-Sunglasses-Classic-Circular-Fashion/dp/B07748RLF5/ref=asc_df_B07748RLF5/?tag=hyprod-20&linkCode=df0&hvadid=241996956146&hvpos=&hvnetw=g&hvrand=7196555194832522535&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1019973&hvtargid=pla-445582810531&psc=1
-
 # Prediction and confidence intervals are a common source of confusion
 
 
 
-# Example: An OLS regression model
+# Example: An OLS regression model with one independent variable
+
+As always, it's useful to get some intuition by looking at an example. Let's say that you, a serial innovator and entrepreneur, have recently started designing your very own line of that most coveted feline fashion accessory, [little tiny sunglasses for cats](https://www.amazon.com/Coolrunner-Sunglasses-Classic-Circular-Fashion/dp/B07748RLF5). After the initial enormous rush of sales subsides, you sit back to consider the strategic positioning of your business, and you realize that it's quite likely that your business is a seasonal one. Specifically, you're pretty sure that cats are most likely to purchase sunglasses during the warm months, when they're most likely to find themselves outdoors without a snappy accessory.
 
 ```python
 from scipy.stats import norm
@@ -30,17 +30,17 @@ a = 1
 b = 5
 s = 1
 
-df = pd.DataFrame({'x': np.linspace(0, 1, n), 'y':a + b*np.linspace(0, 1, n) + norm(0, s).rvs(n)})
+df = pd.DataFrame({'temperature': np.linspace(0, 1, n), 'sales':a + b*np.linspace(0, 1, n) + norm(0, s).rvs(n)})
 
-model = smf.ols('y ~ x', df)
+model = smf.ols('sales ~ temperature', df)
 results = model.fit()
 
 predictions = results.get_prediction(df).summary_frame()
 
-plt.fill_between(df['x'], predictions['obs_ci_lower'], predictions['obs_ci_upper'], alpha=.1, label='Prediction interval')
-plt.fill_between(df['x'], predictions['mean_ci_lower'], predictions['mean_ci_upper'], alpha=.5, label='Confidence interval')
-plt.scatter(df['x'], df['y'], label='Observed', marker='x', color='black')
-plt.plot(df['x'], predictions['mean'], label='Point predicton')
+plt.fill_between(df['temperature'], predictions['obs_ci_lower'], predictions['obs_ci_upper'], alpha=.1, label='Prediction interval')
+plt.fill_between(df['temperature'], predictions['mean_ci_lower'], predictions['mean_ci_upper'], alpha=.5, label='Confidence interval')
+plt.scatter(df['temperature'], df['sales'], label='Observed', marker='x', color='black')
+plt.plot(df['temperature'], predictions['mean'], label='Point predicton')
 plt.legend()
 plt.show()
 ```
