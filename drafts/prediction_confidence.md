@@ -61,7 +61,7 @@ plt.show()
 
 ## What does the CI for the predictions represent?
 
-CI around E[y|X]
+CI around $E[y|X]$
 
 ## Where does it come from?
 
@@ -71,7 +71,7 @@ Section 8.1 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf
 
 ## What does the prediction interval represent?
 
-Range of observed y | X
+Range of observed $y | X$
 
 ## Where does it come from?
 
