@@ -66,9 +66,9 @@ We've got quite a dense plot now - let's take some time and recap all the elemen
 
 # Recap: What is the OLS model doing?
 
-Relationship between x and y
+Observed relationship between x and y
 
-Gives us $\mathbb{E} [y \mid X]$ plus the noise
+Gives us $\mathbb{E} [y \mid X]$ plus some gaussian noise
 
 # Confidence intervals around the predictions
 
@@ -104,21 +104,14 @@ Section 8.2 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf
 
 Logit: https://stackoverflow.com/questions/47414842/confidence-interval-of-probability-prediction-from-logistic-regression-statsmode
 
-## The asymptotic version for the CI of the predictions: The delta method
-
 Brief mention of delta method, link to p. 69 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf, see https://en.wikipedia.org/wiki/Delta_method#Multivariate_delta_method
+Mention the bootstrap for non-asymptotic stuff
 
 Works out of the box with a GLM for logit models
-
-## An alternative version: The bootstrap
-
-?
 
 
 ## Can a logit model have a prediction interval?
 
 Yes but it's not useful
-
-
 
 # Appendix: Imports
