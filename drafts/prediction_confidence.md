@@ -9,13 +9,25 @@ image: cat_sunglasses.jpg
 
 *The difference between prediction and confidence intervals is often confusing to newcomers, as the distinction between them is often described in statistics jargon that's hard to follow intuitively. This is unfortunate, because they are useful concepts, and worth exploring for practitioners, even those who don't much care for statistics jargon. This post will walk through some ways of thinking about these important concepts, and demonstrate how we can calculate them for OLS and Logit models in Python. Plus, cats in sunglasses.*
 
-# Prediction and confidence intervals are a common source of confusion
-
-
-
 # Example: An OLS regression model with one independent variable
 
-As always, it's useful to get some intuition by looking at an example. Let's say that you, a serial innovator and entrepreneur, have recently started designing your very own line of that most coveted feline fashion accessory, [little tiny sunglasses for cats](https://www.amazon.com/Coolrunner-Sunglasses-Classic-Circular-Fashion/dp/B07748RLF5). After the initial enormous rush of sales subsides, you sit back to consider the strategic positioning of your business, and you realize that it's quite likely that your business is a seasonal one. Specifically, you're pretty sure that cats are most likely to purchase sunglasses during the warm months, when they're most likely to find themselves outdoors in need of a snappy accessory.
+As always, it's useful to get some intuition by looking at an example, so we'll start with one. Let's say that you, a serial innovator and entrepreneur, have recently started designing your very own line of that most coveted feline fashion accessory, [little tiny sunglasses for cats](https://www.amazon.com/Coolrunner-Sunglasses-Classic-Circular-Fashion/dp/B07748RLF5). After the initial enormous rush of sales subsides, you sit back to consider the strategic positioning of your business, and you realize that it's quite likely that your business is a seasonal one. Specifically, you're pretty sure that cats are most likely to purchase sunglasses during the warm months, when they're most likely to find themselves outdoors in need of a snappy accessory.
+
+You collect some data on the daily temperature and dollars of sales in the region where you do most of your sales, and you plot them:
+
+[Scatter plot]
+
+So far, so good. It looks like the two are correlated positively. You fit yourself a line
+
+[Line]
+
+The line has a positive slope, as we expect. Of course, this is only a sample of daily temperatures, and we 
+
+[CI of mean]
+
+This tells us something about the uncertainty
+
+[Full plot with all the stuff]
 
 ```python
 from scipy.stats import norm
@@ -45,17 +57,18 @@ plt.legend()
 plt.show()
 ```
 
--Picture
+We've got quite a dense plot now - let's take some time and recap all the elements we've added before we tackle them in detail:
+
+- The observed datapoints are `(temperature, sales revenue)` pairs.
+- The regression line tells us what the average revenue is as the temperature varies in our dataset. Here, we've assumed that the revenue varies linearly with the temperature.
+- The confidence interval tells us the range of the average revenue at a given temperature
+- The prediction interval tells us the range where the oberved revenue on an actual day is likely to fall at a given temperature
 
 # Recap: What is the OLS model doing?
 
-# Confidence intervals around the parameters
+Relationship between x and y
 
-## What does the CI for the parameters represent?
-
-## Where does it come from?
-
-12.4.2 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf
+Gives us $\mathbb{E} [y \mid X]$ plus the noise
 
 # Confidence intervals around the predictions
 
@@ -78,6 +91,14 @@ Range of observed $y \mid X$
 Section 8.2 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf
 
 ## We can check to see if the prediction intervals have the expected coverage
+
+# One more thing: Confidence intervals around the parameters
+
+## What does the CI for the parameters represent?
+
+## Where does it come from?
+
+12.4.2 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf
 
 # What about a different GLM, like a logit model?
 
