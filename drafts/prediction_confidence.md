@@ -92,6 +92,10 @@ Section 8.2 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf
 
 ## We can check to see if the prediction intervals have the expected coverage
 
+Check probability of covarage
+
+Plot probability of coverage vs your favorite variable
+
 # One more thing: Confidence intervals around the parameters
 
 ## What does the CI for the parameters represent?
