@@ -60,9 +60,9 @@ plt.show()
 We've got quite a dense plot now - let's take some time and recap all the elements we've added before we tackle them in detail:
 
 - The observed datapoints are `(temperature, sales revenue)` pairs.
-- The regression line tells us what the average revenue is as the temperature varies in our dataset. Here, we've assumed that the revenue varies linearly with the temperature.
-- The confidence interval tells us the range of the average revenue at a given temperature
-- The prediction interval tells us the range where the oberved revenue on an actual day is likely to fall at a given temperature
+- The regression line tells us what the average revenue is as the temperature varies in our dataset. Here, we've assumed that the revenue varies linearly with the temperature. The regression line answers the question: "If we know the temperature, what is our single best guess about the average level of sales we expect to see?"
+- The confidence interval tells us the range of the average revenue at a given temperature. It answers the question: "If we know the temperature, what is our uncertainty around the average level of sales?"
+- The prediction interval tells us the range where the oberved revenue on an actual day is likely to fall at a given temperature. It answers the question: "If we know the temperature, what actual range of sales might we see on a given day?".
 
 # Recap: What is the OLS model doing?
 
