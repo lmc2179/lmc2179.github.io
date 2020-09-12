@@ -57,7 +57,7 @@ plt.legend()
 plt.show()
 ```
 
-We've got quite a dense plot now - let's take some time and recap all the elements we've added before we tackle them in detail:
+We've got quite a dense plot now - let's take some time and walk through all the elements we've added before we tackle them in detail:
 
 - The observed datapoints are `(temperature, sales revenue)` pairs.
 - The regression line tells us what the average revenue is as the temperature varies in our dataset. Here, we've assumed that the revenue varies linearly with the temperature. The regression line answers the question: "If we know the temperature, what is our single best guess about the average level of sales we expect to see?"
@@ -66,23 +66,25 @@ We've got quite a dense plot now - let's take some time and recap all the elemen
 
 # Recap: What is the OLS model doing?
 
-In this example, we had two variables: $temperature$ and $sales$. We want to know how $sales$ changes as $temperature$ varies. X and y
+We can't get into this topic without a bit of non-cat related terminology, so this section will cover that.
 
-We assume that we can write $y$ as a function of $X$, something like
+In this example, we had two variables: $temperature$ and $sales$. We want to know how $sales$ changes as $temperature$ varies. By convention, we often refer to the outcome we care about as $y$, and explanatory variables like $temperature$ as $x$, or perhaps $X$ if it's a vector. We'll assume it's a vector going forward, because not much changes if we do.
+
+We assume that we can write $y$ as a function of $X$, something like 
 
 $$ y = f(X) + \epsilon $$
 
 The idea is that $f(X)$ tells us how the average of $y$ changes with $X$, and $\epsilon$ is a normally-distributed noise term from all the variables we didn't choose to put in our model. If we knew the exact form of $f(X)$, we could always compute the expected of $y$ given $X$, namely $\mathbb{E}[y \mid X] = f(X)$.
 
-There are many choices of $f$ we could pick, but for convenience we often assume that $y$ is a linear function of $X$.
+There are many choices of $f$ we could pick, but for convenience we often assume that $y$ is a linear function of $X$. In that case, we can rewrite the above expression as 
 
-So it has unknown parameters beta
+$$ y = X \beta + \epsilon$$
 
-OLS estimates beta
+Where we've added a vector of parameters called $\beta$. These parameters are not known to us, but we're going to try and estimate them from the data. There's also another parameter, hidden in this formula - the noise term $\epsilon$ has some standard deviation, which we'll call $\sigma$.
 
-The prediction for a given X is ... but actual observations will be "near" it
+Running the OLS procedure, through the $fit()$ function in `statsmodels` or your favorite library, computes estimates of $\beta$ and $\sigma$. It also computes standard errors and p-values for those parameters.
 
-Gives us $\mathbb{E} [y \mid X]$ plus some gaussian noise
+After we've estimated the model, we can compute the "average" value of $y$ given our knowledge of $X$ by computing $X \beta$. From the above explanation, we know that expected value. As a result, if we have a particular $X_i$ in mind, and we have not yet observed $y_i$, we can predict its expected value.
 
 # Confidence intervals around the predictions
 
