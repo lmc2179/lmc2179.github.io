@@ -86,9 +86,9 @@ Running the OLS procedure, through the `fit()` function in `statsmodels` or your
 
 After we've estimated the model, we can compute the "average" value of $y$ given our knowledge of $X$ by computing $X \beta$. From the above explanation, we know that expected value. As a result, if we have a particular $X_i$ in mind, and we have not yet observed $y_i$, we can predict its expected value.
 
-# Confidence intervals around the predictions
+# Confidence intervals around the predicted mean
 
-## What does the CI for the predictions represent?
+## What does the CI for the regression line represent?
 
 CI around $\mathbb{E} [y \mid X]$
 
