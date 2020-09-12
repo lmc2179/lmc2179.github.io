@@ -82,7 +82,7 @@ $$ y = X \beta + \epsilon$$
 
 Where we've added a vector of parameters called $\beta$. These parameters are not known to us, but we're going to try and estimate them from the data. There's also another parameter, hidden in this formula - the noise term $\epsilon$ has some standard deviation, which we'll call $\sigma$.
 
-Running the OLS procedure, through the $fit()$ function in `statsmodels` or your favorite library, computes estimates of $\beta$ and $\sigma$. It also computes standard errors and p-values for those parameters.
+Running the OLS procedure, through the `fit()` function in `statsmodels` or your favorite library, computes estimates of $\beta$ and $\sigma$. It also computes standard errors and p-values for those parameters.
 
 After we've estimated the model, we can compute the "average" value of $y$ given our knowledge of $X$ by computing $X \beta$. From the above explanation, we know that expected value. As a result, if we have a particular $X_i$ in mind, and we have not yet observed $y_i$, we can predict its expected value.
 
