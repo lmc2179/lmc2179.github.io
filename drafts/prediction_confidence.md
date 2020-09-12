@@ -66,7 +66,21 @@ We've got quite a dense plot now - let's take some time and recap all the elemen
 
 # Recap: What is the OLS model doing?
 
-Observed relationship between x and y
+In this example, we had two variables: $temperature$ and $sales$. We want to know how $sales$ changes as $temperature$ varies. X and y
+
+We assume that we can write $y$ as a function of $X$, something like
+
+$$ y = f(X) + \epsilon $$
+
+The idea is that $f(X)$ tells us how the average of $y$ changes with $X$, and $\epsilon$ is a normally-distributed noise term from all the variables we didn't choose to put in our model. If we knew the exact form of $f(X)$, we could always compute the expected of $y$ given $X$, namely $\mathbb{E}[y \mid X] = f(X)$.
+
+There are many choices of $f$ we could pick, but for convenience we often assume that $y$ is a linear function of $X$.
+
+So it has unknown parameters beta
+
+OLS estimates beta
+
+The prediction for a given X is ... but actual observations will be "near" it
 
 Gives us $\mathbb{E} [y \mid X]$ plus some gaussian noise
 
