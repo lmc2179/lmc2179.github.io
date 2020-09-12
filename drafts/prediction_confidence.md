@@ -112,7 +112,7 @@ Check probability of covarage
 
 Plot probability of coverage vs your favorite variable
 
-# One more thing: Confidence intervals around the parameters
+# Not to be confused with: Confidence intervals around the parameters
 
 ## What does the CI for the parameters represent?
 
