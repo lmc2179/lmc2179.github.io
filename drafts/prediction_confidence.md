@@ -90,7 +90,7 @@ After we've estimated the model, we can compute the "average" value of $y$ given
 
 ## What does the CI for the regression line represent?
 
-CI around $\mathbb{E} [y \mid X]$
+We are uncertain about \beta, which leads to uncertainty about $\mathbb{E} [y \mid X]$
 
 ## Where does it come from?
 
@@ -99,6 +99,8 @@ Section 8.1 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf
 # Prediction intervals
 
 ## What does the prediction interval represent?
+
+If we know X, we usually can't predict y exactly, but a model will tell us a range of values where y will fall
 
 Range of observed $y \mid X$
 
