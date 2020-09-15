@@ -24,6 +24,8 @@ predictions = results.get_prediction(df).summary_frame()
 
 ```python
 plt.scatter(df['temperature'], df['sales'], label='Observed', marker='x', color='black')
+plt.xlabel('Temperature (°F)')
+plt.ylabel('Sales ($)')
 plt.legend()
 plt.show()
 ```
@@ -35,6 +37,8 @@ So far, so good. It looks like the two are correlated positively. You fit yourse
 ```python
 plt.scatter(df['temperature'], df['sales'], label='Observed', marker='x', color='black')
 plt.plot(df['temperature'], predictions['mean'], label='Regression line')
+plt.xlabel('Temperature (°F)')
+plt.ylabel('Sales ($)')
 plt.legend()
 plt.show()
 ```
@@ -48,6 +52,8 @@ The line has a positive slope, as we expect. Of course, this is only a sample of
 plt.fill_between(df['temperature'], predictions['mean_ci_lower'], predictions['mean_ci_upper'], alpha=.5, label='Confidence interval')
 plt.scatter(df['temperature'], df['sales'], label='Observed', marker='x', color='black')
 plt.plot(df['temperature'], predictions['mean'], label='Regression line')
+plt.xlabel('Temperature (°F)')
+plt.ylabel('Sales ($)')
 plt.legend()
 plt.show()
 ```
@@ -58,15 +64,12 @@ plt.show()
 This tells us something about the uncertainty
 
 ```python
-model = smf.ols('sales ~ temperature', df)
-results = model.fit()
-
-predictions = results.get_prediction(df).summary_frame()
-
 plt.fill_between(df['temperature'], predictions['obs_ci_lower'], predictions['obs_ci_upper'], alpha=.1, label='Prediction interval')
 plt.fill_between(df['temperature'], predictions['mean_ci_lower'], predictions['mean_ci_upper'], alpha=.5, label='Confidence interval')
 plt.scatter(df['temperature'], df['sales'], label='Observed', marker='x', color='black')
 plt.plot(df['temperature'], predictions['mean'], label='Regression line')
+plt.xlabel('Temperature (°F)')
+plt.ylabel('Sales ($)')
 plt.legend()
 plt.show()
 ```
@@ -164,9 +167,9 @@ import pandas as pd
 import numpy as np
 
 n = 100
-a = 1
-b = 5
-s = 1
+a = 20
+b = 9
+s = 2
 
-df = pd.DataFrame({'temperature': np.linspace(0, 1, n), 'sales':a + b*np.linspace(0, 1, n) + norm(0, s).rvs(n)})
+df = pd.DataFrame({'temperature': np.linspace(0, 110, n), 'sales':a + b*np.linspace(0, 1, n) + norm(0, s).rvs(n)})
 ```
