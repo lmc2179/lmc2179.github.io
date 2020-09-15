@@ -15,35 +15,41 @@ As always, it's useful to get some intuition by looking at an example, so we'll 
 
 You collect some data on the daily temperature and dollars of sales in the region where you do most of your sales, and you plot them:
 
-[Scatter plot]
+```python
+model = smf.ols('sales ~ temperature', df)
+results = model.fit()
+
+predictions = results.get_prediction(df).summary_frame()
+```
+
+```python
+plt.scatter(df['temperature'], df['sales'], label='Observed', marker='x', color='black')
+plt.legend()
+plt.show()
+```
 
 So far, so good. It looks like the two are correlated positively. You fit yourself a line
 
-[Line]
+```python
+plt.scatter(df['temperature'], df['sales'], label='Observed', marker='x', color='black')
+plt.plot(df['temperature'], predictions['mean'], label='Regression line')
+plt.legend()
+plt.show()
+```
 
 The line has a positive slope, as we expect. Of course, this is only a sample of daily temperatures, and we 
 
-[CI of mean]
+```python
+plt.fill_between(df['temperature'], predictions['mean_ci_lower'], predictions['mean_ci_upper'], alpha=.5, label='Confidence interval')
+plt.scatter(df['temperature'], df['sales'], label='Observed', marker='x', color='black')
+plt.plot(df['temperature'], predictions['mean'], label='Regression line')
+plt.legend()
+plt.show()
+```
 
 This tells us something about the uncertainty
 
-[Full plot with all the stuff]
-
 ```python
-from scipy.stats import norm
-from matplotlib import pyplot as plt
-import seaborn as sns
-from statsmodels.api import formula as smf
-import pandas as pd
-import numpy as np
-
-n = 100
-a = 1
-b = 5
-s = 1
-
-df = pd.DataFrame({'temperature': np.linspace(0, 1, n), 'sales':a + b*np.linspace(0, 1, n) + norm(0, s).rvs(n)})
-
 model = smf.ols('sales ~ temperature', df)
 results = model.fit()
 
@@ -52,7 +58,7 @@ predictions = results.get_prediction(df).summary_frame()
 plt.fill_between(df['temperature'], predictions['obs_ci_lower'], predictions['obs_ci_upper'], alpha=.1, label='Prediction interval')
 plt.fill_between(df['temperature'], predictions['mean_ci_lower'], predictions['mean_ci_upper'], alpha=.5, label='Confidence interval')
 plt.scatter(df['temperature'], df['sales'], label='Observed', marker='x', color='black')
-plt.plot(df['temperature'], predictions['mean'], label='Point predicton')
+plt.plot(df['temperature'], predictions['mean'], label='Regression line')
 plt.legend()
 plt.show()
 ```
@@ -137,3 +143,19 @@ Works out of the box with a GLM for logit models
 Yes but it's not useful
 
 # Appendix: Imports
+
+```python
+from scipy.stats import norm
+from matplotlib import pyplot as plt
+import seaborn as sns
+from statsmodels.api import formula as smf
+import pandas as pd
+import numpy as np
+
+n = 100
+a = 1
+b = 5
+s = 1
+
+df = pd.DataFrame({'temperature': np.linspace(0, 1, n), 'sales':a + b*np.linspace(0, 1, n) + norm(0, s).rvs(n)})
+```
