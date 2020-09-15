@@ -28,6 +28,8 @@ plt.legend()
 plt.show()
 ```
 
+![Scatter plot](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/prediction_confidence/1.png)
+
 So far, so good. It looks like the two are correlated positively. You fit yourself a line
 
 ```python
@@ -36,6 +38,9 @@ plt.plot(df['temperature'], predictions['mean'], label='Regression line')
 plt.legend()
 plt.show()
 ```
+
+
+![Regression line](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/prediction_confidence/2.png)
 
 The line has a positive slope, as we expect. Of course, this is only a sample of daily temperatures, and we 
 
@@ -46,6 +51,9 @@ plt.plot(df['temperature'], predictions['mean'], label='Regression line')
 plt.legend()
 plt.show()
 ```
+
+
+![Regression line + Confidence interval](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/prediction_confidence/3.png)
 
 This tells us something about the uncertainty
 
@@ -62,6 +70,9 @@ plt.plot(df['temperature'], predictions['mean'], label='Regression line')
 plt.legend()
 plt.show()
 ```
+
+
+![Regression line + Confidence interval + Prediction interval](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/prediction_confidence/4.png)
 
 We've got quite a dense plot now - let's take some time and walk through all the elements we've added before we tackle them in detail:
 
