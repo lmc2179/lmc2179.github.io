@@ -106,15 +106,17 @@ Where we've added a vector of parameters called $\beta$ and a scalar called $\al
 
 Running the OLS procedure, through the `fit()` function in `statsmodels` or your favorite library, computes estimates of $\alpha$, $\beta$ and $\sigma$. It also computes standard errors and p-values for those parameters. The values that we estimated from the data have that funny little hat symbol - we'll refer to the estimates as $\hat{\alpha}$, $\hat{\beta}$ and $\hat{\sigma}$.
 
-After we've estimated the model, we can compute the "average" value of $y$ given our knowledge of $X$ by computing $\hat{\alpha} + X \hat{\beta}$. So if we have a particular $X_i$ in mind, and we have not yet observed $y_i$, we can predict its expected value. We'll call the predicted value $\hat{y_i}$, to indicate it was derived from the estimated parameter values.
+After we've estimated the model, we can compute the "average" value of $y$ given our knowledge of $X$ by computing $\hat{\alpha} + X \hat{\beta}$. So if we have a particular $X_i$ in mind, and we have not yet observed $y_i$, we can predict its expected value. We'll call the predicted value $\hat{y_i}$, to indicate it was derived from the estimated parameter values. So for our linear model, $\hat{y_i} = \hat{\alpha} + X_i \hat{\beta}$.
 
 # Confidence intervals around the predicted mean
 
 ## What does the CI for the regression line represent?
 
-We are uncertain about \beta, which leads to uncertainty about $\mathbb{E} [y \mid X]$
+The above explanation walked through the big idea of the OLS process - we estimate $\alpha$ and $\beta$ from the data to get the regression line.
 
+However, our estimates of alpha and beta are our "best guess" - as is often the case in statistics, there is some uncertainty around those estimates
 
+We are uncertain about \alpha and \beta, which leads to uncertainty about $\mathbb{E} [y \mid X]$
 
 ## Where does it come from?
 
