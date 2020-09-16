@@ -106,7 +106,7 @@ Where we've added a vector of parameters called $\beta$ and a scalar called $\al
 
 Running the OLS procedure, through the `fit()` function in `statsmodels` or your favorite library, computes estimates of $\alpha$, $\beta$ and $\sigma$. It also computes standard errors and p-values for those parameters. The values that we estimated from the data have that funny little hat symbol - we'll refer to the estimates as $\hat{\alpha}$, $\hat{\beta}$ and $\hat{\sigma}$.
 
-After we've estimated the model, we can compute the "average" value of $y$ given our knowledge of $X$ by computing $\hat{\alpha} + X \hat{\beta}$. From the above explanation, we know that expected value. As a result, if we have a particular $X_i$ in mind, and we have not yet observed $y_i$, we can predict its expected value.
+After we've estimated the model, we can compute the "average" value of $y$ given our knowledge of $X$ by computing $\hat{\alpha} + X \hat{\beta}$. So if we have a particular $X_i$ in mind, and we have not yet observed $y_i$, we can predict its expected value.
 
 # Confidence intervals around the predicted mean
 
