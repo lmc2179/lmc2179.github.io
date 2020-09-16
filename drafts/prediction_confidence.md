@@ -16,13 +16,6 @@ As always, it's useful to get some intuition by looking at an example, so we'll 
 You collect some data on the daily temperature and dollars of sales in the region where you do most of your sales, and you plot them:
 
 ```python
-model = smf.ols('sales ~ temperature', df)
-results = model.fit()
-
-predictions = results.get_prediction(df).summary_frame()
-```
-
-```python
 plt.scatter(df['temperature'], df['sales'], label='Observed', marker='x', color='black')
 plt.xlabel('Temperature (°F)')
 plt.ylabel('Sales ($)')
@@ -32,7 +25,16 @@ plt.show()
 
 ![Scatter plot](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/prediction_confidence/1.png)
 
-So far, so good. It looks like the two are correlated positively. You fit yourself a line
+So far, so good. It looks like the two are correlated positively. In order to understand the relationship a little better, you fit yourself a line using `ols`:
+
+```python
+model = smf.ols('sales ~ temperature', df)
+results = model.fit()
+
+predictions = results.get_prediction(df).summary_frame()
+```
+
+And plot it along with the data:
 
 ```python
 plt.scatter(df['temperature'], df['sales'], label='Observed', marker='x', color='black')
@@ -46,7 +48,7 @@ plt.show()
 
 ![Regression line](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/prediction_confidence/2.png)
 
-The line has a positive slope, as we expect. Of course, this is only a sample of daily temperatures, and we 
+The line has a positive slope, as we expect. Of course, this is only a sample of daily temperatures, and we know that there's some uncertainty around the particular regression line we estimated. We visualize this uncertainty by plotting the confidence interval around the predictions:
 
 ```python
 plt.fill_between(df['temperature'], predictions['mean_ci_lower'], predictions['mean_ci_upper'], alpha=.5, label='Confidence interval')
@@ -61,7 +63,7 @@ plt.show()
 
 ![Regression line + Confidence interval](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/prediction_confidence/3.png)
 
-This tells us something about the uncertainty
+This tells us something about the uncertainty around the regression line. You'll notice that plenty of `X`s fall outside of the confidence interval. In order to visualize the region where we expect most actual sales to occur, we plot the prediction interval as well:
 
 ```python
 plt.fill_between(df['temperature'], predictions['obs_ci_lower'], predictions['obs_ci_upper'], alpha=.1, label='Prediction interval')
