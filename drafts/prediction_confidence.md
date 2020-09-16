@@ -100,19 +100,21 @@ The idea is that $f(X)$ tells us how the average of $y$ changes with $X$, and $\
 
 There are many choices of $f$ we could pick, but for convenience we often assume that $y$ is a linear function of $X$. In that case, we can rewrite the above expression as 
 
-$$ y = X \beta + \epsilon$$
+$$ y = \alpha + X \beta + \epsilon$$
 
-Where we've added a vector of parameters called $\beta$. These parameters are not known to us, but we're going to try and estimate them from the data. There's also another parameter, hidden in this formula - the noise term $\epsilon$ has some standard deviation, which we'll call $\sigma$.
+Where we've added a vector of parameters called $\beta$ and a scalar called $\alpha$. These parameters are not known to us, but we're going to try and estimate them from the data. There's also another parameter, hidden in this formula - the noise term $\epsilon$ has some standard deviation, which we'll call $\sigma$.
 
-Running the OLS procedure, through the `fit()` function in `statsmodels` or your favorite library, computes estimates of $\beta$ and $\sigma$. It also computes standard errors and p-values for those parameters.
+Running the OLS procedure, through the `fit()` function in `statsmodels` or your favorite library, computes estimates of $\alpha$, $\beta$ and $\sigma$. It also computes standard errors and p-values for those parameters. The values that we estimated from the data have that funny little hat symbol - we'll refer to the estimates as $\hat{\alpha}$, $\hat{\beta}$ and $\hat{\sigma}$.
 
-After we've estimated the model, we can compute the "average" value of $y$ given our knowledge of $X$ by computing $X \beta$. From the above explanation, we know that expected value. As a result, if we have a particular $X_i$ in mind, and we have not yet observed $y_i$, we can predict its expected value.
+After we've estimated the model, we can compute the "average" value of $y$ given our knowledge of $X$ by computing $\hat{\alpha} + X \hat{\beta}$. From the above explanation, we know that expected value. As a result, if we have a particular $X_i$ in mind, and we have not yet observed $y_i$, we can predict its expected value.
 
 # Confidence intervals around the predicted mean
 
 ## What does the CI for the regression line represent?
 
 We are uncertain about \beta, which leads to uncertainty about $\mathbb{E} [y \mid X]$
+
+
 
 ## Where does it come from?
 
