@@ -31,7 +31,9 @@ So far, so good. It looks like the two are correlated positively. In order to un
 model = smf.ols('sales ~ temperature', df)
 results = model.fit()
 
-predictions = results.get_prediction(df).summary_frame()
+alpha = .05
+
+predictions = results.get_prediction(df).summary_frame(alpha)
 ```
 
 And plot it along with the data:
