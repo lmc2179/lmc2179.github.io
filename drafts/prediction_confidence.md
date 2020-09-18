@@ -114,11 +114,11 @@ After we've estimated the model, we can compute the "average" value of $y$ given
 
 ## What does the CI for the regression line represent?
 
-The above explanation walked through the big idea of the OLS process - we estimate $\alpha$ and $\beta$ from the data to get the regression line.
+The above explanation walked through the big idea of the OLS process - we estimate $\alpha$ and $\beta$ from the data to get the regression line. These estimates are our "best guesses" at these values, which we sometimes call "point estimates". As is often the case in statistics, there is some uncertainty around those estimates. This uncertainty is represented in classical statistics by confidence intervals, which are derived from standard errors, which in turn come from the sampling distribution. For Bayesians, the story is pretty similar - the uncertainty is represented by credible intervals, which summarize the posterior distribution.
 
-However, our estimates of alpha and beta are our "best guess" - as is often the case in statistics, there is some uncertainty around those estimates
+In either case, we're acknowledging that the point estimates $\hat{\beta}$ and $\hat{\sigma}$ leave a lot of information out.
 
-We are uncertain about \alpha and \beta, which leads to uncertainty about $\mathbb{E} [y \mid X]$
+This uncertainty about $\hat{\beta}$ and $\hat{\sigma}$ translates into some uncertainty about the regression line itself. 
 
 ## Where does it come from?
 
