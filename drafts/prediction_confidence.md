@@ -150,11 +150,7 @@ Plot probability of coverage vs your favorite variable
 
 # Not to be confused with: Confidence intervals around the parameters
 
-## What does the CI for the parameters represent?
-
-## Where does it come from?
-
-12.4.2 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf
+???
 
 # What about a different GLM, like a logit model?
 
