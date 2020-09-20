@@ -114,15 +114,21 @@ After we've estimated the model, we can compute the "average" value of $y$ given
 
 ## What does the CI for the regression line represent?
 
-The above explanation walked through the big idea of the OLS process - we estimate $\alpha$ and $\beta$ from the data to get the regression line. These estimates are our "best guesses" at these values, which we sometimes call "point estimates". As is often the case in statistics, there is some uncertainty around those estimates. This uncertainty is represented in classical statistics by confidence intervals, which are derived from standard errors, which in turn come from the sampling distribution. For Bayesians, the story is pretty similar - the uncertainty is represented by credible intervals, which summarize the posterior distribution.
+The above explanation walked through the big idea of the OLS process - we estimate $\alpha$ and $\beta$ from the data to get the regression line. These estimates are our "best guesses" at these values, which we sometimes call "point estimates". As is often the case in statistics, there is some uncertainty around those estimates. This uncertainty is represented in classical statistics by confidence intervals, which are derived from the sampling distribution and standard errors. For Bayesians, the story is pretty similar - the uncertainty is represented by credible intervals, which summarize the posterior distribution.
 
-In either case, we're acknowledging that the point estimates $\hat{\beta}$ and $\hat{\sigma}$ leave a lot of information out.
-
-This uncertainty about $\hat{\beta}$ and $\hat{\sigma}$ translates into some uncertainty about the regression line itself. 
+In either case, we're acknowledging that the point estimates $\hat{\alpha}$, $\hat{\beta}$ and $\hat{\sigma}$ leave a lot of information out. Specifically, the point estimates alone don't tell us about how precise we think our estimates are. In addition to the point esimates we have standard errors for each one, and could compute a confidence interval for each. This uncertainty about $\hat{\alpha}$, $\hat{\beta}$ and $\hat{\sigma}$ translates into some uncertainty about the predicted value $\hat{y}$.
 
 ## Where does it come from?
 
-Section 8.1 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf
+By looking at the form of the standard errors for the conditional mean, we can learn a little about what affects the size of the confidence intervals. 
+
+A lot of this (and the corresponding section on the details of prediction intervals) is adapted from section 8.1 of [Cosma Shalizi's The Truth About Linear Regression](http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf), which is a great resource for everything you might want to know about the details of classical linear models. 
+
+...
+
+The above contains a lot of technical details
+
+In practice, we don't need to do this calculation by hand, in python we can use ...
 
 # Prediction intervals
 
