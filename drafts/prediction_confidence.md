@@ -142,6 +142,8 @@ Range of observed $y \mid X$
 
 Section 8.2 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf
 
+Note again that the prediction interval will be wider for data points far from the sample mean
+
 ## We can check to see if the prediction intervals have the expected coverage
 
 Check probability of covarage
@@ -165,6 +167,13 @@ Works out of the box with a GLM for logit models
 ## Can a logit model have a prediction interval?
 
 Yes but it's not useful
+
+# Bonus: We can also simulate fake data points from our model
+
+```python
+pr = results.get_prediction(df)
+y_sim = np.random.normal(pr.se_obs)
+```
 
 # Appendix: Imports
 
