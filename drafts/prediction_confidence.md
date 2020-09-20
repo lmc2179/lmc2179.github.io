@@ -175,6 +175,8 @@ pr = results.get_prediction(df)
 y_sim = np.random.normal(pr.se_obs)
 ```
 
+For logit, sample from distribution of $E[y \mid x]$ and then use np.random.binom
+
 # Appendix: Imports
 
 ```python
