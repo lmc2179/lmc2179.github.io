@@ -133,7 +133,7 @@ $$\hat{SE}(\hat{f}(x)) = \frac{\hat{\sigma^2}}{\sqrt{n-2}} \sqrt{1 + \frac{(x - 
 The above contains a lot of technical details but the gist is that the SE will be smaller when:
 
 - The value we're predicting on ($x$) is near the sample mean ($\bar{x}$)
-- The variance ($sigma^2$) of the noise ($\epsilon$)
+- The variance ($\sigma^2$) of the noise ($\epsilon$)
 - The sample size ($n$) is large
 - The variance of $x$ ($S^2_x$) is large
 
