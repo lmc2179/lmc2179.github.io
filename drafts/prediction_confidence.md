@@ -151,6 +151,8 @@ Range of observed $y \mid X$
 
 ## Where does it come from?
 
+$s^2_{pred}(x) = \hat{\sigma}^2 \frac{n}{n-2} \left( 1 + \frac{1}{n} + \frac{(x - \bar{x})^2}{n s^2_x} \right)$
+
 Section 8.2 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf
 
 Note again that the prediction interval will be wider for data points far from the sample mean
