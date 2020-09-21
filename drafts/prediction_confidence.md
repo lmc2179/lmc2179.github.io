@@ -118,15 +118,26 @@ The above explanation walked through the big idea of the OLS process - we estima
 
 In either case, we're acknowledging that the point estimates $\hat{\alpha}$, $\hat{\beta}$ and $\hat{\sigma}$ leave a lot of information out. Specifically, the point estimates alone don't tell us about how precise we think our estimates are. In addition to the point esimates we have standard errors for each one, and could compute a confidence interval for each. This uncertainty about $\hat{\alpha}$, $\hat{\beta}$ and $\hat{\sigma}$ translates into some uncertainty about the predicted value $\hat{y}$.
 
-## Where does it come from?
+So the short version: 
 
-By looking at the form of the standard errors for the conditional mean, we can learn a little about what affects the size of the confidence intervals. 
+## Where does it come from? The standard error of the predicted mean
+
+By looking at the form of the standard errors for the conditional mean, we can learn a little about what affects the size of the confidence intervals. We'll walk through the case where we have a single independent variable and a single dependent on, since that's easier to talk about. But a lot of this intuition will carry over to the multivariate case.
 
 A lot of this (and the corresponding section on the details of prediction intervals) is adapted from section 8.1 of [Cosma Shalizi's The Truth About Linear Regression](http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf), which is a great resource for everything you might want to know about the details of classical linear models. 
 
-...
+Those notes include a lot of really good exposition
 
-The above contains a lot of technical details
+$$\hat{SE}(\hat{f}(x)) = \frac{\hat{\sigma^2}}{\sqrt{n-2}} \sqrt{1 + \frac{(x - \bar{x})^2}{S^2_x}}$$
+
+The above contains a lot of technical details but the gist is that the SE will be smaller when:
+
+- The value we're predicting on ($x$) is near the sample mean ($\bar{x}$)
+- The variance ($sigma^2$) of the noise ($\epsilon$)
+- The sample size ($n$) is large
+- The variance of $x$ ($S^2_x$) is large
+
+The first of these explains why the CI gets larger as we get farther from the middle of the dataset, and explains how different datasets would affect the regression line
 
 In practice, we don't need to do this calculation by hand, in python we can use ...
 
