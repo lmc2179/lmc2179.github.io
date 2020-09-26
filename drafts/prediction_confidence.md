@@ -7,7 +7,7 @@ tags: [datascience]
 image: cat_sunglasses.jpg
 ---
 
-*The difference between prediction and confidence intervals is often confusing to newcomers, as the distinction between them is often described in statistics jargon that's hard to follow intuitively. This is unfortunate, because they are useful concepts, and worth exploring for practitioners, even those who don't much care for statistics jargon. This post will walk through some ways of thinking about these important concepts, and demonstrate how we can calculate them for OLS and Logit models in Python. Plus, cats in sunglasses.*
+*The difference between prediction and confidence intervals is often confusing to newcomers, as the distinction between them is often described in statistics jargon that's hard to follow intuitively. This is unfortunate, because they are useful concepts, and worth exploring for practitioners, even those who don't much care for statistics jargon. This post will walk through some ways of thinking about these important concepts, and demonstrate how we can calculate them for OLS and Logit models in Python. We'll also cover what makes the intervals wider or narrower by looking at how they're calculated. Plus, cats in sunglasses.*
 
 # Example: An OLS regression model with one independent variable
 
@@ -86,7 +86,7 @@ We've got quite a dense plot now - let's take some time and walk through all the
 - The observed datapoints are `(temperature, sales revenue)` pairs.
 - The regression line tells us what the average revenue is as the temperature varies in our dataset. Here, we've assumed that the revenue varies linearly with the temperature. The regression line answers the question: "If we know the temperature, what is our single best guess about the average level of sales we expect to see?"
 - The confidence interval tells us the range of the average revenue at a given temperature. It answers the question: "If we know the temperature, what is our uncertainty around the average level of sales?"
-- The prediction interval tells us the range where the oberved revenue on an actual day is likely to fall at a given temperature. It answers the question: "If we know the temperature, what actual range of sales might we see on a given day?".
+- The prediction interval tells us the range where the observed revenue on an actual day is likely to fall at a given temperature. It answers the question: "If we know the temperature, what actual range of sales might we see on a given day?".
 
 # Recap: What is the OLS model doing?
 
@@ -151,15 +151,22 @@ To go back to our example, if we know the temperature is 40°F, we think on aver
 
 ## Where does it come from?
 
-The prediction interval's variance is given by section 8.2 of [the previous reference](http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf)
+Like we did with the confidence interval, The prediction interval's variance is given by section 8.2 of [the previous reference](http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf). We'll skip the derivation and focus on the implications of the variance of the prediction interval, which is:
 
-$S^2_{pred}(x) = \hat{\sigma}^2 \frac{n}{n-2} \left( 1 + \frac{1}{n} + \frac{(x - \bar{x})^2}{n s^2_x} \right)$
+$S^2_{pred}(x) = \hat{\sigma}^2 \frac{n}{n-2} \left( 1 + \frac{1}{n} + \frac{(x - \bar{x})^2}{n S^2_x} \right)$
 
-Note again that the prediction interval will be wider for data points far from the sample mean
+Again, all the takeaways from before are the same. The prediction interval will be narrower when:
+
+- The value we're predicting on ($x$) is near the sample mean ($\bar{x}$)
+- The variance ($\sigma^2$) of the noise ($\epsilon$) is small
+- The sample size ($n$) is large
+- The variance of $x$ ($S^2_x$) is large
+
+As a technical note, we should note that this is the variance of the data we expect to observe under the model, _not_ a standard error on an unknown parameter.
 
 ## We can check to see if the prediction intervals have the expected coverage
 
-Check probability of covarage
+Prediction intervals tell us where "most" of the observations would be for a particular $X$. Of course, like all model-based inferences, we should check that this is really the case, rather than just assuming that it's true. 
 
 ```python
 pi_covers_observed = (predictions['obs_ci_upper'] > df['sales']) & (predictions['obs_ci_lower'] < df['sales'])
