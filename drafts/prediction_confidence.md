@@ -163,7 +163,27 @@ Note again that the prediction interval will be wider for data points far from t
 
 Check probability of covarage
 
-Plot probability of coverage vs your favorite variable
+```python
+pi_covers_observed = (predictions['obs_ci_upper'] > df['sales']) & (predictions['obs_ci_lower'] < df['sales'])
+
+print('Coverage proportion: {0}'.format(np.mean(pi_covers_observed)))
+```
+
+When we run this, we find that the 95% prediction interval covers the observed value 94% of the time, which is about right where we want it.
+
+We can
+
+```python
+sns.regplot(df['temperature'], pi_covers_observed, x_bins=3, logistic=True)
+plt.title('Checking the coverage probability vs the temperature')
+plt.xlabel('Temperature')
+plt.ylabel('Coverage probability')
+plt.axhline(0.95, linestyle='dotted', label='Expected coverage')
+plt.legend()
+plt.show()
+```
+
+![Checking coverage vs temperature](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/prediction_confidence/5.png)
 
 # What about a different GLM, like a logit model?
 
