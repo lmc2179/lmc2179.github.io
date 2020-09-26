@@ -147,7 +147,7 @@ The first of these explains why the CI gets larger as we get farther from the mi
 
 If we have some value $X$, then under our model the average value of $y$ is given by $\hat{f}(X)$. However, an actual observation of $y$ might be pretty far from $\hat{f}(X)$, even if our model is correct and the true relationship is linear. This happens all the time, because an individual observation from a distribution can be far from the mean of the distribution. The prediction interval represents the range of actual observed values of $y$ that might show up for any particular $X$.
 
-To go back to our example, if we know the temperature is 40°F, we think on average the sales level is about $22.00. However, on a specific 40°F day, we probably won't see $22.00 in sales. Instead, we'll see a range around that value, about $18.00-$27.00. This range is called the prediction interval, because it's the interval in which we predict that actual observations will lie.
+To go back to our example, if we know the temperature is 40°F, we think on average the sales level is about \$22.00. However, on a specific 40°F day, we probably won't see \$22.00 in sales. Instead, we'll see a range around that value, about \$18.00-\$27.00. This range is called the prediction interval, because it's the interval in which we predict that actual observations will lie.
 
 ## Where does it come from?
 
