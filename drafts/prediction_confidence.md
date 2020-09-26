@@ -120,7 +120,9 @@ In either case, we're acknowledging that the point estimates $\hat{\alpha}$, $\h
 
 ![Regression line + Confidence interval + Prediction interval](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/prediction_confidence/4.png)
 
-The blue line is the regression line, our point estimate - our single best guess about the average relationship between X and y. However, there are a range of regression lines that seem plausible given the data, even if they are not the absolute best fit. This range of plausible regression lines appears as the CI on the chart, the orange band around the blue regression line. Note that the CI is wider around the edges of the data set, and narrower in the middle. That is, we're less sure about the value of $\hat{y}$ near the edges of the data set.
+The blue line is the regression line, our point estimate - our single best guess about the average relationship between X and y. However, there are a range of regression lines that seem plausible given the data, even if they are not the absolute best fit. This range of plausible regression lines appears as the CI on the chart, the orange band around the blue regression line. Note that the CI is wider around the edges of the data set, and narrower in the middle. That is, we're less sure about the value of $\hat{y}$ near the edges of the data set. In the notation we used before, when we said $y = f(X) + \epsilon$, the CI indicates that there are a number of different $\hat{f}(X)$ that fit the data.
+
+To go back to our example, if we know the temperature is 40°F, we can see that the CI for the average sales is about $21.00-$22.50.
 
 ## Where does it come from? The standard error of the predicted mean
 
@@ -147,9 +149,9 @@ In practice, we don't need to do this calculation by hand, in python we can use 
 
 ## What does the prediction interval represent intuitively?
 
-If we know X, we usually can't predict y exactly, but a model will tell us a range of values where y will fall
+If we have some value $X$, then under our model the average value of $y$ is given by $\hat{f}(X)$. However, an actual observation of $y$ might be pretty far from $\hat{f}(X)$, even if our model is correct and the true relationship is linear. This happens all the time, because an individual observation from a distribution can be far from the mean of the distribution. The prediction interval represents the range of actual observed values of $y$ that might show up for any particular $X$.
 
-Range of observed $y \mid X$
+To go back to our example, if we know the temperature is 40°F, we think on average the sales level is about $22.00. However, on a specific 40°F day, we probably won't see $22.00 in sales. Instead, we'll see a range around that value, about $18.00-$27.00. This range is called the prediction interval, because it's the interval in which we predict that actual observations will lie.
 
 ## Where does it come from?
 
@@ -164,10 +166,6 @@ Note again that the prediction interval will be wider for data points far from t
 Check probability of covarage
 
 Plot probability of coverage vs your favorite variable
-
-# Not to be confused with: Confidence intervals around the parameters
-
-???
 
 # What about a different GLM, like a logit model?
 
