@@ -112,17 +112,19 @@ After we've estimated the model, we can compute the "average" value of $y$ given
 
 # Confidence intervals around the predicted mean
 
-## What does the CI for the regression line represent?
+## What does the CI for the regression line represent intuitively?
 
 The above explanation walked through the big idea of the OLS process - we estimate $\alpha$ and $\beta$ from the data to get the regression line. These estimates are our "best guesses" at these values, which we sometimes call "point estimates". As is often the case in statistics, there is some uncertainty around those estimates. This uncertainty is represented in classical statistics by confidence intervals, which are derived from the sampling distribution and standard errors. For Bayesians, the story is pretty similar - the uncertainty is represented by credible intervals, which summarize the posterior distribution.
 
-In either case, we're acknowledging that the point estimates $\hat{\alpha}$, $\hat{\beta}$ and $\hat{\sigma}$ leave a lot of information out. Specifically, the point estimates alone don't tell us about how precise we think our estimates are. In addition to the point esimates we have standard errors for each one, and could compute a confidence interval for each. This uncertainty about $\hat{\alpha}$, $\hat{\beta}$ and $\hat{\sigma}$ translates into some uncertainty about the predicted value $\hat{y}$.
+In either case, we're acknowledging that the point estimates $\hat{\alpha}$, $\hat{\beta}$ and $\hat{\sigma}$ leave a lot of information out. Specifically, the point estimates alone don't tell us about how precise we think our estimates are. In addition to the point esimates we have standard errors for each one, and could compute a confidence interval for each. This uncertainty about $\hat{\alpha}$, $\hat{\beta}$ and $\hat{\sigma}$ translates into some uncertainty about the predicted value $\hat{y}$. Let's look once more at the graph from our example:
 
-So the short version: 
+![Regression line + Confidence interval + Prediction interval](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/prediction_confidence/4.png)
+
+The blue line is the regression line, our point estimate - our single best guess about the average relationship between X and y. However, there are a range of regression lines that seem plausible given the data, even if they are not the absolute best fit. This range of plausible regression lines appears as the CI on the chart, the orange band around the blue regression line. Note that the CI is wider around the edges of the data set, and narrower in the middle. That is, we're less sure about the value of $\hat{y}$ near the edges of the data set.
 
 ## Where does it come from? The standard error of the predicted mean
 
-By looking at the form of the standard errors for the conditional mean, we can learn a little about what affects the size of the confidence intervals. We'll walk through the case where we have a single independent variable and a single dependent on, since that's easier to talk about. But a lot of this intuition will carry over to the multivariate case.
+By looking at the form of the standard errors for the mean of $\hat{y}$, we can learn a little about what affects the size of the confidence intervals. We'll walk through the case where we have a single independent variable and a single dependent one, since that's easier to talk about. But a lot of this intuition will carry over to the multivariate case.
 
 A lot of this (and the corresponding section on the details of prediction intervals) is adapted from section 8.1 of [Cosma Shalizi's The Truth About Linear Regression](http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf), which is a great resource for everything you might want to know about the details of classical linear models. 
 
@@ -143,7 +145,7 @@ In practice, we don't need to do this calculation by hand, in python we can use 
 
 # Prediction intervals
 
-## What does the prediction interval represent?
+## What does the prediction interval represent intuitively?
 
 If we know X, we usually can't predict y exactly, but a model will tell us a range of values where y will fall
 
