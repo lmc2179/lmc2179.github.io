@@ -151,9 +151,7 @@ To go back to our example, if we know the temperature is 40°F, we think on aver
 
 ## Where does it come from?
 
-The prediction interval's variance is given by
-
-[the previous reference](http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf)
+The prediction interval's variance is given by section 8.2 of [the previous reference](http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf)
 
 $S^2_{pred}(x) = \hat{\sigma}^2 \frac{n}{n-2} \left( 1 + \frac{1}{n} + \frac{(x - \bar{x})^2}{n s^2_x} \right)$
 
