@@ -183,7 +183,7 @@ plt.legend()
 plt.show()
 ```
 
-![Checking coverage vs temperature](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/prediction_confidence/5.jpg)
+![Checking coverage vs temperature](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/prediction_confidence/5.png)
 
 # What about a different GLM, like a logit model?
 
