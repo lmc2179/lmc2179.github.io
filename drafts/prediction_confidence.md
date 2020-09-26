@@ -122,7 +122,7 @@ In either case, we're acknowledging that the point estimates $\hat{\alpha}$, $\h
 
 The blue line is the regression line, our point estimate - our single best guess about the average relationship between X and y. However, there are a range of regression lines that seem plausible given the data, even if they are not the absolute best fit. This range of plausible regression lines appears as the CI on the chart, the orange band around the blue regression line. Note that the CI is wider around the edges of the data set, and narrower in the middle. That is, we're less sure about the value of $\hat{y}$ near the edges of the data set. In the notation we used before, when we said $y = f(X) + \epsilon$, the CI indicates that there are a number of different $\hat{f}(X)$ that fit the data.
 
-To go back to our example, if we know the temperature is 40°F, we can see that the CI for the average sales is about 21.00-22.50 USD.
+To go back to our example, if we know the temperature is 40°F, we can see that the CI for the average sales is about 21.00-22.50 USD. This is the range that we think is reasonable given the data; if we always used the 95% CI procedure to compute our intervals, we'd correctly find the population average 95% of the time.
 
 ## Where does it come from? The standard error of the predicted mean
 
