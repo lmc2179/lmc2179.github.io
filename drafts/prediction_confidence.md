@@ -126,24 +126,20 @@ To go back to our example, if we know the temperature is 40°F, we can see that 
 
 ## Where does it come from? The standard error of the predicted mean
 
-By looking at the form of the standard errors for the mean of $\hat{y}$, we can learn a little about what affects the size of the confidence intervals. We'll walk through the case where we have a single independent variable and a single dependent one, since that's easier to talk about. But a lot of this intuition will carry over to the multivariate case.
+We usually don't need to calculate CIs by hand. In the Python code above, we used the `get_prediction` function to get a prediction summary from which we could extract the CIs. However, it's worth understanding how this calculation happens under the hood. By looking at the form of the standard errors for the mean of $\hat{y}$, we can learn a little about what affects the size of the confidence intervals. We'll walk through the case where we have a single independent variable and a single dependent one, since that's easier to talk about. But a lot of this intuition will carry over to the multivariate case.
 
-A lot of this (and the corresponding section on the details of prediction intervals) is adapted from section 8.1 of [Cosma Shalizi's The Truth About Linear Regression](http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf), which is a great resource for everything you might want to know about the details of classical linear models. 
-
-Those notes include a lot of really good exposition
+I'm going to focus on the SE formula and it's implications, rather than its derivation. A much better exposition of the derivation than I could ever give can be found in section 8.1 of [Cosma Shalizi's The Truth About Linear Regression](http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf), which is a great resource for everything you might want to know about the details of classical linear models. We'll skip to the good part, the standard errors for the regression line:
 
 $$\hat{SE}(\hat{f}(x)) = \frac{\hat{\sigma^2}}{\sqrt{n-2}} \sqrt{1 + \frac{(x - \bar{x})^2}{S^2_x}}$$
 
-The above contains a lot of technical details but the gist is that the SE will be smaller when:
+The above contains a lot of technical details, but the gist is that the SE will be smaller when:
 
 - The value we're predicting on ($x$) is near the sample mean ($\bar{x}$)
-- The variance ($\sigma^2$) of the noise ($\epsilon$)
+- The variance ($\sigma^2$) of the noise ($\epsilon$) is small
 - The sample size ($n$) is large
 - The variance of $x$ ($S^2_x$) is large
 
-The first of these explains why the CI gets larger as we get farther from the middle of the dataset, and explains how different datasets would affect the regression line
-
-In practice, we don't need to do this calculation by hand, in python we can use ...
+The first of these explains why the CI gets larger as we get farther from the middle of the dataset, and explains how different datasets would affect the regression line.
 
 # Prediction intervals
 
@@ -155,9 +151,11 @@ To go back to our example, if we know the temperature is 40°F, we think on aver
 
 ## Where does it come from?
 
-$s^2_{pred}(x) = \hat{\sigma}^2 \frac{n}{n-2} \left( 1 + \frac{1}{n} + \frac{(x - \bar{x})^2}{n s^2_x} \right)$
+The prediction interval's variance is given by
 
-Section 8.2 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf
+[the previous reference](http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf)
+
+$S^2_{pred}(x) = \hat{\sigma}^2 \frac{n}{n-2} \left( 1 + \frac{1}{n} + \frac{(x - \bar{x})^2}{n s^2_x} \right)$
 
 Note again that the prediction interval will be wider for data points far from the sample mean
 
