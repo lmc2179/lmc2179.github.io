@@ -200,7 +200,7 @@ If we wanted to compute confidence intervals for models like a logit model, the 
 
 Luckily, with Statsmodels, we need not do this by hand either. While the Logit model in statsmodels doesn't compute CIs, a [GLMResults](https://www.statsmodels.org/stable/generated/statsmodels.genmod.generalized_linear_model.GLMResults.get_prediction.html#statsmodels.genmod.generalized_linear_model.GLMResults.get_prediction) object returned from fitting a GLM with the binomial family has a `get_prediction` function just like the OLS example above.
 
-Unlike a confidence interval, a prediction interval is a little less meaningful for a Logit model. For example, with a given $X$, we could compute the set of all the elements that we might plausibly see for $y$. However, for binary outcomes, the set is usually $\{0, 1\}$, because Logit models rarely assign zero probability to an event. As a result, this "prediction set" is usually not very useful.
+Unlike a confidence interval, a prediction interval is a little less meaningful for a Logit model. For example, with a given $X$, we could compute the set of all the elements that we might plausibly see for $y$. However, for binary outcomes, the set is usually $\\{0, 1\\}$, because Logit models rarely assign zero probability to an event. As a result, this "prediction set" is usually not very useful.
 
 # Bonus: We can also simulate fake data points from our model
 
