@@ -190,28 +190,26 @@ plt.show()
 
 ![Checking coverage vs temperature](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/prediction_confidence/5.png)
 
-# What about a different GLM, like a logit model?
+# What about a CI for a different GLM, like a logit model?
 
-Logit: https://stackoverflow.com/questions/47414842/confidence-interval-of-probability-prediction-from-logistic-regression-statsmode
+We've only spoken so far about the usual linear regression model, but we might wonder if we can compute CIs and PIs for Logit and other linear models, since they're so closely related.
 
-Brief mention of delta method, link to p. 69 of http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf, see https://en.wikipedia.org/wiki/Delta_method#Multivariate_delta_method
-Mention the bootstrap for non-asymptotic stuff
+If we wanted to compute confidence intervals for models like a logit model, the procedure gets a bit more complicated due to the presence of the [link function](https://en.wikipedia.org/wiki/Generalized_linear_model#Link_function) in the model. A common way of getting CIs for GLMs other than the usual OLS model is to use the [delta method](https://en.wikipedia.org/wiki/Delta_method#Multivariate_delta_method), which propagates the error for the parameters through the link function with a Taylor approximation. If you're curious what that looks like for a logit model, I found [this SE answer](https://stackoverflow.com/questions/47414842/confidence-interval-of-probability-prediction-from-logistic-regression-statsmode) to be a useful example.
 
-Works out of the box with a GLM for logit models
+Luckily, with Statsmodels, we need not do this by hand either. While the Logit model in statsmodels doesn't compute CIs, a [GLMResults](https://www.statsmodels.org/stable/generated/statsmodels.genmod.generalized_linear_model.GLMResults.get_prediction.html#statsmodels.genmod.generalized_linear_model.GLMResults.get_prediction) object return from fitting a GLM has a `get_prediction` function just like the OLS example above.
 
-
-## Can a logit model have a prediction interval?
-
-Yes but it's not useful
+A prediction interval is a little less meaningful for a Logit model. For example, with a given $X$, we could compute the set of all the elements that we might plausibly see for $y$. However, for binary outcomes, the set is usually ${0, 1}$, because Logit models rarely assign zero probability to an event. As a result, this "prediction set" is usually not very useful.
 
 # Bonus: We can also simulate fake data points from our model
+
+Here's an interesting trick, which might be useful if you'd like to simulate some datasets we'd expect to see if the model were correct. Sometimes we want to do this when we impute missing data, or [just because simulating data from a model tells us a lot about how the model does (or doesn't) work](https://statmodeling.stat.columbia.edu/2019/03/23/yes-i-really-really-really-like-fake-data-simulation-and-i-cant-stop-talking-about-it/).
 
 ```python
 pr = results.get_prediction(df)
 y_sim = np.random.normal(pr.predicted_mean, pr.se_obs)
 ```
 
-For logit, sample from distribution of $E[y \mid x]$ and then use np.random.binom
+For logit, sample from distribution of $E[y \mid x]$ and then use `np.random.binom(1, y_sim)`
 
 # Appendix: Imports
 
