@@ -1,4 +1,23 @@
+---
+layout: post
+title: "Would collecting more data improve my model's predictions? The learning curve and the value of incremental samples"
+author: "Louis Cialdella"
+categories: posts
+tags: [datascience]
+image: jellybeans.png
+---
+
+*Since we usually need to pay for data (either with money to buy it or effort to collect it), it's worth knowing the value of getting more data points to fit your predictive model. We'll explore the learning curve, a model-agnostic way of understanding how black box performance changes as we add more data points to our sample. Analysis of the learning curve tells us whether it's worth it to collect a larger dataset, and it's easy to do this analysis in Python with scikit-learn.*
+
 Key question: Would collecting more data materially benefit my model, or has my chosen model hit the ceiling of potential performance?
+
+# Is it worth collecting more samples?
+
+# The learning curve tells us how model performance varies with sample size
+
+# The incremental value of a data point
+
+# Putting it all together: Computing the value of a larger sample
 
 ```
 curl http://www3.dsi.uminho.pt/pcortez/wine/winequality.zip --output winequality.zip
