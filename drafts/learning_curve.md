@@ -50,7 +50,11 @@ plt.legend()
 plt.show()
 ```
 
+![Learning curve](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/learning_curve/1.png)
+
 # The incremental value of a data point
+
+
 
 ```python
 mean_diff = np.diff(test_scores_mean)
@@ -69,10 +73,13 @@ plt.fill_between(diff_df['n'], y_pred_df['mean_ci_lower'], y_pred_df['mean_ci_up
 plt.axhline(0, linestyle='dotted')
 plt.xlabel('Sample size')
 plt.ylabel('Improvement in RMSE')
+plt.title('First difference of learning curve')
 plt.tight_layout()
 plt.legend()
 plt.show()
 ```
+
+![Learning curve first difference](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/learning_curve/2.png)
 
 # Putting it all together: Computing the value of a larger sample
 
