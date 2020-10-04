@@ -1,4 +1,4 @@
-Key question: Would collecting more data materially benefit my model?
+Key question: Would collecting more data materially benefit my model, or has my chosen model hit the ceiling of potential performance?
 
 ```
 curl http://www3.dsi.uminho.pt/pcortez/wine/winequality.zip --output winequality.zip
