@@ -23,6 +23,8 @@ In order to answer this question, we can think about what information we wish we
 
 The relationship between sample size and model quality has a name: the [learning curve](https://en.wikipedia.org/wiki/Learning_curve_(machine_learning)). 
 
+We have some intuition about the shape of this curve. As the number of samples grows, the performance of the model usually improves rapidly and then "flattens out" until adding more data points have little effect.
+
 Let's plot the learning curve for our portugese wine data set. As usually, we can have our old friend scikit-learn do all the hard work
 
 # The incremental value of a data point
