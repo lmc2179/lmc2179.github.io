@@ -86,8 +86,8 @@ plt.show()
 That was a lot! Let's recap it quickly, to make it clear what the process is by which we answer our original question.
 
 - You have a sample on hand, and a particular model you've decided to fit to it so you can make predictions. You'd like to know if collecting more samples would improve your model's predictive power.
-- Compute the learning curve for your favorite model, to get a feel for how the sample sizes affects the model's quality. Does the learning curve seem to have flattened out as we approach the current sample size, or does it still have a large slope?
-- Calculate the first difference of the learning curve, and see if that first difference is about zero. Consider smoothing this curve to see if it has a mean of zero around the current sample size. If so, adding more samples likely won't improve things.
+- Compute the learning curve for your favorite model, to get a feel for how the sample sizes affects the model's quality. Does the learning curve flatten out out as we approach the current sample size, or does it still have a large slope?
+- Calculate the first difference of the learning curve, and see if that first difference is about zero near the current sample size. Consider smoothing this curve to see if it has a mean of zero around the current sample size. If the first difference has "settled down" around zero, adding more samples likely won't improve things.
 
 # Appendix: Setup and imports
 
