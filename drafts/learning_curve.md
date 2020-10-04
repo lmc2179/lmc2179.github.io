@@ -7,7 +7,7 @@ cd winequality/
 ```
 
 ```python
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import Lasso
 from sklearn.model_selection import learning_curve
 import numpy as np
 from matplotlib import pyplot as plt
@@ -26,17 +26,22 @@ b = 200
 
 n_folds = 20
 
-train_sizes, _, test_scores = learning_curve(LinearRegression(), X, y, cv=n_folds, scoring='neg_root_mean_squared_error', train_sizes=np.linspace(0.1, 1, 20)) # , train_sizes=[n - 2*b, n - b, n]
+train_sizes, _, test_scores = learning_curve(Lasso(alpha=10**(-3), normalize=True), X, y, cv=n_folds, scoring='neg_root_mean_squared_error', train_sizes=np.linspace(0.1, 1, 20)) # , train_sizes=[n - 2*b, n - b, n]
 test_scores = -test_scores
 #test_scores -= test_scores[0]
 test_scores_mean = np.mean(test_scores, axis=1)
 test_scores_se = np.std(test_scores, axis=1) / np.sqrt(n_folds)
+test_scores_var = test_scores_se**2
 
 plt.plot(train_sizes, test_scores_mean, marker='o')
 plt.fill_between(train_sizes, test_scores_mean - 3*test_scores_se, test_scores_mean + 3*test_scores_se, alpha=.1) 
 plt.show()
 
-plt.plot(train_sizes[1:], np.diff(test_scores_mean), marker='o') # SE around first difference; will manually inspecting this tell us if we've "maxed out"?
+mean_diff = np.diff(test_scores_mean)
+diff_se = np.sqrt(test_scores_var[1:] + test_scores_var[:-1])
+
+plt.plot(train_sizes[1:], mean_diff, marker='o') 
+plt.fill_between(train_sizes[1:], mean_diff - 3*diff_se, mean_diff + 3*diff_se, alpha=.1) 
 plt.axhline(0, linestyle='dotted')
 plt.show()
 ```
