@@ -13,9 +13,21 @@ Key question: Would collecting more data materially benefit my model, or has my 
 
 # Is it worth collecting more samples?
 
+When we have a sample of data we want to use to fit a model, it's natural to ask ourselves whether we have "enough" samples on hand. Would collecting more data improve our model, or has it reached a performance plateau? This is a question with a lot of practical importance, because data is expensive!  We need to pay to acquire samples - either literally exchanging money with a data vendor or building systems to collect data. When our analysis is simple, like a difference in means, we can achieve this by computing the power of a hypothesis test or the precision of the effect size confidence interval. But if you have a carefully-crafted regression model or black-box machine learning model, it's a lot less clear how to gauge whether you have enough samples.
+
+For example, let's say you've already collected [a number of datapoints about Portugese wine](http://www3.dsi.uminho.pt/pcortez/wine/). You'd like to build a predictive model that relates the measurable properties of wine to its quality, perhaps so you can sell it to a Portugese Winery to automate their quality assurance. You've just done some fancy [model selection](https://lmc2179.github.io/posts/cvci.html) and decided that a Lasso model will probably give you the best trade-off between prediction quality and model simplicity. You've already went through some effort to gather the 1,599 samples of wine data in your data set, but perhaps your model would make better predictions if you collected even more samples? After all, a more accurate model has a higher value, so this investment might make your model more valuable.
+
+In order to answer this question, we can think about what information we wish we could have. The simplest thing that comes to my mind is the relationship between the sample size and the quality of the model - if we knew that, we could figure out if it's likely that more data would provide incremental value to your model's predictive ability.
+
 # The learning curve tells us how model performance varies with sample size
 
+The relationship between sample size and model quality has a name: the [learning curve](https://en.wikipedia.org/wiki/Learning_curve_(machine_learning)). 
+
+Let's plot the learning curve for our portugese wine data set. As usually, we can have our old friend scikit-learn do all the hard work
+
 # The incremental value of a data point
+
+??
 
 # Putting it all together: Computing the value of a larger sample
 
