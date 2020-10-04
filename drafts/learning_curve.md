@@ -25,37 +25,9 @@ The relationship between sample size and model quality has a name: the [learning
 
 We have some intuition about the shape of this curve. As the number of samples grows, the performance of the model usually improves rapidly and then "flattens out" until adding more data points have little effect.
 
-Let's plot the learning curve for our portugese wine data set. As usually, we can have our old friend scikit-learn do all the hard work
-
-# The incremental value of a data point
-
-??
-
-# Putting it all together: Computing the value of a larger sample
-
-```
-curl http://www3.dsi.uminho.pt/pcortez/wine/winequality.zip --output winequality.zip
-unzip winequality.zip
-cd winequality/
-```
+Let's plot the learning curve for our portugese wine data set. As usually, we can have our old friend scikit-learn do all the hard work https://scikit-learn.org/stable/auto_examples/model_selection/plot_learning_curve.html
 
 ```python
-from sklearn.linear_model import Lasso
-from sklearn.model_selection import learning_curve
-import numpy as np
-from matplotlib import pyplot as plt
-import seaborn as sns
-import pandas as pd
-from statsmodels.api import formula as smf
-from sklearn.utils import resample
-
-df = pd.read_csv('winequality-red.csv', sep=';')
-
-y = df['quality']
-X = df.drop('quality', axis=1)
-
-# https://scikit-learn.org/stable/auto_examples/model_selection/plot_learning_curve.html#sphx-glr-auto-examples-model-selection-plot-learning-curve-py
-
 n_folds = 10
 
 train_sizes, _, test_scores = learning_curve(Lasso(alpha=10**(-3), normalize=True), X, y, cv=n_folds, scoring='neg_root_mean_squared_error', train_sizes=np.linspace(0.1, 1, 20))
@@ -63,14 +35,20 @@ test_scores = -test_scores
 test_scores_mean = np.mean(test_scores, axis=1)
 test_scores_se = np.std(test_scores, axis=1) / np.sqrt(n_folds)
 test_scores_var = test_scores_se**2
+```
 
+```python
 plt.plot(train_sizes, test_scores_mean, marker='o')
 plt.title('Learning Curve for Lasso model')
 plt.xlabel('Sample size')
 plt.ylabel('CV RMSE')
 plt.tight_layout()
 plt.show()
+```
 
+# The incremental value of a data point
+
+```python
 mean_diff = np.diff(test_scores_mean)
 diff_se = np.sqrt(test_scores_var[1:] + test_scores_var[:-1])
 
@@ -90,4 +68,43 @@ plt.ylabel('Improvement in RMSE')
 plt.tight_layout()
 plt.legend()
 plt.show()
+```
+
+# Putting it all together: Computing the value of a larger sample
+
+That was a lot! Let's recap it quickly, to make it clear what the process is by which we answer our original question.
+
+- You have a sample on hand, and a particular model you've decided to fit to it so you can make predictions. You'd like to know if collecting more samples would improve your model's predictive power.
+- Compute the learning curve for your favorite model, to get a feel for how the sample sizes affects the model's quality. Does the learning curve seem to have flattened out as we approach the current sample size, or does it still have a large slope?
+- Calculate the first difference of the learning curve, and see if that first difference is about zero. Consider smoothing this curve to see if it has a mean of zero around the current sample size. If so, adding more samples likely won't improve things.
+
+
+
+
+# Appendix: Setup and imports
+
+Download the data
+
+```
+curl http://www3.dsi.uminho.pt/pcortez/wine/winequality.zip --output winequality.zip
+unzip winequality.zip
+cd winequality/
+```
+
+Import libraries and read from the CSV
+
+```python
+from sklearn.linear_model import Lasso
+from sklearn.model_selection import learning_curve
+import numpy as np
+from matplotlib import pyplot as plt
+import seaborn as sns
+import pandas as pd
+from statsmodels.api import formula as smf
+from sklearn.utils import resample
+
+df = pd.read_csv('winequality-red.csv', sep=';')
+
+y = df['quality']
+X = df.drop('quality', axis=1)
 ```
