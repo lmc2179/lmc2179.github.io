@@ -23,7 +23,7 @@ In order to answer this question, we can think about what information we wish we
 
 The relationship between sample size and model quality has a name: the [learning curve](https://en.wikipedia.org/wiki/Learning_curve_(machine_learning)). 
 
-We have some intuition about the shape of this curve. As the number of samples grows, the performance of the model usually improves rapidly and then "flattens out" until adding more data points have little effect.
+We have some intuition about the shape of this curve. As the number of samples grows, the performance of the model usually improves rapidly and then "flattens out" until adding more data points have little effect. We'll make the ASSUMPTION that this type of shape describes the curve, and the main question is whether we're currently in the steeply rising part of the curve, or the flatter part
 
 Cross validation https://en.wikipedia.org/wiki/Cross-validation_(statistics)
 
@@ -81,9 +81,6 @@ That was a lot! Let's recap it quickly, to make it clear what the process is by 
 - You have a sample on hand, and a particular model you've decided to fit to it so you can make predictions. You'd like to know if collecting more samples would improve your model's predictive power.
 - Compute the learning curve for your favorite model, to get a feel for how the sample sizes affects the model's quality. Does the learning curve seem to have flattened out as we approach the current sample size, or does it still have a large slope?
 - Calculate the first difference of the learning curve, and see if that first difference is about zero. Consider smoothing this curve to see if it has a mean of zero around the current sample size. If so, adding more samples likely won't improve things.
-
-
-
 
 # Appendix: Setup and imports
 
