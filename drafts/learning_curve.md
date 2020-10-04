@@ -9,25 +9,21 @@ image: jellybeans.png
 
 *Since we usually need to pay for data (either with money to buy it or effort to collect it), it's worth knowing the value of getting more data points to fit your predictive model. We'll explore the learning curve, a model-agnostic way of understanding how black box performance changes as we add more data points to our sample. Analysis of the learning curve tells us whether it's worth it to collect a larger dataset, and it's easy to do this analysis in Python with scikit-learn.*
 
-Key question: Would collecting more data materially benefit my model, or has my chosen model hit the ceiling of potential performance?
-
 # Is it worth collecting more samples?
 
 When we have a sample of data we want to use to fit a model, it's natural to ask ourselves whether we have "enough" samples on hand. Would collecting more data improve our model, or has it reached a performance plateau? This is a question with a lot of practical importance, because data is expensive!  We need to pay to acquire samples - either literally exchanging money with a data vendor or building systems to collect data. When our analysis is simple, like a difference in means, we can achieve this by computing the power of a hypothesis test or the precision of the effect size confidence interval. But if you have a carefully-crafted regression model or black-box machine learning model, it's a lot less clear how to gauge whether you have enough samples.
 
 For example, let's say you've already collected [a number of datapoints about Portugese wine](http://www3.dsi.uminho.pt/pcortez/wine/). You'd like to build a predictive model that relates the measurable properties of wine to its quality, perhaps so you can sell it to a Portugese Winery to automate their quality assurance. You've just done some fancy [model selection](https://lmc2179.github.io/posts/cvci.html) and decided that a Lasso model will probably give you the best trade-off between prediction quality and model simplicity. You've already went through some effort to gather the 1,599 samples of wine data in your data set, but perhaps your model would make better predictions if you collected even more samples? After all, a more accurate model has a higher value, so this investment might make your model more valuable.
 
-In order to answer this question, we can think about what information we wish we could have. The simplest thing that comes to my mind is the relationship between the sample size and the quality of the model - if we knew that, we could figure out if it's likely that more data would provide incremental value to your model's predictive ability.
+In order to answer this question, let's think about what information would be sufficient to answer it. The simplest thing that comes to my mind is the relationship between the sample size and the quality of the model - if we knew that, we could figure out if it's likely that more data would provide incremental value to your model's predictive ability.
 
 # The learning curve tells us how model performance varies with sample size
 
-The relationship between sample size and model quality has a name: the [learning curve](https://en.wikipedia.org/wiki/Learning_curve_(machine_learning)). 
+The relationship between sample size and model quality has a name: the [learning curve](https://en.wikipedia.org/wiki/Learning_curve_(machine_learning)). The learning curve is a plot of how the model's performance on our favorite metric (like MSE or ROC-AUC varies with sample size). Sometimes we'll plot both the in-sample (training) and out-of-sample (validation) performance on a graph like this; we'll just focus on the out-of-sample performance for now.
 
-We have some intuition about the shape of this curve. As the number of samples grows, the performance of the model usually improves rapidly and then "flattens out" until adding more data points have little effect. We'll make the ASSUMPTION that this type of shape describes the curve, and the main question is whether we're currently in the steeply rising part of the curve, or the flatter part
+We have some intuition about the shape of this curve. As the number of samples grows, the performance of the model usually improves rapidly and then "flattens out" until adding more data points has little effect. We'll make the assumption that this family of shape describes the curve, and the main question is whether we're currently in the steeply rising part of the curve, or the flatter part. This doesn't strike me as a very strong assumption, since I haven't seen any examples of real-life models where the model performance "jumps" after being flat for a large number of samples. Nonetheless, this is an assumption, and we should be careful to take note of it.
 
-Cross validation https://en.wikipedia.org/wiki/Cross-validation_(statistics)
-
-Let's plot the learning curve for our portugese wine data set. As usually, we can have our old friend scikit-learn do all the hard work https://scikit-learn.org/stable/auto_examples/model_selection/plot_learning_curve.html
+Let's plot the learning curve for the RMSE of our Lasso model on our Portugese wine data set. As usual, we can have our old friend scikit-learn do all the hard work. This piece of code is adapted from their [learning curve example](https://scikit-learn.org/stable/auto_examples/model_selection/plot_learning_curve.html). The library will run K-fold CV at varying sample sizes, giving us a mean and variance around the RMSE as the sample size changes.
 
 ```python
 n_folds = 10
@@ -38,6 +34,8 @@ test_scores_mean = np.mean(test_scores, axis=1)
 test_scores_se = np.std(test_scores, axis=1) / np.sqrt(n_folds)
 test_scores_var = test_scores_se**2
 ```
+
+We can then plot the relationship between sample size and model performance, as we initially set out to do:
 
 ```python
 plt.plot(train_sizes, test_scores_mean, marker='o', label='Mean')
@@ -51,6 +49,8 @@ plt.show()
 ```
 
 ![Learning curve](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/learning_curve/1.png)
+
+So far, so good. This learning curve has exactly the kind of shape we'd expect. The error drops steeply when we have few samples, but seems to "saturate" after a few hundred samples, as adding more samples makes little impact. However, it can be a little tough to tell what's going on with the right hand side of the graph. It looks like the incremental data points there are providing relatively little value, but it's worth taking a closer look.
 
 # The incremental value of a data point
 
