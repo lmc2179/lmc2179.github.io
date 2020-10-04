@@ -25,6 +25,8 @@ The relationship between sample size and model quality has a name: the [learning
 
 We have some intuition about the shape of this curve. As the number of samples grows, the performance of the model usually improves rapidly and then "flattens out" until adding more data points have little effect.
 
+Cross validation https://en.wikipedia.org/wiki/Cross-validation_(statistics)
+
 Let's plot the learning curve for our portugese wine data set. As usually, we can have our old friend scikit-learn do all the hard work https://scikit-learn.org/stable/auto_examples/model_selection/plot_learning_curve.html
 
 ```python
@@ -38,11 +40,13 @@ test_scores_var = test_scores_se**2
 ```
 
 ```python
-plt.plot(train_sizes, test_scores_mean, marker='o')
+plt.plot(train_sizes, test_scores_mean, marker='o', label='Mean')
+plt.fill_between(train_sizes, test_scores_mean - 1.96 * test_scores_se, test_scores_mean + 1.96 * test_scores_se, alpha=.1, label='CI')
 plt.title('Learning Curve for Lasso model')
 plt.xlabel('Sample size')
 plt.ylabel('CV RMSE')
 plt.tight_layout()
+plt.legend()
 plt.show()
 ```
 
