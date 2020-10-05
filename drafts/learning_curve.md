@@ -25,6 +25,8 @@ We have some intuition about the shape of this curve. As the number of samples g
 
 Let's plot the learning curve for the RMSE of our Lasso model on our Portugese wine data set. As usual, we can have our old friend scikit-learn do all the hard work. This piece of code is adapted from their [learning curve example](https://scikit-learn.org/stable/auto_examples/model_selection/plot_learning_curve.html). The library will run K-fold CV at varying sample sizes, giving us a mean and variance around the RMSE as the sample size changes. We'll use 10-fold splitting.
 
+_You can find the imports and code to fetch the data in the appendix._
+
 ```python
 n_folds = 10
 
@@ -35,7 +37,7 @@ test_scores_se = np.std(test_scores, axis=1) / np.sqrt(n_folds)
 test_scores_var = test_scores_se**2
 ```
 
-We can then plot the relationship between sample size and model performance, as we initially set out to do:
+We can then plot the relationship between sample size and model performance:
 
 ```python
 plt.plot(train_sizes, test_scores_mean, marker='o', label='Mean')
@@ -50,11 +52,11 @@ plt.show()
 
 ![Learning curve](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/learning_curve/1.png)
 
-So far, so good. This learning curve has exactly the kind of shape we'd expect. The error drops steeply when we have few samples, but seems to "saturate" after a few hundred samples, as adding more samples makes little impact. However, it can be a little tough to tell what's going on with the right hand side of the graph. It looks like the incremental data points there are providing relatively little value, but it's worth taking a closer look.
+So far, so good. This learning curve has exactly the kind of shape we'd expect. The error drops steeply as we add the few batches of samples, but seems to "saturate" after a few hundred samples, as adding more data makes little impact. However, it can be a little tough to tell what's going on with the right hand side of the graph. It looks like the incremental data points there are providing relatively little value, but it's worth taking a closer look.
 
 # The incremental value of a data point
 
-The question here is whether adding a new batch of samples from the same source (a presumed IID one) would provide value by decreasing the models RMSE. Our learning curve tells us about the performance of the model at each sample size, and we can transform it to learn about the incremental value of each batch of samples. We'll take the first difference of the learning curve using [np.diff](https://numpy.org/doc/stable/reference/generated/numpy.diff.html). This will tell us the incremental value we observed for each batch of data points we added to the model. 
+The question here is whether adding a new batch of samples from the same source (a presumed IID one) would provide value by decreasing the model's RMSE. Our learning curve tells us about the performance of the model at each sample size, and we can transform it to learn about the incremental value of each batch of samples. We'll take the first difference of the learning curve using [np.diff](https://numpy.org/doc/stable/reference/generated/numpy.diff.html). This will tell us the incremental value we observed for each batch of data points we added to the model; specifically, we'll get the change in the RMSE when that batch was added.
 
 ```python
 mean_diff = np.diff(test_scores_mean)
@@ -97,7 +99,7 @@ That was a lot! Let's recap it quickly, to make it clear what the process is by 
 
 # Appendix: Setup and imports
 
-Download the data
+We download the data:
 
 ```
 curl http://www3.dsi.uminho.pt/pcortez/wine/winequality.zip --output winequality.zip
@@ -105,7 +107,7 @@ unzip winequality.zip
 cd winequality/
 ```
 
-Import libraries and read from the CSV
+Plus import libraries and read from the CSV:
 
 ```python
 from sklearn.linear_model import Lasso
