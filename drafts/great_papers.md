@@ -4,7 +4,7 @@ n non-technical papers that made me a better Data Scientist
 
 [Statistical Inference: The Big Picture - Robert E. Kass](http://www.stat.cmu.edu/~kass/papers/bigpic.pdf)
 
-[Bayesian Statistical Pragmatism](https://projecteuclid.org/euclid.ss/1307626555)
+An interesting response to this is [Bayesian Statistical Pragmatism - Andrew Gelman](https://projecteuclid.org/euclid.ss/1307626555)
 
 [Statistical Models and Shoe Leather - David A. Freedman](https://psychology.okstate.edu/faculty/jgrice/psyc5314/Freedman_1991A.pdf)
 
