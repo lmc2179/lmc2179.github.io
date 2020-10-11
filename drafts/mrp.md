@@ -1,5 +1,6 @@
 ```python
 import pandas as pd
+import numpy as np
 
 region_pop_weight = pd.DataFrame({'name': ['A', 'B', 'C', 'D', 'E'], 'weight': [0.4, 0.3, 0.2, 0.05, 0.05], 'key': 0})
 frequency_pop_weight = pd.DataFrame({'name': [1, 2, 3, 4, 5], 'weight': [.15, .2, .3, .25, .1], 'key': 0})
@@ -30,4 +31,9 @@ all_groups_approve_rate['rate'] = 0.5*(all_groups_approve_rate['rate_region'] + 
 region_approve_rate.drop('key', inplace=True, axis=1)
 frequency_approve_rate.drop('key', inplace=True, axis=1)
 all_groups_approve_rate.drop('key', inplace=True, axis=1)
+
+rng = np.random.default_rng()
+
+total_responders = rng.multinomial(1000, all_groups_sample_weight['weight'])
+total_approve = rng.binomial(n, all_groups_approve_rate['rate'])
 ```
