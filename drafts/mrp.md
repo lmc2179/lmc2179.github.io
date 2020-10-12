@@ -60,4 +60,9 @@ all_subgroups_df['low_unpooled'] = np.quantile(predicted_responses, .025, axis=0
 all_subgroups_df['high_unpooled'] = np.quantile(predicted_responses, .975, axis=0)
 
 naive_estimate = all_subgroups_df['total_approve'].sum() / all_subgroups_df['total_responders'].sum()
+
+plt.scatter(all_subgroups_df['total_approve'] / all_subgroups_df['total_responders'], all_subgroups_df['mean'])
+plt.vlines(all_subgroups_df['total_approve'] / all_subgroups_df['total_responders'], all_subgroups_df['low'], all_subgroups_df['high'])
+plt.plot([0, 1],[0,1], linestyle='dotted')
+plt.show()
 ```
