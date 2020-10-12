@@ -27,4 +27,12 @@ rng = np.random.default_rng()
 
 all_subgroups_df['total_responders'] = rng.multinomial(1000, all_subgroups_df['sample_weight'])
 all_subgroups_df['total_approve'] = rng.binomial(n, all_subgroups_df['approve_rate'])
+
+unique_regions = all_subgroups_df['name_region'].unique()
+region_lookup = {v: i for i, v in enumerate(unique_regions)}
+region_idx = [region_lookup[v] for v in all_subgroups_df['name_region']]
+
+unique_freq = all_subgroups_df['name_frequency'].unique()
+freq_lookup = {v: i for i, v in enumerate(unique_freq)}
+freq_idx = [freq_lookup[v] for v in all_subgroups_df['name_frequency']]
 ```
