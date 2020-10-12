@@ -2,38 +2,29 @@
 import pandas as pd
 import numpy as np
 
-region_pop_weight = pd.DataFrame({'name': ['A', 'B', 'C', 'D', 'E'], 'weight': [0.4, 0.3, 0.2, 0.05, 0.05], 'key': 0})
-frequency_pop_weight = pd.DataFrame({'name': [1, 2, 3, 4, 5], 'weight': [.15, .2, .3, .25, .1], 'key': 0})
+region_df = pd.DataFrame({'name': ['A', 'B', 'C', 'D', 'E'], 
+                                  'pop_weight': [0.4, 0.3, 0.2, 0.05, 0.05], 
+                                  'sample_weight': [0.05, 0.4, 0.3, 0.2, 0.05],
+                                  'approve_rate': [.3, .5, .6, .3, .5],
+                                  'key': 0})
+frequency_df = pd.DataFrame({'name': [1, 2, 3, 4, 5], 
+                                     'pop_weight': [.15, .2, .3, .25, .1], 
+                                     'sample_weight': [.1, .15, .2, .25, .3],
+                                     'approve_rate': [.9, .8, .5, .3, .1],
+                                     'key': 0})
 
-all_groups_pop_weight = pd.merge(region_pop_weight, frequency_pop_weight, on='key', suffixes=('_region', '_frequency'))
-all_groups_pop_weight['weight'] = all_groups_pop_weight['weight_region'] * all_groups_pop_weight['weight_frequency']
+all_subgroups_df = pd.merge(region_df, frequency_df, on='key', suffixes=('_region', '_frequency'))
+all_subgroups_df['pop_weight'] = (all_subgroups_df['pop_weight_region'] * all_subgroups_df['pop_weight_frequency'])
+all_subgroups_df['sample_weight'] = (all_subgroups_df['sample_weight_region'] * all_subgroups_df['sample_weight_frequency'])
+all_subgroups_df['approve_rate'] = 0.5*(all_subgroups_df['approve_rate_region'] + all_subgroups_df['approve_rate_frequency'])
 
-region_pop_weight.drop('key', inplace=True, axis=1)
-frequency_pop_weight.drop('key', inplace=True, axis=1)
-all_groups_pop_weight.drop('key', inplace=True, axis=1)
-
-region_sample_weight = pd.DataFrame({'name': ['A', 'B', 'C', 'D', 'E'], 'weight': [0.05, 0.4, 0.3, 0.2, 0.05], 'key': 0})
-frequency_sample_weight = pd.DataFrame({'name': [1, 2, 3, 4, 5], 'weight': [.1, .15, .2, .25, .3], 'key': 0})
-
-all_groups_sample_weight = pd.merge(region_sample_weight, frequency_sample_weight, on='key', suffixes=('_region', '_frequency'))
-all_groups_sample_weight['weight'] = all_groups_sample_weight['weight_region'] * all_groups_sample_weight['weight_frequency']
-
-region_sample_weight.drop('key', inplace=True, axis=1)
-frequency_sample_weight.drop('key', inplace=True, axis=1)
-all_groups_sample_weight.drop('key', inplace=True, axis=1)
-
-region_approve_rate = pd.DataFrame({'name': ['A', 'B', 'C', 'D', 'E'], 'rate': [.3, .5, .6, .3, .5], 'key': 0})
-frequency_approve_rate = pd.DataFrame({'name': [1, 2, 3, 4, 5], 'rate': [.9, .8, .5, .3, .1], 'key': 0})
-
-all_groups_approve_rate = pd.merge(region_approve_rate, frequency_approve_rate, on='key', suffixes=('_region', '_frequency'))
-all_groups_approve_rate['rate'] = 0.5*(all_groups_approve_rate['rate_region'] + all_groups_approve_rate['rate_frequency'])
-
-region_approve_rate.drop('key', inplace=True, axis=1)
-frequency_approve_rate.drop('key', inplace=True, axis=1)
-all_groups_approve_rate.drop('key', inplace=True, axis=1)
+all_subgroups_df.drop(['key', 'pop_weight_region', 'pop_weight_frequency', 
+                              'sample_weight_region', 'sample_weight_frequency', 
+                              'approve_rate_region', 'approve_rate_frequency',
+                              'sample_weight', 'approve_rate'], inplace=True, axis=1)
 
 rng = np.random.default_rng()
 
-total_responders = rng.multinomial(1000, all_groups_sample_weight['weight'])
-total_approve = rng.binomial(n, all_groups_approve_rate['rate'])
+all_subgroups_df['total_responders'] = rng.multinomial(1000, all_subgroups_df['sample_weight'])
+all_subgroups_df['total_approve'] = rng.binomial(n, all_subgroups_df['approve_rate'])
 ```
