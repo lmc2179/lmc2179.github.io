@@ -2,6 +2,7 @@
 import pandas as pd
 import numpy as np
 import pymc3 as pm
+from scipy.special import expit
 
 region_df = pd.DataFrame({'name': ['A', 'B', 'C', 'D', 'E'], 
                                   'pop_weight': [0.4, 0.3, 0.2, 0.05, 0.05], 
@@ -45,5 +46,18 @@ with pm.Model() as unpooled_model:
   x = pm.Binomial('x', n=all_subgroups_df['total_responders'], p=pm.math.invlogit(response_est), observed=all_subgroups_df['total_approve'])
   unpooled_trace = pm.sample(2000)
 
+predicted_responses = []
 
+for a_r, a_f in zip(unpooled_trace['a_region'], unpooled_trace['a_freq']):
+  predicted_responses.append(expit(a_r[region_idx] + a_f[freq_idx]))
+  
+predicted_responses = np.array(predicted_responses)
+
+poststratified_outcomes = np.array([np.dot(r, all_subgroups_df['pop_weight']) for r in predicted_responses])
+
+all_subgroups_df['mean_unpooled'] = np.mean(predicted_responses, axis=0)
+all_subgroups_df['low_unpooled'] = np.quantile(predicted_responses, .025, axis=0)
+all_subgroups_df['high_unpooled'] = np.quantile(predicted_responses, .975, axis=0)
+
+naive_estimate = all_subgroups_df['total_approve'].sum() / all_subgroups_df['total_responders'].sum()
 ```
