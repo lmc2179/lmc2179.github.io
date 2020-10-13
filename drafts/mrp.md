@@ -15,6 +15,19 @@ naive_estimate = all_subgroups_df['total_approve'].sum() / all_subgroups_df['tot
 
 # The first step is admitting that you have a problem: Understanding if a sample is non-representative
 
+```python
+n = all_subgroups_df['total_responders'].sum()
+
+p_values = [binom_test(r, n, p) for r, p in all_subgroups_df[['total_responders', 'pop_weight']].values]
+
+print(p_values)
+
+binom_cis = [proportion_confint(r, n, method='beta') for r, p in all_subgroups_df[['total_responders', 'pop_weight']].values]
+low, high = zip(*binom_cis)
+plt.vlines(all_subgroups_df['pop_weight'], low, high)
+plt.plot([min(low), max(high)], [min(low), max(high)], color='grey', linestyle='dotted')
+```
+
 # Post-stratification with a Logit model in statsmodels
 
 # Preparing for a multilevel model - a Bayesian Logit model with PyMC3
@@ -68,6 +81,7 @@ import pandas as pd
 import numpy as np
 import pymc3 as pm
 from scipy.special import expit
+from statsmodels.stats.proportion import proportion_confint
 
 region_df = pd.DataFrame({'name': ['A', 'B', 'C', 'D', 'E'], 
                                   'pop_weight': [0.4, 0.3, 0.2, 0.05, 0.05], 
