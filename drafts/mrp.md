@@ -44,6 +44,11 @@ logit_df = pd.concat((positive_examples_df, negative_examples_df))
 
 logit_model = smf.glm('y ~ name_region + C(name_frequency)', logit_df, n_trials=logit_df['n'], family=sm.families.Binomial())
 logit_fit = logit_model.fit()
+
+logit_predictions = logit_fit.get_prediction(all_subgroups_df).summary_frame()
+
+print('Point estimate: ', np.dot(all_subgroups_df['pop_weight'], logit_predictions['mean']))
+print('Point SE: ', np.sqrt(np.dot(all_subgroups_df['pop_weight']**2, logit_predictions['mean_se']**2)))
 ```
 
 # What assumptions did we make just now?
