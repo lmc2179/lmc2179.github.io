@@ -32,6 +32,20 @@ plt.plot([min(low), max(high)], [min(low), max(high)], color='grey', linestyle='
 
 # Post-stratification with a Logit model in statsmodels
 
+```python
+positive_examples_df = all_subgroups_df[['name_region', 'name_frequency']]
+positive_examples_df['y'] = 1
+positive_examples_df['n'] = all_subgroups_df['total_approve']
+negative_examples_df = all_subgroups_df[['name_region', 'name_frequency']]
+negative_examples_df['y'] = 0
+negative_examples_df['n'] = all_subgroups_df['total_responders'] - all_subgroups_df['total_approve']
+
+logit_df = pd.concat((positive_examples_df, negative_examples_df))
+
+logit_model = smf.glm('y ~ name_region + C(name_frequency)', logit_df, n_trials=logit_df['n'], family=sm.families.Binomial())
+logit_fit = logit_model.fit()
+```
+
 # What assumptions did we make just now?
 
 ## We have controlled for all the covariates
