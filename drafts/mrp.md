@@ -7,11 +7,13 @@ tags: [datascience]
 image: jellybeans.png
 ---
 
-# The big idea: Extrapolate our sample to the population using covariates
+# The problem: Our sample doesn't look like the population we want to understand
 
 ```python
 naive_estimate = all_subgroups_df['total_approve'].sum() / all_subgroups_df['total_responders'].sum()
 ```
+
+# The solution: Post-stratification
 
 # The first step is admitting that you have a problem: Understanding if a sample is non-representative
 
@@ -29,6 +31,16 @@ plt.plot([min(low), max(high)], [min(low), max(high)], color='grey', linestyle='
 ```
 
 # Post-stratification with a Logit model in statsmodels
+
+# What assumptions did we make just now?
+
+## We have controlled for all the covariates
+
+And this is not testable
+
+## The true model is the logit model
+
+This is not ideal, though it's not ridiculous
 
 # Preparing for a multilevel model - a Bayesian Logit model with PyMC3
 
