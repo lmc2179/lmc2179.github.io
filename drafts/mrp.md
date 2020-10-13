@@ -1,35 +1,25 @@
+---
+layout: post
+title: "Estimating survey results with poststratification"
+author: "Louis Cialdella"
+categories: posts
+tags: [datascience]
+image: jellybeans.png
+---
+
+# The big idea: Extrapolate our sample to the population using covariates
+
 ```python
-import pandas as pd
-import numpy as np
-import pymc3 as pm
-from scipy.special import expit
+naive_estimate = all_subgroups_df['total_approve'].sum() / all_subgroups_df['total_responders'].sum()
+```
 
-region_df = pd.DataFrame({'name': ['A', 'B', 'C', 'D', 'E'], 
-                                  'pop_weight': [0.4, 0.3, 0.2, 0.05, 0.05], 
-                                  'sample_weight': [0.05, 0.4, 0.3, 0.2, 0.05],
-                                  'approve_rate': [.3, .5, .6, .3, .5],
-                                  'key': 0})
-frequency_df = pd.DataFrame({'name': [1, 2, 3, 4, 5], 
-                                     'pop_weight': [.15, .2, .3, .25, .1], 
-                                     'sample_weight': [.1, .15, .2, .25, .3],
-                                     'approve_rate': [.9, .8, .5, .3, .1],
-                                     'key': 0})
+# The first step is admitting that you have a problem: Understanding if a sample is non-representative
 
-all_subgroups_df = pd.merge(region_df, frequency_df, on='key', suffixes=('_region', '_frequency'))
-all_subgroups_df['pop_weight'] = (all_subgroups_df['pop_weight_region'] * all_subgroups_df['pop_weight_frequency'])
-all_subgroups_df['sample_weight'] = (all_subgroups_df['sample_weight_region'] * all_subgroups_df['sample_weight_frequency'])
-all_subgroups_df['approve_rate'] = 0.5*(all_subgroups_df['approve_rate_region'] + all_subgroups_df['approve_rate_frequency'])
+# Post-stratification with a Logit model in statsmodels
 
-rng = np.random.default_rng()
+# Preparing for a multilevel model - a Bayesian Logit model with PyMC3
 
-all_subgroups_df['total_responders'] = rng.multinomial(1000, all_subgroups_df['sample_weight'])
-all_subgroups_df['total_approve'] = rng.binomial(all_subgroups_df['total_responders'], all_subgroups_df['approve_rate'])
-
-all_subgroups_df.drop(['key', 'pop_weight_region', 'pop_weight_frequency', 
-                              'sample_weight_region', 'sample_weight_frequency', 
-                              'approve_rate_region', 'approve_rate_frequency',
-                              'sample_weight', 'approve_rate'], inplace=True, axis=1)
-
+```python
 unique_regions = all_subgroups_df['name_region'].unique()
 region_lookup = {v: i for i, v in enumerate(unique_regions)}
 region_idx = [region_lookup[v] for v in all_subgroups_df['name_region']]
@@ -58,11 +48,52 @@ poststratified_outcomes = np.array([np.dot(r, all_subgroups_df['pop_weight']) fo
 all_subgroups_df['mean_unpooled'] = np.mean(predicted_responses, axis=0)
 all_subgroups_df['low_unpooled'] = np.quantile(predicted_responses, .025, axis=0)
 all_subgroups_df['high_unpooled'] = np.quantile(predicted_responses, .975, axis=0)
+```
 
-naive_estimate = all_subgroups_df['total_approve'].sum() / all_subgroups_df['total_responders'].sum()
-
+```python
 plt.scatter(all_subgroups_df['total_approve'] / all_subgroups_df['total_responders'], all_subgroups_df['mean'])
 plt.vlines(all_subgroups_df['total_approve'] / all_subgroups_df['total_responders'], all_subgroups_df['low'], all_subgroups_df['high'])
 plt.plot([0, 1],[0,1], linestyle='dotted')
 plt.show()
+
 ```
+
+# Hierarchical logit
+
+
+# Appendix: Imports and data generation
+
+```python
+import pandas as pd
+import numpy as np
+import pymc3 as pm
+from scipy.special import expit
+
+region_df = pd.DataFrame({'name': ['A', 'B', 'C', 'D', 'E'], 
+                                  'pop_weight': [0.4, 0.3, 0.2, 0.05, 0.05], 
+                                  'sample_weight': [0.05, 0.4, 0.3, 0.2, 0.05],
+                                  'approve_rate': [.3, .5, .6, .3, .5],
+                                  'key': 0})
+frequency_df = pd.DataFrame({'name': [1, 2, 3, 4, 5], 
+                                     'pop_weight': [.15, .2, .3, .25, .1], 
+                                     'sample_weight': [.1, .15, .2, .25, .3],
+                                     'approve_rate': [.9, .8, .5, .3, .1],
+                                     'key': 0})
+
+all_subgroups_df = pd.merge(region_df, frequency_df, on='key', suffixes=('_region', '_frequency'))
+all_subgroups_df['pop_weight'] = (all_subgroups_df['pop_weight_region'] * all_subgroups_df['pop_weight_frequency'])
+all_subgroups_df['sample_weight'] = (all_subgroups_df['sample_weight_region'] * all_subgroups_df['sample_weight_frequency'])
+all_subgroups_df['approve_rate'] = 0.5*(all_subgroups_df['approve_rate_region'] + all_subgroups_df['approve_rate_frequency'])
+
+rng = np.random.default_rng(184972)
+
+all_subgroups_df['total_responders'] = rng.multinomial(1000, all_subgroups_df['sample_weight'])
+all_subgroups_df['total_approve'] = rng.binomial(all_subgroups_df['total_responders'], all_subgroups_df['approve_rate'])
+
+all_subgroups_df.drop(['key', 'pop_weight_region', 'pop_weight_frequency', 
+                              'sample_weight_region', 'sample_weight_frequency', 
+                              'approve_rate_region', 'approve_rate_frequency',
+                              'sample_weight', 'approve_rate'], inplace=True, axis=1)
+```
+
+
