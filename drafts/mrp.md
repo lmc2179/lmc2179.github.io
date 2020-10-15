@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Estimating survey results with poststratification"
+title: "Generalizing from biased samples with Multilvel regression with Poststratification using PyMC3"
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
@@ -31,6 +31,9 @@ Xbox example
 
 # The solution: Post-stratification
 
+https://online.stat.psu.edu/stat506/lesson/6/6.3
+
+https://en.wikipedia.org/wiki/Multilevel_regression_with_poststratification
 
 
 # The first step is admitting that you have a problem: Understanding if a sample is non-representative
