@@ -9,25 +9,11 @@ image: jellybeans.png
 
 # The problem: Our sample doesn't look like the population we want to understand
 
-In most practical settings, we can't inspect every member of a group of interest. We collect data, track behaviors, and ask opinions of individuals to try and make generalizations to the population that the individual cam from. This is the process of statistical inference from the data at hand which we spend so much of our time trying to do well. For example, perhaps you run a startup and you'd like to survey your users to understand if they'd be interested in new product feature you've been thinking about. Developing a new feature is pretty costly, so you only want to do it if a part portion of your user base will be interested in it. You send an email survey to a small number of users, and you'll use that to infer what your overall user base thinks of the idea.
+In most practical settings, we can't inspect every member of a group of interest. We collect count events, track behaviors, and survey opinions of individuals to make generalizations to the population that the individual came from. This is the process of statistical inference from the data at hand which we spend so much of our time trying to do well. For example, perhaps you run a startup and you'd like to survey your users to understand if they'd be interested in new product feature you've been thinking about. Developing a new feature is pretty costly, so you only want to do it if a part portion of your user base will be interested in it. You send an email survey to a small number of users, and you'll use that to infer what your overall user base thinks of the idea.
 
-In the simplest case, every user has the same likelihood of responding to your survey. In that case, the average member of your sample looks like the average member of your user base, and you have a [simple random sample](https://en.wikipedia.org/wiki/Simple_random_sample) to which you can apply all the usual analyses, like computing an estimate of what percentage of users approve of the new feature idea.
+In the simplest case, every user has the same likelihood of responding to your survey. In that case, the average member of your sample looks like the average member of your user base, and you have a [simple random sample](https://en.wikipedia.org/wiki/Simple_random_sample) to which you can apply all the usual analyses. For example, in this case the sample approval rate is a reasonable estimate of the population approval rate.
 
-However, simple random sampling is often not an option for someone running such a survey. In most situations like this, every user is not equally likely to respond - for example, there's a good chance that your most enthusiastic users are more likely to respond to the survey, leaving you with an estimate that over-represents these enthusiastic users.
-
-Some data
-
-```python
-naive_estimate = all_subgroups_df['total_approve'].sum() / all_subgroups_df['total_responders'].sum()
-print('The observed approval rate is: {0}'.format(naive_estimate))
-```
-```
-The observed approval rate is: 
-```
-
-This naive estimate presumably is not an exact reflection of the population approval rate, because our sampling was not simply random. Instead, we'll need to do some work to uncover how our sample differs from the population of interest
-
-Xbox example
+However, simple random sampling is often not an option for someone running such a survey. In most situations like this, every user is not equally likely to respond - for example, there's a good chance that your most enthusiastic users are more likely to respond to the survey. This leaves you with an estimate that over-represents these enthusiastic users. In this case, the usual estimate of the approval rate (the sample approval rate) is not an exact reflection of the population approval rate, because our sampling was not simply random. Instead, we'll need to do some work to uncover how our sample differs from the population of users, so we can account for the bias in our sampling process.
 
 # The solution: Post-stratification
 
@@ -35,6 +21,7 @@ https://online.stat.psu.edu/stat506/lesson/6/6.3
 
 https://en.wikipedia.org/wiki/Multilevel_regression_with_poststratification
 
+Xbox example
 
 # The first step is admitting that you have a problem: Understanding if a sample is non-representative
 
@@ -52,6 +39,14 @@ plt.plot([min(low), max(high)], [min(low), max(high)], color='grey', linestyle='
 ```
 
 # Post-stratification with a Logit model in statsmodels
+
+```python
+naive_estimate = all_subgroups_df['total_approve'].sum() / all_subgroups_df['total_responders'].sum()
+print('The observed approval rate is: {0}'.format(naive_estimate))
+```
+```
+The observed approval rate is: 
+```
 
 ```python
 positive_examples_df = all_subgroups_df[['name_region', 'name_frequency']]
