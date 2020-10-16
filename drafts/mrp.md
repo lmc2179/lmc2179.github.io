@@ -29,6 +29,8 @@ The reason that this technique has such a fancy sounding name is because it assu
 
 There are a number of ways that we can perform poststratification. The technique above is about the simplest kind that I can imagine - we estimate the subgroup average as the sample average, and use that for reweighting. However, we can often do a little better than this. In particular, we can get better estimates of the subgroup means by using a Bayesian technique called multilevel (or hierarchical) regresison, leading us to [Multilevel regression with poststratification](https://en.wikipedia.org/wiki/Multilevel_regression_with_poststratification). At this time, MRP is one of the state-of-the-art methods for generalizing samples of public opinion like polls. In 2016, [Wang et al](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/04/forecasting-with-nonrepresentative-polls.pdf) demonstrated the power of this technique by showing that it could be used to accurately predict US national public opinion from a highly nonrepresentative survey. In that case, the sample consisted of responders to an Xbox live poll, which very strongly oversampled certain subgroups (like young men) and undersampled others (like older women). However, using MRP the authors were able to understand the bias in the data and adjust the survey results accordingly.
 
+# What are these subgroups, exactly? Where do they come from?
+
 # The first step is admitting that you have a problem: Understanding if a sample is non-representative
 
 ```python
