@@ -15,13 +15,19 @@ In the simplest case, every user has the same likelihood of responding to your s
 
 However, simple random sampling is often not an option for someone running such a survey. In most situations like this, every user is not equally likely to respond - for example, there's a good chance that your most enthusiastic users are more likely to respond to the survey. This leaves you with an estimate that over-represents these enthusiastic users. In this case, the usual estimate of the approval rate (the sample approval rate) is not an exact reflection of the population approval rate, because our sampling was not simply random. Instead, we'll need to do some work to uncover how our sample differs from the population of users, so we can account for the bias in our sampling process.
 
-# The solution: Post-stratification
+# The solution: Poststratification
 
-https://online.stat.psu.edu/stat506/lesson/6/6.3
+We'll correct this problem using a technique called [poststratification](https://online.stat.psu.edu/stat506/lesson/6/6.3). Poststratification goes something like this:
 
-https://en.wikipedia.org/wiki/Multilevel_regression_with_poststratification
+- Collect your sample, which is biased because it oversamples some subgroups and undersamples others. For example, perhaps your survey is likely to be easier to answer for some demographics, but harder for others.
+- Use the data to estimate the mean result (such as approval rating) for each subgroup.
+- Compute the population mean by calculating a weighted average of the subgroup means, using the proportion of each subgroup in the population as the weight.
 
-Xbox example
+The reason that this technique has such a fancy sounding name is because it assumes that users are sample from a bunch of discrete subgroups (the strata), and we are adjusting the observed average after we collected the data using the strata information (so, we are doing the adjustment "after subgroup analysis", or "post-stratification").
+
+?
+
+There are a number of ways that we can perform poststratification. The technique above is about the simplest kind that I can imagine - we estimate the subgroup average as the sample average, and use that for reweighting. However, we can often do a little better than this. In particular, we can get better estimates of the subgroup means by using a Bayesian technique called multilevel (or hierarchical) regresison, leading us to [Multilevel regression with poststratification](https://en.wikipedia.org/wiki/Multilevel_regression_with_poststratification). At this time, MRP is one of the state-of-the-art methods for generalizing samples of public opinion like polls. In 2016, [Wang et al](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/04/forecasting-with-nonrepresentative-polls.pdf) demonstrated the power of this technique by showing that it could be used to accurately predict US national public opinion from a highly nonrepresentative survey. In that case, the sample consisted of responders to an Xbox live poll, which very strongly oversampled certain subgroups (like young men) and undersampled others (like older women). However, using MRP the authors were able to understand the bias in the data and adjust the survey results accordingly.
 
 # The first step is admitting that you have a problem: Understanding if a sample is non-representative
 
