@@ -7,7 +7,7 @@ tags: [datascience]
 image: wine.jpg
 ---
 
-*Since we usually need to pay for data (either with money to buy it or effort to collect it), it's worth knowing the value of getting more data points to fit your predictive model. We'll explore the learning curve, a model-agnostic way of understanding how black box performance changes as we add more data points to our sample. Analysis of the learning curve tells us whether it's worth it to collect a larger dataset, and it's easy to do this analysis in Python with scikit-learn.*
+*Since we usually need to pay for data (either with money to buy it or effort to collect it), it's worth knowing the value of getting more data points to fit your predictive model. We'll explore the learning curve, a model-agnostic way of understanding how performance changes as we add more data points to our sample. Analysis of the learning curve tells us whether it's worth it to collect a larger dataset, and it's easy to do this analysis in Python with scikit-learn.*
 
 # Is it worth collecting more samples?
 
