@@ -31,15 +31,23 @@ For our "do our users approve of the potential new feature" problem, poststratif
 - Your users fall into a bunch of pre-determined subgroups See the next section for where these subgroups might come from; for now, assume we know them a priori. Calculate the sample approval rate for each subgroup.
 - Estimate the population mean by calculating a weighted average of all the subgroup approval rates, where the weight corresponds to what percentage of the population that subgroup comprises.
 
-There are a number of ways that we can perform poststratification. The technique above is about the simplest kind that I can imagine - we estimate the subgroup average using the sample average, and use that for the final weighted average. However, we can often do a little better than this. In particular, we can get better estimates of the subgroup means by using a Bayesian technique called multilevel (or hierarchical) regresison, leading us to [Multilevel regression with poststratification](https://en.wikipedia.org/wiki/Multilevel_regression_with_poststratification). At this time, MRP is one of the state-of-the-art methods for generalizing samples of public opinion like polls. In 2016, [Wang et al](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/04/forecasting-with-nonrepresentative-polls.pdf) demonstrated the power of this technique by showing that it could be used to accurately predict US national public opinion from a highly nonrepresentative survey. In that case, the sample consisted of responders to an Xbox live poll, which very strongly oversampled certain subgroups (like young men) and undersampled others (like older women). However, using MRP the authors were able to understand the bias in the data and adjust the survey results accordingly.
+There are a number of ways that we can perform poststratification. The technique above is about the simplest kind that I can imagine - we estimate the subgroup average using the sample average, and use that for the final weighted average. However, we can often do a little better than this. In particular, we can get better estimates of the subgroup means by using a Bayesian technique called multilevel (or hierarchical) regresison, leading us to [Multilevel regression with poststratification](https://en.wikipedia.org/wiki/Multilevel_regression_with_poststratification). At this time, MRP is one of the state-of-the-art methods for generalizing samples of public opinion like polls. In 2016, [Wang et al](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/04/forecasting-with-nonrepresentative-polls.pdf) demonstrated the power of this technique by showing that it could be used to accurately predict US national public opinion from a highly nonrepresentative survey. In that case, the sample consisted of responders to an Xbox Live poll, which very strongly oversampled certain subgroups (like young men) and undersampled others (like older women). However, using MRP the authors were able to understand the bias in the data and adjust the survey results accordingly.
 
 # What are these subgroups, exactly? Where do they come from?
 
->As functioning adult human beings, you have a lot of everyday causal knowledge, which does not disappear the moment you start doing data analysis. Moreover, you are the inheritor of a vast scientific tradition which has, through patient observation, toilsome experiments, ingenious theorizing and intricate debate, acquired even more causal knowledge. You can and should use this. Someone’s sex or race or caste at birth might be causes of the job they get or their income at age 30, but not the other way around. Running an electric current through a wire produces heat at a rate proportional to the square of the current. Malaria is due to a parasite transmitted by mosquitoes, and spraying mosquitoes with insecticides makes the survivors more resistant to those chemicals. All of these sorts of ideas can be expressed graphically, or at least as constraints on graphs.
+The explanation just now mentioned "subgroups", without explaining where such a grouping might come from. If you regularly analyze some population, like the set of users for your website, you might already have some subgroups in mind. There might be certain demographic variables that you regularly use to group your observations. In the Xbox example, the subgroups are defined by familiar US Census categories, like gender, age, and race. What motivates this particular set of subgroups? 
 
-http://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf, ch. 22
+If we return to our original goal, we see that we wanted to make a non-representative sample into a representative one
+
+An analyst is free to choose how to take the discrete attributes of interest and coarsen them appropriately (King citation)
+
+This amounts to an MAR (?) assumption and is uncheckable, you'll never know if you got them all
 
 # The first step is admitting that you have a problem: Understanding if a sample is non-representative
+
+So far, we've assumed that we don't have a simple random sample on our hands based on a priori reasoning. We're almost certainly right that our sample is not a simple random one; randomness is hard to achieve, and it is immensely likely that we did not stumble into collecting a representative sample by accident. Even so, it's valuable to aid our intuition by looking at how we know the sample doesn't seem representative.
+
+We can test the hypothesis "is the probability of being sampled into a subgroup the same as the population probability" ?
 
 ```python
 n = all_subgroups_df['total_responders'].sum()
@@ -47,12 +55,18 @@ n = all_subgroups_df['total_responders'].sum()
 p_values = [binom_test(r, n, p) for r, p in all_subgroups_df[['total_responders', 'pop_weight']].values]
 
 print(p_values)
+```
 
+For each subgroup, we can graphically compare their expected inclusion likelihood to the observed one
+
+```python
 binom_cis = [proportion_confint(r, n, method='beta') for r, p in all_subgroups_df[['total_responders', 'pop_weight']].values]
 low, high = zip(*binom_cis)
 plt.vlines(all_subgroups_df['pop_weight'], low, high)
 plt.plot([min(low), max(high)], [min(low), max(high)], color='grey', linestyle='dotted')
 ```
+
+?
 
 # Post-stratification with a Logit model in statsmodels
 
