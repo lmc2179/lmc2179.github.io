@@ -9,7 +9,7 @@ image: jellybeans.png
 
 # The problem: Our sample doesn't look like the population we want to understand
 
-In most practical settings, we can't inspect every member of a group of interest. We collect count events, track behaviors, and survey opinions of individuals to make generalizations to the population that the individual came from. This is the process of statistical inference from the data at hand which we spend so much of our time trying to do well. For example, perhaps you run a startup and you'd like to survey your users to understand if they'd be interested in new product feature you've been thinking about. Developing a new feature is pretty costly, so you only want to do it if a part portion of your user base will be interested in it. You send an email survey to a small number of users, and you'll use that to infer what your overall user base thinks of the idea.
+In most practical settings, we can't inspect every member of a group of interest. We count events, track actions, and survey opinions of individuals to make generalizations to the population that the individual came from. This is the process of statistical inference from the data at hand, which we spend so much of our time trying to do well. For example, perhaps you run a startup and you'd like to survey your users to understand if they'd be interested in new product feature you've been thinking about. Developing a new feature is pretty costly, so you only want to do it if a large portion of your user base will be interested in it. You send an email survey to a small number of users, and you'll use that to infer what your overall user base thinks of the idea.
 
 In the simplest case, every user has the same likelihood of responding to your survey. In that case, the average member of your sample looks like the average member of your user base, and you have a [simple random sample](https://en.wikipedia.org/wiki/Simple_random_sample) to which you can apply all the usual analyses. For example, in this case the sample approval rate is a reasonable estimate of the population approval rate.
 
@@ -35,13 +35,17 @@ There are a number of ways that we can perform poststratification. The technique
 
 # What are these subgroups, exactly? Where do they come from?
 
-The explanation just now mentioned "subgroups", without explaining where such a grouping might come from. If you regularly analyze some population, like the set of users for your website, you might already have some subgroups in mind. There might be certain demographic variables that you regularly use to group your observations. In the Xbox example, the subgroups are defined by familiar US Census categories, like gender, age, and race. What motivates this particular set of subgroups? 
+The explanation just now mentioned "subgroups", without explaining where such a grouping might come from. If you regularly analyze some population, like the set of users for your website, you might already have some subgroups in mind. There might be certain demographic variables that you regularly use to group your observations. When we introduced the website survey example, we mentioned groups like "enthusiastic users". In the Xbox example, the subgroups are defined by familiar US Census categories, like gender, age, and race. What motivates this particular set of subgroups? 
 
-If we return to our original goal, we see that we wanted to make a non-representative sample into a representative one
+If we return to our original goal, we see that we wanted to make a non-representative sample into a representative one. The problem is that some of our users do not respond to the survey; some of our observations are missing. The main question is what causes these missing responses. 
+
+- Missing completely at random https://en.wikipedia.org/wiki/Missing_data#Missing_completely_at_random
+- https://en.wikipedia.org/wiki/Missing_data#Missing_at_random
+- https://en.wikipedia.org/wiki/Missing_data#Missing_not_at_random
+
+Our analysis assumes that data is missing at random - this is an assumption, and is not verifiable from the data that we have collected
 
 An analyst is free to choose how to take the discrete attributes of interest and coarsen them appropriately (King citation)
-
-This amounts to an MAR (?) assumption and is uncheckable, you'll never know if you got them all
 
 # The first step is admitting that you have a problem: Understanding if a sample is non-representative
 
