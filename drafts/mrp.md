@@ -127,8 +127,8 @@ with pm.Model() as unpooled_model:
   a_freq = pm.Normal('a_freq', 0, sigma=100, shape=len(unique_freq))
   
   response_est = a_region[region_idx] + a_freq[freq_idx]
-  x = pm.Binomial('x', n=all_subgroups_df['total_responders'], p=pm.math.invlogit(response_est), observed=all_subgroups_df['total_approve'])
-  unpooled_trace = pm.sample(1000, tune=5000, target_accept=0.9)
+  x = pm.Binomial('x', n=all_subgroups_df['total_responders'].values, p=pm.math.invlogit(response_est), observed=all_subgroups_df['total_approve'].values)
+  unpooled_trace = pm.sample(1000, tune=5000, target_accept=0.9, chains=1)
 
 predicted_responses = []
 
@@ -165,7 +165,7 @@ with pm.Model() as partial_pooled_model:
   
   response_est = a_region[region_idx] + a_freq[freq_idx]
   x = pm.Binomial('x', n=all_subgroups_df['total_responders'], p=pm.math.invlogit(response_est), observed=all_subgroups_df['total_approve'])
-  partial_pooled_trace = pm.sample(1000, tune=5000, target_accept=0.9)
+  partial_pooled_trace = pm.sample(1000, tune=5000, target_accept=0.95, chains=1)
 
 predicted_responses = []
 
@@ -182,8 +182,8 @@ all_subgroups_df['high_partial_pooled'] = np.quantile(predicted_responses, .975,
 ```
 
 ```python
-plt.scatter(all_subgroups_df['total_approve'] / all_subgroups_df['total_responders'], all_subgroups_df['mean'])
-plt.vlines(all_subgroups_df['total_approve'] / all_subgroups_df['total_responders'], all_subgroups_df['low'], all_subgroups_df['high'])
+plt.scatter(all_subgroups_df['total_approve'] / all_subgroups_df['total_responders'], all_subgroups_df['mean_partial_pooled'])
+plt.vlines(all_subgroups_df['total_approve'] / all_subgroups_df['total_responders'], all_subgroups_df['low_partial_pooled'], all_subgroups_df['high_partial_pooled'])
 plt.plot([0, 1],[0,1], linestyle='dotted')
 plt.show()
 
@@ -199,6 +199,8 @@ from scipy.special import expit
 from statsmodels.stats.proportion import proportion_confint
 import seaborn as sns
 from matplotlib import pyplot as plt
+from statsmodels import api as sm
+from statsmodels.api import formula as smf
 
 region_df = pd.DataFrame({'name': ['A', 'B', 'C', 'D', 'E'], 
                                   'pop_weight': [0.4, 0.3, 0.2, 0.05, 0.05], 
