@@ -128,7 +128,7 @@ with pm.Model() as unpooled_model:
   
   response_est = a_region[region_idx] + a_freq[freq_idx]
   x = pm.Binomial('x', n=all_subgroups_df['total_responders'], p=pm.math.invlogit(response_est), observed=all_subgroups_df['total_approve'])
-  unpooled_trace = pm.sample(2000)
+  unpooled_trace = pm.sample(1000, tune=5000, target_accept=0.9)
 
 predicted_responses = []
 
@@ -145,8 +145,8 @@ all_subgroups_df['high_unpooled'] = np.quantile(predicted_responses, .975, axis=
 ```
 
 ```python
-plt.scatter(all_subgroups_df['total_approve'] / all_subgroups_df['total_responders'], all_subgroups_df['mean'])
-plt.vlines(all_subgroups_df['total_approve'] / all_subgroups_df['total_responders'], all_subgroups_df['low'], all_subgroups_df['high'])
+plt.scatter(all_subgroups_df['total_approve'] / all_subgroups_df['total_responders'], all_subgroups_df['mean_unpooled'])
+plt.vlines(all_subgroups_df['total_approve'] / all_subgroups_df['total_responders'], all_subgroups_df['low_unpooled'], all_subgroups_df['high_unpooled'])
 plt.plot([0, 1],[0,1], linestyle='dotted')
 plt.show()
 
@@ -154,6 +154,40 @@ plt.show()
 
 # Hierarchical logit
 
+```python
+with pm.Model() as partial_pooled_model:
+  mu_region = pm.Normal('mu_region', mu=0, sigma=100)
+  mu_freq = pm.Normal('mu_freq', mu=0, sigma=100)
+  sigma_region = pm.HalfNormal('sigma_region', 5.)
+  sigma_freq = pm.HalfNormal('sigma_freq', 5.)
+  a_region = pm.Normal('a_region', mu=mu_region, sigma=sigma_region, shape=len(unique_regions))
+  a_freq = pm.Normal('a_freq', mu=mu_freq, sigma=sigma_freq, shape=len(unique_freq))
+  
+  response_est = a_region[region_idx] + a_freq[freq_idx]
+  x = pm.Binomial('x', n=all_subgroups_df['total_responders'], p=pm.math.invlogit(response_est), observed=all_subgroups_df['total_approve'])
+  partial_pooled_trace = pm.sample(1000, tune=5000, target_accept=0.9)
+
+predicted_responses = []
+
+for a_r, a_f in zip(partial_pooled_trace['a_region'], partial_pooled_trace['a_freq']):
+  predicted_responses.append(expit(a_r[region_idx] + a_f[freq_idx]))
+  
+predicted_responses = np.array(predicted_responses)
+
+poststratified_outcomes = np.array([np.dot(r, all_subgroups_df['pop_weight']) for r in predicted_responses])
+
+all_subgroups_df['mean_partial_pooled'] = np.mean(predicted_responses, axis=0)
+all_subgroups_df['low_partial_pooled'] = np.quantile(predicted_responses, .025, axis=0)
+all_subgroups_df['high_partial_pooled'] = np.quantile(predicted_responses, .975, axis=0)
+```
+
+```python
+plt.scatter(all_subgroups_df['total_approve'] / all_subgroups_df['total_responders'], all_subgroups_df['mean'])
+plt.vlines(all_subgroups_df['total_approve'] / all_subgroups_df['total_responders'], all_subgroups_df['low'], all_subgroups_df['high'])
+plt.plot([0, 1],[0,1], linestyle='dotted')
+plt.show()
+
+```
 
 # Appendix: Imports and data generation
 
@@ -163,6 +197,8 @@ import numpy as np
 import pymc3 as pm
 from scipy.special import expit
 from statsmodels.stats.proportion import proportion_confint
+import seaborn as sns
+from matplotlib import pyplot as plt
 
 region_df = pd.DataFrame({'name': ['A', 'B', 'C', 'D', 'E'], 
                                   'pop_weight': [0.4, 0.3, 0.2, 0.05, 0.05], 
