@@ -123,12 +123,13 @@ freq_lookup = {v: i for i, v in enumerate(unique_freq)}
 freq_idx = [freq_lookup[v] for v in all_subgroups_df['name_frequency']]
 
 with pm.Model() as unpooled_model:
+  a = pm.Normal('a', mu=0, sigma=100)
   a_region = pm.Normal('a_region', 0, sigma=100, shape=len(unique_regions))
   a_freq = pm.Normal('a_freq', 0, sigma=100, shape=len(unique_freq))
   
-  response_est = a_region[region_idx] + a_freq[freq_idx]
+  response_est = a + a_region[region_idx] + a_freq[freq_idx]
   x = pm.Binomial('x', n=all_subgroups_df['total_responders'].values, p=pm.math.invlogit(response_est), observed=all_subgroups_df['total_approve'].values)
-  unpooled_trace = pm.sample(1000, tune=5000, target_accept=0.9, chains=1)
+  unpooled_trace = pm.sample(2000)
 
 predicted_responses = []
 
@@ -156,16 +157,15 @@ plt.show()
 
 ```python
 with pm.Model() as partial_pooled_model:
-  mu_region = pm.Normal('mu_region', mu=0, sigma=100)
-  mu_freq = pm.Normal('mu_freq', mu=0, sigma=100)
+  a = pm.Normal('a', mu=0, sigma=100)
   sigma_region = pm.HalfNormal('sigma_region', 5.)
   sigma_freq = pm.HalfNormal('sigma_freq', 5.)
-  a_region = pm.Normal('a_region', mu=mu_region, sigma=sigma_region, shape=len(unique_regions))
-  a_freq = pm.Normal('a_freq', mu=mu_freq, sigma=sigma_freq, shape=len(unique_freq))
+  a_region = pm.Normal('a_region', mu=0, sigma=sigma_region, shape=len(unique_regions))
+  a_freq = pm.Normal('a_freq', mu=0, sigma=sigma_freq, shape=len(unique_freq))
   
-  response_est = a_region[region_idx] + a_freq[freq_idx]
+  response_est = a + a_region[region_idx] + a_freq[freq_idx]
   x = pm.Binomial('x', n=all_subgroups_df['total_responders'], p=pm.math.invlogit(response_est), observed=all_subgroups_df['total_approve'])
-  partial_pooled_trace = pm.sample(1000, tune=5000, target_accept=0.95, chains=1)
+  partial_pooled_trace = pm.sample(2000)
 
 predicted_responses = []
 
