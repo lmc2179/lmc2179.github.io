@@ -59,9 +59,18 @@ We've mentioned "attributes" of a unit a number of times in this description. Fo
 
 # The first step is admitting that you have a problem: Understanding if a sample is non-representative
 
-So far, we've assumed that we don't have a simple random sample on our hands based on a priori reasoning. We're almost certainly right that our sample is not a simple random one; randomness is hard to achieve, and it is immensely likely that we did not stumble into collecting a representative sample by accident. Even so, it's valuable to aid our intuition by looking at how we know the sample doesn't seem representative.
+Actually let's move all this to the appendix: What we care about is how our sample doesn't look like the population
 
-If we wanted to, we could test the hypothesis that all the subgroups have the correct proportion. However, we're aready pretty sure of that; instead we'll look at which specific subgroups appear to have been over- or undersampled. For each subgroup, we can test the hypothesis "is the probability of being sampled into a subgroup the same as the population probability"? using an [exact test](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.binom_test.html).
+So far, we've assumed that we don't have a simple random sample on our hands based on a priori reasoning. We're almost certainly right that our sample is not a simple random one; randomness is hard to achieve, and it is immensely likely that we did not stumble into collecting a representative sample by accident. Even so, it's valuable to aid our intuition by looking at how we know the sample doesn't seem representative. A sample is representative if each subgroup's proportion is what we'd expect based on the population weight.
+
+What kinds of users did we oversample? undersample? 
+
+groupby
+
+VVVVVVVVVVVVVVVVVVVVvv
+
+
+If we wanted to, we could test the hypothesis that all the subgroups simultaneously have the correct proportion. However, we're aready pretty sure of that; instead we'll look at which specific subgroups appear to have been over- or undersampled. For each subgroup, we can test the hypothesis "is the probability of being sampled into a subgroup the same as the population probability"? using an [exact test](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.binom_test.html).
 
 ```python
 n = all_subgroups_df['total_responders'].sum()
