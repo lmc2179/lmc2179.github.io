@@ -61,7 +61,7 @@ We've mentioned "attributes" of a unit a number of times in this description. Fo
 
 So far, we've assumed that we don't have a simple random sample on our hands based on a priori reasoning. We're almost certainly right that our sample is not a simple random one; randomness is hard to achieve, and it is immensely likely that we did not stumble into collecting a representative sample by accident. Even so, it's valuable to aid our intuition by looking at how we know the sample doesn't seem representative.
 
-If we wanted to, we could test the hypothesis that all the subgroups have the correct proportion. However, we're aready pretty sure of that; instead we'll look at which specific subgroups appear to have been over- or undersampled. For each subgroup, we can test the hypothesis "is the probability of being sampled into a subgroup the same as the population probability"?
+If we wanted to, we could test the hypothesis that all the subgroups have the correct proportion. However, we're aready pretty sure of that; instead we'll look at which specific subgroups appear to have been over- or undersampled. For each subgroup, we can test the hypothesis "is the probability of being sampled into a subgroup the same as the population probability"? using an [exact test](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.binom_test.html).
 
 ```python
 n = all_subgroups_df['total_responders'].sum()
@@ -75,12 +75,18 @@ For each subgroup, we can graphically compare their expected inclusion likelihoo
 
 ```python
 binom_cis = [proportion_confint(r, n, method='beta') for r, p in all_subgroups_df[['total_responders', 'pop_weight']].values]
+colors = ['red' if p <= (.05 / len(all_subgroups_df)) else 'grey' for p in p_values]
 low, high = zip(*binom_cis)
-plt.vlines(all_subgroups_df['pop_weight'], low, high)
+plt.vlines(all_subgroups_df['pop_weight'], low, high, color=colors)
 plt.plot([min(low), max(high)], [min(low), max(high)], color='grey', linestyle='dotted')
+plt.xlabel('Expected proportion')
+plt.ylabel('Sample proportion')
+plt.title('Comparing expected subgroup sizes with actual')
 ```
 
-?
+Of course the null hypothesis is never true but still
+
+If only a few are significant you're probably not off the hook
 
 # Post-stratification with a Logit model in statsmodels
 
@@ -211,6 +217,7 @@ import seaborn as sns
 from matplotlib import pyplot as plt
 from statsmodels import api as sm
 from statsmodels.api import formula as smf
+from scipy.stats import binom_test
 
 region_df = pd.DataFrame({'name': ['A', 'B', 'C', 'D', 'E'], 
                                   'pop_weight': [0.4, 0.3, 0.2, 0.05, 0.05], 
