@@ -65,7 +65,19 @@ So far, we've assumed that we don't have a simple random sample on our hands bas
 
 What kinds of users did we oversample? undersample? 
 
-groupby
+```python
+n = all_subgroups_df['total_responders'].sum()
+
+region_df = all_subgroups_df.groupby('name_region').sum()
+region_df['sampling_ratio'] =  (region_df['total_responders'] / n) / region_df['pop_weight']
+for r, s in zip(region_df.index, region_df['sampling_ratio']):
+  print('For region {0} we sampled {1}x the expected number'.format(r, s))
+
+freq_df = all_subgroups_df.groupby('name_frequency').sum()
+freq_df['sampling_ratio'] =  (freq_df['total_responders'] / n) / freq_df['pop_weight']
+for r, s in zip(freq_df.index, freq_df['sampling_ratio']):
+  print('For frequency group {0} we sampled {1}x the expected number'.format(r, s))
+```
 
 VVVVVVVVVVVVVVVVVVVVvv
 
