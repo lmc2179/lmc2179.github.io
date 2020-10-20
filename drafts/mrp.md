@@ -206,8 +206,8 @@ with pm.Model() as partial_pooled_model:
 
 predicted_responses = []
 
-for a_r, a_f in zip(partial_pooled_trace['a_region'], partial_pooled_trace['a_freq']):
-  predicted_responses.append(expit(a_r[region_idx] + a_f[freq_idx]))
+for a_, a_r, a_f in zip(partial_pooled_trace['a'], partial_pooled_trace['a_region'], partial_pooled_trace['a_freq']):
+  predicted_responses.append(expit(a_ + a_r[region_idx] + a_f[freq_idx]))
   
 predicted_responses = np.array(predicted_responses)
 
