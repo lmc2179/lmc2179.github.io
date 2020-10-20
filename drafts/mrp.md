@@ -7,6 +7,8 @@ tags: [datascience]
 image: jellybeans.png
 ---
 
+*?*
+
 # The problem: Our sample doesn't look like the population we want to understand
 
 In most practical settings, we can't inspect every member of a group of interest. We count events, track actions, and survey opinions of individuals to make generalizations to the population that the individual came from. This is the process of statistical inference from the data at hand, which we spend so much of our time trying to do well. For example, perhaps you run a startup and you'd like to survey your users to understand if they'd be interested in new product feature you've been thinking about. Developing a new feature is pretty costly, so you only want to do it if a large portion of your user base will be interested in it. You send an email survey to a small number of users, and you'll use that to infer what your overall user base thinks of the idea.
@@ -170,12 +172,10 @@ with pm.Model() as unpooled_model:
 
 predicted_responses = []
 
-for a_r, a_f in zip(unpooled_trace['a_region'], unpooled_trace['a_freq']):
-  predicted_responses.append(expit(a_r[region_idx] + a_f[freq_idx]))
+for a_, a_r, a_f in zip(unpooled_trace['a'], unpooled_trace['a_region'], unpooled_trace['a_freq']):
+  predicted_responses.append(expit(a_ + a_r[region_idx] + a_f[freq_idx]))
   
 predicted_responses = np.array(predicted_responses)
-
-poststratified_outcomes = np.array([np.dot(r, all_subgroups_df['pop_weight']) for r in predicted_responses])
 
 all_subgroups_df['mean_unpooled'] = np.mean(predicted_responses, axis=0)
 all_subgroups_df['low_unpooled'] = np.quantile(predicted_responses, .025, axis=0)
