@@ -7,7 +7,7 @@ tags: [datascience]
 image: jellybeans.png
 ---
 
-*?*
+*Often, we would like to make an inference about a population, but we can only sample from the population using a biased sampling process, like an email survey. In this case, the sample statistics, like the mean, will be misleading since the sample will be biased. A popular, powerful technique that lets us correct this bias is Multilevel Regression with Poststratification. We explore the assumptions and theory of MRP, and we implement it in Python using PyMC3.*
 
 # The problem: Our sample doesn't look like the population we want to understand
 
