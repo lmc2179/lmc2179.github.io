@@ -81,37 +81,10 @@ for r, s in zip(freq_df.index, freq_df['sampling_ratio']):
   print('For frequency group {0} we sampled {1}x the expected number'.format(r, s))
 ```
 
-VVVVVVVVVVVVVVVVVVVVvv
-
-
-If we wanted to, we could test the hypothesis that all the subgroups simultaneously have the correct proportion. However, we're aready pretty sure of that; instead we'll look at which specific subgroups appear to have been over- or undersampled. For each subgroup, we can test the hypothesis "is the probability of being sampled into a subgroup the same as the population probability"? using an [exact test](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.binom_test.html).
-
-```python
-n = all_subgroups_df['total_responders'].sum()
-
-p_values = [binom_test(r, n, p) for r, p in all_subgroups_df[['total_responders', 'pop_weight']].values]
-
-print(p_values)
-```
-
-For each subgroup, we can graphically compare their expected inclusion likelihood to the observed one
-
-```python
-binom_cis = [proportion_confint(r, n, method='beta') for r, p in all_subgroups_df[['total_responders', 'pop_weight']].values]
-colors = ['red' if p <= (.05 / len(all_subgroups_df)) else 'grey' for p in p_values]
-low, high = zip(*binom_cis)
-plt.vlines(all_subgroups_df['pop_weight'], low, high, color=colors)
-plt.plot([min(low), max(high)], [min(low), max(high)], color='grey', linestyle='dotted')
-plt.xlabel('Expected proportion')
-plt.ylabel('Sample proportion')
-plt.title('Comparing expected subgroup sizes with actual')
-```
-
-Of course the null hypothesis is never true but still
-
-If only a few are significant you're probably not off the hook
 
 # Post-stratification with a Logit model in statsmodels
+
+So our sample isn't representative. Now what?
 
 ```python
 naive_estimate = all_subgroups_df['total_approve'].sum() / all_subgroups_df['total_responders'].sum()
@@ -225,6 +198,35 @@ plt.plot([0, 1],[0,1], linestyle='dotted')
 plt.show()
 
 ```
+
+# Appendix: Non-representativity hypothesis testing
+
+If we wanted to, we could test the hypothesis that all the subgroups simultaneously have the correct proportion. However, we're aready pretty sure of that; instead we'll look at which specific subgroups appear to have been over- or undersampled. For each subgroup, we can test the hypothesis "is the probability of being sampled into a subgroup the same as the population probability"? using an [exact test](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.binom_test.html).
+
+```python
+n = all_subgroups_df['total_responders'].sum()
+
+p_values = [binom_test(r, n, p) for r, p in all_subgroups_df[['total_responders', 'pop_weight']].values]
+
+print(p_values)
+```
+
+For each subgroup, we can graphically compare their expected inclusion likelihood to the observed one
+
+```python
+binom_cis = [proportion_confint(r, n, method='beta') for r, p in all_subgroups_df[['total_responders', 'pop_weight']].values]
+colors = ['red' if p <= (.05 / len(all_subgroups_df)) else 'grey' for p in p_values]
+low, high = zip(*binom_cis)
+plt.vlines(all_subgroups_df['pop_weight'], low, high, color=colors)
+plt.plot([min(low), max(high)], [min(low), max(high)], color='grey', linestyle='dotted')
+plt.xlabel('Expected proportion')
+plt.ylabel('Sample proportion')
+plt.title('Comparing expected subgroup sizes with actual')
+```
+
+Of course the null hypothesis is never true but still
+
+And NHST is exactly the wrong framework, since we can't accept the null
 
 # Appendix: Imports and data generation
 
