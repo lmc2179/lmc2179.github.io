@@ -1,4 +1,4 @@
-# ---
+---
 layout: post
 title: "Beating biased sampling with reweighting"
 author: "Louis Cialdella"
