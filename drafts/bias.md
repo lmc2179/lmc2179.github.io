@@ -81,6 +81,8 @@ for r, s in zip(freq_df.index, freq_df['sampling_ratio']):
   print('For frequency group {0} we sampled {1}x the expected number'.format(r, s))
 ```
 
+Stacked bars of composition
+
 # Reweighting to reduce bias
 
 # Why does this work?
