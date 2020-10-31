@@ -89,7 +89,7 @@ for r, s in zip(freq_df.index, freq_df['sampling_ratio']):
 
 
 
-# What if I don't have good coverage?
+# The drawbacks of this strategy: Sensitivity to almost-empty bins
 
 MRP might be more successful in this case
 
