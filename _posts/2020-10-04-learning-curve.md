@@ -3,7 +3,7 @@ layout: post
 title: "Would collecting more data improve my model's predictions? The learning curve and the value of incremental samples"
 author: "Louis Cialdella"
 categories: posts
-tags: [datascience]
+tags: [data-science]
 image: wine.jpg
 ---
 
