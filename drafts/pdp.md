@@ -17,6 +17,8 @@ I've met a number of smart, skilled analysts who at this point will throw up the
 
 # An example: ???
 
+https://archive.ics.uci.edu/ml/datasets/Student+Performance
+
 https://archive.ics.uci.edu/ml/datasets/Online+News+Popularity
 
 # Option 1: Make a scatter plot and ignore the other variables
