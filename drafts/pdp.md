@@ -17,9 +17,19 @@ I've met a number of smart, skilled analysts who at this point will throw up the
 
 # An example: ???
 
-https://archive.ics.uci.edu/ml/datasets/Student+Performance
+```python
+from sklearn.datasets import load_boston
+import pandas as pd
+from sklearn.model_selection import cross_val_score
 
-https://archive.ics.uci.edu/ml/datasets/Online+News+Popularity
+boston_data = load_boston()
+X = pd.DataFrame(boston_data['data'], columns=boston_data['feature_names'])
+y = boston_data['target']
+
+# Compare linear regression and random forest regressor; uninterpretable RF fits the data better
+
+Research question: effect of NOX on housing prices
+```
 
 # Option 1: Make a scatter plot and ignore the other variables
 
