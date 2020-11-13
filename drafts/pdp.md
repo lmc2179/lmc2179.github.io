@@ -44,3 +44,6 @@ Research question: effect of NOX on housing prices
 # Epilogue: So are machine learning models and PDPs the solution to every modeling problem?
 
 No, the statistical theory around regression models is often the right solution but you should be prepared to realize when it's not the only solution
+
+https://christophm.github.io/interpretable-ml-book/pdp.html#fnref28
+https://scikit-learn.org/stable/modules/partial_dependence.html
