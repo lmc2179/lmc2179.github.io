@@ -17,18 +17,23 @@ I've met a number of smart, skilled analysts who at this point will throw up the
 
 # An example: ???
 
+Research question: Relationship between NOX and housing prices
+
 ```python
 from sklearn.datasets import load_boston
 import pandas as pd
 from sklearn.model_selection import cross_val_score
+from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestRegressor
 
 boston_data = load_boston()
 X = pd.DataFrame(boston_data['data'], columns=boston_data['feature_names'])
 y = boston_data['target']
 
 # Compare linear regression and random forest regressor; uninterpretable RF fits the data better
-
-Research question: effect of NOX on housing prices
+mse_linear_model = -cross_val_score(LinearRegression(), X, y, cv=100, scoring='neg_root_mean_squared_error')
+mse_rf_model = -cross_val_score(RandomForestRegressor(n_estimators=100), X, y, cv=100, scoring='neg_root_mean_squared_error')
+mse_reduction = mse_rf_model - mse_linear_model # Log-log?
 ```
 
 # Option 1: Make a scatter plot and ignore the other variables
