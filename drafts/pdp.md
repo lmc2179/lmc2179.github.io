@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Partial dependence plots are a simple way to make black-box models simple to understand"
+title: "Partial dependence plots are a simple way to make black-box models easy to understand"
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
