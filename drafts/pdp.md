@@ -39,7 +39,9 @@ Research question: effect of NOX on housing prices
 
 # "Significance tests" and Confidence intervals for black-box models with bootstrapping
 
-# Black-box causal models: Tricky, but possible with some assumptions
+# When does the PDP represent a causal relationship?
+
+Note the assumptions from the paper
 
 # Epilogue: So are machine learning models and PDPs the solution to every modeling problem?
 
