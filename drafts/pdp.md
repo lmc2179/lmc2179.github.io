@@ -13,7 +13,7 @@ image: jellybeans.png
 
 # But black-box models can make it hard to understand the effect of a single feature
 
-I've met a number of smart, skilled analysts who at this point will throw up their hands and just fit a model that they know is not very good, but has a clear interpretation. This is really unfortunate, and generally not necessary.
+I've met a number of smart, skilled analysts who at this point will throw up their hands and just fit a model that they know is not very good, but has a clear interpretation. This is understandable, since an approximate solution is better than no solution - but it's not necessary, as we can produce much better approximations which are still interpretable.
 
 # An example: ???
 
@@ -54,6 +54,15 @@ plt.show()
 sm.OLS(y, X).fit().summary()
 ```
 
+```python
+sns.regplot(X['NOX'], 
+            sm.OLS(y, X).fit().resid, 
+            lowess=True, 
+            scatter_kws={'alpha': .1})
+plt.axhline(0, linestyle='dotted')
+plt.show()
+```
+
 # Option 3: Build a complex model and use a partial dependence plot
 
 ```python
@@ -73,6 +82,8 @@ plt.show()
 
 # "Significance tests" and Confidence intervals for black-box models with bootstrapping
 
+Null hypothesis of a T-test
+
 # When does the PDP represent a causal relationship?
 
 Note the assumptions from the paper
@@ -80,6 +91,8 @@ Note the assumptions from the paper
 # Epilogue: So are machine learning models and PDPs the solution to every modeling problem?
 
 No, the statistical theory around regression models is often the right solution but you should be prepared to realize when it's not the only solution
+
+# Some further reading
 
 https://christophm.github.io/interpretable-ml-book/pdp.html#fnref28
 https://scikit-learn.org/stable/modules/partial_dependence.html
