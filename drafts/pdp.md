@@ -11,11 +11,21 @@ image: jellybeans.png
 
 # Modeling complex relationships often requires complex models
 
+If you 
+
+Luckily, things have come a long way
+
 # But black-box models can make it hard to understand the effect of a single feature
+
+However, we often want more than _just_ a model that makes good predictions. We frequently want to use our models to expand our intuition about the relationships between variables. And more than that, most consumers of a model are skeptical, intelligent people, who want to understand how the model works before they're willing to trust it.
+
+At this point, though, you're caught in an impasse. If you fit a
 
 I've met a number of smart, skilled analysts who at this point will throw up their hands and just fit a model that they know is not very good, but has a clear interpretation. This is understandable, since an approximate solution is better than no solution - but it's not necessary, as we can produce much better approximations which are still interpretable.
 
 # An example: ???
+
+We'll introduce a short example here which we'll revisit a few times. This example involves a straightforward question and small data set, but relationships between variables that are non-linear.
 
 Research question: Relationship between NOX and housing prices
 
@@ -43,16 +53,39 @@ mse_reduction = mse_rf_model - mse_linear_model
 
 # Option 1: Make a scatter plot and ignore the other variables
 
+Usually, our first instinct is to make a scatter plot
+
 ```python
 sns.regplot(X['NOX'], y)
 plt.show()
 ```
 
+This is a perfectly good start, and often worth doing. However, this scatter plot alone doesn't actually answer our question because it doesn't give us the unique effect of NOX
+
 # Option 2: Build a parametric model with a clear interpretation, like a linear model
+
+We can think of the last section as a very simple model, but we know this was an oversimplification
+
+At this point, we can expand our model to be more realistic by including the other variables that we believe affect home prices
 
 ```python
 sm.OLS(y, X).fit().summary()
 ```
+
+Splendid
+
+We can visualize this relationship with a partial regression plot
+https://en.wikipedia.org/wiki/Partial_regression_plot
+https://www.statsmodels.org/stable/generated/statsmodels.graphics.regressionplots.plot_partregress.html#statsmodels.graphics.regressionplots.plot_partregress
+
+```python
+plot_partregress(y, X['NOX'], X.drop('NOX', axis=1), obs_labels=False)
+plt.show()
+```
+
+So more NOX is correlated with lower prices, even when we account for the other variables
+
+We assumed the relationship was linear
 
 ```python
 sns.regplot(X['NOX'], 
@@ -63,7 +96,28 @@ plt.axhline(0, linestyle='dotted')
 plt.show()
 ```
 
+Oh no
+
+If we are working with linearity assumptions, this is where we stop - we include the above plot in our report, with an asterisk that the relationship isn't exactly linear
+
+We might expand our model to consider nonlinear and interaction terms, fair enough
+
+In the next section, we'll introduce a tool that lets us get past this and directly interpret our best-fitting model
+
 # Option 3: Build a complex model and use a partial dependence plot
+
+So the model with the best out-of-sample performance is a random forest, okay fair enough
+
+But under the hood a random forest includes a whole bunch of decisions trees combined in an opaque way
+
+We can look at the information gain, that's useful but it just tells us "this variable is important" 
+
+"What happens to NOX when all other variables are held constant"
+
+1. Set all NOX to some value, leaving all other variables the same
+2. Predict 
+3. Average
+Repeat
 
 ```python
 rf_model = RandomForestRegressor(n_estimators=100).fit(X, y)
@@ -80,9 +134,17 @@ plt.plot(nox_values, pdp_values)
 plt.show()
 ```
 
+Oh wow look at that non-linearity isn't that interesting
+
+That right there is the PDP - easy to code, easy to understand, though it might take a lot of computing power
+
 # "Significance tests" and Confidence intervals for black-box models with bootstrapping
 
+One thing we like about linear models is that we can compute some significance
+
 Null hypothesis of a T-test
+
+Bootstrapping
 
 # When does the PDP represent a causal relationship?
 
