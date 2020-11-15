@@ -4,7 +4,7 @@ title: "Partial dependence plots are a simple way to make black-box models easy 
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
-image: jellybeans.png
+image: Shiraz.png
 ---
 
 *A commonly cited drawback of black-box Machine Learning or nonparametric models is that they're hard to interpret. Sometimes, analysts are even willing to use a model that fits the data poorly because the model is easy to interpret. However, we can often produce clear interpretations of complex models by constructing Partial Dependence Plots. These plots are model-agnostic, easy to implement in Python, and have a natural interpretation even for non-experts. They're awesome tools, and you should use them all the time to understand the relationships you're modeling, even when the model that best fits the data is really complex.*
