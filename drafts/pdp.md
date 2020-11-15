@@ -43,6 +43,7 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 import statsmodels.api as sm
 from sklearn.inspection import partial_dependence
+from sklearn.utils import resample
 
 boston_data = load_boston()
 X = pd.DataFrame(boston_data['data'], columns=boston_data['feature_names'])
@@ -153,6 +154,25 @@ https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model
 https://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/18/lecture-18.pdf
 
 Bootstrapping
+
+```python
+n_bootstrap = 100
+
+nox_values = np.linspace(np.min(X['NOX']), np.max(X['NOX']))
+
+for _ in range(n_bootstrap): # This should probably be bands
+    X_boot, y_boot = resample(X, y)
+    rf_model_boot = RandomForestRegressor(n_estimators=100).fit(X_boot, y_boot)
+    
+    pdp_values = []
+    for n in nox_values:
+        X_pdp = X_boot.copy()
+        X_pdp['NOX'] = n
+        pdp_values.append(np.mean(rf_model.predict(X_pdp)))
+    plt.plot(nox_values, pdp_values, color='blue')
+
+plt.show()
+```
 
 # When does the PDP represent a causal relationship?
 
