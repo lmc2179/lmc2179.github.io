@@ -25,11 +25,11 @@ At this point, though, you're caught in an impasse. If you fit a
 
 I've met a number of smart, skilled analysts who at this point will throw up their hands and just fit a model that they know is not very good, but has a clear interpretation. This is understandable, since an approximate solution is better than no solution - but it's not necessary, as we can produce much better approximations which are still interpretable.
 
-# An example: ???
+# An example: The relationship between air quality and housing prices
 
 We'll introduce a short example here which we'll revisit a few times. This example involves a straightforward question and small data set, but relationships between variables that are non-linear.
 
-Research question: Relationship between NOX and housing prices
+Research question: Relationship between NOX and median house prices
 
 https://scikit-learn.org/stable/datasets/index.html#boston-dataset
 
