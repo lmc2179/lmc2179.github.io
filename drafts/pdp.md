@@ -37,8 +37,8 @@ y = boston_data['target']
 # Compare linear regression and random forest regressor; uninterpretable RF fits the data better
 mse_linear_model = -cross_val_score(LinearRegression(), X, y, cv=100, scoring='neg_root_mean_squared_error')
 mse_rf_model = -cross_val_score(RandomForestRegressor(n_estimators=100), X, y, cv=100, scoring='neg_root_mean_squared_error')
-mse_reduction = mse_rf_model - mse_linear_model # Log-log?
-# CI on the logarithm of the ratio?
+mse_reduction = mse_rf_model - mse_linear_model
+# CI on mse_reduction - demonstrates that the rf model has better predictive power
 ```
 
 # Option 1: Make a scatter plot and ignore the other variables
