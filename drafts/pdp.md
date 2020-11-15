@@ -138,24 +138,41 @@ Oh wow look at that non-linearity isn't that interesting
 
 That right there is the PDP - easy to code, easy to understand, though it might take a lot of computing power
 
-# "Significance tests" and Confidence intervals for black-box models with bootstrapping
+# Confidence intervals for PDPs with bootstrapping
 
 One thing we like about linear models is that we can compute some significance
 
-Null hypothesis of a T-test
+Standard errors in the LR model come from the T-distribution
+
+https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.OLSResults.conf_int.html
+https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.OLSResults.pvalues.html
+https://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/18/lecture-18.pdf
 
 Bootstrapping
 
 # When does the PDP represent a causal relationship?
 
+This section uses a bit of language from CI
+
 Note the assumptions from the paper
+
+- NOX is not a cause of any other predictor variables
+- The other predictor variables block all back-door paths between NOX and house price
+
+THESE ARE ASSUMPTIONS AND WE CAN'T CHECK THEM
+
+https://web.stanford.edu/~hastie/Papers/pdp_zhao.pdf
 
 # Epilogue: So are machine learning models and PDPs the solution to every modeling problem?
 
 No, the statistical theory around regression models is often the right solution but you should be prepared to realize when it's not the only solution
 
+The computational costs might be quite large
+
+I use a bootstrapping solution but we could have done something else like https://jmlr.org/papers/volume15/wager14a/wager14a.pdf
+
 # Some further reading
 
-https://christophm.github.io/interpretable-ml-book/pdp.html#fnref28
+https://christophm.github.io/interpretable-ml-book/pdp.html
 https://scikit-learn.org/stable/modules/partial_dependence.html
 https://web.stanford.edu/~hastie/Papers/pdp_zhao.pdf
