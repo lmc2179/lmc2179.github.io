@@ -11,7 +11,7 @@ image: Shiraz.png
 
 # Modeling complex relationships often requires complex models
 
-If you 
+We frequently model the relationships between a set of variables and an outcome of interest by building a model. This might 
 
 https://en.wikipedia.org/wiki/Cross-validation_(statistics)
 
