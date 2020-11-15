@@ -38,6 +38,7 @@ y = boston_data['target']
 mse_linear_model = -cross_val_score(LinearRegression(), X, y, cv=100, scoring='neg_root_mean_squared_error')
 mse_rf_model = -cross_val_score(RandomForestRegressor(n_estimators=100), X, y, cv=100, scoring='neg_root_mean_squared_error')
 mse_reduction = mse_rf_model - mse_linear_model # Log-log?
+# CI on the logarithm of the ratio?
 ```
 
 # Option 1: Make a scatter plot and ignore the other variables
