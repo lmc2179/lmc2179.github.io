@@ -13,6 +13,8 @@ image: jellybeans.png
 
 If you 
 
+https://en.wikipedia.org/wiki/Cross-validation_(statistics)
+
 Luckily, things have come a long way
 
 # But black-box models can make it hard to understand the effect of a single feature
@@ -28,6 +30,8 @@ I've met a number of smart, skilled analysts who at this point will throw up the
 We'll introduce a short example here which we'll revisit a few times. This example involves a straightforward question and small data set, but relationships between variables that are non-linear.
 
 Research question: Relationship between NOX and housing prices
+
+https://scikit-learn.org/stable/datasets/index.html#boston-dataset
 
 ```python
 from sklearn.datasets import load_boston
