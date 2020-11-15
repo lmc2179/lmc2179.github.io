@@ -25,6 +25,10 @@ import pandas as pd
 from sklearn.model_selection import cross_val_score
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor
+from matplotlib import pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+from sklearn.inspection import partial_dependence
 
 boston_data = load_boston()
 X = pd.DataFrame(boston_data['data'], columns=boston_data['feature_names'])
@@ -38,9 +42,33 @@ mse_reduction = mse_rf_model - mse_linear_model # Log-log?
 
 # Option 1: Make a scatter plot and ignore the other variables
 
+```python
+sns.regplot(X['NOX'], y)
+plt.show()
+```
+
 # Option 2: Build a parametric model with a clear interpretation, like a linear model
 
+```python
+sm.OLS(y, X).fit().summary()
+```
+
 # Option 3: Build a complex model and use a partial dependence plot
+
+```python
+rf_model = RandomForestRegressor(n_estimators=100).fit(X, y)
+
+nox_values = np.linspace(np.min(X['NOX']), np.max(X['NOX']))
+
+pdp_values = []
+for n in nox_values:
+  X_pdp = X.copy()
+  X_pdp['NOX'] = n
+  pdp_values.append(np.mean(rf_model.predict(X_pdp)))
+
+plt.plot(nox_values, pdp_values)
+plt.show()
+```
 
 # "Significance tests" and Confidence intervals for black-box models with bootstrapping
 
