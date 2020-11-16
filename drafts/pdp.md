@@ -13,17 +13,17 @@ image: Shiraz.png
 
 We frequently model the relationships between a set of variables and an outcome of interest by building a model. This might 
 
-https://en.wikipedia.org/wiki/Cross-validation_(statistics)
-
 A data analyst with access to R or Python has a ton of powerful modeling tools at their disposal. With a single line of scikit-learn, they can often produce a model with a substantial predictive power. The last 60 or so years of machine learning and nonparametric modeling research allows us to produce models that make good predictions without much explicit feature engineering, which automatically find interactions or nonlinearities, and so on.
+
+https://en.wikipedia.org/wiki/Cross-validation_(statistics)
 
 # But black-box models can make it hard to understand the effect of a single feature
 
-However, we often want more than _just_ a model that makes good predictions. We frequently want to use our models to expand our intuition about the relationships between variables. And more than that, most consumers of a model are skeptical, intelligent people, who want to understand how the model works before they're willing to trust it.
+However, we often want more than _just_ a model that makes good predictions. We frequently want to use our models to expand our intuition about the relationships between variables. And more than that, most consumers of a model are skeptical, intelligent people, who want to understand how the model works before they're willing to trust it. We may even want to use our model to understand how to build interventions or causal relationships.
 
-At this point, though, you're caught in an impasse. If you fit a
+At this point, though, you're caught in an impasse. If you fit a simple model which fits the data badly, you'll have a poor approximation with high interpretability. If you fit a black-box model which approximates the relationship well out of sample, you may find yourself unable to understand how your model works, and build any useful intuitive knowledge.
 
-I've met a number of smart, skilled analysts who at this point will throw up their hands and just fit a model that they know is not very good, but has a clear interpretation. This is understandable, since an approximate solution is better than no solution - but it's not necessary, as we can produce much better approximations which are still interpretable.
+I've met a number of smart, skilled analysts who at this point will throw up their hands and just fit a model that they know is not very good, but has a clear interpretation. This is understandable, since an approximate solution is better than no solution - but it's not necessary, as we can produce much better approximations which are still interpretable. We'll look at a specific example of this, and walk through how to do it in Python.
 
 # An example: The relationship between air quality and housing prices
 
@@ -56,22 +56,22 @@ mse_reduction = mse_rf_model - mse_linear_model
 # CI on mse_reduction - demonstrates that the rf model has better predictive power
 ```
 
+We see that the Random Forest model produces better predictive power than the Linear Regression when we look at the out-of-sample RMSE. 
+
 # Option 1: Make a scatter plot and ignore the other variables
 
-Usually, our first instinct is to make a scatter plot
+Let's step back for a moment. Usually, when we are confronted with a "does this variable correlate with that variable" question, we start with a scatterplot. Why not simply make a scatterplot of NOX against median house value? Well, there's nothing stopping us from doing this, so let's do it:
 
 ```python
 sns.regplot(X['NOX'], y)
 plt.show()
 ```
 
-This is a perfectly good start, and often worth doing. However, this scatter plot alone doesn't actually answer our question because it doesn't give us the unique effect of NOX
+This is a perfectly good start, and often worth doing. However, this scatter plot alone doesn't actually answer our question. It _does_ tell us something useful, which is that NOX is negatively correlated with house prices. That is, areas with higher NOX (and thus worse air quality) have a lower house price, on average. But there's a straightforward objection to this finding, which is that our scatterplot ignores the other variables we know about. Perhaps areas with high NOX also have some other attribute which causes lower house prices.
 
 # Option 2: Build a simpler model with a clear interpretation, like a linear model
 
-We can think of the last section as a very simple model, but we know this was an oversimplification
-
-At this point, we can expand our model to be more realistic by including the other variables that we believe affect home prices
+We can think of the last section as a very simple model in which NOX is the sole variable that affects house prices, but we know this was an oversimplification. We can expand our model to be more realistic by including the other variables that we believe affect home prices, hoping to avoid omitted variable bias.
 
 ```python
 sm.OLS(y, X).fit().summary()
