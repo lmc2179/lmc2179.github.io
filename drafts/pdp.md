@@ -15,7 +15,7 @@ We frequently model the relationships between a set of variables and an outcome 
 
 https://en.wikipedia.org/wiki/Cross-validation_(statistics)
 
-Luckily, things have come a long way
+A data analyst with access to R or Python has a ton of powerful modeling tools at their disposal. With a single line of scikit-learn, they can often produce a model with a substantial predictive power. The last 60 or so years of machine learning and nonparametric modeling research allows us to produce models that make good predictions without much explicit feature engineering, which automatically find interactions or nonlinearities, and so on.
 
 # But black-box models can make it hard to understand the effect of a single feature
 
@@ -27,7 +27,7 @@ I've met a number of smart, skilled analysts who at this point will throw up the
 
 # An example: The relationship between air quality and housing prices
 
-We'll introduce a short example here which we'll revisit a few times. This example involves a straightforward question and small data set, but relationships between variables that are non-linear.
+We'll introduce a short example here which we'll revisit from a few perspectives. This example involves a straightforward question and small data set, but relationships between variables that are non-linear and possible interactions.
 
 Research question: Relationship between NOX and median house prices
 
@@ -67,7 +67,7 @@ plt.show()
 
 This is a perfectly good start, and often worth doing. However, this scatter plot alone doesn't actually answer our question because it doesn't give us the unique effect of NOX
 
-# Option 2: Build a parametric model with a clear interpretation, like a linear model
+# Option 2: Build a simpler model with a clear interpretation, like a linear model
 
 We can think of the last section as a very simple model, but we know this was an oversimplification
 
@@ -109,7 +109,7 @@ We might expand our model to consider nonlinear and interaction terms, fair enou
 
 In the next section, we'll introduce a tool that lets us get past this and directly interpret our best-fitting model
 
-# Option 3: Build a complex model and use a partial dependence plot
+# Option 3: Build a more complex model and use a partial dependence plot
 
 So the model with the best out-of-sample performance is a random forest, okay fair enough
 
