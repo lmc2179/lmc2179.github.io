@@ -99,9 +99,9 @@ $$log(y) = \alpha + \beta_{returning} X_{returning} + \beta_{B} X_{B} + \epsilon
 
 How is this different from the previous model? The parameters now have a different interpretation. For example, $\widehat{\beta_{returning}}$ is no longer the value _added_ to the expected value when we learn a customer is returning. Rather, this now _multiplies_ the expected value by $e^{\widehat{\beta_{returning}}}$. This is sometimes called a [log-linear model](https://en.wikipedia.org/wiki/Log-linear_model#:~:text=A%20log%2Dlinear%20model%20is,(possibly%20multivariate)%20linear%20regression) - the logarithm of y is a linear function of X. 
 
-We can see this multiplicative effect a little mode clearly by taking the $exp$ of both sides to put $y$ on the original scale:
+We can see this multiplicative effect a little more clearly by taking the $exp$ of both sides to put $y$ on the original scale:
 
-$$y = e^{\alpha + \beta_{returning} X_{returning} + \beta_{B} X_{B} + \epsilon} = e^{\alpha} e^{\beta_{returning}} e^{\beta_{B}} e^\epsilon $$
+$$y = e^{\alpha + \beta_{returning} X_{returning} + \beta_{B} X_{B} + \epsilon} = e^{\alpha} e^{\beta_{returning} X_{returning}} e^{\beta_{B} X_{B}} e^\epsilon $$
 
 This kind of model makes sense if:
 - Your values of $y$ are strictly positive
