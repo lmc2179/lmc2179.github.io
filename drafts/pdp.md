@@ -42,16 +42,22 @@ import seaborn as sns
 import statsmodels.api as sm
 from sklearn.inspection import partial_dependence
 from sklearn.utils import resample
+from scipy.stats import sem
+import numpy as np
+```
 
+```python
 boston_data = load_boston()
 X = pd.DataFrame(boston_data['data'], columns=boston_data['feature_names'])
 y = boston_data['target']
+```
 
-# Compare linear regression and random forest regressor; uninterpretable RF fits the data better
+```python
 mse_linear_model = -cross_val_score(LinearRegression(), X, y, cv=100, scoring='neg_root_mean_squared_error')
 mse_rf_model = -cross_val_score(RandomForestRegressor(n_estimators=100), X, y, cv=100, scoring='neg_root_mean_squared_error')
 mse_reduction = mse_rf_model - mse_linear_model
-# CI on mse_reduction - demonstrates that the rf model has better predictive power
+
+np.mean(mse_reduction), sem(mse_reduction)
 ```
 
 We see that the Random Forest model produces better predictive power than the Linear Regression when we look at the out-of-sample RMSE. 
