@@ -44,6 +44,7 @@ from sklearn.inspection import partial_dependence
 from sklearn.utils import resample
 from scipy.stats import sem
 import numpy as np
+from statsmodels.graphics.regressionplots import plot_partregress
 ```
 
 ```python
@@ -89,6 +90,8 @@ https://www.statsmodels.org/stable/generated/statsmodels.graphics.regressionplot
 
 ```python
 plot_partregress(y, X['NOX'], X.drop('NOX', axis=1), obs_labels=False)
+plt.axhline(0, linestyle='dotted')
+plt.ylim(-2, 2)
 plt.show()
 ```
 
@@ -107,7 +110,7 @@ plt.show()
 
 Oh no
 
-If we are working with linearity assumptions, this is where we stop - we include the above plot in our report, with an asterisk that the relationship isn't exactly linear
+If we are working with linearity assumptions, this is where we stop - we include the above plot in our report, with an asterisk that the relationship isn't exactly linear but we have a linear approximation to it
 
 We might expand our model to consider nonlinear and interaction terms, fair enough
 
@@ -140,6 +143,9 @@ for n in nox_values:
   pdp_values.append(np.mean(rf_model.predict(X_pdp)))
 
 plt.plot(nox_values, pdp_values)
+plt.ylabel('Median house price')
+plt.xlabel('NOX')
+plt.title('Partial dependence plot for NOX vs Price for Random Forest')
 plt.show()
 ```
 
@@ -159,22 +165,38 @@ https://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/18/lecture-18.pdf
 
 Bootstrapping
 
+Compute the SE at each point
+
 ```python
 n_bootstrap = 100
 
 nox_values = np.linspace(np.min(X['NOX']), np.max(X['NOX']))
 
-for _ in range(n_bootstrap): # This should probably be bands
+expected_value_bootstrap_replications = []
+
+for _ in range(n_bootstrap):
     X_boot, y_boot = resample(X, y)
     rf_model_boot = RandomForestRegressor(n_estimators=100).fit(X_boot, y_boot)
     
-    pdp_values = []
+    bootstrap_model_predictions = []
     for n in nox_values:
         X_pdp = X_boot.copy()
         X_pdp['NOX'] = n
-        pdp_values.append(np.mean(rf_model.predict(X_pdp)))
-    plt.plot(nox_values, pdp_values, color='blue')
+        bootstrap_model_predictions.append(np.mean(rf_model.predict(X_pdp)))
+    expected_value_bootstrap_replications.append(bootstrap_model_predictions)
+    
+expected_value_bootstrap_replications = np.array(expected_value_bootstrap_replications)
+for ev in expected_value_bootstrap_replications:
+    plt.plot(nox_values, ev, color='blue', alpha=.1)
 
+prediction_se = sem(expected_value_bootstrap_replications, axis=0)
+
+plt.plot(nox_values, pdp_values, label='Model predictions')
+plt.fill_between(nox_values, pdp_values - 3*prediction_se, pdp_values + 3*prediction_se, alpha=.5, label='Bootstrap CI')
+plt.legend()
+plt.ylabel('Median house price')
+plt.xlabel('NOX')
+plt.title('Partial dependence plot for NOX vs Price for Random Forest')
 plt.show()
 ```
 
