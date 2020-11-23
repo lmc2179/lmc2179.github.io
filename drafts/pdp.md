@@ -25,11 +25,15 @@ I've met a number of smart, skilled analysts who at this point will throw up the
 
 # An example: The relationship between air quality and housing prices
 
-We'll introduce a short example here which we'll revisit from a few perspectives. This example involves a straightforward question and small data set, but relationships between variables that are non-linear and possible interactions.
+We'll introduce a short example here which we'll revisit from a few perspectives. This example involves a straightforward question and small data set, but relationships between variables that are non-linear and possible interactions. The data is the classic [Boston Housing dataset](
+https://scikit-learn.org/stable/datasets/index.html#boston-dataset), available in sklearn. This data originally came from an investigation of the relationship between air quality, as measured by nitric oxide ("NOX") concentration, and median house price. The data includes data from a number of Boston neighborhoods in the 1970s, and includes their measured NOX, median house price, and other variables indicating factors that might affect house price (like the business and demographic makeup of the area). We'll ask the research question: *What is the relationship between NOX and house price?* We'll break that down into two further questions: 
 
-Research question: Relationship between NOX and median house prices
+- *All else being equal, do changes in NOX correlate with changes in house price in this data set?* 
+- *Could we say that NOX changes cause changes in median house price?*
 
-https://scikit-learn.org/stable/datasets/index.html#boston-dataset
+Note that these are two different questions! The first one is about correlation, and we can answer it just with the data at hand. The second one is a much more tricky question, and we won't answer it definitively here; however, we'll talk about what we _would_ need to convincingly answer that question. We'll mostly focus on the first question, but we'll talk about the second in our last section.
+
+Let's write a bit of code to grab the data and start down the road to answering these questions. We'll begin by importing a bunch of things:
 
 ```python
 from sklearn.datasets import load_boston
@@ -47,13 +51,17 @@ import numpy as np
 from statsmodels.graphics.regressionplots import plot_partregress
 ```
 
-
+We load the data from sklearn:
 
 ```python
 boston_data = load_boston()
 X = pd.DataFrame(boston_data['data'], columns=boston_data['feature_names'])
 y = boston_data['target']
 ```
+
+If we knew the true relationship between all the `X` variables and the `y` variable, we could answer our questions above. Of course, we don't know the true relationship, so we'll attempt to infer it (as best we can) from the data we've collected. That is, we'll build a model that relates neighborhood attributes (`X`) to home price (`y`) and try to answer our question with that model.
+
+Let's look at a few candidate models, a Linear Regression and a Random Forest:
 
 ```python
 mse_linear_model = -cross_val_score(LinearRegression(), X, y, cv=100, scoring='neg_root_mean_squared_error')
@@ -64,14 +72,14 @@ print('Average MSE for linear regression is {0:.3f}'.format(np.mean(mse_linear_m
 print('Average MSE for random forest is {0:.3f}'.format(np.mean(mse_rf_model)))
 print('Switching to a Random Forest over a linear regression reduces MSE on average by {0:.3f} ± {1:.3f}'.format(np.mean(mse_reduction), 3*sem(mse_reduction)))
 ```
-
+Output:
 ```
 Average MSE for linear regression is 4.184
 Average MSE for random forest is 3.024
 Switching to a Random Forest over a linear regression reduces MSE on average by -1.160 ± 0.514
 ```
 
-We see that the Random Forest model produces better predictive power than the Linear Regression when we look at the out-of-sample RMSE. 
+We see that the Random Forest model produces better predictive power than the Linear Regression when we look at the out-of-sample RMSE. So far, so good! Perhaps if we dug a little deeper, we'd find a better model - for now, let's assume we're only considering these two. Already, we know something valuable! That is that the random forest does a better job of predicting home prices for neighborhoods it hasn't seen than the linear model does.
 
 # Option 1: Make a scatter plot and ignore the other variables
 
@@ -87,17 +95,21 @@ plt.show()
 
 ![scatter plot of NOX vs price](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/pdp/1.png)
 
-This is a perfectly good start, and often worth doing. However, this scatter plot alone doesn't actually answer our question. It _does_ tell us something useful, which is that NOX is negatively correlated with house prices. That is, areas with higher NOX (and thus worse air quality) have a lower house price, on average. But there's a straightforward objection to this finding, which is that our scatterplot ignores the other variables we know about. Perhaps areas with high NOX also have some other attribute which causes lower house prices.
+This is a perfectly good start, and often worth doing. However, this scatter plot alone doesn't actually answer our question. It _does_ tell us something useful, which is that NOX is negatively correlated with house prices. That is, areas with higher NOX (and thus worse air quality) have a lower house price, on average. But there's a straightforward objection to this finding, which is that our scatterplot ignores the other variables we know about. Perhaps areas with high NOX also have some other attribute which causes lower house prices. We've also plotted the [LOWESS](https://en.wikipedia.org/wiki/Local_regression) fit, giving us some idea of how the average price changes as we look at neighborhoods with different NOX.
 
-# Option 2: Build a simpler model with a clear interpretation, like a linear model
+So...are we done? All that huffing and puffing so we can answer our question with a scatterplot? NOX is negatively correlated with house price - done.
 
-We can think of the last section as a very simple model in which NOX is the sole variable that affects house prices, but we know this was an oversimplification. We can expand our model to be more realistic by including the other variables that we believe affect home prices, hoping to avoid omitted variable bias.
+# Option 2: Build a simple model with a clear interpretation, like a linear model
+
+Not quite. We can think of the last section as a very simple model in which NOX is the sole variable that affects house prices, but we know this was an oversimplification. Specifically, NOX might just be higher in neighborhoods that are undesirable for other reasons, and NOX has nothing to do with it. If this kind of coincidence were really the case, we wouldn't see it in the scatterplot above. We want the _unique_ impact of NOX - that's the "holding all else constant" part of our question above. We can expand our model to be more realistic by including the other variables that we believe affect home prices, hoping to avoid omitted variable bias.
+
+We saw before that a simple linear regression isn't the best model, but perhaps it's good enough for us to learn something from. We'll fit a linear model and look at its summary:
 
 ```python
 sm.OLS(y, X).fit().summary()
 ```
 
-This produces the very official-looking regression results
+This produces the very official-looking regression results:
 
 ```
                                  OLS Regression Results
@@ -150,9 +162,9 @@ plt.show()
 
 ![partial regression plot of NOX vs price](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/pdp/2.png)
 
-So more NOX is correlated with lower prices, even when we account for the other variables
+So more NOX is correlated with lower prices, even when we account for the other variables. The relationship is not significant, though
 
-We assumed the relationship was linear
+Regression is a powerful tool for understanding the unique relationship between many variables and an outcome - there's a reason it's one of the most-used tools in your kit. However, we made some assumptions along the way. We'll interrogate one of those assumptions, which is that the outcome varies linearly with each covariate. We'll check that using a popular [regression diagnostic](https://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/07/lecture-07.pdf), as plot of covariate vs residuals:
 
 ```python
 sns.regplot(X['NOX'], 
@@ -169,7 +181,7 @@ plt.show()
 
 ![residual diagnostic](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/pdp/3.png)
 
-Oh no
+This is 
 
 If we are working with linearity assumptions, this is where we stop - we include the above plot in our report, with an asterisk that the relationship isn't exactly linear but we have a linear approximation to it
 
