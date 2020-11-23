@@ -135,7 +135,7 @@ Kurtosis:                      10.404   Cond. No.                     8.50e+03
 ==============================================================================
 ```
 
-Splendid
+Splendid, tells us the sign is negative, and the coefficient is not significant (-9.468, 3.731)
 
 We can visualize this relationship with a partial regression plot
 https://en.wikipedia.org/wiki/Partial_regression_plot
