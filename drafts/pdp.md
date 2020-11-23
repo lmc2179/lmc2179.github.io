@@ -47,6 +47,8 @@ import numpy as np
 from statsmodels.graphics.regressionplots import plot_partregress
 ```
 
+
+
 ```python
 boston_data = load_boston()
 X = pd.DataFrame(boston_data['data'], columns=boston_data['feature_names'])
@@ -58,7 +60,15 @@ mse_linear_model = -cross_val_score(LinearRegression(), X, y, cv=100, scoring='n
 mse_rf_model = -cross_val_score(RandomForestRegressor(n_estimators=100), X, y, cv=100, scoring='neg_root_mean_squared_error')
 mse_reduction = mse_rf_model - mse_linear_model
 
-np.mean(mse_reduction), sem(mse_reduction)
+print('Average MSE for linear regression is {0:.3f}'.format(np.mean(mse_linear_model)))
+print('Average MSE for random forest is {0:.3f}'.format(np.mean(mse_rf_model)))
+print('Switching to a Random Forest over a linear regression reduces MSE on average by {0:.3f} ± {1:.3f}'.format(np.mean(mse_reduction), 3*sem(mse_reduction)))
+```
+
+```
+Average MSE for linear regression is 4.184
+Average MSE for random forest is 3.024
+Switching to a Random Forest over a linear regression reduces MSE on average by -1.160 ± 0.514
 ```
 
 We see that the Random Forest model produces better predictive power than the Linear Regression when we look at the out-of-sample RMSE. 
@@ -68,9 +78,14 @@ We see that the Random Forest model produces better predictive power than the Li
 Let's step back for a moment. Usually, when we are confronted with a "does this variable correlate with that variable" question, we start with a scatterplot. Why not simply make a scatterplot of NOX against median house value? Well, there's nothing stopping us from doing this, so let's do it:
 
 ```python
-sns.regplot(X['NOX'], y)
+sns.regplot(X['NOX'], y, lowess=True)
+plt.ylabel('Median house price')
+plt.xlabel('NOX')
+plt.title('Scatter plot of NOX vs price with LOWESS fit')
 plt.show()
 ```
+
+![scatter plot of NOX vs price](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/pdp/1.png)
 
 This is a perfectly good start, and often worth doing. However, this scatter plot alone doesn't actually answer our question. It _does_ tell us something useful, which is that NOX is negatively correlated with house prices. That is, areas with higher NOX (and thus worse air quality) have a lower house price, on average. But there's a straightforward objection to this finding, which is that our scatterplot ignores the other variables we know about. Perhaps areas with high NOX also have some other attribute which causes lower house prices.
 
@@ -80,6 +95,44 @@ We can think of the last section as a very simple model in which NOX is the sole
 
 ```python
 sm.OLS(y, X).fit().summary()
+```
+
+This produces the very official-looking regression results
+
+```
+                                 OLS Regression Results
+=======================================================================================
+Dep. Variable:                      y   R-squared (uncentered):                   0.959
+Model:                            OLS   Adj. R-squared (uncentered):              0.958
+Method:                 Least Squares   F-statistic:                              891.3
+Date:                Mon, 23 Nov 2020   Prob (F-statistic):                        0.00
+Time:                        14:12:20   Log-Likelihood:                         -1523.8
+No. Observations:                 506   AIC:                                      3074.
+Df Residuals:                     493   BIC:                                      3128.
+Df Model:                          13
+Covariance Type:            nonrobust
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+CRIM          -0.0929      0.034     -2.699      0.007      -0.161      -0.025
+ZN             0.0487      0.014      3.382      0.001       0.020       0.077
+INDUS         -0.0041      0.064     -0.063      0.950      -0.131       0.123
+CHAS           2.8540      0.904      3.157      0.002       1.078       4.630
+NOX           -2.8684      3.359     -0.854      0.394      -9.468       3.731
+RM             5.9281      0.309     19.178      0.000       5.321       6.535
+AGE           -0.0073      0.014     -0.526      0.599      -0.034       0.020
+DIS           -0.9685      0.196     -4.951      0.000      -1.353      -0.584
+RAD            0.1712      0.067      2.564      0.011       0.040       0.302
+TAX           -0.0094      0.004     -2.395      0.017      -0.017      -0.002
+PTRATIO       -0.3922      0.110     -3.570      0.000      -0.608      -0.176
+B              0.0149      0.003      5.528      0.000       0.010       0.020
+LSTAT         -0.4163      0.051     -8.197      0.000      -0.516      -0.317
+==============================================================================
+Omnibus:                      204.082   Durbin-Watson:                   0.999
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             1374.225
+Skew:                           1.609   Prob(JB):                    3.90e-299
+Kurtosis:                      10.404   Cond. No.                     8.50e+03
+==============================================================================
 ```
 
 Splendid
@@ -95,6 +148,8 @@ plt.ylim(-2, 2)
 plt.show()
 ```
 
+![partial regression plot of NOX vs price](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/pdp/2.png)
+
 So more NOX is correlated with lower prices, even when we account for the other variables
 
 We assumed the relationship was linear
@@ -105,8 +160,14 @@ sns.regplot(X['NOX'],
             lowess=True, 
             scatter_kws={'alpha': .1})
 plt.axhline(0, linestyle='dotted')
+plt.title('Residual diagnostic')
+plt.xlabel('NOX')
+plt.ylabel('Predicted - actual')
+plt.ylim(-5, 5)
 plt.show()
 ```
+
+![residual diagnostic](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/pdp/3.png)
 
 Oh no
 
@@ -143,11 +204,14 @@ for n in nox_values:
   pdp_values.append(np.mean(rf_model.predict(X_pdp)))
 
 plt.plot(nox_values, pdp_values)
-plt.ylabel('Median house price')
+plt.ylabel('Predicted house price')
 plt.xlabel('NOX')
 plt.title('Partial dependence plot for NOX vs Price for Random Forest')
 plt.show()
 ```
+
+
+![partial dependence plot](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/pdp/4.png)
 
 Oh wow look at that non-linearity isn't that interesting
 
@@ -162,6 +226,7 @@ Standard errors in the LR model come from the T-distribution
 https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.OLSResults.conf_int.html
 https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.OLSResults.pvalues.html
 https://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/18/lecture-18.pdf
+https://www.stat.cmu.edu/~ryantibs/advmethods/notes/bootstrap.pdf - Section 1.3
 
 Bootstrapping
 
@@ -189,7 +254,7 @@ expected_value_bootstrap_replications = np.array(expected_value_bootstrap_replic
 for ev in expected_value_bootstrap_replications:
     plt.plot(nox_values, ev, color='blue', alpha=.1)
 
-prediction_se = sem(expected_value_bootstrap_replications, axis=0)
+prediction_se = np.std(expected_value_bootstrap_replications, axis=0)
 
 plt.plot(nox_values, pdp_values, label='Model predictions')
 plt.fill_between(nox_values, pdp_values - 3*prediction_se, pdp_values + 3*prediction_se, alpha=.5, label='Bootstrap CI')
@@ -200,6 +265,8 @@ plt.title('Partial dependence plot for NOX vs Price for Random Forest')
 plt.show()
 ```
 
+![partial dependence plot with bootstrap error bars](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/pdp/5.png)
+
 # When does the PDP represent a causal relationship?
 
 This section uses a bit of language from CI
@@ -208,6 +275,8 @@ Note the assumptions from the paper
 
 - NOX is not a cause of any other predictor variables
 - The other predictor variables block all back-door paths between NOX and house price
+
+Include all the causal diagrams
 
 THESE ARE ASSUMPTIONS AND WE CAN'T CHECK THEM
 
