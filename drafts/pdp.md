@@ -195,16 +195,16 @@ However, each of this is a a little annoying - why already have a model that is 
 
 The relationship we care about doesn't seem to quite fit the assumptions of a linear model. And we know that we have a better model in hand according to out-of-sample error, the random forest model. How can we use that to answer our question?
 
-But under the hood a random forest includes a whole bunch of decisions trees combined in an opaque way
+The problem is that while the linear model has a single number encoding the way that a feature affects the model prediction - the coefficient for NOX - the random forest doesn't have any clear analogue. In a random forest, a large number of decision trees are combined and averaged, resulting in a process with a lot of moving parts. We could consult the [feature_importances_](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html) attribute of the Random Forest, which will tell us if a feature is important, but it won't actually give us the relationship (for example, it includes no sign).
 
-[feature_importances_](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html) attribute of the Random Forest will tell us if a feature is important, but it won't actually give us the relationship (for example, it includes no sign)
+Let's return to our question again and see what we can do. Roughly, we'd like to know: "what happens to price when NOX changes but all other variables are held constant?". Well, we have a model, which in theory tells us what the expected price will be if we tell it a neighborhood's attributes. We'll try changing NOX and leaving the other variables, and asking the model what happens to the price. Specifically, we'll run the following algorithm:
 
-"What happens to price when NOX changes but all other variables are held constant"
+1. Copy the dataset, and set all the NOX to some value, not touching any of the other variables.
+2. Predict the home prices for each neighborhood of the modified data set using our model.
+3. Calculate the average over all the predictions.
+4. Repeat for all the values of NOX we'd be interested in.
 
-1. Set all NOX to some value, leaving all other variables the same
-2. Predict 
-3. Average
-Repeat
+This simple algorithm is exactly the [partial dependence plot](https://christophm.github.io/interpretable-ml-book/pdp.html). Let's run it for a bunch of values over the span of NOX:
 
 ```python
 rf_model = RandomForestRegressor(n_estimators=100).fit(X, y)
@@ -224,16 +224,19 @@ plt.title('Partial dependence plot for NOX vs Price for Random Forest')
 plt.show()
 ```
 
-
 ![partial dependence plot](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/pdp/4.png)
 
-Oh wow look at that non-linearity isn't that interesting
+This curve has a pretty clear interpretation: **If we set every neighborhood's NOX to a particular value, the modeled average price across all neighborhoods is given by the PDP curve.**
+
+It's worth noting that here we see a non-linear relationship between NOX and price, with a similar shape to the regression diagnostic plot above.
 
 That right there is the PDP - easy to code, easy to understand, though it might take a lot of computing power
 
+I've mostly skipped the math in this explanation, because others have covered it better than I could. Nonetheless, I'll note here that the PDP is telling us $\hat{\mathbb{E}}[price|NOX=x]$, where the hat indicates that we're marginalizing over all the non-NOX variables using the observed values, and the random forest is approximating conditional expectation. If you want a more formal exposition than the intuitive idea I've presented here, see the references at the end.
+
 # Confidence intervals for PDPs with bootstrapping
 
-One thing we like about linear models is that we can compute some significance
+One thing that's a little unsatisfying about the PDP is that it's
 
 Standard errors in the LR model come from the T-distribution
 
@@ -285,6 +288,10 @@ plt.show()
 
 # When does the PDP represent a causal relationship?
 
+It's _very_ tempting to interpret the PDP as a prediction about what would happen _if_ we changed the global NOX to some amount. In causal inference terms, that would be an intervention, in which we actually shift the NOX and see what happens to prices. In this interpretation, our model is a method of simulating what would happen if we changed NOX, and we treat its predictions as counterfactual scenarios. Is this interpretation justified?
+
+It is if we make certain assumptions - but they're strong assumptions, and we're probably not in a position to make them. It's worth walking through those assumptions, to understand what kind of argument we'd need to make in order to 
+
 This section uses a bit of language from CI
 
 Note the assumptions from the paper
@@ -293,6 +300,8 @@ Note the assumptions from the paper
 - The other predictor variables block all back-door paths between NOX and house price
 
 Include all the causal diagrams
+
+In this section I talked a lot about "assumptions" and "arguments". You might wonder why I did so - why can't I just tell you what analysis you need to run, so you can see if the assumptions are justified? 
 
 THESE ARE ASSUMPTIONS AND WE CAN'T CHECK THEM
 https://stats.stackexchange.com/questions/59369/confounder-definition/298750#298750
