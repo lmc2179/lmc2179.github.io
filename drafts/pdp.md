@@ -296,6 +296,56 @@ THESE ARE ASSUMPTIONS AND WE CAN'T CHECK THEM
 
 https://web.stanford.edu/~hastie/Papers/pdp_zhao.pdf
 
+# A bonus: It's easy to use PDPs to examine the relationship between multiple inputs and the output
+
+Imagine we want to look at both NOX and CHAS; one is continuous and one is binary
+
+Two distplots
+
+```python
+sns.distplot(X[X['CHAS'] == 0]['NOX'], label='CHAS=0')
+sns.distplot(X[X['CHAS'] == 1]['NOX'], label='CHAS=1')
+plt.legend()
+plt.show()
+```
+
+NOX varies across its range for both values of CHAS
+
+```python
+rf_model = RandomForestRegressor(n_estimators=100).fit(X, y)
+
+nox_values = np.linspace(np.min(X['NOX']), np.max(X['NOX']))
+chas_values = [0, 1]
+
+pdp_values = []
+for n in nox_values:
+  X_pdp = X.copy()
+  X_pdp['CHAS'] = 0
+  X_pdp['NOX'] = n
+  pdp_values.append(np.mean(rf_model.predict(X_pdp)))
+plt.plot(nox_values, pdp_values, label='CHAS=0')
+
+pdp_values = []
+for n in nox_values:
+  X_pdp = X.copy()
+  X_pdp['CHAS'] = 1
+  X_pdp['NOX'] = n
+  pdp_values.append(np.mean(rf_model.predict(X_pdp)))
+plt.plot(nox_values, pdp_values, label='CHAS=1')
+
+plt.legend()
+
+plt.xlabel('NOX')
+plt.title('Partial dependence plot for NOX and CHAS vs Price for Random Forest')
+plt.show()
+```
+
+The model thinks the effect of a river view is additive with NOX
+
+However, if we want to think about this causally we'll want to reconsider the assumptions we made before
+
+We can also consider two continuous variables, and make a heatmap. Some thoughts about that in the appendix
+
 # Epilogue: So are machine learning models and PDPs the solution to every modeling problem?
 
 No, the statistical theory around regression models is often the right solution but you should be prepared to realize when it's not the only solution
@@ -309,3 +359,16 @@ I use a bootstrapping solution but we could have done something else like https:
 https://christophm.github.io/interpretable-ml-book/pdp.html
 https://scikit-learn.org/stable/modules/partial_dependence.html
 https://web.stanford.edu/~hastie/Papers/pdp_zhao.pdf
+
+# Appendix: Some more thoughts on PDPs multivariate relationships
+
+We should be a little careful when using PDPs to represent multivariate relationships of continuous variables because we might simulate unlikely or impossible relationships
+
+jointplot first to see how they vary together
+
+convex hull - https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.ConvexHull.html
+
+to avoid extrapolation, we might only compute the PDP inside the convex hull
+https://stackoverflow.com/questions/16750618/whats-an-efficient-way-to-find-if-a-point-lies-in-the-convex-hull-of-a-point-cl
+
+But that's a topic for another time.
