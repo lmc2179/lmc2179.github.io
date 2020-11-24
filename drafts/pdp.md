@@ -293,6 +293,8 @@ Note the assumptions from the paper
 Include all the causal diagrams
 
 THESE ARE ASSUMPTIONS AND WE CAN'T CHECK THEM
+https://stats.stackexchange.com/questions/59369/confounder-definition/298750#298750
+https://ftp.cs.ucla.edu/pub/stat_ser/R256.pdf
 
 https://web.stanford.edu/~hastie/Papers/pdp_zhao.pdf
 
