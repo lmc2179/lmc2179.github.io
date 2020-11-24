@@ -186,20 +186,20 @@ This is an indication that one of our modeling assumptions was likely violated.
 If we want to stay in the world of linear models, we might do a few different things:
 
 - We might expand our model to consider nonlinear and interaction terms, to try and account for the non-linear relationship.
-- We might do some transformation of the input or output variables, to see 
+- We might do some transformation of the input or output variables, to see if massaging things a little allows us to make the usual regression assumptions safely.
 - We might just hit the brakes and end our analysis - we include the above plot in our report, with an asterisk that the relationship isn't exactly linear but we have a linear approximation to it.
 
-However, each of this is a a little annoying for different reason.
+However, each of this is a a little annoying - why already have a model that is a better fit to the data, why can't we just use that?
 
 # Option 3: Build a more complex model and use a partial dependence plot
 
-So the model with the best out-of-sample performance is a random forest, okay fair enough
+The relationship we care about doesn't seem to quite fit the assumptions of a linear model. And we know that we have a better model in hand according to out-of-sample error, the random forest model. How can we use that to answer our question?
 
 But under the hood a random forest includes a whole bunch of decisions trees combined in an opaque way
 
-We can look at the information gain, that's useful but it just tells us "this variable is important" 
+[feature_importances_](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html) attribute of the Random Forest will tell us if a feature is important, but it won't actually give us the relationship (for example, it includes no sign)
 
-"What happens to NOX when all other variables are held constant"
+"What happens to price when NOX changes but all other variables are held constant"
 
 1. Set all NOX to some value, leaving all other variables the same
 2. Predict 
@@ -241,6 +241,8 @@ https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model
 https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.OLSResults.pvalues.html
 https://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/18/lecture-18.pdf
 https://www.stat.cmu.edu/~ryantibs/advmethods/notes/bootstrap.pdf - Section 1.3
+
+Single number summary - coefficient
 
 Bootstrapping
 
