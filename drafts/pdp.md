@@ -147,11 +147,11 @@ Kurtosis:                      10.404   Cond. No.                     8.50e+03
 ==============================================================================
 ```
 
-Splendid, tells us the sign is negative, and the coefficient is not significant (-9.468, 3.731)
+With respect to our research question, this tells us:
+- In the linear model, when all else is held constant, an increase in NOX is associated with a decrease in house price.
+- The coefficient is not significant, and the confidence interval spans (-9.468, 3.731).
 
-We can visualize this relationship with a partial regression plot
-https://en.wikipedia.org/wiki/Partial_regression_plot
-https://www.statsmodels.org/stable/generated/statsmodels.graphics.regressionplots.plot_partregress.html#statsmodels.graphics.regressionplots.plot_partregress
+We can visualize this relationship with a [partial regression plot](https://en.wikipedia.org/wiki/Partial_regression_plot), which is easy if we just called [plot_partregress](https://www.statsmodels.org/stable/generated/statsmodels.graphics.regressionplots.plot_partregress.html#statsmodels.graphics.regressionplots.plot_partregress):
 
 ```python
 plot_partregress(y, X['NOX'], X.drop('NOX', axis=1), obs_labels=False)
@@ -162,7 +162,7 @@ plt.show()
 
 ![partial regression plot of NOX vs price](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/pdp/2.png)
 
-So more NOX is correlated with lower prices, even when we account for the other variables. The relationship is not significant, though
+This is a visual representation of the negative regression coefficienct we saw before - it says that when we hold all the other variables constant, positive changes in NOX are associated with negative change in house price. Note that the X and Y axes are centered at zero, so X = 0 is the average NOX.
 
 Regression is a powerful tool for understanding the unique relationship between many variables and an outcome - there's a reason it's one of the most-used tools in your kit. However, we made some assumptions along the way. We'll interrogate one of those assumptions, which is that the outcome varies linearly with each covariate. We'll check that using a popular [regression diagnostic](https://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/07/lecture-07.pdf), as plot of covariate vs residuals:
 
@@ -181,13 +181,15 @@ plt.show()
 
 ![residual diagnostic](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/pdp/3.png)
 
-This is 
+This is an indication that one of our modeling assumptions was likely violated. 
 
-If we are working with linearity assumptions, this is where we stop - we include the above plot in our report, with an asterisk that the relationship isn't exactly linear but we have a linear approximation to it
+If we want to stay in the world of linear models, we might do a few different things:
 
-We might expand our model to consider nonlinear and interaction terms, fair enough
+- We might expand our model to consider nonlinear and interaction terms, to try and account for the non-linear relationship.
+- We might do some transformation of the input or output variables, to see 
+- We might just hit the brakes and end our analysis - we include the above plot in our report, with an asterisk that the relationship isn't exactly linear but we have a linear approximation to it.
 
-In the next section, we'll introduce a tool that lets us get past this and directly interpret our best-fitting model
+However, each of this is a a little annoying for different reason.
 
 # Option 3: Build a more complex model and use a partial dependence plot
 
