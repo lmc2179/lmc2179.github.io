@@ -232,7 +232,7 @@ It's worth noting that here we see a non-linear relationship between NOX and pri
 
 That right there is the PDP - easy to code, easy to understand, though it might take a lot of computing power
 
-I've mostly skipped the math in this explanation, because others have covered it better than I could. Nonetheless, I'll note here that the PDP is telling us $\hat{\mathbb{E}}[price|NOX=x]$, where the hat indicates that we're marginalizing over all the non-NOX variables using the observed values, and the random forest is approximating conditional expectation. If you want a more formal exposition than the intuitive idea I've presented here, see the references at the end.
+I've mostly skipped the math in this explanation, because others have covered it better than I could. Nonetheless, I'll note here that the PDP is telling us $\hat{\mathbb{E}}[price \mid NOX=x]$, where the hat indicates that we're marginalizing over all the non-NOX variables using the observed values, and the random forest is approximating conditional expectation. If you want a more formal exposition than the intuitive idea I've presented here, see the references at the end.
 
 # Confidence intervals for PDPs with bootstrapping
 
