@@ -232,24 +232,21 @@ It's worth noting that here we see a non-linear relationship between NOX and pri
 
 That right there is the PDP - easy to code, easy to understand, though it might take a lot of computing power
 
+and it doesn't depend on the model
+
 I've mostly skipped the math in this explanation, because others have covered it better than I could. Nonetheless, I'll note here that the PDP is telling us $\hat{\mathbb{E}}[price \mid NOX=x]$, where the hat indicates that we're marginalizing over all the non-NOX variables using the observed values, and the random forest is approximating conditional expectation. If you want a more formal exposition than the intuitive idea I've presented here, see the references at the end.
 
 # Confidence intervals for PDPs with bootstrapping
 
-One thing that's a little unsatisfying about the PDP is that it's
+One thing that's a little unsatisfying about the PDP is that it's only a point estimate. With the linear model, we were able to get a standard error that tells us how seriously we should take the coefficient we saw. We could do all sorts of useful things to summarize our uncertainty around the coefficient, like computing [confidence intervals](https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.OLSResults.conf_int.html) and [P-values](https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.OLSResults.pvalues.html). It would be nice to have a similar measure of uncertainty around the PDP curve.
 
-Standard errors in the LR model come from the T-distribution
-
-https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.OLSResults.conf_int.html
-https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.OLSResults.pvalues.html
-https://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/18/lecture-18.pdf
-https://www.stat.cmu.edu/~ryantibs/advmethods/notes/bootstrap.pdf - Section 1.3
-
-Single number summary - coefficient
-
-Bootstrapping
-
+The model-agnostic quality of the PDP makes it hard to reason about the samping distribution/standard errors; we'll use another method
+[bootstrap standard errors (section 1.3)](https://www.stat.cmu.edu/~ryantibs/advmethods/notes/bootstrap.pdf)
 Compute the SE at each point
+
+This isn't a drop-in replacement for "is this variable significant or not", but maybe that's fine
+https://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/18/lecture-18.pdf
+
 
 ```python
 n_bootstrap = 100
@@ -288,11 +285,13 @@ plt.show()
 
 # When does the PDP represent a causal relationship?
 
+_This section uses a bit of language from CI; most of this content is from  https://web.stanford.edu/~hastie/Papers/pdp_zhao.pdf_
+
 It's _very_ tempting to interpret the PDP as a prediction about what would happen _if_ we changed the global NOX to some amount. In causal inference terms, that would be an intervention, in which we actually shift the NOX and see what happens to prices. In this interpretation, our model is a method of simulating what would happen if we changed NOX, and we treat its predictions as counterfactual scenarios. Is this interpretation justified?
 
 It is if we make certain assumptions - but they're strong assumptions, and we're probably not in a position to make them. It's worth walking through those assumptions, to understand what kind of argument we'd need to make in order to 
 
-This section uses a bit of language from CI
+The first assumption that would allow us to treat the PDP causally is if the changes in NOX were randomized, like in an RCT; they're very clearly not
 
 Note the assumptions from the paper
 
@@ -307,7 +306,6 @@ THESE ARE ASSUMPTIONS AND WE CAN'T CHECK THEM
 https://stats.stackexchange.com/questions/59369/confounder-definition/298750#298750
 https://ftp.cs.ucla.edu/pub/stat_ser/R256.pdf
 
-https://web.stanford.edu/~hastie/Papers/pdp_zhao.pdf
 
 # A bonus: It's easy to use PDPs to examine the relationship between multiple inputs and the output
 
