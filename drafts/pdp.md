@@ -226,27 +226,19 @@ plt.show()
 
 ![partial dependence plot](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/pdp/4.png)
 
-This curve has a pretty clear interpretation: **If we set every neighborhood's NOX to a particular value, the modeled average price across all neighborhoods is given by the PDP curve.**
+This curve has a pretty clear interpretation: **If we were to set every neighborhood's NOX to a particular value, the predicted average price across all neighborhoods is given by the PDP curve.** It's worth noting that here we see a non-linear relationship between NOX and price, with a similar shape to the regression diagnostic plot above.
 
-It's worth noting that here we see a non-linear relationship between NOX and price, with a similar shape to the regression diagnostic plot above.
+The PDP method has a lot of advantages. It's easy to code, easy to understand, and it doesn't care what model we are using. It does have a downside, which is that for complex models and large samples, it doesn't scale especially well - in order to generate one point on the PDP curve, we need to make a prediction for all of the data points we have.
 
-That right there is the PDP - easy to code, easy to understand, though it might take a lot of computing power
-
-and it doesn't depend on the model
-
-I've mostly skipped the math in this explanation, because others have covered it better than I could. Nonetheless, I'll note here that the PDP is telling us $\hat{\mathbb{E}}[price \mid NOX=x]$, where the hat indicates that we're marginalizing over all the non-NOX variables using the observed values, and the random forest is approximating conditional expectation. If you want a more formal exposition than the intuitive idea I've presented here, see the references at the end.
+I've mostly skipped the math in this explanation, because others have covered it better than I could. Nonetheless, I'll note here that the PDP is telling us $\hat{\mathbb{E}}[price \mid NOX=x]$, where the hat indicates that we're marginalizing over all the non-NOX variables using the observed values, and the random forest is approximating conditional expectation. If you want a more formal exposition than the intuitive idea I've presented here, see the references at the end, particularly [Christoph Molnar's book chapter](https://christophm.github.io/interpretable-ml-book/pdp.html).
 
 # Confidence intervals for PDPs with bootstrapping
 
 One thing that's a little unsatisfying about the PDP is that it's only a point estimate. With the linear model, we were able to get a standard error that tells us how seriously we should take the coefficient we saw. We could do all sorts of useful things to summarize our uncertainty around the coefficient, like computing [confidence intervals](https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.OLSResults.conf_int.html) and [P-values](https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.OLSResults.pvalues.html). It would be nice to have a similar measure of uncertainty around the PDP curve.
 
-The model-agnostic quality of the PDP makes it hard to reason about the samping distribution/standard errors; we'll use another method
-[bootstrap standard errors (section 1.3)](https://www.stat.cmu.edu/~ryantibs/advmethods/notes/bootstrap.pdf)
-Compute the SE at each point
+The model-agnostic quality of the PDP makes it hard to reason about the samping distribution/standard errors. In order to get around this we'll use another famous model-agnostic method, [bootstrap standard errors (section 1.3)](https://www.stat.cmu.edu/~ryantibs/advmethods/notes/bootstrap.pdf). We'll run a bootstrap and compute the standard error at each point on the PDP curve. This isn't quite a drop-in replacement for "is this variable significant or not", but maybe that's fine - the usual significant test of a single variable glosses over a lot of detail, and there's no obvious non-linear analogue. We could still ask more pointed questions, like "does the PDP curve differ significantly between values $x_1$ and $x_2$", if we like.
 
-This isn't a drop-in replacement for "is this variable significant or not", but maybe that's fine
-https://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/18/lecture-18.pdf
-
+Let's run the bootstrap PDP for 100 bootstrap simulations:
 
 ```python
 n_bootstrap = 100
@@ -282,6 +274,8 @@ plt.show()
 ```
 
 ![partial dependence plot with bootstrap error bars](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/pdp/5.png)
+
+Ta-da! We see that there's a good amount of uncertainty here. Maybe that's not so surprising - we only have a few hundred data points, and we're estimating a pretty complex model. 
 
 # When does the PDP represent a causal relationship?
 
