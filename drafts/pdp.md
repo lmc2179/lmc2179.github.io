@@ -316,9 +316,13 @@ Two distplots
 ```python
 sns.distplot(X[X['CHAS'] == 0]['NOX'], label='CHAS=0')
 sns.distplot(X[X['CHAS'] == 1]['NOX'], label='CHAS=1')
+plt.title('Distribution of NOX for each value of CHAS')
 plt.legend()
 plt.show()
 ```
+
+
+![Distribution of NOX for each value of CHAS](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/pdp/6.png)
 
 NOX varies across its range for both values of CHAS
 
@@ -350,6 +354,8 @@ plt.xlabel('NOX')
 plt.title('Partial dependence plot for NOX and CHAS vs Price for Random Forest')
 plt.show()
 ```
+
+![Distribution of NOX for each value of CHAS](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/pdp/7.png)
 
 The model thinks the effect of a river view is additive with NOX
 
