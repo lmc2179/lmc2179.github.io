@@ -303,9 +303,9 @@ https://ftp.cs.ucla.edu/pub/stat_ser/R256.pdf
 
 # A bonus: It's easy to use PDPs to examine the relationship between multiple inputs and the output
 
-Imagine we want to look at both NOX and CHAS; one is continuous and one is binary
+So far we've look at the effect of NOX on price, but we might just as well be interested in the same analysis for more than one variable. In this section, we'll look at the effect of both nitric oxide concentration and whether the home has a view of the Charles river (denoted by CHAS in the data). For this example, one covariate is continuous and one is binary. We can amend our research question a little bit, to ask: "As NOX and CHAS change together, what happens to house price?".
 
-Two distplots
+First, let's look at the distribution of NOX for both CHAS=0 and CHAS=1 neighborhoods. Specifically, we'd like to see if NOX is way different for one group vs the other. For example, it would be hard to make any inference at all if NOX were only high when CHAS=0 and only low when CHAS=1.
 
 ```python
 sns.distplot(X[X['CHAS'] == 0]['NOX'], label='CHAS=0')
@@ -318,7 +318,16 @@ plt.show()
 
 ![Distribution of NOX for each value of CHAS](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/pdp/6.png)
 
-NOX varies across its range for both values of CHAS
+Looking at this, we see NOX varies across its range for both values of CHAS.
+
+Let's run our PDP again. In this case, our PDP algorithm is slightly different from before:
+
+1. Copy the dataset, and set all the NOX _and CHAS_ to some value, not touching any of the other variables.
+2. Predict the home prices for each neighborhood of the modified data set using our model.
+3. Calculate the average over all the predictions.
+4. Repeat for all the values of NOX _and CHAS_ we'd be interested in.
+
+We can do this with a bit of shameless copy-pasting from our original code, giving us two PDP curves since CHAS is discrete:
 
 ```python
 rf_model = RandomForestRegressor(n_estimators=100).fit(X, y)
@@ -351,11 +360,9 @@ plt.show()
 
 ![Distribution of NOX for each value of CHAS](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/pdp/7.png)
 
-The model thinks the effect of a river view is additive with NOX
+Roughly speaking, the model predicts home value as if CHAS is additive with NOX. That is, for any given value of NOX, it looks like going from CHAS=0 to CHAS=1 adds a small constant value to the median home price. However, if we want to think about this causally, we'll want to reconsider the assumptions we made before - it's possible that we can interpret the PDP of NOX causally, but the same assumptions are not reasonable for this PDP. 
 
-However, if we want to think about this causally we'll want to reconsider the assumptions we made before
-
-We can also consider two continuous variables, and make a heatmap. Some thoughts about that in the appendix
+This example gives rise to two separate PDP curves because CHAS is discrete - you either have a view of the river or you don't, in this data. If we had two continuous variables, we might make a heat map over the range of the two variables; some thoughts about that are included in the appendix.
 
 # Epilogue: So are machine learning models and PDPs the solution to every modeling problem?
 
