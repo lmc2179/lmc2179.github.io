@@ -363,23 +363,24 @@ No, the statistical theory around regression models is often the right solution 
 
 The computational costs might be quite large
 
-I use a bootstrapping solution but we could have done something else like https://jmlr.org/papers/volume15/wager14a/wager14a.pdf
+I use a bootstrapping solution but we could have done something else like 
 
 # Some further reading
 
-https://christophm.github.io/interpretable-ml-book/pdp.html
-https://scikit-learn.org/stable/modules/partial_dependence.html
-https://web.stanford.edu/~hastie/Papers/pdp_zhao.pdf
+- [Christoph Molnar's excellent book on interpretable machine learning](https://christophm.github.io/interpretable-ml-book/pdp.html)
+- [Sklearn's Partial Dependency plot generating tools](https://scikit-learn.org/stable/modules/partial_dependence.html)
+- [Causal interpretations of black-box models, Zhao et al 2018](https://web.stanford.edu/~hastie/Papers/pdp_zhao.pdf)
+- An alternative to bootstrapping to get Random Forest CIs, [Confidence Intervals for Random Forests: The Jackknife and the Infinitesimal Jackknife, Waget et al 2014](https://jmlr.org/papers/volume15/wager14a/wager14a.pdf)
 
 # Appendix: Some more thoughts on PDPs multivariate relationships
 
-We should be a little careful when using PDPs to represent multivariate relationships of continuous variables because we might simulate unlikely or impossible relationships
+Our earlier example involved a single binary and a single continuous variable. However, it's entirely possible to use it to understand the relationship between the outcome and two continuous inputs. When we do so, we'll want to be a little careful. Since the PDP is so powerful, letting us predict the outcome for any set of inputs, we might accidentally simulate unlikely or impossible relationships. This short section is a sketch of how we might think of using PDPs thoughtfully for two continuous inputs. 
 
-jointplot first to see how they vary together
+- First, generate a scatterplot or [seaborn jointplot](https://seaborn.pydata.org/generated/seaborn.jointplot.html) to understand how the variables change together. Specifically, we'd like to understand if there is a strong correlation between them, and how they co-occur.
+- Usually, there is only a subset of each variables' support where the two occur together. For two Gaussian variables, there might be a circular or oval region where they occur together. Inside this area, we would be interpolating; outside it we are extrapolating.
+-We can characterize the interpolation region by computing the convex hull using [scipy's interface to qhull](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.ConvexHull.html).
+- To avoid extrapolation, we then only compute the PDP inside the convex hull. For some thoughts about how to do that in Python, see [this SE answer](https://stackoverflow.com/questions/16750618/whats-an-efficient-way-to-find-if-a-point-lies-in-the-convex-hull-of-a-point-cl).
+-Finally, create a heatmap or isocline inside the convexthull representing the PDP, giving us the PDP across the interpolation region.
 
-convex hull - https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.ConvexHull.html
 
-to avoid extrapolation, we might only compute the PDP inside the convex hull
-https://stackoverflow.com/questions/16750618/whats-an-efficient-way-to-find-if-a-point-lies-in-the-convex-hull-of-a-point-cl
 
-But that's a topic for another time.
