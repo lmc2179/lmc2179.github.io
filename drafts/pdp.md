@@ -285,7 +285,7 @@ plt.show()
 
 # When does the PDP represent a causal relationship?
 
-_This section uses a bit of language from CI; most of this content is from  https://web.stanford.edu/~hastie/Papers/pdp_zhao.pdf_
+_This section uses a bit of language from CI; most of this content is from [Causal interpretations of black-box models, Zhao et al 2018](https://web.stanford.edu/~hastie/Papers/pdp_zhao.pdf)._
 
 It's _very_ tempting to interpret the PDP as a prediction about what would happen _if_ we changed the global NOX to some amount. In causal inference terms, that would be an intervention, in which we actually shift the NOX and see what happens to prices. In this interpretation, our model is a method of simulating what would happen if we changed NOX, and we treat its predictions as counterfactual scenarios. Is this interpretation justified?
 
