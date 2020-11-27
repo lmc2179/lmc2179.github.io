@@ -279,27 +279,23 @@ Ta-da! We see that there's a good amount of uncertainty here. Maybe that's not s
 
 # When does the PDP represent a causal relationship?
 
-_This section uses a bit of language from CI; most of this content is from [Causal interpretations of black-box models, Zhao et al 2018](https://web.stanford.edu/~hastie/Papers/pdp_zhao.pdf)._
+_This section uses a bit of language from causal inference which might not be familiar to some readers, particularly the idea of a "back door path". Most of this content is from [Causal interpretations of black-box models, Zhao et al 2018](https://web.stanford.edu/~hastie/Papers/pdp_zhao.pdf), which is well worth a read if you want to know more. That paper even uses the same Boston housing data set, making it a natural on-ramp after you read this post._
 
 It's _very_ tempting to interpret the PDP as a prediction about what would happen _if_ we changed the global NOX to some amount. In causal inference terms, that would be an intervention, in which we actually shift the NOX and see what happens to prices. In this interpretation, our model is a method of simulating what would happen if we changed NOX, and we treat its predictions as counterfactual scenarios. Is this interpretation justified?
 
-It is if we make certain assumptions - but they're strong assumptions, and we're probably not in a position to make them. It's worth walking through those assumptions, to understand what kind of argument we'd need to make in order to 
+It is if we make certain assumptions - but they're strong assumptions, and we're probably not in a position to make them. It's worth walking through those assumptions, to understand what kind of argument we'd need to make in order to interpret the PDP causally.
 
-The first assumption that would allow us to treat the PDP causally is if the changes in NOX were randomized, like in an RCT; they're very clearly not
+One set of assumptions that would let us interpret the PDP causally is if we simply assumed that there were no confounders. This would happen in a setting like a randomized control trial, in which we randomize which units get treated, and so there can be no "common cause" between the treatment (like NOX) and the outcome (like median home price). This assumption is very clearly unreasonable in this setting. We know that the data was collected in a non-experimental setting, and beside that the experiment required (namely, manipulating air quality and seeing what happens to house prices) is not especially practical.
 
-Note the assumptions from the paper, section 3.2/Back door criterion
+That leaves us in the world of causal inference from observational data. We'll avoid discussions of methods like IV here, and focus on conditioning on all the confounders in order to identify the causal relationship. In classical causal inference, we often condition on all the variables that block the back-door paths between the treatment and outcome in order to identify the causal effect of the treatment. Commonly, analysts use methods like linear regression here to condition on the confounders, and then interpret the regression coefficient for the treatment causally.
 
-- NOX is not a cause of any other predictor variables
-- The other predictor variables block all back-door paths between NOX and house price
+In order to interpret the PDP causally in our case, we need to make two assumptions:
+- NOX is not a cause of any other predictor variables _This corresponds to the usual injunction not to control for post-treatment variables._
+- The other predictor variables block all back-door paths between NOX and house price. _This is a much stronger assumption, and it's much less clear that it is safe to assume to._
 
-Include all the causal diagrams
+If we make these assumptions, then Zhao et. al demonstrate that we can interpret the PDP causally (see §3.2 of the paper). This is because of the remarkable fact that the PDP's formal definition is the same as Pearl's backdoor adjustment.
 
-In this section I talked a lot about "assumptions" and "arguments". You might wonder why I did so - why can't I just tell you what analysis you need to run, so you can see if the assumptions are justified? 
-
-THESE ARE ASSUMPTIONS AND WE CAN'T CHECK THEM
-https://stats.stackexchange.com/questions/59369/confounder-definition/298750#298750
-https://ftp.cs.ucla.edu/pub/stat_ser/R256.pdf
-
+In this section I talked a lot about "assumptions" and "arguments". You might wonder why I did so - why can't I just tell you what analysis you need to run, so you can see if the assumptions are justified? This is because we cannot demonstrate from the data that confounding exists - [there is no statistical test for confounding](https://ftp.cs.ucla.edu/pub/stat_ser/R256.pdf) (see also [this SE answer](https://stats.stackexchange.com/questions/59369/confounder-definition/298750#298750)). As a result, if you want to interpret your PDP causally, you'll need to make some assumptions. Whether they're strong assumptions or not depends on your level of domain knowledge and the problem you're solving - unfortunately, there's no easy way out here.
 
 # A bonus: It's easy to use PDPs to examine the relationship between multiple inputs and the output
 
@@ -363,14 +359,6 @@ plt.show()
 Roughly speaking, the model predicts home value as if CHAS is additive with NOX. That is, for any given value of NOX, it looks like going from CHAS=0 to CHAS=1 adds a small constant value to the median home price. However, if we want to think about this causally, we'll want to reconsider the assumptions we made before - it's possible that we can interpret the PDP of NOX causally, but the same assumptions are not reasonable for this PDP. 
 
 This example gives rise to two separate PDP curves because CHAS is discrete - you either have a view of the river or you don't, in this data. If we had two continuous variables, we might make a heat map over the range of the two variables; some thoughts about that are included in the appendix.
-
-# Epilogue: So are machine learning models and PDPs the solution to every modeling problem?
-
-No, the statistical theory around regression models is often the right solution but you should be prepared to realize when it's not the only solution
-
-The computational costs might be quite large
-
-I use a bootstrapping solution but we could have done something else like 
 
 # Some further reading
 
