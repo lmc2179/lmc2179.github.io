@@ -287,7 +287,7 @@ It is if we make certain assumptions - but they're strong assumptions, and we're
 
 The first assumption that would allow us to treat the PDP causally is if the changes in NOX were randomized, like in an RCT; they're very clearly not
 
-Note the assumptions from the paper
+Note the assumptions from the paper, section 3.2/Back door criterion
 
 - NOX is not a cause of any other predictor variables
 - The other predictor variables block all back-door paths between NOX and house price
