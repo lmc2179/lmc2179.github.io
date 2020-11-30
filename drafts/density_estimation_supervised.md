@@ -5,6 +5,7 @@ Examples
 - Anomaly detection
 - Basket recommendation
 - ~K~DE on integer discrete data
+- Density for likelihood-ratio weighting
 
 ```python
 import numpy as np
@@ -22,8 +23,11 @@ y = [1]*5000 + [0]*5000
 m = MLPClassifier(hidden_layer_sizes=(10,))
 m.fit(X, y)
 
+uniform_density = 1 / (np.max(x) - np.min(x))
+
 x_plot = np.linspace(np.min(x), np.max(x), 1000)
-y_plot = m.predict_proba(x_plot.reshape(-1, 1))[:,1]
+classifier_output = m.predict_proba(x_plot.reshape(-1, 1))[:,1]
+y_plot = uniform_density * (classifier_output)/(1.-classifier_output)
 
 plt.plot(x_plot, y_plot)
 sns.distplot(x, bins=np.linspace(np.min(x), np.max(x), 10), kde=False, norm_hist=True)
