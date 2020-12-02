@@ -9,4 +9,4 @@ Googling give us some almost-right answers:
 All of these are actually quite decent answers. But the point is to do all this stuff to make better decisions
 
 Decision process
-Analysis --> Decision --> Evaluation --> Improvement
+Analysis --> Choice --> Evaluation --> Improvement
