@@ -11,3 +11,6 @@ linear_constraint = LinearConstraint([[1]*n_vars], [1], [1])
 
 res = minimize(f, [1./n_vars]*n_vars,  constraints=[linear_constraint])
 ```
+
+https://economics.mit.edu/files/11870
+https://en.wikipedia.org/wiki/Synthetic_control_method
