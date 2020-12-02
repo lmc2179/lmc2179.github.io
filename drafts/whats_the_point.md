@@ -9,7 +9,7 @@ image: jellybeans.png
 
 *Data science is a field with side scope and tons of fancy tools. But don't be distracted - data science is fundamentally about using data to improve decision making. This is the common thread underlying all useful data analysis activities, and keeping that in mind will make you a better data scientist.*
 
->*Statisticians produce solutions to problems.* Understanding data requires placing them in the context of scientific theories, which allow us to sort important from ancillary information. One cannot answer the question “what is important?” without first considering the question “important for what?”
+>**Statisticians produce solutions to problems.** Understanding data requires placing them in the context of scientific theories, which allow us to sort important from ancillary information. One cannot answer the question “what is important?” without first considering the question “important for what?”
 
 --Giovanni Parmigiani, _Decision Theory_, On one possible way of describing the work of data analysis
 
