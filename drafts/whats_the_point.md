@@ -7,3 +7,6 @@ Googling give us some almost-right answers:
 - Data scientists help the business test its ideas with experimentation
 
 All of these are actually quite decent answers. But the point is to do all this stuff to make better decisions
+
+Decision process
+Analysis --> Decision --> Evaluation --> Improvement
