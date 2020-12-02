@@ -29,3 +29,5 @@ All of these are actually quite decent answers. But the point is to do all this 
 
 Decision process
 Analysis --> Choice --> Evaluation --> Improvement
+
+https://en.wikipedia.org/wiki/Pragmatic_maxim
