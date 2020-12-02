@@ -4,6 +4,10 @@
 
 --Giovanni Parmigiani, _Decision Theory_, On one possible way of describing the work of data analysis
 
+> There is, then, no single, all-purpose, correct answer to a question implying measurement unless we specify the relevant local concerns that give rise to the question. Particular customs of measurement are thus situationally, temporally, and geographically bound.
+
+--James C. Scott, _Seeing Like a State_, On measuring what matters to the circumstances at hand
+
 Googling give us some almost-right answers:
 - Data scientists produce insights about the data
 - Data scientists use tools that make giant data sets manageable
