@@ -13,4 +13,7 @@ res = minimize(f, [1./n_vars]*n_vars,  constraints=[linear_constraint])
 ```
 
 https://economics.mit.edu/files/11870
+
 https://en.wikipedia.org/wiki/Synthetic_control_method
+
+And do a bootstrap to get SEs for each year
