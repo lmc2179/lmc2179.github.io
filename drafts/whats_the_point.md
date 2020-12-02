@@ -1,6 +1,7 @@
 
 Googling give us some almost-right answers:
 - Data scientists produce insights about the data
+- Data scientists use tools that make giant data sets manageable
 - Data scientists find patterns
 - Data scientists build a theory of the business
 - Data scientists build and deploy models
