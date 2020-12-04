@@ -1,6 +1,8 @@
--when the outliers contain little information about your outcome of interest
+- when the outliers contain little information about your outcome of interest
+
 NOT
--when the outliers are annoying to analyze and you don't want to deal with them
+
+- when the outliers are annoying to analyze and you don't want to deal with them
 
 An outlier analysis rule: Discarding outliers or choosing to winsorize does _not_ come from looking at the data, but from the substantive goals of the analysis
 
