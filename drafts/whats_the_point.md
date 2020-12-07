@@ -31,3 +31,7 @@ Decision process
 Analysis --> Choice --> Evaluation --> Improvement
 
 https://en.wikipedia.org/wiki/Pragmatic_maxim
+
+Good data scientists: How do I help make better decisions
+
+Great data scientists: How do I design better decision processes
