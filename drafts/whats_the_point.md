@@ -31,7 +31,7 @@ Googling give us some almost-right answers. Various articles, blog posts, and ot
 
 All of these are actually quite decent answers. Data scientists in different setting definitely do all these things - as a working data scientists, each of these is part of my professional life. But in the pre Data Science era, many businesses got along just fine without these things.  
 
-The point of data scientists - the reason we do all the things in the list above - is to _make better decisions_.
+The point of data scientists - the reason we do all the things in the list above - is to use data to _make better decisions_.
 
 # What does good decision making look like?
 
@@ -45,6 +45,8 @@ Good data scientists: How do I help make better decisions
 Great data scientists: How do I design better decision processes, which accept feedback and scale with the organization
 
 # Sidebar: What about other, similar job titles? Data analysts? Statisticians? ML engineers? Business analysts?
+
+?
 
 # One common task for data scientists: A/B testing
 
