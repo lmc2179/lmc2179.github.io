@@ -37,7 +37,7 @@ The point of data scientists - the reason we do all the things in the list above
 
 # The mantra of the pragmatic data scientist: "What's the decision?"
 
-?
+We sort important from useless information by thinking about whether the information is relevant to the decision at hand
 
 # What does good decision making look like?
 
@@ -58,4 +58,4 @@ Great data scientists: How do I design better decision processes, which accept f
 
 # An example of good data science: Scaling A/B testing
 
-I want to finish by telling a story that's about a topic that's near to my heart - A/B testing. 
+I want to finish by telling a story that's about a topic that's near to my heart - A/B testing. It is a case study in successful scaling instantiation and scaling of a decision process
