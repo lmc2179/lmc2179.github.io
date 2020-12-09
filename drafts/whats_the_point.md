@@ -17,7 +17,9 @@ image: jellybeans.png
 
 --James C. Scott, _Seeing Like a State_, On measuring what matters to the circumstances at hand
 
-# ?
+# The most overhyped job of the 21st century
+
+https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century
 
 # So what is it that data scientists do?
 
@@ -32,6 +34,10 @@ Googling give us some almost-right answers. Various articles, blog posts, and ot
 All of these are actually quite decent answers. Data scientists in different setting definitely do all these things - as a working data scientists, each of these is part of my professional life. But in the pre Data Science era, many businesses got along just fine without these things.  
 
 The point of data scientists - the reason we do all the things in the list above - is to use data to _make better decisions_.
+
+# The mantra of the pragmatic data scientist: "What's the decision?"
+
+?
 
 # What does good decision making look like?
 
@@ -48,6 +54,8 @@ Great data scientists: How do I design better decision processes, which accept f
 
 ?
 
-# One common task for data scientists: A/B testing
+# Good organizational decision making means effective communication
+
+# An example of good data science: Scaling A/B testing
 
 I want to finish by telling a story that's about a topic that's near to my heart - A/B testing. 
