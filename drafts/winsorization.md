@@ -1,3 +1,5 @@
+Should I include these outliers in my analysis? Probably
+
 - when the outliers contain little information about your outcome of interest
 
 NOT
