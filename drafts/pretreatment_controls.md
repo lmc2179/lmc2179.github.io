@@ -1,6 +1,16 @@
-# A pretreatment measurement gives us more efficient estimates of treatment effects
+You should include pretreatment measurements of the outcome and unit covariates in your A/B tests
+
+# Including pretreatment measurements gives us more efficient estimates of treatment effects in A/B tests
+
+## Example
+
+## Simulation
+
+## Why this works - smaller residual size
 
 # What happens if we pick a bad pretreatment measurement?
+
+
 
 # Even a really good pretreatment measurement doesn't solve the problem of a missing confounder
 
