@@ -37,3 +37,7 @@ A deep knowledge of the data generating process is required in order to make cau
 # [Confessions of a Pragmatic Statistician - Chris Chatfield](https://www2.isye.gatech.edu/isyebayes/bank/chatfield.pdf)
 
 # Some themes
+
+Be mindful of what your P-values are actually telling you; we often assume a significant result is a confirmation of our hypothesis but it is usually much more limited than that
+
+You need to understand how the data was generated if you want to make causal claims
