@@ -20,6 +20,14 @@ An interesting response to this is [Bayesian Statistical Pragmatism - Andrew Gel
 
 # [Statistical Models and Shoe Leather - David A. Freedman](https://psychology.okstate.edu/faculty/jgrice/psyc5314/Freedman_1991A.pdf)
 
+Is regression actually a causal inference success story?
+
+According to Freedman, the results of the adoption of regression have been unimpressive. Practitioners without great statistical depth (like John Snow) can achieve good results by careful causal reasoning, combining many lines of evidence, and by putting in the effort to understand how data was collected. Those who attempt causal inference from regression should take note of the rigor and success of such examples despite their lack of technical sophistication.
+
+> What is the difference between Kanarek et al.'s study and Snow's? Kanarek et al. ignored the ecological fallacy. Snow dealt with it. Kanarek et al. tried to control for covariates by modeling, using socioeconomic status as a proxy for smoking. Snow found a natural experiment and collected the data he needed. Kanarek et al.'s argument for causation rides on the statistical significance of a coefficient. Snow's argument used logic and shoe leather. Regression models make it all too easy to substitute technique for work.
+
+A deep knowledge of the data generating process is required in order to make causal claims - Snow put in the Shoe Leather to get that knowledge by collecting the data himself, but often causality-from-regression practitioners expect statistical wizardry to make this work unnecessary
+
 # [To Explain or Predict? - Galit Shmueli](https://www.stat.berkeley.edu/~aldous/157/Papers/shmueli.pdf)
 
 # [What You Can and Can’t Properly Do with Regression - Richard Berk](http://www.public.asu.edu/~gasweete/crj604/readings/2010-Berk%20(what%20you%20can%20and%20can't%20do%20with%20regression).pdf)
