@@ -1,3 +1,5 @@
+Bias Corrected and Accelerated Bootstrap Confidence Intervals in Python
+
 The bootstrap is commonly used by analysts as an intuitive, nonparametric method to get confidence intervals. Like any tool that is so powerful, it is worth understanding why it works.
 
 https://projecteuclid.org/euclid.aos/1176344552
