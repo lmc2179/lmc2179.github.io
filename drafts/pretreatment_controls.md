@@ -1,4 +1,14 @@
-You should include pretreatment measurements of the outcome and unit covariates in your A/B tests
+You should include pretreatment measurements of the outcome and unit covariates in your A/B tests, but please be sure they're pre-treatment
+
+We'll show it with some simulations of experiments with binary treatments and continuous normally distributed outcomes:
+1. No extra variable, y ~ t
+2. One extra variable, y ~ t vs y ~ t + x
+3. One unobserved extra variable but an observed ancestor, y ~ t vs y ~ t + x and y ~ t vs y ~ t + z (where z is the parent of x)
+4. One irrelevant extra variable
+5. One incorrectly-controlled-for extra variable (DO NOT CONDITION ON POST-TREATMENT VARIABLES, conditioning on a variable which is a result of x)
+n = 100, alpha = 1, delta=0.5
+
+Maybe this is just one dataset and we just get better at seeing it
 
 https://pubmed.ncbi.nlm.nih.gov/26921693/
 
@@ -6,7 +16,7 @@ https://pubmed.ncbi.nlm.nih.gov/26921693/
 
 ## Example
 
-## Simulation
+## Simulations
 
 ## Why this works - smaller residual size
 
