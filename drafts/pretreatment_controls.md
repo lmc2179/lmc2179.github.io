@@ -25,24 +25,31 @@ import seaborn as sns
 import pandas as pd
 from statsmodels.api import formula as smf
 
+baseline = 1
+treatment_effect = 1
+residual_sd = 0.5
+
+
 def generate_data():
-  baseline = 1
-  treatment_effect = 1
-  residual_sd = 0.5
   t = np.array([0]*50 + [1]*50)
   y = np.concatenate((np.random.normal(baseline, residual_sd, 50), np.random.normal(baseline + treatment_effect, residual_sd, 50)))
   df = pd.DataFrame({'t': t, 'y': y})
   return df
 
-n_sim = 10
+n_sim = 1000
   
 sim_results = []
+treatment_effect_coverage = 0
   
 for i in range(n_sim):
   sim_df = generate_data()
   model = smf.ols('y ~ t', sim_df)
   result = model.fit()
   sim_results.append(result)
+  if result.conf_int()[0]['t'] <= treatment_effect <= result.conf_int()[1]['t']:
+    treatment_effect_coverage += 1
+    
+print(treatment_effect_coverage / n_sim)
 ```
 
 ## Why this works - smaller residual size
