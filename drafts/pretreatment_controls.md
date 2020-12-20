@@ -1,5 +1,7 @@
 You should include pretreatment measurements of the outcome and unit covariates in your A/B tests
 
+https://pubmed.ncbi.nlm.nih.gov/26921693/
+
 # Including pretreatment measurements gives us more efficient estimates of treatment effects in A/B tests
 
 ## Example
