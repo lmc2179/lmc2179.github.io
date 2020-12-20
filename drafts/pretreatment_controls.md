@@ -12,6 +12,8 @@ Maybe this is just one dataset and we just get better at seeing it
 
 https://pubmed.ncbi.nlm.nih.gov/26921693/
 
+http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf - 7.1.5
+
 # Including pretreatment measurements gives us more efficient estimates of treatment effects in A/B tests
 
 ## Example
