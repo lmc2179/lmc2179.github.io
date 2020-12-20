@@ -7,7 +7,8 @@ We'll show it with some simulations of experiments with binary treatments and co
 4. One irrelevant extra variable
 5. One incorrectly-controlled-for extra variable (DO NOT CONDITION ON POST-TREATMENT VARIABLES, conditioning on a variable which is a result of x)
 n = 100, alpha = 1, delta=0.5
-Consider non-normal outcomes?
+
+Consider non-normal outcomes? Heteroskedasticity?
 
 Maybe this is just one dataset and we just get better at seeing it
 
