@@ -18,6 +18,33 @@ https://pubmed.ncbi.nlm.nih.gov/26921693/
 
 ## Simulations
 
+```
+import numpy as np
+from matplotlib import pyplot as plt
+import seaborn as sns
+import pandas as pd
+from statsmodels.api import formula as smf
+
+def generate_data():
+  baseline = 1
+  treatment_effect = 1
+  residual_sd = 0.5
+  t = np.array([0]*50 + [1]*50)
+  y = np.concatenate((np.random.normal(baseline, residual_sd, 50), np.random.normal(baseline + treatment_effect, residual_sd, 50)))
+  df = pd.DataFrame({'t': t, 'y': y})
+  return df
+
+n_sim = 10
+  
+sim_results = []
+  
+for i in range(n_sim):
+  sim_df = generate_data()
+  model = smf.ols('y ~ t', sim_df)
+  result = model.fit()
+  sim_results.append(result)
+```
+
 ## Why this works - smaller residual size
 
 # What happens if we pick a bad pretreatment measurement?
