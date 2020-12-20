@@ -18,7 +18,7 @@ https://pubmed.ncbi.nlm.nih.gov/26921693/
 
 ## Simulations
 
-```
+```python
 import numpy as np
 from matplotlib import pyplot as plt
 import seaborn as sns
