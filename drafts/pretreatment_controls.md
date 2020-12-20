@@ -52,7 +52,7 @@ for i in range(n_sim):
 print(treatment_effect_coverage / n_sim)
 ```
 
-## Why this works - smaller residual size
+## Why this works - smaller residual size vs larger parameter count
 
 # What happens if we pick a bad pretreatment measurement?
 
