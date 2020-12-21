@@ -37,7 +37,7 @@ Googling give us some almost-right answers. Various articles, blog posts, and ot
 - ...build and deploy models
 - ...help the business test its ideas with experimentation
 
-All of these are actually quite decent answers. Data scientists in different setting definitely do all these things - as a working data scientists, each of these is part of my professional life. But in the pre Data Science era, many businesses got along just fine without these things.  
+All of these are quite decent answers. Data scientists in different setting definitely do all these things - as a working data scientists, each of these is part of my professional life, and I agree they are important. But in the pre Data Science era, many businesses got along just fine without these things.  
 
 The point of data scientists - the reason we do all the things in the list above - is to use data to _make better decisions_.
 
