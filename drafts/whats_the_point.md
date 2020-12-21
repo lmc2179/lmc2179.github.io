@@ -17,6 +17,8 @@ image: jellybeans.png
 
 --James C. Scott, _Seeing Like a State_, On measuring what matters to the circumstances at hand
 
+
+
 # The most overhyped job of the 21st century
 
 https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century
@@ -43,20 +45,29 @@ The point of data scientists - the reason we do all the things in the list above
 
 We sort important from useless information by thinking about whether the information is relevant to the decision at hand
 
-# What does good decision making look like?
+# Good data scientists: How do I help make better decisions?
+
+> The task of decision involves three steps: (1) The listing of all the alternative strategies; (2) the determination of all the consequences that follow upon each of these strategies; (3) the comparative evaluation of these sets of consequences.
+> (...) The behaving subject cannot, of course, know directly the consequences that will follow upon their behavior. (...) What they do is to form _expectations_ of future consequences, these expectations being based upon known empirical relationships, and upon information about the existing situation.
+
+--Herbert Simon, _Administrative Behavior_, Ch. IV, describing an idealized decision-making process
+
+
+
+
+
+# Great data scientists: How do I design better decision processes?
 
 Decision process
 Analysis --> Choice --> Evaluation --> Improvement
 
-Good data scientists: How do I help make better decisions
-
-Great data scientists: How do I design better decision processes, which accept feedback and scale with the organization
+which accept feedback and scale with the organization
 
 # Sidebar: What about other, similar job titles? Data analysts? Statisticians? ML engineers? Business analysts?
 
-?
+It's all the same
 
-# Good organizational decision making means effective communication
+# An important consequence: Good organizational decision making means effective analysis _and_ communication
 
 # An example of good data science: Scaling A/B testing
 
