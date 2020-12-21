@@ -1,4 +1,4 @@
-You should include pretreatment measurements of the outcome and unit covariates in your A/B tests, but please be sure they're pre-treatment
+Not a free lunch, but a very cheap one: You should include pre-treatment covariates in your A/B test analysis
 
 We'll show it with some simulations of experiments with binary treatments and continuous normally distributed outcomes:
 1. No extra variable, y ~ t
@@ -29,38 +29,64 @@ import seaborn as sns
 import pandas as pd
 from statsmodels.api import formula as smf
 
-baseline = 1
-treatment_effect = 1
-residual_sd = 0.5
-
+sample_size = 100
+t_p = 0.5
+a_g = 0.0
+a_s = 1.0
+a_x = 0
+b_x = 1
+s_x = 1
+a_y_p = -1
+b_y_p = 0.5
+s_y_p = 1
+a_y = 0
+b_y = 1
+s_y = 1
+a_c = 0
+b_c = 1
+s_c = 1
+d = 1
 
 def generate_data():
-  t = np.array([0]*50 + [1]*50)
-  y = np.concatenate((np.random.normal(baseline, residual_sd, 50), np.random.normal(baseline + treatment_effect, residual_sd, 50)))
-  df = pd.DataFrame({'t': t, 'y': y})
-  return df
+  t = np.random.binomial(1, t_p, sample_size)
+  g = np.random.normal(a_g, a_s, sample_size)
+  x = np.random.normal(a_x + b_x * g, s_x)
+  y_p = np.random.normal(a_y_p + b_y_p * x, s_y_p)
+  y = np.random.normal(a_y + d * t + b_y * x ** 3, s_y)
+  c = np.random.normal(a_c + b_c * y, s_c)
+  i = np.random.normal(0, 1, sample_size)
+  return pd.DataFrame({'t': t, 'g': g, 'x': x, 'y_p': y_p, 'y': y, 'c': c, 'i': i})
 
-n_sim = 1000
-  
+sim_scenarios = ['Baseline', 'Known cause', 'Previous observation', 'Cause of cause', 'Kitchen Sink', 'Bad control', 'Irrelevant']
 sim_results = []
-treatment_effect_coverage = 0
-  
-for i in range(n_sim):
+
+for _ in range(1000):
   sim_df = generate_data()
-  model = smf.ols('y ~ t', sim_df)
-  result = model.fit()
-  sim_results.append(result)
-  if result.conf_int()[0]['t'] <= treatment_effect <= result.conf_int()[1]['t']:
-    treatment_effect_coverage += 1
-    
-print(treatment_effect_coverage / n_sim)
+  baseline = smf.ols('y ~ t', sim_df).fit().params['t']
+  known_cause = smf.ols('y ~ t + x', sim_df).fit().params['t']
+  prev = smf.ols('y ~ t + y_p', sim_df).fit().params['t']
+  cause_of_cause  = smf.ols('y ~ t + g', sim_df).fit().params['t']
+  kitchen_sink  = smf.ols('y ~ t + x + y_p + g', sim_df).fit().params['t']
+  bad_control = smf.ols('y ~ t + c', sim_df).fit().params['t']
+  irrelevant = smf.ols('y ~ t + i', sim_df).fit().params['t']
+  sim_results.append([baseline, known_cause, prev, cause_of_cause, kitchen_sink, bad_control, irrelevant])
+
+sim_df = pd.DataFrame(sim_results, columns=sim_scenarios)
+for col in sim_df.columns:
+  sns.distplot(sim_df[col], label=col, hist=False)
+plt.axvline(d, label='True treatment effect')
+plt.xlabel('Treatment effect')
+plt.legend()
+plt.show()
 ```
 
 ## Why this works - smaller residual size vs larger parameter count
 
 # What happens if we pick a bad pretreatment measurement?
 
+Bad: it is uncorrelated --> No benefit, but no harm
 
+Bad: it is actually
 
 # Even a really good pretreatment measurement doesn't solve the problem of a missing confounder
 
