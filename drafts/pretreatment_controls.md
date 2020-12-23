@@ -28,18 +28,19 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 import pandas as pd
 from statsmodels.api import formula as smf
+from tqdm import tqdm
 
 sample_size = 100
 t_p = 0.5
 a_g = 0.0
 a_s = 1.0
-a_x = 0
+a_x = 2
 b_x = 1
 s_x = 1
 a_y_p = -1
 b_y_p = 0.5
-s_y_p = 1
-a_y = 0
+s_y_p = 2
+a_y = 3
 b_y = 1
 s_y = 1
 a_c = 0
@@ -51,25 +52,25 @@ def generate_data():
   t = np.random.binomial(1, t_p, sample_size)
   g = np.random.normal(a_g, a_s, sample_size)
   x = np.random.normal(a_x + b_x * g, s_x)
-  y_p = np.random.normal(a_y_p + b_y_p * x, s_y_p)
+  y_p = np.random.normal(a_y_p + b_y_p * x**5, s_y_p)
   y = np.random.normal(a_y + d * t + b_y * x ** 3, s_y)
   c = np.random.normal(a_c + b_c * y, s_c)
   i = np.random.normal(0, 1, sample_size)
   return pd.DataFrame({'t': t, 'g': g, 'x': x, 'y_p': y_p, 'y': y, 'c': c, 'i': i})
 
-sim_scenarios = ['Baseline', 'Known cause', 'Previous observation', 'Cause of cause', 'Kitchen Sink', 'Bad control', 'Irrelevant']
+sim_scenarios = ['Baseline', 'Known cause', 'Previous observation', 'Cause of cause', 'Irrelevant', 'Kitchen Sink', 'Bad control']
 sim_results = []
 
-for _ in range(1000):
+for _ in tqdm(range(1000)):
   sim_df = generate_data()
   baseline = smf.ols('y ~ t', sim_df).fit().params['t']
   known_cause = smf.ols('y ~ t + x', sim_df).fit().params['t']
   prev = smf.ols('y ~ t + y_p', sim_df).fit().params['t']
   cause_of_cause  = smf.ols('y ~ t + g', sim_df).fit().params['t']
-  kitchen_sink  = smf.ols('y ~ t + x + y_p + g', sim_df).fit().params['t']
+  kitchen_sink  = smf.ols('y ~ t + x + y_p + g + i', sim_df).fit().params['t']
   bad_control = smf.ols('y ~ t + c', sim_df).fit().params['t']
   irrelevant = smf.ols('y ~ t + i', sim_df).fit().params['t']
-  sim_results.append([baseline, known_cause, prev, cause_of_cause, kitchen_sink, bad_control, irrelevant])
+  sim_results.append([baseline, known_cause, prev, cause_of_cause, irrelevant, kitchen_sink, bad_control])
 
 sim_df = pd.DataFrame(sim_results, columns=sim_scenarios)
 for col in sim_df.columns:
@@ -88,7 +89,7 @@ Bad: it is uncorrelated --> No benefit, but no harm
 
 Bad: it is actually
 
-# Even a really good pretreatment measurement doesn't solve the problem of a missing confounder
+# : Even a really good pretreatment measurement doesn't solve the problem of a missing confounder
 
 ```python
 import numpy as np
