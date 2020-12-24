@@ -1,3 +1,8 @@
+It's really easy to mess up estimates of ratios
+
+- Open rates
+- Cost per item
+
 http://www.stat.cmu.edu/~hseltman/files/ratio.pdf
 
 https://arxiv.org/pdf/0710.2024.pdf
