@@ -1,5 +1,9 @@
 It's really easy to mess up estimates of ratios
 
+https://en.wikipedia.org/wiki/Ratio_estimator#Definition
+
+Probably the easiest thing is the jackknife
+
 - Open rates
 - Cost per item
 
