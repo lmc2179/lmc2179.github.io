@@ -1,11 +1,16 @@
-It's really easy to mess up estimates of ratios
+# It's really easy to mess up estimates of ratios
 
-https://en.wikipedia.org/wiki/Ratio_estimator#Definition
+Naive estimate is biased https://en.wikipedia.org/wiki/Ratio_estimator
+The sampling distribution can be nuts: https://en.wikipedia.org/wiki/Ratio_distribution
 
-Probably the easiest thing is the jackknife
+Probably the easiest thing for both bias correction and confidence intervals is the jackknife, and you can do it in SQL
 
 - Open rates
 - Cost per item
+
+Do some simulations
+
+# Other stuff
 
 http://www.stat.cmu.edu/~hseltman/files/ratio.pdf
 
