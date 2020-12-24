@@ -7,6 +7,7 @@ Probably the easiest thing for both bias correction and confidence intervals is 
 
 - Open rates
 - Cost per item
+- Percentage difference between matched pairs
 
 Do some simulations for an example with a funny-looking sampling distribution; show that the jackknife estimates the variance correctly
 
