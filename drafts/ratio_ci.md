@@ -11,6 +11,8 @@ Probably the easiest thing for both bias correction and confidence intervals is 
 
 Do some simulations for an example with a funny-looking sampling distribution; show that the naive estimate is biased; jackknife estimates the variance correctly
 
+Uncorrelated parto/nbinom distribution - revenue per...session?
+
 # Other stuff
 
 http://www.stat.cmu.edu/~hseltman/files/ratio.pdf
