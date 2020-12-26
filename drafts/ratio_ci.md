@@ -31,6 +31,8 @@ code example
 
 show it's not biased and the variance is right
 
+you can even do it in SQL
+
 # Appendix: Some other approaches
 
 Taylor series/delta method
