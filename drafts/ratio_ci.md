@@ -5,17 +5,39 @@
 - Cost per impression: $\text{Cost per impression} = \frac{\text{Total spend}}{\text{Impression count}}$
 - Percent increase: $\text{Lift} = \frac{\text{Total new}}{\text{Total old}}$
 
+Introduce a synthetic example, Pareto/Binomial
+
 # But the "obvious" ratio estimate is biased, and standard errors can be tricky
+
+The naive estimator is biased
+
+The variance of a corrected estimator is not obvious
 
 # Detour: The Jackknife as a method for correcting bias and computing standard errors
 
+The idea behind the jackknife standard error
+
+the idea behind the jackknife standard error
+
+formulas
+
+this is an early bootstrap
+
 # Putting it together: Ratio analysis with the jackknife
+
+formula
+
+code example
+
+show it's not biased and the variance is right
 
 # Appendix: Some other approaches
 
-Percentile bootstrap and Bayesian bootstrap
+Taylor series/delta method
 
-Taylor series
+Fieller?
+
+Percentile bootstrap and Bayesian bootstrap
 
 # More reading
 
