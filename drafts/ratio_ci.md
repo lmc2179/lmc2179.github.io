@@ -15,6 +15,26 @@ Uncorrelated parto/nbinom distribution - revenue per...session?
 
 $\text{test}$
 
+```python
+from scipy.stats import binom, pareto
+
+numerator_dist = pareto(2)
+denominator_dist = binom(2*10, 0.1)
+
+def gen_data(n):
+  return numerator_dist.rvs(n), denominator_dist.rvs(n)
+
+def naive_estimate(n, d):
+  return np.sum(n) / np.sum(d)
+  
+def jackknife_estimate(n, d):
+  pass
+
+naive_sampling_distribution_n_5 = [naive_estimate(n, d) for n, d in [gen_data(5) for _ in range(10000)]] # This is biased
+jackknife_sampling_distribution_n_5 = [naive_estimate(n, d) for n, d in [gen_data(5) for _ in range(10000)]] # This is not (?)
+
+```
+
 # Other stuff
 
 http://www.stat.cmu.edu/~hseltman/files/ratio.pdf
