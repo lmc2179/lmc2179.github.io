@@ -1,4 +1,14 @@
-# It's really easy to mess up estimates of ratios
+# Ratios are everywhere
+
+# But the "obvious" ratio estimate is biased, and standard errors can be tricky
+
+# Detour: The Jackknife as a method for correcting bias and computing standard errors
+
+# Putting it together: Ratio analysis with the jackknife
+
+# More reading and alternate approaches
+
+# Material
 
 Naive estimate is biased https://en.wikipedia.org/wiki/Ratio_estimator
 The sampling distribution can be nuts: https://en.wikipedia.org/wiki/Ratio_distribution
