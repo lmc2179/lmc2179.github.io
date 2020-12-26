@@ -21,6 +21,8 @@ https://stats.stackexchange.com/questions/16349/how-to-compute-the-confidence-in
 
 https://i.stack.imgur.com/vO8Ip.png
 
+https://statisticaloddsandends.wordpress.com/2019/02/20/what-is-the-jackknife/amp/
+
 ```python
 # Fieller vs Taylor method; assume independence
 from scipy.stats import norm, sem
