@@ -27,6 +27,10 @@ https://i.stack.imgur.com/vO8Ip.png
 
 https://statisticaloddsandends.wordpress.com/2019/02/20/what-is-the-jackknife/amp/
 
+http://www.math.ntu.edu.tw/~hchen/teaching/LargeSample/references/Miller74jackknife.pdf
+
+https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.1015.9344&rep=rep1&type=pdf
+
 ```python
 # Fieller vs Taylor method; assume independence
 from scipy.stats import norm, sem
