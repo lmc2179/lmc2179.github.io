@@ -1,5 +1,7 @@
 # Ratios are everywhere
 
+- Open rates: $\text{Open rate} = \frac{\text{Opened}}{\text{Sent}}$
+
 # But the "obvious" ratio estimate is biased, and standard errors can be tricky
 
 # Detour: The Jackknife as a method for correcting bias and computing standard errors
