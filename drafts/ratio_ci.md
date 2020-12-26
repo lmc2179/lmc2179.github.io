@@ -13,6 +13,8 @@ Do some simulations for an example with a funny-looking sampling distribution; s
 
 Uncorrelated parto/nbinom distribution - revenue per...session?
 
+$\text{test}$
+
 # Other stuff
 
 http://www.stat.cmu.edu/~hseltman/files/ratio.pdf
