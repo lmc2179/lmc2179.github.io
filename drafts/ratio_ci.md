@@ -1,6 +1,9 @@
 # Ratios are everywhere
 
 - Open rates: $\text{Open rate} = \frac{\text{Opened}}{\text{Sent}}$
+- Revenue per action: $\text{Revenue per action} = \frac{\text{Total Revenue}}{\text{Total Actions}}$
+- Cost per impression: $\text{Cost per impression} = \frac{\text{Total spend}}{\text{Impression count}}$
+- Percent increase: $\text{Lift} = \frac{\text{Total new}}{\text{Total old}}$
 
 # But the "obvious" ratio estimate is biased, and standard errors can be tricky
 
@@ -8,7 +11,19 @@
 
 # Putting it together: Ratio analysis with the jackknife
 
-# More reading and alternate approaches
+# Appendix: Some other approaches
+
+Percentile bootstrap and Bayesian bootstrap
+
+Taylor series
+
+# More reading
+
+Q's paper, review paper
+
+Blog post
+
+CASI
 
 # Material
 
