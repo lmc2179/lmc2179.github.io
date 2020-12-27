@@ -7,20 +7,18 @@ tags: [datascience]
 image: jellybeans.png
 ---
 
-*Practical questions often revolve around ratios of interest - open rates, costs per impression, percentage increases - but the statistics of ratios is more complex than you might realize. The sample ratio is biased, and its standard error is surprisingly hard to pin down. We'll see that despite this, we can use the jackknife (a predecessor of the better-known bootstrap) to handle both of these problems.*
+*Practical questions often revolve around ratios of interest - open rates, costs per impression, percentage increases - but the statistics of ratios is more complex than you might realize. The sample ratio is biased, and its standard error is surprisingly hard to pin down. We'll see that despite this, we can use the bootstrap (or its older sibling, the jackknife) to handle both of these problems. Along the way, we'll learn a little about how these methods work and when they're useful.*
 
 # Ratios are everywhere
 
-Something that might surprise students of statistics embarking on their first job is that quite a lot of practical questions are not framed in terms of the difference, $X - Y$, but rather the ratio, $\frac{X}{Y}$. Despite the fact that it seems very natural to ask questions about relative changes, a lot of initial statistics education focuses on the difference because it is easier to deal with. It is easy to find the standard error of $X - Y$ if we know the standard errors of $X$ and $Y$ and their correlation; we simply use the fact that variances add in this situation, perhaps with a covariance term. If you attempt to find an explanation of the standard error of $\frac{X}{Y}$ though, you suddenly encounter [a bewildering amount of calculus](http://www.stat.cmu.edu/~hseltman/files/ratio.pdf), and a stomach-churning number of Taylor expansions. That's unfortunate, because in my work I see ratios all the time, like:
+Something that might surprise students of statistics embarking on their first job is that quite a lot of practical questions are not framed in terms of the difference, $X - Y$, but rather the ratio, $\frac{X}{Y}$. Despite the fact that it seems very natural to ask questions about relative changes, a lot of initial statistics education focuses on the difference because it is easier to deal with. It is easy to find the standard error of $X - Y$ if we know the standard errors of $X$ and $Y$ and their correlation; we simply use the fact that variances add in this situation, perhaps with a covariance term. If you attempt to find an explanation of the standard error of $\frac{X}{Y}$ though, you suddenly encounter [a bewildering amount of calculus](http://www.stat.cmu.edu/~hseltman/files/ratio.pdf), and a stomach-churning number of Taylor expansions. This eventually yields an approximation for the standard error, but it's not always clear when this applies. That lack of clarity is unfortunate, because in my work I see ratios all the time, like:
 
 - Open rates: $\text{Open rate} = \frac{\text{Opened}}{\text{Sent}}$
 - Revenue per action: $\text{Revenue per action} = \frac{\text{Total Revenue received}}{\text{Total Actions performed}}$
 - Cost per impression: $\text{Cost per impression} = \frac{\text{Total spend}}{\text{Impression count}}$
 - Percent increase: $\text{Lift} = \frac{\text{Total new metric}}{\text{Total old metric}}$
 
-The reason for this is that ... .
-
-Introduce a synthetic example, Pareto/Binomial
+Synthetic advertising example: Cost per widget sold
 
 ```
 from scipy.stats import binom, pareto, sem
@@ -28,11 +26,11 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 import numpy as np
 
-numerator_dist = pareto(2)
-denominator_dist = binom(2*10, 0.1)
+cost_dist = pareto(2)
+widget_dist = binom(2*10, 0.1)
 
 def gen_data(n):
-  return numerator_dist.rvs(n), denominator_dist.rvs(n)
+  return cost_dist.rvs(n), widget_dist.rvs(n)
 
 def naive_estimate(n, d):
   return np.sum(n) / np.sum(d)
