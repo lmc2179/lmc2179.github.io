@@ -18,17 +18,17 @@ Something that might surprise students of statistics embarking on their first jo
 - Cost per impression: $\text{Cost per impression} = \frac{\text{Total spend}}{\text{Impression count}}$
 - Percent increase: $\text{Lift} = \frac{\text{Total new metric}}{\text{Total old metric}}$
 
-
-
 The reason for this is that ... .
 
 Introduce a synthetic example, Pareto/Binomial
 
 # But the "obvious" ratio estimate is biased, and standard errors can be tricky
 
-The naive estimator is biased
+The naive estimator is biased though this is less of an issue with large sample sizes
 
 The variance of a corrected estimator is not obvious
+
+The "cookbook" taylor series solution produces good/bad estimates (?)
 
 # Detour: The Jackknife as a method for correcting bias and computing standard errors
 
