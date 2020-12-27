@@ -11,12 +11,14 @@ image: jellybeans.png
 
 # Ratios are everywhere
 
-Something that might surprise students of statistics embarking on their first job is that quite a lot of practical questions are not framed in terms of the difference, $X - Y$, but rather the ratio, $\frac{X}{Y}$. Despite the fact that it seems very natural to ask questions about relative changes, a lot of initial statistics education focuses on the difference because it is easier to deal with. It is easy to find the standard error of $X - Y$ if we know the standard errors of $X$ and $Y$ and their correlation; we simply use the fact that variances add in this situation, perhaps with a covariance term. If you attempt to find an explanation of the standard error of $\frac{X}{Y}$ though, you suddenly encounter [a bewildering amount of calculus](http://www.stat.cmu.edu/~hseltman/files/ratio.pdf), and more Taylor expansions than you really wanted to see. That's unfortunate, because in my work I see ratios all the time, like:
+Something that might surprise students of statistics embarking on their first job is that quite a lot of practical questions are not framed in terms of the difference, $X - Y$, but rather the ratio, $\frac{X}{Y}$. Despite the fact that it seems very natural to ask questions about relative changes, a lot of initial statistics education focuses on the difference because it is easier to deal with. It is easy to find the standard error of $X - Y$ if we know the standard errors of $X$ and $Y$ and their correlation; we simply use the fact that variances add in this situation, perhaps with a covariance term. If you attempt to find an explanation of the standard error of $\frac{X}{Y}$ though, you suddenly encounter [a bewildering amount of calculus](http://www.stat.cmu.edu/~hseltman/files/ratio.pdf), and a simply appalling number of Taylor expansions to produce a good approximation. That's unfortunate, because in my work I see ratios all the time, like:
 
 - Open rates: $\text{Open rate} = \frac{\text{Opened}}{\text{Sent}}$
 - Revenue per action: $\text{Revenue per action} = \frac{\text{Total Revenue received}}{\text{Total Actions performed}}$
 - Cost per impression: $\text{Cost per impression} = \frac{\text{Total spend}}{\text{Impression count}}$
 - Percent increase: $\text{Lift} = \frac{\text{Total new metric}}{\text{Total old metric}}$
+
+
 
 The reason for this is that ... .
 
