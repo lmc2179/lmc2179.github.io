@@ -22,6 +22,28 @@ The reason for this is that ... .
 
 Introduce a synthetic example, Pareto/Binomial
 
+```
+from scipy.stats import binom, pareto, sem
+from matplotlib import pyplot as plt
+import seaborn as sns
+import numpy as np
+
+numerator_dist = pareto(2)
+denominator_dist = binom(2*10, 0.1)
+
+def gen_data(n):
+  return numerator_dist.rvs(n), denominator_dist.rvs(n)
+
+def naive_estimate(n, d):
+  return np.sum(n) / np.sum(d)
+
+def jackknife_estimate(n, d):
+  pass
+
+naive_sampling_distribution_n_5 = [naive_estimate(n, d) for n, d in [gen_data(5) for _ in range(1000)]] # This is biased
+jackknife_sampling_distribution_n_5 = [naive_estimate(n, d) for n, d in [gen_data(5) for _ in range(10000)]] # This is not (?)
+```
+
 # But the "obvious" ratio estimate is biased, and its standard errors can be tricky
 
 The naive estimator is biased though this is less of an issue with large sample sizes
@@ -39,6 +61,8 @@ the idea behind the jackknife standard error
 formulas
 
 this is an early bootstrap
+
+the jackknife is conservative
 
 # Putting it together: Ratio analysis with the jackknife
 
@@ -118,6 +142,8 @@ https://statisticaloddsandends.wordpress.com/2019/02/20/what-is-the-jackknife/am
 http://www.math.ntu.edu.tw/~hchen/teaching/LargeSample/references/Miller74jackknife.pdf
 
 https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.1015.9344&rep=rep1&type=pdf
+
+https://www.researchgate.net/publication/220136520_Bootstrap_confidence_intervals_for_ratios_of_expectations - Bootstrap confidence intervals for ratios of expectations
 
 ```python
 # Fieller vs Taylor method; assume independence
