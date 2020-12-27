@@ -42,6 +42,8 @@ naive_sampling_distribution_n_5 = [naive_estimate(n, d) for n, d in [gen_data(5)
 jackknife_sampling_distribution_n_5 = [naive_estimate(n, d) for n, d in [gen_data(5) for _ in range(10000)]] # This is not (?)
 ```
 
+Paired vs unpaired observations?
+
 # But the "obvious" ratio estimate is biased, and its standard errors can be tricky
 
 The naive estimator is biased though this is less of an issue with large sample sizes
