@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Confidence intervals for ratios with the Jackknife"
+title: "Confidence intervals for ratios with the Jackknife and Bootstrap"
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
@@ -52,7 +52,7 @@ The variance of a corrected estimator is not obvious
 
 The "cookbook" taylor series solution produces good/bad estimates (?)
 
-# Detour: The Jackknife as a method for correcting bias and computing standard errors
+# The Jackknife as a method for correcting bias and computing standard errors
 
 The idea behind the jackknife standard error
 
@@ -64,7 +64,13 @@ this is an early bootstrap
 
 the jackknife is conservative
 
-# Putting it together: Ratio analysis with the jackknife
+# An even better method: Percentile bootstrap
+
+the jackknife is a good first approximation
+
+and doesn't deal with asymmetry correctly
+
+# Putting it together: Ratio analysis with the jackknife and the Bootstrap
 
 formula
 
