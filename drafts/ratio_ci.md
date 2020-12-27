@@ -50,7 +50,9 @@ The naive estimator is biased though this is less of an issue with large sample 
 
 The variance of a corrected estimator is not obvious
 
-The "cookbook" taylor series solution produces good/bad estimates (?)
+The "cookbook" taylor series/fieller solution produces good/bad estimates (?) is it asymptotic?
+
+https://arxiv.org/pdf/0710.2024.pdf
 
 # The Jackknife as a method for correcting bias and computing standard errors
 
