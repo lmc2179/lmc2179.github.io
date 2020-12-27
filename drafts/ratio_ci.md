@@ -31,7 +31,7 @@ code example
 
 show it's not biased and the variance is right
 
-you can even do it in SQL - https://www.db-fiddle.com/f/vtVZzMKdNsDpQH9G3L7XwL/0
+you can even do it in SQL - https://www.db-fiddle.com/f/vtVZzMKdNsDpQH9G3L7XwL/3
 
 # Appendix: Some other approaches
 
