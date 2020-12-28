@@ -59,17 +59,31 @@ def bootstrap_estimate(n, d, n_bootstrap=100):
     bootstrap_bias = 0
   return r - bootstrap_bias
 
+def jackknife_se(n, d):
+  total_n, total_d = np.sum(n), np.sum(d)
+  k = len(n)
+  r_i = (total_n - n) / (total_d - d) 
+  if np.any(np.isinf(r_i)): # This happens when there is exactly one non-zero entry in the entire dataset
+    return 0
+  return np.sqrt(((k-1)/k) * np.sum(np.power(r_i - np.mean(r_i), 2)))
+  #return np.sqrt((k - 1) * np.var(r_i)) # Equivalent, and this is how it's written in some sources
 
-datasets = [gen_data(5) for _ in range(1000)]
+def bootstrap_se(n, d, n_bootstrap=100):
+  return np.std([naive_estimate(*resample(n, d)) for _ in range(n_bootstrap)])
+
+datasets = [gen_data(5) for _ in range(10000)]
 
 naive_sampling_distribution_n_5 = [naive_estimate(n, d) for n, d in datasets] # This is biased
-jackknife_sampling_distribution_n_5 = [jackknife_estimate(n, d) for n, d in [gen_data(5) for _ in datasets]] # This is less biased
-bootstrap_sampling_distribution_n_5 = [bootstrap_estimate(n, d) for n, d in [gen_data(5) for _ in datasets]] # This is least biased
+jackknife_sampling_distribution_n_5 = [jackknife_estimate(n, d) for n, d in datasets] # This is less biased
+bootstrap_sampling_distribution_n_5 = [bootstrap_estimate(n, d) for n, d in datasets] # This is least biased
 
 sns.distplot(naive_sampling_distribution_n_5)
 sns.distplot(jackknife_sampling_distribution_n_5)
 sns.distplot(bootstrap_sampling_distribution_n_5)
 plt.show()
+
+jackknife_se_samples_n_5 = np.array([jackknife_se(n, d) for n, d in datasets]) # This is not the right SD, but maybe the coverage is correct?
+bootstrap_se_samples_n_5 = np.array([bootstrap_se(n, d) for n, d in datasets]) # This is also not great, though it at least agrees with the above
 ```
 
 Paired vs unpaired observations?
