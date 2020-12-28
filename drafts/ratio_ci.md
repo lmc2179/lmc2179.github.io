@@ -21,7 +21,7 @@ Something that might surprise students of statistics embarking on their first jo
 Synthetic advertising example: Cost per widget sold
 
 ```
-from scipy.stats import binom, pareto, sem
+from scipy.stats import binom, pareto, sem, t
 from matplotlib import pyplot as plt
 import seaborn as sns
 import numpy as np
@@ -84,6 +84,8 @@ plt.show()
 
 jackknife_se_samples_n_5 = np.array([jackknife_se(n, d) for n, d in datasets]) # This is not the right SD, but maybe the coverage is correct? Looks so if we use the T-value (NOT THE Z VALUE)
 bootstrap_se_samples_n_5 = np.array([bootstrap_se(n, d) for n, d in datasets]) # This is also not great, though it at least agrees with the above
+
+np.sum((jackknife_sampling_distribution_n_5 + t(4).interval(0.95)[1]*jackknife_se_samples_n_5) < 1)
 ```
 
 Paired vs unpaired observations?
