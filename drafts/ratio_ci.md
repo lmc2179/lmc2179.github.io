@@ -36,10 +36,30 @@ def naive_estimate(n, d):
   return np.sum(n) / np.sum(d)
 
 def jackknife_estimate(n, d):
-  pass
+  total_n, total_d = np.sum(n), np.sum(d)
+  k = len(n)
+  r = naive_estimate(n, d)
+  r_i = (total_n - n) / (total_d - d)
+  if np.isinf(np.mean(r_i)):
+    print(n, d, r_i)
+    return r
+  return k * r - (k-1)*np.mean(r_i)
+  
+def corrected_estimate(n, d): # This fails when there are zeroes
+  return naive_estimate(n, d) - (np.cov(n/d, d)) / np.mean(d)
 
-naive_sampling_distribution_n_5 = [naive_estimate(n, d) for n, d in [gen_data(5) for _ in range(1000)]] # This is biased
-jackknife_sampling_distribution_n_5 = [naive_estimate(n, d) for n, d in [gen_data(5) for _ in range(10000)]] # This is not (?)
+def bootstrap_estimate(n, d, n_bootstrap=100):
+  pass # Same as bootstrap, different resampling method?
+
+
+naive_sampling_distribution_n_5 = [naive_estimate(n, d) for n, d in [gen_data(5) for _ in range(10000)]] # This is biased
+jackknife_sampling_distribution_n_5 = [jackknife_estimate(n, d) for n, d in [gen_data(5) for _ in range(10000)]] # This is less biased
+bootstrap_sampling_distribution_n_5 = [bootstrap_estimate(n, d) for n, d in [gen_data(5) for _ in range(10000)]] # This is least biased (?)
+
+sns.distplot(naive_sampling_distribution_n_5)
+sns.distplot(jackknife_sampling_distribution_n_5)
+sns.distplot(bootstrap_sampling_distribution_n_5)
+plt.show()
 ```
 
 Paired vs unpaired observations?
