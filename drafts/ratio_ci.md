@@ -82,7 +82,7 @@ sns.distplot(jackknife_sampling_distribution_n_5)
 sns.distplot(bootstrap_sampling_distribution_n_5)
 plt.show()
 
-jackknife_se_samples_n_5 = np.array([jackknife_se(n, d) for n, d in datasets]) # This is not the right SD, but maybe the coverage is correct?
+jackknife_se_samples_n_5 = np.array([jackknife_se(n, d) for n, d in datasets]) # This is not the right SD, but maybe the coverage is correct? Looks so if we use the T-value (NOT THE Z VALUE)
 bootstrap_se_samples_n_5 = np.array([bootstrap_se(n, d) for n, d in datasets]) # This is also not great, though it at least agrees with the above
 ```
 
