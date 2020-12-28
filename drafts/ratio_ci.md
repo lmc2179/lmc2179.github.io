@@ -25,12 +25,16 @@ from scipy.stats import binom, pareto, sem
 from matplotlib import pyplot as plt
 import seaborn as sns
 import numpy as np
+from sklearn.utils import resample
 
 cost_dist = pareto(2)
 widget_dist = binom(2*10, 0.1)
 
 def gen_data(n):
-  return cost_dist.rvs(n), widget_dist.rvs(n)
+  a, b = cost_dist.rvs(n), widget_dist.rvs(n)
+  while sum(b) == 0:
+    a, b = cost_dist.rvs(n), widget_dist.rvs(n)
+  return a, b
 
 def naive_estimate(n, d):
   return np.sum(n) / np.sum(d)
@@ -49,12 +53,18 @@ def corrected_estimate(n, d): # This fails when there are zeroes
   return naive_estimate(n, d) - (np.cov(n/d, d)) / np.mean(d)
 
 def bootstrap_estimate(n, d, n_bootstrap=100):
-  pass # Same as bootstrap, different resampling method?
+  r = naive_estimate(n, d)
+  bootstrap_bias = np.mean([naive_estimate(*resample(n, d)) for _ in range(n_bootstrap)]) - r
+  if np.isinf(bootstrap_bias):
+    bootstrap_bias = 0
+  return r - bootstrap_bias
 
 
-naive_sampling_distribution_n_5 = [naive_estimate(n, d) for n, d in [gen_data(5) for _ in range(10000)]] # This is biased
-jackknife_sampling_distribution_n_5 = [jackknife_estimate(n, d) for n, d in [gen_data(5) for _ in range(10000)]] # This is less biased
-bootstrap_sampling_distribution_n_5 = [bootstrap_estimate(n, d) for n, d in [gen_data(5) for _ in range(10000)]] # This is least biased (?)
+datasets = [gen_data(5) for _ in range(1000)]
+
+naive_sampling_distribution_n_5 = [naive_estimate(n, d) for n, d in datasets] # This is biased
+jackknife_sampling_distribution_n_5 = [jackknife_estimate(n, d) for n, d in [gen_data(5) for _ in datasets]] # This is less biased
+bootstrap_sampling_distribution_n_5 = [bootstrap_estimate(n, d) for n, d in [gen_data(5) for _ in datasets]] # This is least biased
 
 sns.distplot(naive_sampling_distribution_n_5)
 sns.distplot(jackknife_sampling_distribution_n_5)
@@ -92,6 +102,8 @@ the jackknife is a good first approximation
 
 and doesn't deal with asymmetry correctly
 
+Percentile bootstrap and Bayesian bootstrap
+
 # Putting it together: Ratio analysis with the jackknife and the Bootstrap
 
 formula
@@ -108,7 +120,7 @@ Taylor series/delta method
 
 Fieller?
 
-Percentile bootstrap and Bayesian bootstrap
+BCa bootstrap
 
 # More reading
 
