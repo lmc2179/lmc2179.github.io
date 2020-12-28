@@ -39,8 +39,8 @@ def jackknife_estimate(n, d):
   total_n, total_d = np.sum(n), np.sum(d)
   k = len(n)
   r = naive_estimate(n, d)
-  r_i = (total_n - n) / (total_d - d)
-  if np.isinf(np.mean(r_i)):
+  r_i = (total_n - n) / (total_d - d) 
+  if np.isinf(np.mean(r_i)): # This happens when there is exactly one non-zero entry in the entire dataset
     print(n, d, r_i)
     return r
   return k * r - (k-1)*np.mean(r_i)
