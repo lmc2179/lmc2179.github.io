@@ -20,15 +20,25 @@ Something that might surprise students of statistics embarking on their first jo
 
 Synthetic advertising example: Cost per widget sold
 
+
+
+Paired vs unpaired observations?
+
+# But the "obvious" ratio estimate is biased, and its standard errors can be tricky
+
 ```
 from scipy.stats import binom, pareto, sem, t
 from matplotlib import pyplot as plt
 import seaborn as sns
 import numpy as np
 from sklearn.utils import resample
+import pandas as pd
+from tqdm import tqdm
 
 cost_dist = pareto(2)
 widget_dist = binom(2*10, 0.1)
+
+TRUE_R = 1
 
 def gen_data(n):
   a, b = cost_dist.rvs(n), widget_dist.rvs(n)
@@ -36,71 +46,64 @@ def gen_data(n):
     a, b = cost_dist.rvs(n), widget_dist.rvs(n)
   return a, b
 
+datasets = [gen_data(50) for _ in range(1000)]
+```
+```
 def naive_estimate(n, d):
   return np.sum(n) / np.sum(d)
-
-def jackknife_estimate(n, d):
-  total_n, total_d = np.sum(n), np.sum(d)
-  k = len(n)
-  r = naive_estimate(n, d)
-  r_i = (total_n - n) / (total_d - d) 
-  if np.isinf(np.mean(r_i)): # This happens when there is exactly one non-zero entry in the entire dataset
-    print(n, d, r_i)
-    return r
-  return k * r - (k-1)*np.mean(r_i)
   
-def corrected_estimate(n, d): # This fails when there are zeroes
-  return naive_estimate(n, d) - (np.cov(n/d, d)) / np.mean(d)
-
-def bootstrap_estimate(n, d, n_bootstrap=100):
-  r = naive_estimate(n, d)
-  bootstrap_bias = np.mean([naive_estimate(*resample(n, d)) for _ in range(n_bootstrap)]) - r
-  if np.isinf(bootstrap_bias):
-    bootstrap_bias = 0
-  return r - bootstrap_bias
-
-def jackknife_se(n, d):
-  total_n, total_d = np.sum(n), np.sum(d)
-  k = len(n)
-  r_i = (total_n - n) / (total_d - d) 
-  if np.any(np.isinf(r_i)): # This happens when there is exactly one non-zero entry in the entire dataset
-    return 0
-  return np.sqrt(((k-1)/k) * np.sum(np.power(r_i - np.mean(r_i), 2)))
-  #return np.sqrt((k - 1) * np.var(r_i)) # Equivalent, and this is how it's written in some sources
-
-def bootstrap_se(n, d, n_bootstrap=100):
-  return np.std([naive_estimate(*resample(n, d)) for _ in range(n_bootstrap)])
-
-datasets = [gen_data(5) for _ in range(10000)]
-
 naive_sampling_distribution_n_5 = [naive_estimate(n, d) for n, d in datasets] # This is biased
-jackknife_sampling_distribution_n_5 = [jackknife_estimate(n, d) for n, d in datasets] # This is less biased
-bootstrap_sampling_distribution_n_5 = [bootstrap_estimate(n, d) for n, d in datasets] # This is least biased
-
-sns.distplot(naive_sampling_distribution_n_5)
-sns.distplot(jackknife_sampling_distribution_n_5)
-sns.distplot(bootstrap_sampling_distribution_n_5)
-plt.show()
-
-jackknife_se_samples_n_5 = np.array([jackknife_se(n, d) for n, d in datasets]) # This is not the right SD, but maybe the coverage is correct? Looks so if we use the T-value (NOT THE Z VALUE)
-bootstrap_se_samples_n_5 = np.array([bootstrap_se(n, d) for n, d in datasets]) # This is also not great, though it at least agrees with the above
-
-np.sum((jackknife_sampling_distribution_n_5 + t(4).interval(0.95)[1]*jackknife_se_samples_n_5) < 1)
 ```
 
-Paired vs unpaired observations?
-
-# But the "obvious" ratio estimate is biased, and its standard errors can be tricky
 
 The naive estimator is biased though this is less of an issue with large sample sizes
 
 The variance of a corrected estimator is not obvious
 
-The "cookbook" taylor series/fieller solution produces good/bad estimates (?) is it asymptotic?
+# Cookbook solutions
 
-https://arxiv.org/pdf/0710.2024.pdf
+The "cookbook" taylor series solution produces reasonable results, though it is biased
+
+```
+def taylor_estimate(n, d, alpha):
+  k = len(n)
+  t_val = t(k-1).interval(1.-alpha)[1]
+  r = naive_estimate(n, d)
+  s_n = (1/(k * (k-1))) * np.sum((n - np.mean(n))**2)
+  s_d = (1/(k * (k-1))) * np.sum((d - np.mean(d))**2)
+  s_nd = (1/(k * (k-1))) * np.sum((n - np.mean(n))*(d - np.mean(d)))
+  point = r
+  se = np.abs(r) * np.sqrt((s_d/np.mean(d)**2) + (s_n/np.mean(n)**2) - 2*(s_nd / np.mean(n*d)))
+  return point, point - t_val * se, point + t_val * se
+  
+taylor_simulation_results = pd.DataFrame([taylor_estimate(a, b, .05) for a, b in datasets], columns=['point', 'lower', 'upper'])
+taylor_simulation_results['bias'] = taylor_simulation_results['point'] - TRUE_R
+taylor_simulation_results['covered'] = (taylor_simulation_results['lower'] < TRUE_R) & (taylor_simulation_results['upper'] > TRUE_R)
+```
+
+https://arxiv.org/pdf/0710.2024.pdf - p 10
 
 # The Jackknife as a method for correcting bias and computing standard errors
+
+```
+def jackknife_estimate(n, d, alpha):
+  total_n, total_d = np.sum(n), np.sum(d)
+  k = len(n)
+  r = naive_estimate(n, d)
+  r_i = (total_n - n) / (total_d - d) 
+  se = np.sqrt(((k-1)/k) * np.sum(np.power(r_i - np.mean(r_i), 2)))
+  t_val = t(k-1).interval(1.-alpha)[1]
+  if np.any(np.isinf(r_i)):
+    point = r
+    se = 0
+  else:
+    point = k * r - (k-1)*np.mean(r_i)
+  return point, point - t_val * se, point + t_val * se
+  
+jackknife_simulation_results = pd.DataFrame([jackknife_estimate(a, b, .05) for a, b in datasets], columns=['point', 'lower', 'upper'])
+jackknife_simulation_results['bias'] = jackknife_simulation_results['point'] - TRUE_R
+jackknife_simulation_results['covered'] = (jackknife_simulation_results['lower'] < TRUE_R) & (jackknife_simulation_results['upper'] > TRUE_R)
+```
 
 The idea behind the jackknife standard error
 
@@ -112,13 +115,70 @@ this is an early bootstrap
 
 the jackknife is conservative
 
-# An even better method: Percentile bootstrap
+# A better bias-correction method: The bootstrap
+
+```
+def standard_bootstrap_estimate(n, d, alpha, n_sim=100):
+  r = naive_estimate(n, d)
+  k = len(n)
+  boot_samples = [naive_estimate(*resample(n, d)) for _ in range(n_sim)]
+  boot_samples = [s for s in boot_samples if not np.isinf(s)]
+  bootstrap_bias = np.mean(boot_samples) - r
+  if np.isinf(bootstrap_bias):
+    bootstrap_bias = 0
+  point = r - bootstrap_bias
+  se = np.std(boot_samples)
+  t_val = t(k-1).interval(1.-alpha)[1]
+  return point, point - t_val * se, point + t_val * se
+  
+standard_bootstrap_simulation_results = pd.DataFrame([standard_bootstrap_estimate(a, b, .05) for a, b in datasets], columns=['point', 'lower', 'upper'])
+standard_bootstrap_simulation_results['bias'] = standard_bootstrap_simulation_results['point'] - TRUE_R
+standard_bootstrap_simulation_results['covered'] = (standard_bootstrap_simulation_results['lower'] < TRUE_R) & (standard_bootstrap_simulation_results['upper'] > TRUE_R)
+```
 
 the jackknife is a good first approximation
 
-and doesn't deal with asymmetry correctly
+but doesn't deal with asymmetry correctly
+
+```
+def percentile_bootstrap_estimate(n, d, alpha, n_sim=10000):
+  r = naive_estimate(n, d)
+  k = len(n)
+  boot_samples = [naive_estimate(*resample(n, d)) for _ in range(n_sim)]
+  boot_samples = [s for s in boot_samples if not np.isinf(s)]
+  bootstrap_bias = np.mean(boot_samples) - r
+  if np.isinf(bootstrap_bias):
+    bootstrap_bias = 0
+  point = r - bootstrap_bias
+  q = 100* (alpha/2.)
+  return point, np.percentile(boot_samples, q),np.percentile(boot_samples, 100.-q)
+  
+percentile_bootstrap_simulation_results = pd.DataFrame([percentile_bootstrap_estimate(a, b, .05) for a, b in tqdm(datasets)], columns=['point', 'lower', 'upper'])
+percentile_bootstrap_simulation_results['bias'] = percentile_bootstrap_simulation_results['point'] - TRUE_R
+percentile_bootstrap_simulation_results['covered'] = (percentile_bootstrap_simulation_results['lower'] < TRUE_R) & (percentile_bootstrap_simulation_results['upper'] > TRUE_R)
+```
+
+# Variations on the bootstrap theme
 
 Percentile bootstrap and Bayesian bootstrap
+
+```
+def percentile_bootstrap_estimate(n, d, alpha, n_sim=10000):
+  r = naive_estimate(n, d)
+  k = len(n)
+  boot_samples = [naive_estimate(*resample(n, d)) for _ in range(n_sim)]
+  boot_samples = [s for s in boot_samples if not np.isinf(s)]
+  bootstrap_bias = np.mean(boot_samples) - r
+  if np.isinf(bootstrap_bias):
+    bootstrap_bias = 0
+  point = r - bootstrap_bias
+  q = 100* (alpha/2.)
+  return point, np.percentile(boot_samples, q),np.percentile(boot_samples, 100.-q)
+  
+percentile_bootstrap_simulation_results = pd.DataFrame([percentile_bootstrap_estimate(a, b, .05) for a, b in tqdm(datasets)], columns=['point', 'lower', 'upper'])
+percentile_bootstrap_simulation_results['bias'] = percentile_bootstrap_simulation_results['point'] - TRUE_R
+percentile_bootstrap_simulation_results['covered'] = (percentile_bootstrap_simulation_results['lower'] < TRUE_R) & (percentile_bootstrap_simulation_results['upper'] > TRUE_R)
+```
 
 # Putting it together: Ratio analysis with the jackknife and the Bootstrap
 
