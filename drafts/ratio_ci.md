@@ -81,6 +81,8 @@ taylor_simulation_results['covered'] = (taylor_simulation_results['lower'] < TRU
 
 https://arxiv.org/pdf/0710.2024.pdf - p 10 + 8
 
+Does this work poorly when there is a nonlinear dependence? https://stats.stackexchange.com/questions/243510/how-to-interpret-the-delta-method
+
 # The Jackknife as a method for correcting bias and computing standard errors
 
 ```
