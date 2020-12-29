@@ -18,9 +18,7 @@ Something that might surprise students of statistics embarking on their first jo
 - Cost per impression: $\text{Cost per impression} = \frac{\text{Total spend}}{\text{Impression count}}$
 - Percent increase: $\text{Lift} = \frac{\text{Total new metric}}{\text{Total old metric}}$
 
-Synthetic advertising example: Cost per widget sold
-
-
+Synthetic advertising example: Open rate, with dependence between send count and open likelihood
 
 Paired vs unpaired observations?
 
@@ -46,7 +44,7 @@ def gen_data(n):
     a, b = cost_dist.rvs(n), widget_dist.rvs(n)
   return a, b
 
-datasets = [gen_data(50) for _ in range(1000)]
+datasets = [gen_data(5) for _ in range(1000)]
 ```
 ```
 def naive_estimate(n, d):
@@ -81,7 +79,7 @@ taylor_simulation_results['bias'] = taylor_simulation_results['point'] - TRUE_R
 taylor_simulation_results['covered'] = (taylor_simulation_results['lower'] < TRUE_R) & (taylor_simulation_results['upper'] > TRUE_R)
 ```
 
-https://arxiv.org/pdf/0710.2024.pdf - p 10
+https://arxiv.org/pdf/0710.2024.pdf - p 10 + 8
 
 # The Jackknife as a method for correcting bias and computing standard errors
 
