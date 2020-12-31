@@ -206,7 +206,21 @@ bca_bootstrap_simulation_results = pd.DataFrame([bca_bootstrap_estimate(a, b, .0
 bca_bootstrap_simulation_results['bias'] = bca_bootstrap_simulation_results['point'] - TRUE_R
 bca_bootstrap_simulation_results['covered'] = (bca_bootstrap_simulation_results['lower'] < TRUE_R) & (bca_bootstrap_simulation_results['upper'] > TRUE_R)
 ```
+
+```
+def bayesian_bootstrap_estimate(n, d, alpha, n_sim=10000):
+  r = naive_estimate(n, d)
+  k = len(n)
+  w = np.random.dirichlet([1.]*len(n), n_sim)
+  boot_samples = [naive_estimate(w_i*n, w_i*d) for w_i in w]
+  boot_samples = [s for s in boot_samples if not np.isinf(s)]
+  q = 100* (alpha/2.)
+  return r, np.percentile(boot_samples, q),np.percentile(boot_samples, 100.-q)
   
+bayes_bootstrap_simulation_results = pd.DataFrame([bayesian_bootstrap_estimate(a, b, .05) for a, b in tqdm(datasets)], columns=['point', 'lower', 'upper'])
+bayes_bootstrap_simulation_results['bias'] = bayes_bootstrap_simulation_results['point'] - TRUE_R
+bayes_bootstrap_simulation_results['covered'] = (bayes_bootstrap_simulation_results['lower'] < TRUE_R) & (bayes_bootstrap_simulation_results['upper'] > TRUE_R)
+```
 
 # Putting it together: Ratio analysis with the jackknife and the Bootstrap
 
