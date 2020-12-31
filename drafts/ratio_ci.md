@@ -25,7 +25,7 @@ Paired vs unpaired observations?
 # But the "obvious" ratio estimate is biased, and its standard errors can be tricky
 
 ```
-from scipy.stats import binom, pareto, sem, t
+from scipy.stats import binom, pareto, sem, t, norm
 from matplotlib import pyplot as plt
 import seaborn as sns
 import numpy as np
@@ -181,6 +181,32 @@ percentile_bootstrap_simulation_results = pd.DataFrame([percentile_bootstrap_est
 percentile_bootstrap_simulation_results['bias'] = percentile_bootstrap_simulation_results['point'] - TRUE_R
 percentile_bootstrap_simulation_results['covered'] = (percentile_bootstrap_simulation_results['lower'] < TRUE_R) & (percentile_bootstrap_simulation_results['upper'] > TRUE_R)
 ```
+
+```
+def bca_bootstrap_estimate(n, d, alpha, n_sim=10000):
+  total_n, total_d = np.sum(n), np.sum(d)
+  k = len(n)
+  r = naive_estimate(n, d)
+  r_i = (total_n - n) / (total_d - d) 
+  d_i = r_i - np.mean(r_i)
+  boot_samples = [naive_estimate(*resample(n, d)) for _ in range(n_sim)]
+  boot_samples = [s for s in boot_samples if not np.isinf(s)]
+  p0 =  np.sum(boot_samples < r) / n_sim
+  z0 = norm.ppf(p0)
+  a = (1./6) * (np.sum(d_i**3) / (np.sum(d_i**2))**(3./2.))
+  if np.isnan(a):
+    a = 0 # Why does this happen?
+    print('A')
+  alpha_half = (alpha/2.)
+  p_low = norm.cdf(z0 + ((z0 + norm.ppf(alpha_half)) / (1. - a*(z0 + norm.ppf(alpha_half)))))
+  p_high = norm.cdf(z0 + ((z0 + norm.ppf(1.-alpha_half)) / (1. - a*(z0 + norm.ppf(1.-alpha_half)))))
+  return r, np.percentile(boot_samples, p_low*100.), np.percentile(boot_samples, p_high*100.)
+  
+bca_bootstrap_simulation_results = pd.DataFrame([bca_bootstrap_estimate(a, b, .05) for a, b in tqdm(datasets)], columns=['point', 'lower', 'upper'])
+bca_bootstrap_simulation_results['bias'] = bca_bootstrap_simulation_results['point'] - TRUE_R
+bca_bootstrap_simulation_results['covered'] = (bca_bootstrap_simulation_results['lower'] < TRUE_R) & (bca_bootstrap_simulation_results['upper'] > TRUE_R)
+```
+  
 
 # Putting it together: Ratio analysis with the jackknife and the Bootstrap
 
