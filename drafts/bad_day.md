@@ -2,7 +2,7 @@ What will my "real bad day" look like? How much do I need to keep in reserve to 
 
 https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mstats.mquantiles.html
 
-1. Bootstrap
+1. Jackknife and many flavors of Bootstrap
 
 Noted as an example for the bootstrap in Shalizi's article
 
