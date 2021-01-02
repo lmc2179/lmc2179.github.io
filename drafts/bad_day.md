@@ -1,4 +1,4 @@
-What will my "real bad day" look like? How much do I need to keep in reserve to stay safe in that case?
+What will my "real bad day" look like? How much do I need to keep in reserve to stay safe in that case? Looking forward, what observations are unusually bad?
 
 https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mstats.mquantiles.html
 
