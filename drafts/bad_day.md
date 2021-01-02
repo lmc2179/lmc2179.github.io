@@ -26,7 +26,7 @@ TRUE_VALUE = lognorm(s=1).ppf(.01)
 def gen_data(n):
   return lognorm(s=1).rvs(n)
   
-datasets = [gen_data(1000) for _ in range(1000)]
+datasets = [gen_data(1000) for _ in range(1000)] # what happens to each of these methods as we vary the sample size
 
 def percentile_bootstrap_estimate(x, alpha, n_sim=2000):
   s = np.percentile(x, 1)
