@@ -76,3 +76,7 @@ https://stats.stackexchange.com/questions/99829/how-to-obtain-a-confidence-inter
 3. Easy mode
 
 Cookbook estimate: http://www.tqmp.org/RegularArticles/vol10-2/p107/p107.pdf
+
+4. Methods from Wasserman's all of nonparametric statistics
+
+Ch. 2 on the CDF?
