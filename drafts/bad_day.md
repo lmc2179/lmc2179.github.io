@@ -8,6 +8,10 @@ Noted as an example for the bootstrap in Shalizi's article
 
 https://www.americanscientist.org/article/the-bootstrap
 
+Which bootstrap works best? Is there a pretty way of writing the jackknife estimate
+
+Bootstrap diagnostic - https://www.cs.cmu.edu/~atalwalk/boot_diag_kdd_final.pdf
+
 2. This other thing
 
 https://stats.stackexchange.com/questions/99829/how-to-obtain-a-confidence-interval-for-a-percentile
