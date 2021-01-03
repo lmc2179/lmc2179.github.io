@@ -80,3 +80,5 @@ Cookbook estimate: http://www.tqmp.org/RegularArticles/vol10-2/p107/p107.pdf
 4. Methods from Wasserman's all of nonparametric statistics
 
 Ch. 2 on the CDF?
+
+Example 2.17 - https://web.stanford.edu/class/ee378a/books/book2.pdf
