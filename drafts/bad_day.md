@@ -77,8 +77,14 @@ https://stats.stackexchange.com/questions/99829/how-to-obtain-a-confidence-inter
 
 Cookbook estimate: http://www.tqmp.org/RegularArticles/vol10-2/p107/p107.pdf
 
+Eq 25
+
 4. Methods from Wasserman's all of nonparametric statistics
 
 Ch. 2 on the CDF?
 
 Example 2.17 - https://web.stanford.edu/class/ee378a/books/book2.pdf
+
+3.7 Theorem
+
+
