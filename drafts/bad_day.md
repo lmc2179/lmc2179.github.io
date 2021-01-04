@@ -73,9 +73,11 @@ print(bca_bootstrap_simulation_results.covered.mean())
 
 https://stats.stackexchange.com/questions/99829/how-to-obtain-a-confidence-interval-for-a-percentile
 
-3. Easy mode
+3. Easy mode - Asymptotic estimate
 
 Cookbook estimate: http://www.tqmp.org/RegularArticles/vol10-2/p107/p107.pdf
+
+Looks like https://stats.stackexchange.com/a/99833/29694 where we assume the data is normally distributed
 
 Eq 25
 
