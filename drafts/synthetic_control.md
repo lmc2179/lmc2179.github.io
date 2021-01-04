@@ -21,3 +21,8 @@ https://en.wikipedia.org/wiki/Synthetic_control_method
 And do a block bootstrap to get SEs for each year during the test period
 
 Blocks: https://stackoverflow.com/questions/6811183/rolling-window-for-1d-arrays-in-numpy/6811241#6811241
+
+Consider also the case of just two series, one intervened on and one not: https://bcallaway11.github.io/did/articles/multi-period-did.html
+ie diff-in-diff with multiple periods
+
+Worth mentioning interrupted time series too?
