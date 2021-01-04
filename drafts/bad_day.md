@@ -130,3 +130,6 @@ Example 2.17 - https://web.stanford.edu/class/ee378a/books/book2.pdf
 3.7 Theorem
 
 
+5. Quantile regression
+
+https://www.statsmodels.org/dev/examples/notebooks/generated/quantile_regression.html
