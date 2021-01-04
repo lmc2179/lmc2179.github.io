@@ -140,6 +140,7 @@ https://www.statsmodels.org/dev/examples/notebooks/generated/quantile_regression
 
 https://jmlr.org/papers/volume7/meinshausen06a/meinshausen06a.pdf - An ML approach
 
+We can check these using cross-validation on the probability of being greater than q, which is cool
 
 III. This isn't magic
 
