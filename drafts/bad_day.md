@@ -69,7 +69,9 @@ bca_bootstrap_simulation_results['covered'] = (bca_bootstrap_simulation_results[
 print(bca_bootstrap_simulation_results.covered.mean())
 ```
 
-2. This other thing
+2. Exact methods ("Binomial idea")
+
+https://staff.math.su.se/hoehle/blog/2016/10/23/quantileCI.html
 
 https://stats.stackexchange.com/questions/99829/how-to-obtain-a-confidence-interval-for-a-percentile
 
