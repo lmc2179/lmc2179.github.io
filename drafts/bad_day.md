@@ -75,6 +75,44 @@ https://staff.math.su.se/hoehle/blog/2016/10/23/quantileCI.html
 
 https://stats.stackexchange.com/questions/99829/how-to-obtain-a-confidence-interval-for-a-percentile
 
+```
+from scipy.stats import norm, binom, pareto
+
+MU = 0
+S = 1
+
+gen_dist = norm(MU, S)
+
+gen_dist = pareto(2)
+
+n = 100
+
+q = 0.95
+alpha = .05
+
+TRUE_QUANTILE = gen_dist.ppf(q)
+
+l = int(binom(n, p=q).ppf(alpha/2))
+u = int(binom(n, p=q).ppf(1.-alpha/2) + 1) # ???? Check against R's qbinom
+
+n_sim = 10000
+results = 0
+lower_dist = []
+upper_dist = []
+
+for _ in range(n_sim):
+  data = sorted(gen_dist.rvs(n))
+  if data[l] <= TRUE_QUANTILE <= data[u]:
+    results += 1
+  lower_dist.append(data[l])
+  upper_dist.append(data[u])
+    
+lower_dist = np.array(lower_dist)
+upper_dist = np.array(upper_dist)
+    
+print(results / n_sim)
+```
+
 3. Easy mode - Asymptotic estimate
 
 Cookbook estimate: http://www.tqmp.org/RegularArticles/vol10-2/p107/p107.pdf
