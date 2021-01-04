@@ -132,7 +132,7 @@ Example 2.17 -
 
 3.7 Theorem
 
-II. Conditional quantiles
+II. For when you want to relate covariates to quantiles - Conditional quantiles
 
 5. Quantile regression
 
