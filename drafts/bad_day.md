@@ -1,4 +1,4 @@
-What will my "real bad day" look like? How much do I need to keep in reserve to stay safe in that case? Looking forward, what observations are unusually bad? What is the size of the bottom - top difference?
+What will my "real bad day" look like? How much do I need to keep in reserve to stay safe in that case? Looking forward, what observations are unusually bad? What is the size of the bottom - top difference? How can I establish "normal bounds" so I can know when things are not normal?
 
 https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mstats.mquantiles.html
 
