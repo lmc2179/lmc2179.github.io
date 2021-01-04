@@ -125,9 +125,10 @@ Eq 25
 
 4. Methods from Wasserman's all of nonparametric statistics
 
-Ch. 2 on the CDF?
+https://web.stanford.edu/class/ee378a/books/book2.pdf
+Use ebook p. 25 to estimate upper and lower bounds on the CDF, then invert them at `q`.
 
-Example 2.17 - https://web.stanford.edu/class/ee378a/books/book2.pdf
+Example 2.17 - 
 
 3.7 Theorem
 
