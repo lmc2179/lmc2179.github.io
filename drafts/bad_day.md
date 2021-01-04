@@ -133,3 +133,5 @@ Example 2.17 - https://web.stanford.edu/class/ee378a/books/book2.pdf
 5. Quantile regression
 
 https://www.statsmodels.org/dev/examples/notebooks/generated/quantile_regression.html
+
+https://jmlr.org/papers/volume7/meinshausen06a/meinshausen06a.pdf
