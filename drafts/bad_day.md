@@ -2,6 +2,8 @@ What will my "real bad day" look like? How much do I need to keep in reserve to 
 
 https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mstats.mquantiles.html
 
+I. Quantiles of a sample
+
 1. Jackknife and many flavors of Bootstrap
 
 Noted as an example for the bootstrap in Shalizi's article
@@ -129,6 +131,7 @@ Example 2.17 - https://web.stanford.edu/class/ee378a/books/book2.pdf
 
 3.7 Theorem
 
+II. Conditional quantiles
 
 5. Quantile regression
 
