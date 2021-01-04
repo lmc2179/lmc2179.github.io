@@ -138,3 +138,8 @@ II. Conditional quantiles
 https://www.statsmodels.org/dev/examples/notebooks/generated/quantile_regression.html - Linear models of quantiles by picking a different loss function
 
 https://jmlr.org/papers/volume7/meinshausen06a/meinshausen06a.pdf - An ML approach
+
+
+III. This isn't magic
+
+look out for small samples and edge cases
