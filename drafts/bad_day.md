@@ -1,4 +1,4 @@
-Is my metric in the normal range? And other quantile-y questions
+Is my metric in the normal range? What's the worst day I need to plan for? And other quantile-y questions
 
 *Analytics teams are often confronted with a wide variety of metrics that change every day, week, and month. 
 Is it in the normal range 
