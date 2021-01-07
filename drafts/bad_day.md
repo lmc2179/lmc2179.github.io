@@ -7,6 +7,10 @@ Quantile estimates and quantile regression*
 
 What will my "real bad day" look like? How much do I need to keep in reserve to stay safe in that case? Looking forward, what observations are unusually bad? What is the size of the bottom - top difference? How can I establish "normal bounds" so I can know when things are not normal?
 
+# Examples
+
+# Estimating quantiles
+
 https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mstats.mquantiles.html
 
 I. Quantiles of a sample
@@ -139,7 +143,7 @@ Example 2.17 -
 
 3.7 Theorem
 
-II. For when you want to relate covariates to quantiles - Conditional quantiles
+# For when you want to relate covariates to quantiles - Conditional quantiles
 
 5. Quantile regression
 
