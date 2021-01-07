@@ -1,3 +1,10 @@
+Is my metric in the normal range? And other quantile-y questions
+
+*Analytics teams are often confronted with a wide variety of metrics that change every day, week, and month. 
+Is it in the normal range 
+What's the worst I need to plan for
+Quantile estimates and quantile regression*
+
 What will my "real bad day" look like? How much do I need to keep in reserve to stay safe in that case? Looking forward, what observations are unusually bad? What is the size of the bottom - top difference? How can I establish "normal bounds" so I can know when things are not normal?
 
 https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mstats.mquantiles.html
@@ -141,6 +148,8 @@ https://www.statsmodels.org/dev/examples/notebooks/generated/quantile_regression
 https://jmlr.org/papers/volume7/meinshausen06a/meinshausen06a.pdf - An ML approach
 
 We can check these using cross-validation on the probability of being greater than q, which is cool
+
+https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingRegressor.html#sklearn.ensemble.GradientBoostingRegressor
 
 III. This isn't magic
 
