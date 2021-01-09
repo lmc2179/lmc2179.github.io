@@ -152,6 +152,8 @@ We can check these using cross-validation on the probability of being greater th
 
 https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingRegressor.html#sklearn.ensemble.GradientBoostingRegressor
 
+Other approaches: Conditional variance - Section 5 - https://www.stat.cmu.edu/~cshalizi/mreg/15/lectures/24/lecture-24--25.pdf
+
 III. This isn't magic
 
 look out for small samples and edge cases
