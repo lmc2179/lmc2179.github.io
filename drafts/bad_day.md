@@ -1,4 +1,13 @@
-Is my metric in the normal range? What's the worst day I need to plan for? And other quantile-y questions
+---
+layout: post
+title: "What range of outcomes can I expect? What's the worst day I need to plan for? And other quantile-y questions"
+author: "Louis Cialdella"
+categories: posts
+tags: [datascience]
+image: jellybeans.png
+---
+
+
 
 *Analytics teams are often confronted with a wide variety of metrics that change every day, week, and month. In order to stay on top of the business, we'd like to know what the "normal range" of a metric is, so we can understand when something unexpected is happening. Additionally, this will let you understand the upper and lower boundaries of your metric - it will help you understand what kinds of "worst cases" you might need to plan for. All of these are instances of quantile estimation - we'll introduce the statistics of quantile estimates and quantile regression.*
 
