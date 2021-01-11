@@ -7,15 +7,19 @@ tags: [datascience]
 image: jellybeans.png
 ---
 
-
-
 *Analytics teams are often confronted with a wide variety of metrics that change every day, week, and month. In order to stay on top of the business, we'd like to know what the "normal range" of a metric is, so we can understand when something unexpected is happening. Additionally, this will let you understand the upper and lower boundaries of your metric - it will help you understand what kinds of "worst cases" you might need to plan for. All of these are instances of quantile estimation - we'll introduce the statistics of quantile estimates and quantile regression.*
 
 What will my "real bad day" look like? How much do I need to keep in reserve to stay safe in that case? Looking forward, what observations are unusually bad? What is the size of the bottom - top difference? How can I establish "normal bounds" so I can know when things are not normal?
 
-# An example: What does a "normal day" of customer traffic look like?
+# An example: What does a "normal day" of web traffic look like?
 
-# Upper and lower bounds for the "normal" range - Quantiles
+If you run a website, you've probably spent time thinking about how many people actually saw your website - that's the point of having one, after all. Let's imagine that you are the supernaturally gifted CEO of the greatest tech company in history, [Zombo.com](http://zombo.com/). You've collected the number of daily visitors over 100 days of traffic to your website, and you want to use it to do some planning. 
+
+[Picture of traffic]
+
+Specifically, you want to know: On an "ordinary" day, what's the lowest or highest number of visitors I might expect? This sort of information is a valuable planning tool as you monitor your web traffic. For example, you might want to know the highest total amount of traffic you might get, so you can ensure you have enough bandwidth for all your visitors on your highest-traffic days. Or you might keep this range in mind as you look over each days traffic report, in order to see whether or not you had an abnormally high or low amount of traffic, indicating something has changed and you need to re-evaluate your strategy.
+
+# Upper and lower bounds for the "ordinary" range - Quantiles
 
 ## The Sample Quantile
 
