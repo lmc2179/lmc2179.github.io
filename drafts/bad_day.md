@@ -8,7 +8,15 @@ What will my "real bad day" look like? How much do I need to keep in reserve to 
 
 # Upper and lower bounds for the "normal" range - Quantiles
 
+## The Sample Quantile
+
+## A Simple CI for the Sample Quantile
+
 # Including covariates - Quantile Regression
+
+# Appendix: How the data was generated
+
+# Appendix: Comparison of Quantile CIs
 
 ------------------------------------------------------------------
 
