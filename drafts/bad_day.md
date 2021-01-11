@@ -14,7 +14,16 @@ What will my "real bad day" look like? How much do I need to keep in reserve to 
 
 # Including covariates - Quantile Regression
 
-# Appendix: How the data was generated
+# Appendix: Imports and data generation
+
+```python
+from scipy.stats import poisson
+from matplotlib import pyplot as plt
+import seaborn as sns
+
+x = poisson(500).rvs(100)
+TRUE_QUANTILES = poisson(500).interval(1.-.005)
+```
 
 # Appendix: Comparison of Quantile CIs
 
