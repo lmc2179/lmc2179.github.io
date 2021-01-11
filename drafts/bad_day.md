@@ -4,7 +4,13 @@ Is my metric in the normal range? What's the worst day I need to plan for? And o
 
 What will my "real bad day" look like? How much do I need to keep in reserve to stay safe in that case? Looking forward, what observations are unusually bad? What is the size of the bottom - top difference? How can I establish "normal bounds" so I can know when things are not normal?
 
-# Examples
+# An example: What does a "normal day" of customer traffic look like?
+
+# Upper and lower bounds for the "normal" range - Quantiles
+
+# Including covariates - Quantile Regression
+
+------------------------------------------------------------------
 
 # Estimating quantiles
 
