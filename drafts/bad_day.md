@@ -21,7 +21,9 @@ Specifically, you want to know: On an "ordinary" day, what's the lowest or highe
 
 # Upper and lower bounds for the "ordinary" range - Quantiles
 
-## The Sample Quantile
+## The Population and Sample Quantiles
+
+
 
 ## A Simple CI for the Sample Quantile
 
