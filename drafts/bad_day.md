@@ -33,9 +33,11 @@ One way we could translate this question into more quantitative language is to r
 
 Let's start by thinking about the lower side of the range. We'd like a value . This value has a name - it is called the 0.025-quantile. More generally, the $q$-quantile . So, for example, the 0.5-quantile is the median
 
+https://numpy.org/devdocs/reference/generated/numpy.quantile.html
+
 ## A Simple CI for a quantile
 
-## Our model so far is too simple
+## Our model assumes every day has the same distribution, which is probably not true
 
 # Including covariates - Quantile Regression
 
