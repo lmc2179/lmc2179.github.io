@@ -23,9 +23,19 @@ Specifically, you want to know: On an "ordinary" day, what's the lowest or highe
 
 ## The Population and Sample Quantiles
 
+Let's take our main question, and be a little more specific with it. We want to know:
 
+> On an "ordinary" day, what's the lowest or highest number of visitors I might expect?
 
-## A Simple CI for the Sample Quantile
+One way we could translate this question into more quantitative language is to reframe it as:
+
+> Can we define a range of values, so that almost all (say, 95%) of of daily observations will fall within this range?
+
+Let's start by thinking about the lower side of the range. We'd like a value . This value has a name - it is called the 0.025-quantile. More generally, the $q$-quantile . So, for example, the 0.5-quantile is the median
+
+## A Simple CI for a quantile
+
+## Our model so far is too simple
 
 # Including covariates - Quantile Regression
 
