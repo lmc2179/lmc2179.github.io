@@ -44,12 +44,17 @@ https://numpy.org/devdocs/reference/generated/numpy.quantile.html
 # Appendix: Imports and data generation
 
 ```python
-from scipy.stats import poisson
+import numpy as np
 from matplotlib import pyplot as plt
 import seaborn as sns
+import datetime
+import pandas as pd
 
-x = poisson(500).rvs(100)
-TRUE_QUANTILES = poisson(500).interval(1.-.005)
+dates = [datetime.datetime(year=2020, month=1, day=1) + datetime.timedelta(days=i) for i in range(100)]
+is_weekend = np.array([int(d.weekday() in (5, 6)) for d in dates])
+visitors = np.random.poisson(5 + 3*is_weekend)
+
+traffic_df = pd.DataFrame({'date': dates, 'is_weekend': is_weekend, 'visitors': visitors})
 ```
 
 # Appendix: Comparison of Quantile CIs
