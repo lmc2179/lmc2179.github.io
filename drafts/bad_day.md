@@ -52,7 +52,7 @@ import pandas as pd
 
 dates = [datetime.datetime(year=2020, month=1, day=1) + datetime.timedelta(days=i) for i in range(100)]
 is_weekend = np.array([int(d.weekday() in (5, 6)) for d in dates])
-visitors = np.random.poisson(5 + 3*is_weekend)
+visitors = np.random.poisson(5 + 5*is_weekend)
 
 traffic_df = pd.DataFrame({'date': dates, 'is_weekend': is_weekend, 'visitors': visitors})
 ```
