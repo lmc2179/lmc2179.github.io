@@ -31,13 +31,27 @@ One way we could translate this question into more quantitative language is to r
 
 > Can we define a range of values, so that almost all (say, 95%) of of daily observations will fall within this range?
 
-Let's start by thinking about the lower side of the range. We'd like a value . This value has a name - it is called the 0.025-quantile. More generally, the $q$-quantile . So, for example, the 0.5-quantile is the median
+Let's start by thinking about the **lower side** of the range, the lowest number of visitors we might expect on a day. We'd like to know a value such that 97.5% of future observations will be above it (we'll do the same on upper end, so overall 2.5 × 2=5% of observations will be outside this range). This value has a name - it is called the 0.025-quantile. More generally, the $q$-quantile is the value such that $q$% of observations are less than it. So, for example, the 0.5-quantile is the median, and the 0.25-quantile is the first quartile.
 
-https://numpy.org/devdocs/reference/generated/numpy.quantile.html
+As usual, we want the population quantile, but we only have a sample to estimate from. We can compute the sample quantile using [the appropriate numpy method](https://numpy.org/devdocs/reference/generated/numpy.quantile.html). Plotting these on our chart from before, we see they look the way we expect:
+
+[Plot of data with lower and upper sample quantiles marked]
+
+That is, the sample 0.025- and 0.975-quantiles cover the central 95% of the data.
 
 ## A Simple CI for a quantile
 
+Just now we did two inferences, computing the sample quantiles of our dataset. As good students of statistics we should try to understand how much uncertainty there is around these estimates - we want to compute a standard error or a confidence interval.
+
 ## Our model assumes every day has the same distribution, which is probably not true
+
+So far, we've put together a method that tells us: What is the
+
+Howver, the range may change depending on some covariates
+
+For example spend
+
+Unsurprisingly the quickest way to do this is with linear regression, though there are other methods too
 
 # Including covariates - Quantile Regression
 
