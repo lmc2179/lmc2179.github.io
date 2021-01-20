@@ -156,11 +156,12 @@ https://stats.stackexchange.com/questions/99829/how-to-obtain-a-confidence-inter
 
 ```
 from scipy.stats import norm, binom, pareto
+import numpy as np
 
-MU = 0
-S = 1
+MU = 100
+S = 1100
 
-gen_dist = norm(MU, S)
+#gen_dist = norm(MU, S)
 
 gen_dist = pareto(2)
 
@@ -172,7 +173,7 @@ alpha = .05
 TRUE_QUANTILE = gen_dist.ppf(q)
 
 l = int(binom(n, p=q).ppf(alpha/2))
-u = int(binom(n, p=q).ppf(1.-alpha/2) + 1) # ???? Check against R's qbinom
+u = int(binom(n, p=q).ppf(1.-alpha/2) ) # ???? Check against R's qbinom
 
 n_sim = 10000
 results = 0
