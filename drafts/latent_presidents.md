@@ -30,7 +30,9 @@ word_component_df['component_max'] = np.argmax(nmf.components_.T, axis=1)
 
 distance_matrix = cosine_similarity(nmf_speeches)
 ```
-# How many 
+# This the new president usually sounds like the old president
+
+# ?
 
 # How should we interpret these results, exactly?
 
