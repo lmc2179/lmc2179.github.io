@@ -43,6 +43,10 @@ That is, the sample 0.025- and 0.975-quantiles cover the central 95% of the data
 
 Just now we did two inferences, computing the sample quantiles of our dataset. As good students of statistics we should try to understand how much uncertainty there is around these estimates - we want to compute a standard error or a confidence interval.
 
+1. Sort the observations.
+2. l = 
+3. u = 
+
 ## Our model assumes every day has the same distribution, which is probably not true
 
 So far, we've put together a method that tells us: What is the
