@@ -28,9 +28,13 @@ word_component_df = pd.DataFrame(nmf.components_.T)
 word_component_df['words'] = vectorizer.get_feature_names()
 word_component_df['component_max'] = np.argmax(nmf.components_.T, axis=1)
 
-distance_matrix = cosine_similarity(nmf_speeches)
+distance_matrix = cosine_similarity(tf_idf_speeches)
 ```
 # This the new president usually sounds like the old president
+
+Look at an example
+
+Look at distance president-over-president
 
 # ?
 
