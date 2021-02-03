@@ -30,6 +30,7 @@ COUNTRIES = {'United Kingdom', 'France', 'Australia', 'Germany'}
 retail_df['country_coarse'] = retail_df['Country'].apply(lambda x: x if x in COUNTRIES else 'All others')
 retail_df['date'] = retail_df['InvoiceDate'].apply(lambda x: x.month)
 retail_df['revenue'] = retail_df['Quantity'] * retail_df['UnitPrice']
+# Add number of customers in this country
 
 monthly_df = retail_df[['date', 'country_coarse', 'revenue']].groupby(['date', 'country_coarse']).sum().reset_index()
 ```
