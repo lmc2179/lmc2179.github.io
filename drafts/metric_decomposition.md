@@ -32,7 +32,10 @@ retail_df['date'] = retail_df['InvoiceDate'].apply(lambda x: x.month)
 retail_df['revenue'] = retail_df['Quantity'] * retail_df['UnitPrice']
 # Add number of customers in this country
 
-monthly_df = retail_df[['date', 'country_coarse', 'revenue']].groupby(['date', 'country_coarse']).sum().reset_index()
+monthly_gb = retail_df[['date', 'country_coarse', 'revenue', 'CustomerID']].groupby(['date', 'country_coarse'])
+monthly_df  = pd.DataFrame(monthly_gb['revenue'].sum())
+monthly_df['n_customers'] = monthly_gb['CustomerID'].nunique()
+# Should I reset the index?
 ```
 
 # Where did my revenue come from
