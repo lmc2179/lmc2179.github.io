@@ -36,7 +36,6 @@ monthly_gb = retail_df[['date', 'country_coarse', 'revenue', 'CustomerID']].grou
 monthly_df  = pd.DataFrame(monthly_gb['revenue'].sum())
 monthly_df['n_customers'] = monthly_gb['CustomerID'].nunique()
 monthly_df = monthly_df.reset_index()
-# Should I reset the index?
 ```
 
 # Where did my revenue come from
@@ -82,11 +81,12 @@ def value_per_customer(df):
     a_t_g = value_t_previous_g * ((cust_t_g / cust_t[t]) - (cust_t_previous_g / cust_t[t-1]))
     b_t_g = (value_t_g - value_t_previous_g) * (cust_t_g / cust_t[t])
     result_rows[t][3:3+len(groups)] = a_t_g
+    result_rows[t][3+len(groups):] = b_t_g
     result_rows[t][1] = np.sum(a_t_g)
     result_rows[t][2] = np.sum(b_t_g)
-    result_df = pd.DataFrame(result_rows, columns=columns)
-    result_df['dates'] = dates
-    return result_df
+  result_df = pd.DataFrame(result_rows, columns=columns)
+  result_df['dates'] = dates
+  return result_df
 ```
 
 # This decomposition does not tell us about causal relationships
