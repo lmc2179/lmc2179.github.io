@@ -35,16 +35,34 @@ retail_df['revenue'] = retail_df['Quantity'] * retail_df['UnitPrice']
 monthly_gb = retail_df[['date', 'country_coarse', 'revenue', 'CustomerID']].groupby(['date', 'country_coarse'])
 monthly_df  = pd.DataFrame(monthly_gb['revenue'].sum())
 monthly_df['n_customers'] = monthly_gb['CustomerID'].nunique()
+monthly_df = monthly_df.reset_index()
 # Should I reset the index?
 ```
 
 # Where did my revenue come from
 
-?
+```
+def total_rev(df):
+  dates, date_dfs = zip(*[(t, t_df.sort_values('country_coarse').reset_index()) for t, t_df in df.groupby('date', sort=True)])
+  first = date_dfs[0]
+  groups = first['country_coarse']
+  columns = ['total'] + list(groups)
+  result_rows = np.empty((len(dates), len(groups)+1))
+  result_rows[0][0] = first['revenue'].sum()
+  result_rows[0][1:] = np.nan
+  for t in range(1, len(result_rows)):
+    result_rows[t][0] = date_dfs[t]['revenue'].sum()
+    result_rows[t][1:] = date_dfs[t]['revenue'] - date_dfs[t-1]['revenue']
+  result_df = pd.DataFrame(result_rows, columns=columns)
+  result_df['date'] = dates
+  return result_df
+```
 
 # Why did my value per customer change
 
-?
+```
+
+```
 
 # This decomposition does not tell us about causal relationships
 
