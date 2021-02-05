@@ -60,8 +60,33 @@ def total_rev(df):
 
 # Why did my value per customer change
 
-```
-
+```python
+def value_per_customer(df):
+  dates, date_dfs = zip(*[(t, t_df.sort_values('country_coarse').reset_index()) for t, t_df in df.groupby('date', sort=True)])
+  first = date_dfs[0]
+  groups = first['country_coarse']
+  columns = ['value', 'a', 'b'] + ['{0}_a'.format(g) for g in groups] + ['{0}_b'.format(g) for g in groups]
+  result_rows = np.empty((len(dates), len(columns)))
+  cust_t = pd.Series([dt_df['n_customers'].sum() for dt_df in date_dfs])
+  rev_t = pd.Series([dt_df['revenue'].sum() for dt_df in date_dfs])
+  value_t = rev_t / cust_t
+  result_rows[:,0] = value_t
+  result_rows[0][1:] = np.nan
+  for t in range(1, len(result_rows)):
+    cust_t_g = date_dfs[t]['n_customers']
+    rev_t_g = date_dfs[t]['revenue']
+    value_t_g  = rev_t_g / cust_t_g
+    cust_t_previous_g = date_dfs[t-1]['n_customers']
+    rev_t_previous_g = date_dfs[t-1]['revenue']
+    value_t_previous_g  = rev_t_previous_g / cust_t_previous_g
+    a_t_g = value_t_previous_g * ((cust_t_g / cust_t[t]) - (cust_t_previous_g / cust_t[t-1]))
+    b_t_g = (value_t_g - value_t_previous_g) * (cust_t_g / cust_t[t])
+    result_rows[t][3:3+len(groups)] = a_t_g
+    result_rows[t][1] = np.sum(a_t_g)
+    result_rows[t][2] = np.sum(b_t_g)
+    result_df = pd.DataFrame(result_rows, columns=columns)
+    result_df['dates'] = dates
+    return result_df
 ```
 
 # This decomposition does not tell us about causal relationships
