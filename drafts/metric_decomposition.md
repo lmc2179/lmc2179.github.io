@@ -40,9 +40,9 @@ monthly_df = monthly_df.reset_index()
 
 # Where did my revenue come from
 
-$R_t = \sum_g r_t^g$
+$R_t = \sum\limits_g r_t^g$
 
-$\Delta R_t = \sum_g (r_t^g - r_{t-1}^g)$
+$\Delta R_t = \sum\limits_g (r_t^g - r_{t-1}^g)$
 
 ```
 def total_rev(df):
@@ -64,6 +64,22 @@ def total_rev(df):
 # Why did my value per customer change
 
 $V_t = \frac{\sum\limits_g r^g_t}{\sum\limits_g c^g_t}$
+
+$V^g_t = \frac{r^g_t}{c^g_t}$
+
+$\Delta V_t = \alpha_t + \beta_t = \sum\limits_g (\alpha^g + \beta^g)$
+
+$c_t = \sum\limits_g c_t^g$
+
+$r_t = \sum\limits_g r_t^g$
+
+$\alpha^g = V_{t-1}^g (\frac{c_t^g}{c_t} - \frac{c_{t-1}^g}{c_{t-1}})$
+
+Apply new mix without changing the value per segment
+
+$\beta^g = (V_t^g - V_{t-1}^g) (\frac{c_t^g}{c_t})$
+
+Apply new segment values without changing mix
 
 ```python
 def value_per_customer(df):
