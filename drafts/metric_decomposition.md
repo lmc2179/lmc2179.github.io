@@ -40,6 +40,10 @@ monthly_df = monthly_df.reset_index()
 
 # Where did my revenue come from
 
+$R_t = \sum_g r_t^g$
+
+$\Delta R_t = \sum_g (r_t^g - r_{t-1}^g)$
+
 ```
 def total_rev(df):
   dates, date_dfs = zip(*[(t, t_df.sort_values('country_coarse').reset_index()) for t, t_df in df.groupby('date', sort=True)])
@@ -58,6 +62,8 @@ def total_rev(df):
 ```
 
 # Why did my value per customer change
+
+$V_t = \frac{\sum\limits_g r^g_t}{\sum\limits_g c^g_t}$
 
 ```python
 def value_per_customer(df):
