@@ -62,7 +62,7 @@ plt.show()
 ```
 
 ```
-def total_rev(df):
+def decompose_total_rev(df):
   dates, date_dfs = zip(*[(t, t_df.sort_values('country_coarse').reset_index()) for t, t_df in df.groupby('date', sort=True)])
   first = date_dfs[0]
   groups = first['country_coarse']
@@ -76,6 +76,26 @@ def total_rev(df):
   result_df = pd.DataFrame(result_rows, columns=columns)
   result_df['date'] = dates
   return result_df
+```
+
+```
+ALL_COUNTRIES = ['United Kingdom', 'Germany', 'France', 'Australia', 'All others']
+
+total_revenue_factors_df = decompose_total_rev(monthly_df)
+
+for c in ALL_COUNTRIES:
+  plt.plot(total_revenue_factors_df['date'], total_revenue_factors_df[c], label=c)
+plt.legend()
+plt.show()
+
+for c in ALL_COUNTRIES:
+  plt.plot(total_revenue_factors_df['date'].iloc[1:], 
+           total_revenue_factors_df[c].iloc[1:] / np.diff(total_revenue_factors_df['total']), 
+           label=c)
+plt.legend()
+plt.show()
+
+# largest driver country list
 ```
 
 # Why did my value per customer change
