@@ -45,6 +45,23 @@ $R_t = \sum\limits_g r_t^g$
 $\Delta R_t = \sum\limits_g (r_t^g - r_{t-1}^g)$
 
 ```
+total_rev_df = monthly_df.groupby('date').sum()
+
+plt.plot(total_rev_df.index, total_rev_df['revenue'] / 1e6, marker='o')
+plt.title('Monthly revenue')
+plt.xlabel('Month')
+plt.ylabel('Total Revenue, millions')
+plt.show()
+
+plt.plot(total_rev_df.index[1:], np.diff(total_rev_df['revenue'] / 1e6), marker='o')
+plt.title('Monthly revenue change')
+plt.xlabel('Month')
+plt.ylabel('Month-over-month revenue change, millions')
+plt.axhline(0, linestyle='dotted')
+plt.show()
+```
+
+```
 def total_rev(df):
   dates, date_dfs = zip(*[(t, t_df.sort_values('country_coarse').reset_index()) for t, t_df in df.groupby('date', sort=True)])
   first = date_dfs[0]
