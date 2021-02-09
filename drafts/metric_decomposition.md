@@ -160,7 +160,31 @@ def decompose_value_per_customer(df):
 ```
 
 ```
+customer_value_breakdown_df = decompose_value_per_customer(monthly_df)
 
+plt.plot(customer_value_breakdown_df.dates.iloc[1:], 
+         customer_value_breakdown_df['a'].iloc[1:], marker='o')
+plt.plot(customer_value_breakdown_df.dates.iloc[1:], 
+         customer_value_breakdown_df['b'].iloc[1:], marker='o')
+plt.axhline(0, linestyle='dotted')
+plt.show() # Mostly within-country value changes, rather than mix
+
+plt.plot(customer_value_breakdown_df.dates.iloc[1:], 
+         customer_value_breakdown_df['a'].iloc[1:] / np.diff(customer_value_breakdown_df['value']), marker='o')
+plt.plot(customer_value_breakdown_df.dates.iloc[1:], 
+         customer_value_breakdown_df['b'].iloc[1:] / np.diff(customer_value_breakdown_df['value']), marker='o')
+plt.axhline(0, linestyle='dotted')
+plt.show()
+
+for c in ALL_COUNTRIES:
+  plt.plot(customer_value_breakdown_df['dates'].iloc[1:], 
+           (customer_value_breakdown_df[c+'_a'].iloc[1:] + customer_value_breakdown_df[c+'_b'].iloc[1:]) / np.diff(customer_value_breakdown_df['value']), 
+           label=c)
+plt.legend()
+plt.show()
+
+# Australia contributed disproportionately positively in August, because Australians became more valuable customers in August
+# Correlations between country contributions?
 ```
 
 # This decomposition does not tell us about causal relationships
