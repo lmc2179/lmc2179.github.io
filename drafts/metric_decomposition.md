@@ -119,7 +119,18 @@ $\beta^g = (V_t^g - V_{t-1}^g) (\frac{c_t^g}{c_t})$
 Apply new segment values without changing mix
 
 ```python
-def value_per_customer(df):
+value_per_customer_series = monthly_df.groupby('date').sum()['revenue'] / monthly_df.groupby('date').sum()['n_customers']
+plt.plot(value_per_customer_series.index, value_per_customer_series)
+plt.show()
+
+value_per_customer_series = monthly_df.groupby('date').sum()['revenue'] / monthly_df.groupby('date').sum()['n_customers']
+plt.plot(value_per_customer_series.index[1:], np.diff(value_per_customer_series), marker='o')
+plt.axhline(0, linestyle='dotted')
+plt.show()
+```
+
+```python
+def decompose_value_per_customer(df):
   dates, date_dfs = zip(*[(t, t_df.sort_values('country_coarse').reset_index()) for t, t_df in df.groupby('date', sort=True)])
   first = date_dfs[0]
   groups = first['country_coarse']
@@ -146,6 +157,10 @@ def value_per_customer(df):
   result_df = pd.DataFrame(result_rows, columns=columns)
   result_df['dates'] = dates
   return result_df
+```
+
+```
+
 ```
 
 # This decomposition does not tell us about causal relationships
