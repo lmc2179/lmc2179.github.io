@@ -9,34 +9,15 @@ image: jellybeans.png
 
 _As analytics professionals, we frequently summarize the state of the business with metrics that measure some aspect of its performance. We check these metrics every day, week, or month, and try to understand what changed them. Often we inspect a few familiar subgroups (maybe your customer regions, or demographics) to understand how much each group contributed to the change. This pattern is so common and so useful that it's worth noting some general-purpose decompositions that we can use when we come across this problem. This initial perspective can give us the intuition to plan a deeper statistical or causal analysis._
 
-# What's happening to my sales
+# Are my sales growing? Which customers are driving it?
 
 https://archive.ics.uci.edu/ml/datasets/Online+Retail+II
 
-```
-curl https://archive.ics.uci.edu/ml/machine-learning-databases/00352/Online%20Retail.xlsx --output online_retail.xlsx
-```
+A metri of KPI is a single-number snapshot of the business
 
-```
-import pandas as pd
-import numpy as np
-from matplotlib import pyplot as plt
-import seaborn as sns
+As an online retailer, you produce value by selling stuff; you can measure the total volume of stuff you sold by looking at total revenue, and your efficiency by looking at value/customer
 
-retail_df = pd.read_excel('online_retail.xlsx')
-
-COUNTRIES = {'United Kingdom', 'France', 'Australia', 'Germany'}
-
-retail_df['country_coarse'] = retail_df['Country'].apply(lambda x: x if x in COUNTRIES else 'All others')
-retail_df['date'] = retail_df['InvoiceDate'].apply(lambda x: x.month)
-retail_df['revenue'] = retail_df['Quantity'] * retail_df['UnitPrice']
-# Add number of customers in this country
-
-monthly_gb = retail_df[['date', 'country_coarse', 'revenue', 'CustomerID']].groupby(['date', 'country_coarse'])
-monthly_df  = pd.DataFrame(monthly_gb['revenue'].sum())
-monthly_df['n_customers'] = monthly_gb['CustomerID'].nunique()
-monthly_df = monthly_df.reset_index()
-```
+This retailer might make marketing/product/sales/inventory decisions at the country level, it would be useful to understand how each country contributes to your sales growth and value growth
 
 # Where did my revenue come from
 
@@ -196,3 +177,30 @@ plt.show()
 ?
 
 https://www.casact.org/pubs/forum/00wforum/00wf305.pdf
+
+# Appendix: Import statements and data cleaning
+
+```
+curl https://archive.ics.uci.edu/ml/machine-learning-databases/00352/Online%20Retail.xlsx --output online_retail.xlsx
+```
+
+```
+import pandas as pd
+import numpy as np
+from matplotlib import pyplot as plt
+import seaborn as sns
+
+retail_df = pd.read_excel('online_retail.xlsx')
+
+COUNTRIES = {'United Kingdom', 'France', 'Australia', 'Germany'}
+
+retail_df['country_coarse'] = retail_df['Country'].apply(lambda x: x if x in COUNTRIES else 'All others')
+retail_df['date'] = retail_df['InvoiceDate'].apply(lambda x: x.month)
+retail_df['revenue'] = retail_df['Quantity'] * retail_df['UnitPrice']
+# Add number of customers in this country
+
+monthly_gb = retail_df[['date', 'country_coarse', 'revenue', 'CustomerID']].groupby(['date', 'country_coarse'])
+monthly_df  = pd.DataFrame(monthly_gb['revenue'].sum())
+monthly_df['n_customers'] = monthly_gb['CustomerID'].nunique()
+monthly_df = monthly_df.reset_index()
+```
