@@ -45,6 +45,10 @@ The point of data scientists - the reason we do all the things in the list above
 
 We sort important from useless information by thinking about whether the information is relevant to the decision at hand
 
+If you can't think of a decision that your analysis or data would benefit from, then don't do the analysis
+
+Good DS think about decisions, Great DS think about decision processes - the entire feedback loop encompassing data collection, analysis, recommendation, and selection
+
 # Good data scientists: How do I help make better decisions?
 
 > The task of decision involves three steps: (1) The listing of all the alternative strategies; (2) the determination of all the consequences that follow upon each of these strategies; (3) the comparative evaluation of these sets of consequences.
@@ -57,6 +61,8 @@ We sort important from useless information by thinking about whether the informa
 
 
 # Great data scientists: How do I design better decision processes?
+
+
 
 Decision process
 Analysis --> Choice --> Evaluation --> Improvement
