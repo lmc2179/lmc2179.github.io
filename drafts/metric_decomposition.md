@@ -17,6 +17,12 @@ A prototypical example is something like a retail store, whose operators make mo
 
 # Where did my revenue come from
 
+Rev over time, growth over time
+
+Which customer groups changed their behavior, increasing or decreasing their spending
+
+Country-level contributions to change
+
 $R_t = \sum\limits_g r_t^g$
 
 $\Delta R_t = \sum\limits_g (r_t^g - r_{t-1}^g)$
@@ -76,6 +82,16 @@ plt.show()
 ```
 
 # Why did my value per customer change
+
+Define metric
+
+2 ways to increase value
+
+Define decomposition
+
+Which countries contributed
+
+Did my value change due to value within-country changes, or because my mix of customers across countries changed
 
 $V_t = \frac{\sum\limits_g r^g_t}{\sum\limits_g c^g_t}$
 
@@ -166,11 +182,13 @@ plt.show()
 
 # This decomposition does not tell us about causal relationships
 
-?
+Seriously it doesn't
 
 # Quantifying uncertainty
 
-?
+Corro's T-test
+
+Jackknife/Bootstrap for standard errors on alpha and beta
 
 https://www.casact.org/pubs/forum/00wforum/00wf305.pdf
 
