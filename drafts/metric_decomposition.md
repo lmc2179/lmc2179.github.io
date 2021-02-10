@@ -11,11 +11,9 @@ _As analytics professionals, we frequently summarize the state of the business w
 
 # Are my sales growing? Which customers are driving it?
 
-https://archive.ics.uci.edu/ml/datasets/Online+Retail+II
+A [metric or KPI](https://en.wikipedia.org/wiki/Performance_indicator) is a single-number snapshot of the business that summarizes something we care about. Data Scientists design and track metrics regularly in order to understand how the business is doing - if it's achieving its goals, where it needs to allocate more resources, and whether anything surprising is happen. When these metrics move (whether that move is positive or negative), we usually want to understand _why_ that happened, so we than think about what (if anything) needs to be done about it. A common tactic for doing this is to think about the different segments that make up your base of customers.
 
-A metri of KPI is a single-number snapshot of the business
-
-As an online retailer, you produce value by selling stuff; you can measure the total volume of stuff you sold by looking at total revenue, and your efficiency by looking at value/customer
+A prototypical example is something like a retail store, whose operators make money by selling things to their customers. In order to take a practical look at how metrics might inform our understanding of the business situation, we'll look at [data from UK-based online retailer](https://archive.ics.uci.edu/ml/datasets/Online+Retail+II). As an online retailer, you produce value by selling stuff; you can measure the total volume of stuff you sold by looking at total revenue, and your efficiency by looking at the revenue produced per customer.
 
 This retailer might make marketing/product/sales/inventory decisions at the country level, it would be useful to understand how each country contributes to your sales growth and value growth
 
@@ -191,6 +189,11 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 
 retail_df = pd.read_excel('online_retail.xlsx')
+
+begin = pd.to_datetime('2011-01-01 00:00:00', yearfirst=True)
+end = pd.to_datetime('2011-12-01 00:00:00', yearfirst=True)
+
+retail_df = retail_df[(retail_df['InvoiceDate'] > begin) & (retail_df['InvoiceDate'] < end)]
 
 COUNTRIES = {'United Kingdom', 'France', 'Australia', 'Germany'}
 
