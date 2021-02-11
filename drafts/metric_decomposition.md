@@ -17,15 +17,9 @@ A prototypical example is something like a retail store, whose operators make mo
 
 # Where did my revenue come from
 
-Rev over time, growth over time
-
-Which customer groups changed their behavior, increasing or decreasing their spending
-
-Country-level contributions to change
+Rev over time
 
 $R_t = \sum\limits_g r_t^g$
-
-$\Delta R_t = \sum\limits_g (r_t^g - r_{t-1}^g)$
 
 ```
 total_rev_df = monthly_df.groupby('date').sum()
@@ -35,7 +29,13 @@ plt.title('Monthly revenue')
 plt.xlabel('Month')
 plt.ylabel('Total Revenue, millions')
 plt.show()
+```
 
+growth over time
+
+$\Delta R_t = R_t - R_{t-1}$
+
+```
 plt.plot(total_rev_df.index[1:], np.diff(total_rev_df['revenue'] / 1e6), marker='o')
 plt.title('Monthly revenue change')
 plt.xlabel('Month')
@@ -43,6 +43,11 @@ plt.ylabel('Month-over-month revenue change, millions')
 plt.axhline(0, linestyle='dotted')
 plt.show()
 ```
+
+Which customer groups changed their behavior, increasing or decreasing their spending
+
+$\Delta R_t = \sum\limits_g (r_t^g - r_{t-1}^g)$
+
 
 ```
 def decompose_total_rev(df):
@@ -60,6 +65,8 @@ def decompose_total_rev(df):
   result_df['date'] = dates
   return result_df
 ```
+
+Country-level contributions to change
 
 ```
 ALL_COUNTRIES = ['United Kingdom', 'Germany', 'France', 'Australia', 'All others']
