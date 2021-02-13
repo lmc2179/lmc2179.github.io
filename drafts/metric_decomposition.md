@@ -17,9 +17,13 @@ A prototypical example is something like a retail store, whose operators make mo
 
 # Where did my revenue come from
 
-Rev over time
+As a retailer, one reasonable way to measure your business' success is by looking at your total revenue over time. We'll refer to the **total revenue in month $t$** as $R_t$. The total revenue is the revenue across each country we operate in, so
 
-$R_t = \sum\limits_g r_t^g$
+$$R_t = r_t^{UK} + r_t^{Germany} + r_t^{Australia} + r_t^{France} + r_t^{Other} = \sum\limits_g r_t^g$$
+
+We'll use this kind of notation throughout - the superscript (like $g$) indicates the group of customers, the subscript (like $t$) indicates the time period. Our groups will be countries, and our time periods will be months of the year ????.
+
+We can plot $R_t$ to see how our revenue evolved over time.
 
 ```
 total_rev_df = monthly_df.groupby('date').sum()
@@ -31,9 +35,11 @@ plt.ylabel('Total Revenue, millions')
 plt.show()
 ```
 
-growth over time
+Presumably, if some revenue is good, more must be better; we want to know the **revenue growth** each month. The revenue growth is just this month minus last month:
 
 $\Delta R_t = R_t - R_{t-1}$
+
+When $\Delta R_t > 0$, things are getting better. Just like revenue $R_t$, we can plot growth $\Delta R_t$ each month:
 
 ```
 plt.plot(total_rev_df.index[1:], np.diff(total_rev_df['revenue'] / 1e6), marker='o')
