@@ -13,7 +13,7 @@ _As analytics professionals, we frequently summarize the state of the business w
 
 A [KPI (or metric)](https://en.wikipedia.org/wiki/Performance_indicator) is a single-number snapshot of the business that summarizes something we care about. Data Scientists design and track metrics regularly in order to understand how the business is doing - if it's achieving its goals, where it needs to allocate more resources, and whether anything surprising is happening. When these metrics move (whether that move is positive or negative), we usually want to understand _why_ that happened, so we than think about what (if anything) needs to be done about it. A common tactic for doing this is to think about the different segments that make up your base of customers, and how each one contributed to the way your KPI changed.
 
-A prototypical example is something like a retail store, whose operators make money by selling things to their customers. In order to take a practical look at how metrics might inform our understanding of the business situation, we'll look at [data from a UK-based online retailer](https://archive.ics.uci.edu/ml/datasets/Online+Retail+II) which tracks their total sales and total customers over time for the countries they operate in. As an online retailer, you produce value by selling stuff; you can measure the total volume of stuff you sold by looking at total revenue, and your efficiency by looking at the revenue produced per customer. This kind of retailer might make marketing, product, sales or inventory decisions at the country level, so it would be useful to understand how each country contributed to your sales growth and value growth.
+A prototypical example is something like a retail store, whose operators make money by selling things to their customers. In order to take a practical look at how metrics might inform our understanding of the business situation, we'll look at [data from a UK-based online retailer](https://archive.ics.uci.edu/ml/datasets/Online+Retail+II) which tracks their total sales and total customers over time for the countries they operate in. As an online retailer, you produce value by selling stuff; you can measure the total volume of stuff you sold by looking at total revenue, and your efficiency by looking at the revenue produced per customer. This kind of retailer might make marketing, product, sales or inventory decisions at the country level, so it would be useful to understand how each country contributed to your sales growth and value growth. 
 
 # Where did my revenue come from
 
@@ -25,7 +25,7 @@ We'll use this kind of notation throughout - the superscript (like $g$) indicate
 
 We can plot $R_t$ to see how our revenue evolved over time.
 
-```
+```python
 total_rev_df = monthly_df.groupby('date').sum()
 
 plt.plot(total_rev_df.index, total_rev_df['revenue'] / 1e6, marker='o')
@@ -41,7 +41,7 @@ $$\Delta R_t = R_t - R_{t-1}$$
 
 When $\Delta R_t > 0$, things are getting better. Just like revenue $R_t$, we can plot growth $\Delta R_t$ each month:
 
-```
+```python
 plt.plot(total_rev_df.index[1:], np.diff(total_rev_df['revenue'] / 1e6), marker='o')
 plt.title('Monthly revenue change')
 plt.xlabel('Month')
@@ -50,12 +50,13 @@ plt.axhline(0, linestyle='dotted')
 plt.show()
 ```
 
-Which customer groups changed their behavior, increasing or decreasing their spending
+So far, we've tracked revenue and revenue growth. But we haven't made any statements about which customers groups saw the most growth. We can get a better understanding of which customer groups changed their behavior, increasing or decreasing their spending, by decomposing $\Delta R_t$ by customer group:
 
-$\Delta R_t = \sum\limits_g (r_t^g - r_{t-1}^g)$
+$\Delta R_t = (r_t^{UK} - r_{t-1}^{UK}) + (r_t^{Germany} - r_{t-1}^{Germany}) + (r_t^{Australia} - r_{t}^{Australia}) + (r_t^{France} - r_{t-1}^{France}) + (r_t^{Other} - r_{t-1}^{Other}) = \sum\limits_g (r_t^g - r_{t-1}^g)$
 
+We can write a quick python function to perform this decomposition:
 
-```
+```python
 def decompose_total_rev(df):
   dates, date_dfs = zip(*[(t, t_df.sort_values('country_coarse').reset_index()) for t, t_df in df.groupby('date', sort=True)])
   first = date_dfs[0]
@@ -72,9 +73,9 @@ def decompose_total_rev(df):
   return result_df
 ```
 
-Country-level contributions to change
+And then plot the country-level contributions to change:
 
-```
+```python
 ALL_COUNTRIES = ['United Kingdom', 'Germany', 'France', 'Australia', 'All others']
 
 total_revenue_factors_df = decompose_total_rev(monthly_df)
