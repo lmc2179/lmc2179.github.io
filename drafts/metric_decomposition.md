@@ -37,7 +37,7 @@ plt.show()
 
 Presumably, if some revenue is good, more must be better; we want to know the **revenue growth** each month. The revenue growth is just this month minus last month:
 
-$\Delta R_t = R_t - R_{t-1}$
+$$\Delta R_t = R_t - R_{t-1}$$
 
 When $\Delta R_t > 0$, things are getting better. Just like revenue $R_t$, we can plot growth $\Delta R_t$ each month:
 
