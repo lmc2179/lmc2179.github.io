@@ -55,7 +55,7 @@ So far, we've tracked revenue and revenue growth. But we haven't made any statem
 $$\Delta R_t = (r_t^{UK} - r_{t-1}^{UK}) + (r_t^{Germany} - r_{t-1}^{Germany}) + (r_t^{Australia} - r_{t-1}^{Australia}) + (r_t^{France} - r_{t-1}^{France}) + (r_t^{Other} - r_{t-1}^{Other}) \\
 = \sum\limits_g (r_t^g - r_{t-1}^g)$$
 
-$$ \underbrace{x^3}\textrm{text 1} $$
+$$ \underbrace{x^3}_\textrm{text 1} $$
 
 We can write a quick python function to perform this decomposition:
 
