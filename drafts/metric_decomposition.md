@@ -52,8 +52,6 @@ plt.show()
 
 So far, we've tracked revenue and revenue growth. But we haven't made any statements about which customers groups saw the most growth. We can get a better understanding of which customer groups changed their behavior, increasing or decreasing their spending, by decomposing $\Delta R_t$ by customer group:
 
-$$\Delta R_t = (r_t^{UK} - r_{t-1}^{UK}) + (r_t^{Germany} - r_{t-1}^{Germany}) + (r_t^{Australia} - r_{t-1}^{Australia}) + (r_t^{France} - r_{t-1}^{France}) + (r_t^{Other} - r_{t-1}^{Other})$$
-
 $$\Delta R_t = \underbrace{r_t^{UK} - r_{t-1}^{UK}}_\textrm{UK revenue growth} 
 + \underbrace{r_t^{Germany} - r_{t-1}^{Germany}}_\textrm{Germany revenue growth}
 + \underbrace{r_t^{Australia} - r_{t-1}^{Australia}}_\textrm{Australia revenue growth} 
