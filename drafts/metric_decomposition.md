@@ -214,6 +214,13 @@ Jackknife/Bootstrap for standard errors on alpha and beta
 
 https://www.casact.org/pubs/forum/00wforum/00wf305.pdf
 
+# Appendix: Notation reference
+
+| Symbol  | Definition |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+
 # Appendix: Import statements and data cleaning
 
 ```
