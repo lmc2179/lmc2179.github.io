@@ -133,6 +133,10 @@ $\beta^g = (V_t^g - V_{t-1}^g) (\frac{c_t^g}{c_t})$
 
 Apply new segment values without changing mix
 
+$\Delta V_t = \sum\limits_g \Delta V_t^g$
+
+$\Delta V_t^g = \alpha^g_t + \beta^g_t = V_t^g \frac{c_t^g}{c_t} - V_{t-1}^g \frac{c_{t-1}^g}{c_{t-1}}$
+
 ```python
 value_per_customer_series = monthly_df.groupby('date').sum()['revenue'] / monthly_df.groupby('date').sum()['n_customers']
 plt.plot(value_per_customer_series.index, value_per_customer_series)
