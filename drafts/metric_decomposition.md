@@ -60,7 +60,7 @@ $$\Delta R_t = \underbrace{r_t^{UK} - r_{t-1}^{UK}}_\textrm{UK revenue growth}
 
 Or a little more compactly:
 
-$$\Delta R_t = \sum\limits_g (r_t^g - r_{t-1}^g)$$
+$$\Delta R_t = \sum\limits_g (r_t^g - r_{t-1}^g) = \sum\limits_g \Delta R^g_t$$
 
 We can write a quick python function to perform this decomposition:
 
