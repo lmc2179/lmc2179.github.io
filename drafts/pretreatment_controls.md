@@ -16,6 +16,8 @@ https://pubmed.ncbi.nlm.nih.gov/26921693/
 
 http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf - 7.1.5
 
+https://exp-platform.com/Documents/2013-02-CUPED-ImprovingSensitivityOfControlledExperiments.pdf
+
 # Including pretreatment measurements gives us more efficient estimates of treatment effects in A/B tests
 
 ## Example
