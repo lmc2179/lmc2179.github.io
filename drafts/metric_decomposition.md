@@ -105,37 +105,15 @@ plt.show()
 
 # Why did my value per customer change
 
-Define metric
+We commonly decompose revenue into
 
-2 ways to increase value
+$$\text{Revenue} = \underbrace{\frac{\text{Revenue}}{\text{Customer}}}_\textrm{Value of a customer}  \times \text{Total customers} $$
 
-Define decomposition
+We do this because the things that affect the first term might be different from those that affect the second. For example, further down-funnel changes to our product might affect the value of a customer, but not produce any new customers. As a result, the value per customer is a useful KPI on its own.
 
-Which countries contributed
-
-Did my value change due to value within-country changes, or because my mix of customers across countries changed
+We'll define the value of a customer as the total revenue over all regions divided by the customer count over all regions. We can plot the value of the average customer over time:
 
 $V_t = \frac{\sum\limits_g r^g_t}{\sum\limits_g c^g_t}$
-
-$V^g_t = \frac{r^g_t}{c^g_t}$
-
-$\Delta V_t = \alpha_t + \beta_t = \sum\limits_g (\alpha^g + \beta^g)$
-
-$c_t = \sum\limits_g c_t^g$
-
-$r_t = \sum\limits_g r_t^g$
-
-$\alpha^g = V_{t-1}^g (\frac{c_t^g}{c_t} - \frac{c_{t-1}^g}{c_{t-1}})$
-
-Apply new mix without changing the value per segment
-
-$\beta^g = (V_t^g - V_{t-1}^g) (\frac{c_t^g}{c_t})$
-
-Apply new segment values without changing mix
-
-$\Delta V_t = \sum\limits_g \Delta V_t^g$
-
-$\Delta V_t^g = \alpha^g_t + \beta^g_t = V_t^g \frac{c_t^g}{c_t} - V_{t-1}^g \frac{c_{t-1}^g}{c_{t-1}}$
 
 ```python
 value_per_customer_series = monthly_df.groupby('date').sum()['revenue'] / monthly_df.groupby('date').sum()['n_customers']
@@ -147,6 +125,48 @@ plt.plot(value_per_customer_series.index[1:], np.diff(value_per_customer_series)
 plt.axhline(0, linestyle='dotted')
 plt.show()
 ```
+
+As well as the value of a customer in each region:
+
+$V^g_t = \frac{r^g_t}{c^g_t}$
+
+```python
+?
+```
+
+2 ways to increase value
+
+Define decomposition
+
+Which countries contributed
+
+Did my value change due to value within-country changes, or because my mix of customers across countries changed
+
+The value growth decomposition
+
+$\Delta V_t = \alpha_t + \beta_t = \sum\limits_g (\alpha^g + \beta^g)$
+
+$c_t = \sum\limits_g c_t^g$
+
+$r_t = \sum\limits_g r_t^g$
+
+The mix component
+
+$\alpha^g = V_{t-1}^g (\frac{c_t^g}{c_t} - \frac{c_{t-1}^g}{c_{t-1}})$
+
+Apply new mix without changing the value per segment
+
+The matched difference component
+
+$\beta^g = (V_t^g - V_{t-1}^g) (\frac{c_t^g}{c_t})$
+
+Apply new segment values without changing mix
+
+We can collapse the mix and diff to show contribution by country
+
+$\Delta V_t = \sum\limits_g \Delta V_t^g$
+
+$\Delta V_t^g = \alpha^g_t + \beta^g_t = V_t^g \frac{c_t^g}{c_t} - V_{t-1}^g \frac{c_{t-1}^g}{c_{t-1}}$
 
 ```python
 def decompose_value_per_customer(df):
