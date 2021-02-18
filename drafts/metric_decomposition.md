@@ -164,13 +164,13 @@ In this decomposition there are two main components, $\alpha_t$ and $\beta_t$.
 
 The mix component is:
 
-$\alpha^g = V_{t-1}^g (\frac{c_t^g}{C_t} - \frac{c_{t-1}^g}{C_{t-1}})$
+$\alpha_t^g = V_{t-1}^g (\frac{c_t^g}{C_t} - \frac{c_{t-1}^g}{C_{t-1}})$
 
 Apply new mix without changing the value per segment
 
 The matched difference component is:
 
-$\beta^g = (V_t^g - V_{t-1}^g) (\frac{c_t^g}{C_t})$
+$\beta_t^g = (V_t^g - V_{t-1}^g) (\frac{c_t^g}{C_t})$
 
 Apply new segment values without changing mix
 
