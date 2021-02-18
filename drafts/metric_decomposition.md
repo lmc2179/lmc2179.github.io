@@ -150,7 +150,7 @@ There are two ways to increase the value of our customers:
 - We can change the mix of our customers so that more of them come from more valuable countries 
 - We can increase the value of the customers in a specific country
 
-How much of this month's change in value was because the mix of customers changed? How much was due to within-country factors? A clever decompositin from [this note by Daniel Corro](https://www.casact.org/pubs/forum/00wforum/00wf305.pdf) allows us to get a perspective on this.
+How much of this month's change in value was because the mix of customers changed? How much was due to within-country factors? A clever decomposition from [this note by Daniel Corro](https://www.casact.org/pubs/forum/00wforum/00wf305.pdf) allows us to get a perspective on this.
 
 The value growth decomposition given by Corro is:
 
@@ -160,17 +160,17 @@ Where we have defined the total number of customers at time $t$ across all count
 
 $C_t = \sum\limits_g c_t^g$
 
-In this decomposition there are two main components, $\alpha_t$ and $\beta_t$.
+In this decomposition there are two main components, $\alpha_t$ and $\beta_t$. $\alpha_t$ is the mix component, which tells us how much of the change was due to the mix of customers changing across countries. $\beta_t$ is the matched difference component, which tells us how much of the change was due to within-country factors.
 
 The mix component is:
 
-$\alpha_t^g = V_{t-1}^g (\frac{c_t^g}{C_t} - \frac{c_{t-1}^g}{C_{t-1}})$
+$\alpha_t = \sum\limits_g \alpha_t^g = \sum\limits_g V_{t-1}^g (\frac{c_t^g}{C_t} - \frac{c_{t-1}^g}{C_{t-1}})$
 
-Apply new mix without changing the value per segment
+The idea here is that $\alpha_t$ is the change that we get when we apply the new mix without changing the value per country.
 
 The matched difference component is:
 
-$\beta_t^g = (V_t^g - V_{t-1}^g) (\frac{c_t^g}{C_t})$
+$\beta_t = \sum\limits_g \beta_t^g = \sum\limits_g (V_t^g - V_{t-1}^g) (\frac{c_t^g}{C_t})$
 
 Apply new segment values without changing mix
 
