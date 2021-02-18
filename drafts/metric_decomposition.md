@@ -158,19 +158,19 @@ $\Delta V_t = \alpha_t + \beta_t = \sum\limits_g (\alpha^g + \beta^g)$
 
 Where we have defined the total number of customers at time $t$ across all countries:
 
-$c_t = \sum\limits_g c_t^g$
+$C_t = \sum\limits_g c_t^g$
 
 In this decomposition there are two main components, $\alpha_t$ and $\beta_t$.
 
 The mix component is:
 
-$\alpha^g = V_{t-1}^g (\frac{c_t^g}{c_t} - \frac{c_{t-1}^g}{c_{t-1}})$
+$\alpha^g = V_{t-1}^g (\frac{c_t^g}{C_t} - \frac{c_{t-1}^g}{C_{t-1}})$
 
 Apply new mix without changing the value per segment
 
 The matched difference component is:
 
-$\beta^g = (V_t^g - V_{t-1}^g) (\frac{c_t^g}{c_t})$
+$\beta^g = (V_t^g - V_{t-1}^g) (\frac{c_t^g}{C_t})$
 
 Apply new segment values without changing mix
 
@@ -178,7 +178,7 @@ We can collapse the mix and diff to show contribution by country
 
 $\Delta V_t = \sum\limits_g \Delta V_t^g$
 
-$\Delta V_t^g = \alpha^g_t + \beta^g_t = V_t^g \frac{c_t^g}{c_t} - V_{t-1}^g \frac{c_{t-1}^g}{c_{t-1}}$
+$\Delta V_t^g = \alpha^g_t + \beta^g_t = V_t^g \frac{c_t^g}{C_t} - V_{t-1}^g \frac{c_{t-1}^g}{C_{t-1}}$
 
 ```python
 def decompose_value_per_customer(df):
