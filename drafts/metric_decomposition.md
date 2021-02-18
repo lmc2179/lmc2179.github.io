@@ -154,7 +154,7 @@ How much of this month's change in value was because the mix of customers change
 
 The value growth decomposition given by Corro is:
 
-$\Delta V_t = \alpha_t + \beta_t = \sum\limits_g (\alpha^g + \beta^g)$
+$\Delta V_t = \alpha_t + \beta_t = \sum\limits_g (\alpha_t^g + \beta_t^g)$
 
 Where we have defined the total number of customers at time $t$ across all countries:
 
