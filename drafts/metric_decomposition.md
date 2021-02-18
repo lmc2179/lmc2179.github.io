@@ -134,29 +134,41 @@ $V^g_t = \frac{r^g_t}{c^g_t}$
 ?
 ```
 
-2 ways to increase value
+As with revenue, we often want to look at the change in customer value from one month to the next:
 
-Define decomposition
+$\Delta V_t = V_t - V_{t-1}$
 
-Which countries contributed
+```python
+?
+```
 
-Did my value change due to value within-country changes, or because my mix of customers across countries changed
+We want to look a little deeper into how country-level changes roll up into the overall change in value that we see.
 
-The value growth decomposition
+## Why did our customer value change?
+
+There are two ways to increase the value of our customers:
+- We can change the mix of our customers so that more of them come from more valuable countries 
+- We can increase the value of the customers in a specific country
+
+How much of this month's change in value was because the mix of customers changed? How much was due to within-country factors? A clever decompositin from [this note by Daniel Corro](https://www.casact.org/pubs/forum/00wforum/00wf305.pdf) allows us to get a perspective on this.
+
+The value growth decomposition given by Corro is:
 
 $\Delta V_t = \alpha_t + \beta_t = \sum\limits_g (\alpha^g + \beta^g)$
 
+Where we have defined the total number of customers at time $t$ across all countries:
+
 $c_t = \sum\limits_g c_t^g$
 
-$r_t = \sum\limits_g r_t^g$
+In this decomposition there are two main components, $\alpha_t$ and $\beta_t$.
 
-The mix component
+The mix component is:
 
 $\alpha^g = V_{t-1}^g (\frac{c_t^g}{c_t} - \frac{c_{t-1}^g}{c_{t-1}})$
 
 Apply new mix without changing the value per segment
 
-The matched difference component
+The matched difference component is:
 
 $\beta^g = (V_t^g - V_{t-1}^g) (\frac{c_t^g}{c_t})$
 
