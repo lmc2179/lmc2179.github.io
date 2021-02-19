@@ -216,7 +216,7 @@ def decompose_value_per_customer(df):
 
 Then we can use it to plot the contributions of the mix component vs the matched difference component:
 
-```
+```python
 customer_value_breakdown_df = decompose_value_per_customer(monthly_df)
 
 plt.plot(customer_value_breakdown_df.dates.iloc[1:], 
@@ -229,7 +229,7 @@ plt.show() # Mostly within-country value changes, rather than mix
 
 Since this fluctuates a lot, it can be helpful to plot the scaled versions of each, $\frac{\alpha_t}{\alpha_t + \beta_t}$ and $\frac{\beta_t}{\alpha_t + \beta_t}$
 
-```
+```python
 plt.plot(customer_value_breakdown_df.dates.iloc[1:], 
          customer_value_breakdown_df['a'].iloc[1:] / np.diff(customer_value_breakdown_df['value']), marker='o')
 plt.plot(customer_value_breakdown_df.dates.iloc[1:], 
@@ -240,7 +240,7 @@ plt.show()
 
 Lastly, we can plot the country level contribution, scaled in a similar way:
 
-```
+```python
 for c in ALL_COUNTRIES:
   plt.plot(customer_value_breakdown_df['dates'].iloc[1:], 
            (customer_value_breakdown_df[c+'_a'].iloc[1:] + customer_value_breakdown_df[c+'_b'].iloc[1:]) / np.diff(customer_value_breakdown_df['value']), 
