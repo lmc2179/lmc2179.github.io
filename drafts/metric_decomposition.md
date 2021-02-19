@@ -172,13 +172,17 @@ The matched difference component is:
 
 $\beta_t = \sum\limits_g \beta_t^g = \sum\limits_g (V_t^g - V_{t-1}^g) (\frac{c_t^g}{C_t})$
 
-Apply new segment values without changing mix
+$\beta_t$ is the change we would get if we updated the country-level values to what we see at time $t$, but keep the mix the same.
 
-We can collapse the mix and diff to show contribution by country
+If we're less interested in the mix vs difference distinction, and more interested in a country-level perspective, we can collapse the two to show contribution by country:
 
 $\Delta V_t = \sum\limits_g \Delta V_t^g$
 
+Where we're defined the country-level contribution:
+
 $\Delta V_t^g = \alpha^g_t + \beta^g_t = V_t^g \frac{c_t^g}{C_t} - V_{t-1}^g \frac{c_{t-1}^g}{C_{t-1}}$
+
+Okay, let's see that in code. We can write a python function to perform the decomposition for us, and give us back a dataframe that indicates each contributor to the change over time:
 
 ```python
 def decompose_value_per_customer(df):
@@ -210,6 +214,8 @@ def decompose_value_per_customer(df):
   return result_df
 ```
 
+Then we can use it to plot the contributions of the mix component vs the matched difference component:
+
 ```
 customer_value_breakdown_df = decompose_value_per_customer(monthly_df)
 
@@ -219,14 +225,22 @@ plt.plot(customer_value_breakdown_df.dates.iloc[1:],
          customer_value_breakdown_df['b'].iloc[1:], marker='o')
 plt.axhline(0, linestyle='dotted')
 plt.show() # Mostly within-country value changes, rather than mix
+```
 
+Since this fluctuates a lot, it can be helpful to plot the scaled versions of each, $\frac{\alpha_t}{\alpha_t + \beta_t}$ and $\frac{\beta_t}{\alpha_t + \beta_t}$
+
+```
 plt.plot(customer_value_breakdown_df.dates.iloc[1:], 
          customer_value_breakdown_df['a'].iloc[1:] / np.diff(customer_value_breakdown_df['value']), marker='o')
 plt.plot(customer_value_breakdown_df.dates.iloc[1:], 
          customer_value_breakdown_df['b'].iloc[1:] / np.diff(customer_value_breakdown_df['value']), marker='o')
 plt.axhline(0, linestyle='dotted')
 plt.show()
+```
 
+Lastly, we can plot the country level contribution, scaled in a similar way:
+
+```
 for c in ALL_COUNTRIES:
   plt.plot(customer_value_breakdown_df['dates'].iloc[1:], 
            (customer_value_breakdown_df[c+'_a'].iloc[1:] + customer_value_breakdown_df[c+'_b'].iloc[1:]) / np.diff(customer_value_breakdown_df['value']), 
