@@ -26,3 +26,7 @@ Consider also the case of just two series, one intervened on and one not: https:
 ie diff-in-diff with multiple periods
 
 Worth mentioning interrupted time series too?
+
+https://economics.mit.edu/files/11859 <-- One of the key papers and a nice explanation of why they use the convex combination
+
+https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3192710
