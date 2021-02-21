@@ -17,6 +17,7 @@ https://pubmed.ncbi.nlm.nih.gov/26921693/
 http://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf - 7.1.5
 
 https://exp-platform.com/Documents/2013-02-CUPED-ImprovingSensitivityOfControlledExperiments.pdf
+https://booking.ai/how-booking-com-increases-the-power-of-online-experiments-with-cuped-995d186fff1d
 
 # Including pretreatment measurements gives us more efficient estimates of treatment effects in A/B tests
 
