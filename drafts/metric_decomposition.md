@@ -52,9 +52,10 @@ plt.ylabel('Month-over-month revenue change, millions')
 plt.axhline(0, linestyle='dotted')
 plt.show()
 ```
-
+<p align="center">
 ![Change in revenue over time](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_2.png)
 _A plot of $\Delta R_t.$_
+</p>
 
 So far, we've tracked revenue and revenue growth. But we haven't made any statements about which customers groups saw the most growth. We can get a better understanding of which customer groups changed their behavior, increasing or decreasing their spending, by decomposing $\Delta R_t$ by customer group:
 
