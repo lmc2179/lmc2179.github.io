@@ -35,6 +35,9 @@ plt.ylabel('Total Revenue, millions')
 plt.show()
 ```
 
+![Revenue over time](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_1.png)
+_A plot of $ R_t.$_
+
 Presumably, if some revenue is good, more must be better; we want to know the **revenue growth** each month. The revenue growth is just this month minus last month:
 
 $$\Delta R_t = R_t - R_{t-1}$$
@@ -49,6 +52,9 @@ plt.ylabel('Month-over-month revenue change, millions')
 plt.axhline(0, linestyle='dotted')
 plt.show()
 ```
+
+![Change in revenue over time](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_2.png)
+_A plot of $\Delta R_t.$_
 
 So far, we've tracked revenue and revenue growth. But we haven't made any statements about which customers groups saw the most growth. We can get a better understanding of which customer groups changed their behavior, increasing or decreasing their spending, by decomposing $\Delta R_t$ by customer group:
 
@@ -88,20 +94,20 @@ ALL_COUNTRIES = ['United Kingdom', 'Germany', 'France', 'Australia', 'All others
 
 total_revenue_factors_df = decompose_total_rev(monthly_df)
 
+plt.title('Monthly revenue change, by country')
+plt.xlabel('Month')
+plt.ylabel('Month-over-month revenue change, millions')
+
 for c in ALL_COUNTRIES:
   plt.plot(total_revenue_factors_df['date'], total_revenue_factors_df[c], label=c)
 plt.legend()
 plt.show()
-
-for c in ALL_COUNTRIES:
-  plt.plot(total_revenue_factors_df['date'].iloc[1:], 
-           total_revenue_factors_df[c].iloc[1:] / np.diff(total_revenue_factors_df['total']), 
-           label=c)
-plt.legend()
-plt.show()
-
-# largest driver country list
 ```
+
+![Revenue over time by country](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_3.png)
+_A plot of $\Delta R_t^g.$_
+
+We might also plot a scaled version, $\Delta R_t^g / \Delta R_t$.
 
 # Why did my value per customer change
 
@@ -117,14 +123,28 @@ $V_t = \frac{\sum\limits_g r^g_t}{\sum\limits_g c^g_t}$
 
 ```python
 value_per_customer_series = monthly_df.groupby('date').sum()['revenue'] / monthly_df.groupby('date').sum()['n_customers']
+plt.title('Average Value per customer')
+plt.ylabel('Value, $')
+plt.xlabel('Month')
 plt.plot(value_per_customer_series.index, value_per_customer_series)
 plt.show()
+```
 
+![Revenue over time by country](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_4.png)
+_A plot of $V_t$._
+
+```python
 value_per_customer_series = monthly_df.groupby('date').sum()['revenue'] / monthly_df.groupby('date').sum()['n_customers']
+plt.title('Monthly Change in Average Value per customer')
+plt.ylabel('Value, $')
+plt.xlabel('Month')
 plt.plot(value_per_customer_series.index[1:], np.diff(value_per_customer_series), marker='o')
 plt.axhline(0, linestyle='dotted')
 plt.show()
 ```
+
+![Revenue over time by country](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_5.png)
+_A plot of $\Delta V_t$._
 
 As well as the value of a customer in each region:
 
