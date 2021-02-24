@@ -133,6 +133,10 @@ plt.show()
 ![Revenue over time by country](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_4.png)
 _A plot of $V_t$._
 
+As with revenue, we often want to look at the change in customer value from one month to the next:
+
+$\Delta V_t = V_t - V_{t-1}$
+
 ```python
 value_per_customer_series = monthly_df.groupby('date').sum()['revenue'] / monthly_df.groupby('date').sum()['n_customers']
 plt.title('Monthly Change in Average Value per customer')
@@ -146,21 +150,9 @@ plt.show()
 ![Revenue over time by country](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_5.png)
 _A plot of $\Delta V_t$._
 
-As well as the value of a customer in each region:
+By grouping and calculating $V_t$, we could get the value of a customer in each region:
 
 $V^g_t = \frac{r^g_t}{c^g_t}$
-
-```python
-?
-```
-
-As with revenue, we often want to look at the change in customer value from one month to the next:
-
-$\Delta V_t = V_t - V_{t-1}$
-
-```python
-?
-```
 
 We want to look a little deeper into how country-level changes roll up into the overall change in value that we see.
 
@@ -234,36 +226,60 @@ def decompose_value_per_customer(df):
   return result_df
 ```
 
-Then we can use it to plot the contributions of the mix component vs the matched difference component:
+Then we can use it to plot the contributions of the mix component vs the matched difference component to the monthly change:
 
 ```python
 customer_value_breakdown_df = decompose_value_per_customer(monthly_df)
 
+plt.title('Breaking down monthly changes')
+plt.xlabel('Month')
+plt.ylabel('Change in customer value, $')
+
 plt.plot(customer_value_breakdown_df.dates.iloc[1:], 
-         customer_value_breakdown_df['a'].iloc[1:], marker='o')
+         customer_value_breakdown_df['a'].iloc[1:], marker='o', label='Mix')
 plt.plot(customer_value_breakdown_df.dates.iloc[1:], 
-         customer_value_breakdown_df['b'].iloc[1:], marker='o')
+         customer_value_breakdown_df['b'].iloc[1:], marker='o', label='Matched difference')
+plt.legend()
 plt.axhline(0, linestyle='dotted')
-plt.show() # Mostly within-country value changes, rather than mix
+plt.show() 
 ```
+
+
+![Revenue over time by country](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_6.png)
+A plot of $\alpha_t$ and $\beta_t$.
+
+Mostly within-country value changes, rather than mix
 
 Since this fluctuates a lot, it can be helpful to plot the scaled versions of each, $\frac{\alpha_t}{\alpha_t + \beta_t}$ and $\frac{\beta_t}{\alpha_t + \beta_t}$
 
 ```python
+plt.title('Breaking down monthly changes, scaled')
+plt.xlabel('Month')
+plt.ylabel('Scaled Change in customer value, $')
+
 plt.plot(customer_value_breakdown_df.dates.iloc[1:], 
-         customer_value_breakdown_df['a'].iloc[1:] / np.diff(customer_value_breakdown_df['value']), marker='o')
+         customer_value_breakdown_df['a'].iloc[1:] / np.diff(customer_value_breakdown_df['value']), marker='o', label='Mix')
 plt.plot(customer_value_breakdown_df.dates.iloc[1:], 
-         customer_value_breakdown_df['b'].iloc[1:] / np.diff(customer_value_breakdown_df['value']), marker='o')
+         customer_value_breakdown_df['b'].iloc[1:] / np.diff(customer_value_breakdown_df['value']), marker='o', label='Matched difference')
 plt.axhline(0, linestyle='dotted')
+plt.legend()
 plt.show()
 ```
+
+![Revenue over time by country](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_7.png)
+A plot of $\frac{\alpha_t}{\alpha_t + \beta_t}$ and $\frac{\beta_t}{\alpha_t + \beta_t}$.
+
 
 Lastly, we can plot the country level contribution, scaled in a similar way:
 
 ```python
+plt.title('Breaking down monthly changes by country, scaled')
+plt.xlabel('Month')
+plt.ylabel('Scaled Change in customer value, $')
+
 for c in ALL_COUNTRIES:
   plt.plot(customer_value_breakdown_df['dates'].iloc[1:], 
-           (customer_value_breakdown_df[c+'_a'].iloc[1:] + customer_value_breakdown_df[c+'_b'].iloc[1:]) / np.diff(customer_value_breakdown_df['value']), 
+           (customer_value_breakdown_df[c+'_a'].iloc[1:] + customer_value_breakdown_df[c+'_b'].iloc[1:]), 
            label=c)
 plt.legend()
 plt.show()
@@ -271,6 +287,9 @@ plt.show()
 # Australia contributed disproportionately positively in August, because Australians became more valuable customers in August
 # Correlations between country contributions?
 ```
+
+![Revenue over time by country](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_8.png)
+A plot of $\Delta V_t^g$.
 
 # This decomposition does not tell us about causal relationships
 
