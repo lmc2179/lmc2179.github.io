@@ -303,6 +303,8 @@ Jackknife/Bootstrap for standard errors on alpha and beta
 
 https://www.casact.org/pubs/forum/00wforum/00wf305.pdf
 
+Corro suggests (p 6) paired weighted T-tests for alpha and beta = 0, which you could implement with https://www.statsmodels.org/stable/generated/statsmodels.stats.weightstats.ttost_paired.html#statsmodels.stats.weightstats.ttost_paired
+
 # Appendix: Notation reference
 
 | Symbol  | Definition |
