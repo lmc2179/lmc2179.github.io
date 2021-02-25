@@ -36,7 +36,7 @@ plt.show()
 ```
 
 ![Revenue over time](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_1.png)
-_A plot of $ R_t.$_
+<p align="center"><i>A plot of $ R_t.$</p></i>
 
 Presumably, if some revenue is good, more must be better; we want to know the **revenue growth** each month. The revenue growth is just this month minus last month:
 
@@ -105,7 +105,7 @@ plt.show()
 ```
 
 ![Revenue over time by country](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_3.png)
-_A plot of $\Delta R_t^g.$_
+<p align="center"><i>A plot of $\Delta R_t^g.$</p></i>
 
 We might also plot a scaled version, $\Delta R_t^g / \Delta R_t$.
 
@@ -131,7 +131,7 @@ plt.show()
 ```
 
 ![Revenue over time by country](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_4.png)
-_A plot of $V_t$._
+<p align="center"><i>A plot of $V_t$.</p></i>
 
 As with revenue, we often want to look at the change in customer value from one month to the next:
 
@@ -148,7 +148,7 @@ plt.show()
 ```
 
 ![Revenue over time by country](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_5.png)
-_A plot of $\Delta V_t$._
+<p align="center"><i>A plot of $\Delta V_t$.</p></i>
 
 By grouping and calculating $V_t$, we could get the value of a customer in each region:
 
@@ -246,7 +246,7 @@ plt.show()
 
 
 ![Revenue over time by country](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_6.png)
-A plot of $\alpha_t$ and $\beta_t$.
+<p align="center"><i>A plot of $\alpha_t$ and $\beta_t$.</p></i>
 
 Mostly within-country value changes, rather than mix
 
@@ -267,7 +267,7 @@ plt.show()
 ```
 
 ![Revenue over time by country](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_7.png)
-A plot of $\frac{\alpha_t}{\alpha_t + \beta_t}$ and $\frac{\beta_t}{\alpha_t + \beta_t}$.
+<p align="center"><i>A plot of $\frac{\alpha_t}{\alpha_t + \beta_t}$ and $\frac{\beta_t}{\alpha_t + \beta_t}$.</p></i>
 
 
 Lastly, we can plot the country level contribution, scaled in a similar way:
@@ -289,7 +289,7 @@ plt.show()
 ```
 
 ![Revenue over time by country](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_8.png)
-A plot of $\Delta V_t^g$.
+<p align="center"><i>A plot of $\Delta V_t^g$.</p></i>
 
 # This decomposition does not tell us about causal relationships
 
