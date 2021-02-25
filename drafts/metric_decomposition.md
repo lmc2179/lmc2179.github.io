@@ -37,7 +37,7 @@ plt.show()
 
 ![Revenue over time](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_1.png)
 
-<p align="center"><i> A plot of $ R_t.$ </i></p>
+<p align="center"><i> A plot of the revenue over time, $ R_t.$ </i></p>
 
 Presumably, if some revenue is good, more must be better; we want to know the **revenue growth** each month. The revenue growth is just this month minus last month:
 
@@ -56,7 +56,7 @@ plt.show()
 
 ![Change in revenue over time](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_2.png)
 
-<p align="center"><i>A plot of $\Delta R_t.$ </i></p>
+<p align="center"><i>A plot of the month-over-month change in revenue, $\Delta R_t.$ </i></p>
 
 So far, we've tracked revenue and revenue growth. But we haven't made any statements about which customers groups saw the most growth. We can get a better understanding of which customer groups changed their behavior, increasing or decreasing their spending, by decomposing $\Delta R_t$ by customer group:
 
@@ -108,7 +108,7 @@ plt.show()
 
 ![Revenue over time by country](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_3.png)
 
-<p align="center"><i> A plot of $\Delta R_t^g.$ </i></p>
+<p align="center"><i> A plot of the change in revenue by country, $\Delta R_t^g.$ </i></p>
 
 We might also plot a scaled version, $\Delta R_t^g / \Delta R_t$.
 
@@ -135,7 +135,7 @@ plt.show()
 
 ![Revenue over time by country](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_4.png)
 
-<p align="center"><i> A plot of $V_t$.</i></p>
+<p align="center"><i> A plot of the customer value over time, $V_t$.</i></p>
 
 As with revenue, we often want to look at the change in customer value from one month to the next:
 
@@ -153,7 +153,7 @@ plt.show()
 
 ![Revenue over time by country](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_5.png)
 
-<p align="center"><i>A plot of $\Delta V_t$.</i></p>
+<p align="center"><i>A plot of the month-over-month change in customer value, $\Delta V_t$.</i></p>
 
 By grouping and calculating $V_t$, we could get the value of a customer in each region:
 
@@ -252,7 +252,7 @@ plt.show()
 
 ![Revenue over time by country](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_6.png)
 
-<p align="center"><i>A plot of $\alpha_t$ and $\beta_t$. </i></p>
+<p align="center"><i>A plot of the mix and matched-difference components of Corro's decomposition, $\alpha_t$ and $\beta_t$. </i></p>
 
 Mostly within-country value changes, rather than mix
 
@@ -274,7 +274,7 @@ plt.show()
 
 ![Revenue over time by country](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_7.png)
 
-<p align="center"><i>A plot of $\frac{\alpha_t}{\alpha_t + \beta_t}$ and $\frac{\beta_t}{\alpha_t + \beta_t}$. </i></p>
+<p align="center"><i>A plot of the scaled mix and matched difference components of change, $\frac{\alpha_t}{\alpha_t + \beta_t}$ and $\frac{\beta_t}{\alpha_t + \beta_t}$. </i></p>
 
 
 Lastly, we can plot the country level contribution, scaled in a similar way:
@@ -297,7 +297,7 @@ plt.show()
 
 ![Revenue over time by country](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_8.png)
 
-<p align="center"><i>A plot of $\Delta V_t^g$. </i></p>
+<p align="center"><i>A plot of each country's contribution to the change in customer value each month, $\Delta V_t^g$. </i></p>
 
 # This decomposition does not tell us about causal relationships
 
