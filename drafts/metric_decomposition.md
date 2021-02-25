@@ -36,7 +36,8 @@ plt.show()
 ```
 
 ![Revenue over time](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_1.png)
-<p align="center"><i>A plot of $ R_t.$</p></i>
+
+<p align="center"><i> A plot of $ R_t.$ </i></p>
 
 Presumably, if some revenue is good, more must be better; we want to know the **revenue growth** each month. The revenue growth is just this month minus last month:
 
@@ -131,7 +132,7 @@ plt.show()
 ```
 
 ![Revenue over time by country](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/metric_decomposition/Figure_4.png)
-<p align="center"><i>A plot of $V_t$.</p></i>
+<p align="center"><i>A plot of $V_t$.</p>
 
 As with revenue, we often want to look at the change in customer value from one month to the next:
 
