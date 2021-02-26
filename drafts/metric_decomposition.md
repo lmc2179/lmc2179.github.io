@@ -299,19 +299,11 @@ plt.show()
 
 <p align="center"><i>A plot of each country's contribution to the change in customer value each month, $\Delta V_t^g$. </i></p>
 
-# This decomposition does not tell us about causal relationships
-
-Seriously it doesn't
-
 # Quantifying uncertainty
 
-Corro's T-test
+At this point, we've got some exact decompositions which we can use to understand which subgroups contributed the most to the change in our favorite metric. However, we might ask whether the change we saw was statistically significant - or perhaps more usefully, we might try to quantify the uncertainty around the $\alpha_t$ or $\beta_t$ that we estimated.
 
-Jackknife/Bootstrap for standard errors on alpha and beta
-
-https://www.casact.org/pubs/forum/00wforum/00wf305.pdf
-
-Corro suggests (p 6) paired weighted T-tests for alpha and beta = 0, which you could implement with https://www.statsmodels.org/stable/generated/statsmodels.stats.weightstats.ttost_paired.html#statsmodels.stats.weightstats.ttost_paired
+Corro suggests (p 6) paired weighted T-tests for based on the observed value of each group. These test the hypotheses $\alpha_t = 0$ and  $\beta_t = 0$. These probably wouldn't be hard to implement using [weightstats.ttost_paired in statsmodels](https://www.statsmodels.org/stable/generated/statsmodels.stats.weightstats.ttost_paired.html#statsmodels.stats.weightstats.ttost_paired). Alternatively, a resampling method like the Jackknife or Bootstrap might make sense here.
 
 # Appendix: Notation reference
 
