@@ -309,8 +309,20 @@ Corro suggests (p 6) paired weighted T-tests for based on the observed value of 
 
 | Symbol  | Definition |
 | ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
+| $g$  | Subgroup index |
+| $t$  | Discrete time step index |
+| $r_t^g$  | Revenue at time $t$ for group $g$ |
+| $R_t$  | Total revenue at time $t$ summed over all groups |
+| $\Delta R_t$  | Month-to-month change in revenue, $R_t - R_{t-1}$ |
+| $c_t^g$  | Number of customers at time $t$ in group $g$ |
+| $C_t$  | Number of customers at time $t$ summed over all groups |
+| $V_t$  | Customer value; revenue per customer at time $t$ |
+| $\Delta V_t$  | Month-to-month change in value at time $t$, $V_t - V_{t-1}$ |
+| $\alpha_t^g$  | Mix component of $\Delta V_t$ for group $g$ |
+| $\beta_t^g$  | Matched difference component of $\Delta V_t$ for group $g$ |
+| $\alpha_t$  | Mix component of $\Delta V_t$ summed over all groups |
+| $\beta_t$  | Matched difference component of $\Delta V_t$ summed over all groups |
+| $\Delta V_t^g$  | Contribution of group $g$ to $\Delta V_t$ |
 
 # Appendix: Import statements and data cleaning
 
