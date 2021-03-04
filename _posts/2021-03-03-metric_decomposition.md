@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "What customer group drove the change in my favorite metric? Simple but useful decompositions of change over time"
+title: "What customer group drove the change in my favorite metric? Exact decompositions of change over time"
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
