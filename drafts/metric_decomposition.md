@@ -21,7 +21,7 @@ As a retailer, one reasonable way to measure your business' success is by lookin
 
 $$R_t = r_t^{UK} + r_t^{Germany} + r_t^{Australia} + r_t^{France} + r_t^{Other} = \sum\limits_g r_t^g$$
 
-We'll use this kind of notation throughout - the superscript (like $g$) indicates the group of customers, the subscript (like $t$) indicates the time period. Our groups will be countries, and our time periods will be months of the year ????.
+We'll use this kind of notation throughout - the superscript (like $g$) indicates the group of customers, the subscript (like $t$) indicates the time period. Our groups will be countries, and our time periods will be months of the year 2011.
 
 We can plot $R_t$ to see how our revenue evolved over time.
 
@@ -110,7 +110,9 @@ plt.show()
 
 <p align="center"><i> A plot of the change in revenue by country, $\Delta R_t^g.$ </i></p>
 
-We might also plot a scaled version, $\Delta R_t^g / \Delta R_t$.
+As we might expect for a UK-based retailer, the UK is almost always the main driver of the revenue change. The revenue metric is is mostly measure what happens in the UK, since customers there supply an outsize amount (5x or 10x, depending on the month) of their revenue.
+
+We might also plot a scaled version, $\Delta R_t^g / \Delta R_t$, normalizing by the total size of each month's change.
 
 # Why did my value per customer change
 
@@ -120,9 +122,11 @@ $$\text{Revenue} = \underbrace{\frac{\text{Revenue}}{\text{Customer}}}_\textrm{V
 
 We do this because the things that affect the first term might be different from those that affect the second. For example, further down-funnel changes to our product might affect the value of a customer, but not produce any new customers. As a result, the value per customer is a useful KPI on its own.
 
-We'll define the value of a customer as the total revenue over all regions divided by the customer count over all regions. We can plot the value of the average customer over time:
+We'll define the value of a customer in month $t$ as the total revenue over all regions divided by the customer count over all regions. 
 
 $V_t = \frac{\sum\limits_g r^g_t}{\sum\limits_g c^g_t}$
+
+We can plot the value of the average customer over time:
 
 ```python
 value_per_customer_series = monthly_df.groupby('date').sum()['revenue'] / monthly_df.groupby('date').sum()['n_customers']
@@ -164,10 +168,10 @@ We want to look a little deeper into how country-level changes roll up into the 
 ## Why did our customer value change?
 
 There are two ways to increase the value of our customers:
-- We can change the mix of our customers so that more of them come from more valuable countries 
-- We can increase the value of the customers in a specific country
+- We can change the mix of our customers so that more of them come from more valuable countries. For example, we might market to customers in a particularly lucrative country.
+- We can increase the value of the customers in a specific country. For example, we might try to understand what new features will appeal to customers in a particular country.
 
-How much of this month's change in value was because the mix of customers changed? How much was due to within-country factors? A clever decomposition from [this note by Daniel Corro](https://www.casact.org/pubs/forum/00wforum/00wf305.pdf) allows us to get a perspective on this.
+Both of these are potential sources of change in any given month. How much of this month's change in value was because the mix of customers changed? How much was due to within-country factors? A clever decomposition from [this note by Daniel Corro](https://www.casact.org/pubs/forum/00wforum/00wf305.pdf) allows us to get a perspective on this.
 
 The value growth decomposition given by Corro is:
 
@@ -191,7 +195,7 @@ $\beta_t = \sum\limits_g \beta_t^g = \sum\limits_g (V_t^g - V_{t-1}^g) (\frac{c_
 
 $\beta_t$ is the change we would get if we updated the country-level values to what we see at time $t$, but keep the mix the same.
 
-If we're less interested in the mix vs difference distinction, and more interested in a country-level perspective, we can collapse the two to show contribution by country:
+If we're less interested in the mix vs matched difference distinction, and more interested in a country-level perspective, we can collapse the two to show contribution by country:
 
 $\Delta V_t = \sum\limits_g \Delta V_t^g$
 
@@ -254,7 +258,7 @@ plt.show()
 
 <p align="center"><i>A plot of the mix and matched-difference components of Corro's decomposition, $\alpha_t$ and $\beta_t$. </i></p>
 
-Mostly within-country value changes, rather than mix
+We see that the main driver of changing customer value is within-country factors, rather than changes in the customer mix.
 
 Since this fluctuates a lot, it can be helpful to plot the scaled versions of each, $\frac{\alpha_t}{\alpha_t + \beta_t}$ and $\frac{\beta_t}{\alpha_t + \beta_t}$
 
@@ -276,6 +280,8 @@ plt.show()
 
 <p align="center"><i>A plot of the scaled mix and matched difference components of change, $\frac{\alpha_t}{\alpha_t + \beta_t}$ and $\frac{\beta_t}{\alpha_t + \beta_t}$. </i></p>
 
+
+We see that August is the only month in which the mix was the more important component. In that month, it looks like the value of each country didn't change, but our mix across countries did.
 
 Lastly, we can plot the country level contribution, scaled in a similar way:
 
@@ -299,11 +305,13 @@ plt.show()
 
 <p align="center"><i>A plot of each country's contribution to the change in customer value each month, $\Delta V_t^g$. </i></p>
 
+As with change in revenue, the UK is the biggest contributor to the change in customer value.
+
 # Quantifying uncertainty
 
 At this point, we've got some exact decompositions which we can use to understand which subgroups contributed the most to the change in our favorite metric. However, we might ask whether the change we saw was statistically significant - or perhaps more usefully, we might try to quantify the uncertainty around the $\alpha_t$ or $\beta_t$ that we estimated.
 
-Corro suggests (p 6) paired weighted T-tests for based on the observed value of each group. These test the hypotheses $\alpha_t = 0$ and  $\beta_t = 0$. These probably wouldn't be hard to implement using [weightstats.ttost_paired in statsmodels](https://www.statsmodels.org/stable/generated/statsmodels.stats.weightstats.ttost_paired.html#statsmodels.stats.weightstats.ttost_paired). Alternatively, a resampling method like the Jackknife or Bootstrap might make sense here.
+Corro suggests (p 6) paired weighted T-tests for based on the observed value of each group. These test the hypotheses $\alpha_t = 0$ and  $\beta_t = 0$. These probably wouldn't be hard to implement using [weightstats.ttost_paired in statsmodels](https://www.statsmodels.org/stable/generated/statsmodels.stats.weightstats.ttost_paired.html#statsmodels.stats.weightstats.ttost_paired). 
 
 # Appendix: Notation reference
 
