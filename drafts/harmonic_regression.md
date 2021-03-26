@@ -6,7 +6,7 @@ Airline data
 curl https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv --output airline.csv
 ```
 
-```
+```python
 import pandas as pd
 import numpy as np
 from scipy.signal import periodogram
@@ -25,9 +25,10 @@ plt.axvline(48, linestyle='dotted')
 plt.axvline(48*2, linestyle='dotted')
 plt.show()
 
-detrended_values = smf.ols('np.log(Passengers) ~ t', df).fit().resid
+df['detrended_values'] = smf.ols('np.log(Passengers) ~ t', df).fit().resid
 
-plt.plot(df['t'], detrended_values)
+
+plt.plot(df['t'], df['detrended_values'])
 plt.title('Airline passengers by month, with linear detrending')
 plt.ylabel('Total passengers')
 plt.xlabel('Residual')
@@ -35,15 +36,29 @@ plt.axvline(48, linestyle='dotted')
 plt.axvline(48*2, linestyle='dotted')
 plt.show()
 
-plt.plot(*periodogram(detrended_values))
-plt.show()
-
-periodogram_results = pd.DataFrame(np.array(periodogram(detrended_values)).T, columns=['frequency', 'power'])
+nfft = int(len(df['detrended_values'])*2) # Multiplier on length for nfft is a hyperparameter
+periodogram_results = pd.DataFrame(np.array(periodogram(df['detrended_values'], detrend=False, nfft=nfft)).T, columns=['frequency', 'power'])
 periodogram_results.sort_values('power', ascending=False, inplace=True)
 
 plt.stem(periodogram_results['frequency'], periodogram_results['power'])
 plt.xlabel('Frequency')
 plt.ylabel('Power')
+plt.show()
+
+k = 10 # So is the number of frequencies to include
+top_k_frequencies = periodogram_results['frequency'].iloc[:k]
+
+#term_formula = 'np.sin(t / {0})'
+term_formula = 'np.sin(t / {0}) + np.cos(t / {0})'
+#term_formula = 'np.sin(t / {0}) + np.sin((t-np.pi/2) / {0}) + np.sin((t-np.pi) / {0}) + np.sin((t-3*np.pi/2) / {0})'
+model_spec = 'np.log(Passengers) ~' + ' + '.join(['t'] + [term_formula.format(i) for i in top_k_frequencies])
+
+
+sinusoid_model = smf.ols(model_spec, df)
+sinusoid_fit = sinusoid_model.fit()
+
+plt.plot(sinusoid_fit.predict(df))
+plt.plot(np.log(df['Passengers']))
 plt.show()
 ```
 
