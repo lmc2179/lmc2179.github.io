@@ -2,6 +2,51 @@
 
 Airline data
 
+```
+curl https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv --output airline.csv
+```
+
+```
+import pandas as pd
+import numpy as np
+from scipy.signal import periodogram
+from statsmodels.api import formula as smf
+from matplotlib import pyplot as plt
+import seaborn as sns
+
+df = pd.read_csv('airline.csv')
+df['t'] = np.arange(len(df)) # The values are already sorted
+
+plt.plot(df['t'], df['Passengers'])
+plt.title('Airline passengers by month')
+plt.ylabel('Total passengers')
+plt.xlabel('Month')
+plt.axvline(48, linestyle='dotted')
+plt.axvline(48*2, linestyle='dotted')
+plt.show()
+
+detrended_values = smf.ols('np.log(Passengers) ~ t', df).fit().resid
+
+plt.plot(df['t'], detrended_values)
+plt.title('Airline passengers by month, with linear detrending')
+plt.ylabel('Total passengers')
+plt.xlabel('Residual')
+plt.axvline(48, linestyle='dotted')
+plt.axvline(48*2, linestyle='dotted')
+plt.show()
+
+plt.plot(*periodogram(detrended_values))
+plt.show()
+
+periodogram_results = pd.DataFrame(np.array(periodogram(detrended_values)).T, columns=['frequency', 'power'])
+periodogram_results.sort_values('power', ascending=False, inplace=True)
+
+plt.stem(periodogram_results['frequency'], periodogram_results['power'])
+plt.xlabel('Frequency')
+plt.ylabel('Power')
+plt.show()
+```
+
 # Modeling cyclic behavior with sinusoidal models: Trend + Seasonality + Noise
 
 $y_t \sim \alpha + \beta t + \sum\limits_i \gamma_i sin(\lambda_i t) + \eta_i cos(\lambda_i t)$
@@ -39,3 +84,15 @@ chatfield 2004, ch. 7
 # Appendix: The road not taken - detrending by differencing
 
 It's mostly the same: Log, difference, then do the sine thing
+
+```
+detrended_values = np.diff(np.log(df['Passengers']))
+
+plt.plot(df['t'].iloc[1:], detrended_values)
+plt.title('First order difference of log passenger count')
+plt.ylabel('Total passengers')
+plt.xlabel('Residual')
+plt.axvline(48, linestyle='dotted')
+plt.axvline(48*2, linestyle='dotted')
+plt.show()
+```
