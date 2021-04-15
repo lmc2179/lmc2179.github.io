@@ -1,3 +1,11 @@
+---
+layout: post
+title: "Quantile Regression"
+author: "Louis Cialdella"
+categories: posts
+tags: [datascience]
+image: quantile_friend.png
+---
 
 p 8: http://www.econ.uiuc.edu/~roger/research/intro/rq3.pdf
 
