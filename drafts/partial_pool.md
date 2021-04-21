@@ -14,3 +14,4 @@ Then:
 - The Standard Error error should be about zero 
 
 For multivariate metrics, the total squared error is $\sum_i (\hat{\theta} -  \theta)^2$, the quadratic (L2?) loss
+Calculate the per-parameter coverage rates, plus the "Family-Wise" coverage rate
