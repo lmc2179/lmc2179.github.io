@@ -15,3 +15,13 @@ Then:
 
 For multivariate metrics, the total squared error is $\sum_i (\hat{\theta} -  \theta)^2$, the quadratic (L2?) loss
 Calculate the per-parameter coverage rates, plus the "Family-Wise" coverage rate
+
+```
+from scipy.stats import norm
+import pandas as pd
+
+def gen_data(n, means, sds):
+  samples = np.concatenate([norm(m, sd).rvs(n) for m, sd in zip(means, sds)])
+  grps = np.concatenate([[i]*n for i, _ in enumerate(means)])
+  return pd.DataFrame({'y': samples, 'grp': grps})
+```
