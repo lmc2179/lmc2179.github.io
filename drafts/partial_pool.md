@@ -41,9 +41,13 @@ def partial_pool_mean(df, y_col, g_col):
   return num/den
 
 def partial_pool_se(df, y_col, g_col):
-  l =  df.groupby('grp').size() / df.groupby('grp').var()['y']
-  r = 1. / np.var(df.groupby(g_col).var()[y_col])
-  return (l+r)**(-0.5) # This doesn't seem right; the PP variance estimate is _larger_ than the UP variance estimate
+  gb = df.groupby(g_col)
+  grp_means = gb.mean()[y_col]
+  grand_mean = np.mean(grp_means)
+  grp_vars = gb.var()[y_col]
+  grand_var = np.var(grp_means)
+  n = gb.apply(lambda d: len(d))
+  return ((n / grp_vars) + (1./grand_var))**-0.5
   
 n_samples = 50
   
