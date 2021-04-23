@@ -41,7 +41,9 @@ def partial_pool_mean(df, y_col, g_col):
   return num/den
 
 def partial_pool_se(df, y_col, g_col):
-  return partial_pool_mean(df, y_col, g_col)*0
+  l =  data.groupby('grp').size() / data.groupby('grp').var()['y']
+  r = 1. / np.var(df.groupby(g_col).var()[y_col])
+  return np.sqrt(1. / (l+r))
   
 n_samples = 50
   
@@ -69,8 +71,7 @@ for _ in tqdm(range(n_sim)):
   pp_mean.append(partial_pool_mean(data, 'y', 'grp'))
   up_mean.append(data.groupby('grp').mean()['y'])
   up_se.append(data.groupby('grp').var()['y']**0.5 / data.groupby('grp').size()**0.5)
-  pp_se.append(data.groupby('grp').var()['y']**0.5 / data.groupby('grp').size()**0.5)
-  #pp_se.append(partial_pool_se(data, 'y', 'grp'))
+  pp_se.append(partial_pool_se(data, 'y', 'grp'))
   
 pp_mean = np.array(pp_mean)
 up_mean = np.array(up_mean)
