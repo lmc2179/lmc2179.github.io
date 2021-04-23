@@ -19,6 +19,9 @@ Calculate the per-parameter coverage rates, plus the "Family-Wise" coverage rate
 ```
 from scipy.stats import norm
 import pandas as pd
+from matplotlib import pyplot as plt
+import seaborn as sns
+from tqdm import tqdm
 
 def gen_data(n, means, sds):
   samples = np.concatenate([norm(m, sd).rvs(n) for m, sd in zip(means, sds)])
@@ -35,12 +38,43 @@ def partial_pool_mean(df, y_col, g_col):
   num = (n/grp_vars)*grp_means + (1./grand_var)*grand_mean
   den = (n/grp_vars) + (1./grand_var)
   return num/den
+
+k = 10
+TRUE_MEAN = np.arange(k)
+TRUE_SD = np.array([100]*k)
   
-data =  gen_data(10, [0,1,2,3,4], [1]*5)
+data =  gen_data(10, TRUE_MEAN, TRUE_SD)
 print('Partial Pool mean')
 print(alpha(data, 'y', 'grp'))
 print('Unpooled mean')
 print(data.groupby('grp').mean())
 print('Grand mean')
 print(data.groupby('grp').mean().mean())
+
+n_sim = 1000
+
+pp_mean = []
+up_mean = []
+
+for _ in tqdm(range(n_sim)):
+  data =  gen_data(10, TRUE_MEAN, TRUE_SD)
+  pp_mean.append(alpha(data, 'y', 'grp'))
+  up_mean.append(data.groupby('grp').mean()['y'])
+  
+pp_mean = np.array(pp_mean)
+up_mean = np.array(up_mean)
+
+for i, m in enumerate(TRUE_MEAN):
+  sns.distplot(pp_mean[:,i])
+  sns.distplot(up_mean[:,i])
+  plt.axvline(m)
+plt.show()
+
+pp_error = pp_mean - TRUE_MEAN
+up_error = up_mean - TRUE_MEAN
+
+sns.distplot(np.mean(pp_error**2, axis=1))
+sns.distplot(np.mean(up_error**2, axis=1))
+
+plt.show()
 ```
