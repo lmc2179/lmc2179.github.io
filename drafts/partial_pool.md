@@ -104,4 +104,14 @@ for i, m in enumerate(TRUE_MEAN):
   plt.axvline(np.std(pp_mean[:,i]))
   plt.axvline(np.std(up_mean[:,i]))
 plt.show()
+
+pp_high = pp_mean + 1.96 * pp_se
+pp_low = pp_mean - 1.96 * pp_se 
+print(np.sum((pp_high > TRUE_MEAN) & (pp_low < TRUE_MEAN))) # Coverage count
+print(Counter(np.sum((pp_high > TRUE_MEAN) & (pp_low < TRUE_MEAN), axis=1))) # Covered variable count in each simulation
+print(Counter(np.sum((pp_high > TRUE_MEAN) & (pp_low < TRUE_MEAN), axis=0))) # Covered simulation count for each variable
+
+up_high = up_mean + 1.96 * up_se
+up_low = up_mean - 1.96 * up_se 
+print(np.sum((up_high > TRUE_MEAN) & (up_low < TRUE_MEAN)))# Coverage count
 ```
