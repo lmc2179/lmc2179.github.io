@@ -115,3 +115,5 @@ up_high = up_mean + 1.96 * up_se
 up_low = up_mean - 1.96 * up_se 
 print(np.sum((up_high > TRUE_MEAN) & (up_low < TRUE_MEAN)))# Coverage count
 ```
+
+Compare with Bonferroni-corrected coverage also
