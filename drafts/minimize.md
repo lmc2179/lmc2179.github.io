@@ -2,7 +2,7 @@ _?_
 
 # We often want to tailor our model to the situation
 
-Example of diminishing returns - satiation process? Cat treats, Marketing spend
+Example of diminishing returns - satiation process? Cat treats, marketing spend, organic growth
 
 Lots of relationships between two real variables go something like this: "As x increases, so does y. But the next x causes less increase than the last one"
 
