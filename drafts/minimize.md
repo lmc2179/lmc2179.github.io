@@ -2,7 +2,9 @@ _?_
 
 # We often want to tailor our model to the situation
 
-Example of diminishing returns - satiation process? Cat treats, marketing spend, organic growth
+We commonly want to fit a model that can't be expressed as a basis-expanded linear regression
+
+Example of diminishing returns/dose response - satiation, Cat treats, marketing spend, organic growth;
 
 Lots of relationships between two real variables go something like this: "As x increases, so does y. But the next x causes less increase than the last one"
 
