@@ -29,3 +29,25 @@ result = minimize(neg_log_likelihood, [10, 10])
 
 print(np.sqrt(np.diag(result.hess_inv)), sem(x))
 ```
+
+```python
+from pydataset import data
+from matplotlib import pyplot as plt
+import seaborn as sns
+
+trees = data('Sitka')
+
+plt.scatter(trees['Time'], trees['size'])
+plt.show()
+
+def gompertz(a, b, c, t):
+  return a * np.exp(-b*np.exp(-c*t))
+  
+plt.scatter(trees['Time'], trees['size'])
+
+t_plot = np.linspace(trees['Time'].min(), trees['Time'].max())
+plt.plot(t_plot, gompertz(5, 150, .04, t_plot))
+plt.show()
+```
+
+$y_t \sim N(ae^{-be^{-ct}}, \sigma)$
