@@ -46,9 +46,9 @@ def gompertz(a, b, c, t):
   return a * np.exp(-b*np.exp(-c*t))
 ```
 
-$\underbrace{y_t}_\textrm{Size at time t} \sim N(\underbrace{ae^{-be^{-ct}}}_\textrm{Mean at time t}, \underbrace{\sigma}_\textrm{Noise})$
+$$\underbrace{y_t}_\textrm{Size at time t} \sim N(\underbrace{ae^{-be^{-ct}}}_\textrm{Mean at time t}, \underbrace{\sigma}_\textrm{Noise})$$
 
-$ln \mathcal{L}(a, b, c, \sigma) = \sum_t f_{N}(y_t \mid G(t, a, b, c), \sigma)$
+$\text{ln } \mathcal{L}(a, b, c, \sigma) = \sum_t f_{N}(y_t \mid G(t, a, b, c), \sigma)$
 
 ```python
 def fit(t, y):
