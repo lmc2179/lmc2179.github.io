@@ -48,7 +48,7 @@ def gompertz(a, b, c, t):
 
 $\underbrace{y_t}_\textrm{Size at time t} \sim N(\underbrace{ae^{-be^{-ct}}}_\textrm{Mean at time t}, \underbrace{\sigma}_\textrm{Noise})$
 
-$ln \mathcal{L}(a, b, c, \sigma) = \Sum_t f_{N}(y_t | G(t, a, b, c), \sigma)$
+$ln \mathcal{L}(a, b, c, \sigma) = \Sum_t f_{N}(y_t \mid G(t, a, b, c), \sigma)$
 
 ```python
 def fit(t, y):
@@ -85,7 +85,7 @@ print('Standard errors', np.sqrt(np.diag(result.hess_inv)))
 
 $Fisher information matrix$
 
-$P(a, b, c, s | data)$
+$P(a, b, c, s \mid data)$
 
 Bernstein-von Mises, Laplace
 
