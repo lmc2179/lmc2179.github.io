@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Quantile Regression"
+title: "Understanding distributional impacts with Quantile Regression"
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
