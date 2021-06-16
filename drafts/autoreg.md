@@ -10,10 +10,16 @@ df['year'] = df['Month'].apply(lambda x: int(x.split('-')[0]))
 df['month_number'] = df['Month'].apply(lambda x: int(x.split('-')[1]))
 df['t'] = df.index.values
 
-ar_model = AutoReg(endog=df.Passengers, lags=20, trend='ct')
+train_cutoff = 80
+
+train_df = df[df['t'] <= train_cutoff]
+test_df = df[df['t'] > train_cutoff]
+
+ar_model = AutoReg(endog=train_df.Passengers, lags=25, trend='ct')
 ar_fit = ar_model.fit()
 
-plt.plot(df.t, df.Passengers)
-plt.plot(df.t, ar_fit.predict(end=df.t.max()))
-plt.show() # Now do OOS
+plt.plot(df.t, df.Passengers, label='Observed')
+plt.plot(train_df.t, ar_fit.predict(start=train_df.t.min(), end=train_df.t.max()), linestyle='dashed', label='In-sample prediction')
+plt.plot(test_df.t, ar_fit.predict(start=test_df.t.min(), end=test_df.t.max()), linestyle='dashed', label='Out-of-sample prediction')
+plt.show()
 ```
