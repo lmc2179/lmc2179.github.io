@@ -15,7 +15,7 @@ train_cutoff = 80
 train_df = df[df['t'] <= train_cutoff]
 test_df = df[df['t'] > train_cutoff]
 
-ar_model = AutoReg(endog=train_df.Passengers, lags=25, trend='ct')
+ar_model = AutoReg(endog=train_df.Passengers, lags=20, trend='ct')
 ar_fit = ar_model.fit()
 
 plt.plot(df.t, df.Passengers, label='Observed')
