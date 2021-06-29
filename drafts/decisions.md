@@ -1,8 +1,10 @@
+$$
 \begin{tabular}{cc|c|c|}
-&& $A$ & $B$ \\
+&& A & B \\
 \hline
-& $A$  & $(x,y)$    & $(x,y)$ \\
+& A  & (x,y)    & (x,y) \\
 \hline          
- & $B$  & $(x,y)$ & $(x,y)$ \\
+ & B  & (x,y) & (x,y) \\
 \hline
 \end{tabular}
+$$
