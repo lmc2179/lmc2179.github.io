@@ -6,3 +6,5 @@ t & t\\
 t & t
 \end{bmatrix}
 $$
+
+${\color{red}some text}$
