@@ -1,10 +1,5 @@
 $$
-\begin{tabular}{cc|c|c|}
-&& A & B \\
-\hline
-& A  & (x,y)    & (x,y) \\
-\hline          
- & B  & (x,y) & (x,y) \\
-\hline
-\end{tabular}
+\bordermatrix{~ & x & y \cr
+              A & 1 & 0 \cr
+              B & 0 & 1 \cr}
 $$
