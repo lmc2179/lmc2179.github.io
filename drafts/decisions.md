@@ -7,4 +7,4 @@ t & t
 \end{bmatrix}
 $$
 
-\textcolor{red}{text}
+\color{red}{text}
