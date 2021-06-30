@@ -64,4 +64,9 @@ $$
 = -100 \hat{y}
 $$
 
-The choice to test or to decline testing will depend on the value of $\hat{y}$ - it serves as the threshold for the classifier.
+What value of $\hat{y}$ is large enough that we should refer the patient for further testing? That is - what **threshold** should we use to turn the probabilistic output of our model into a decision? We want to send the patient for testing whenver $\mathbb{E}[\text{Send for testing}] \geq \mathbb{E}[\text{Do not test}]$. So we can set the two expected values equal, and find the point at whch they cross to get the threshold value, which we'll call $\hat{y}_*$:
+
+$$2\hat{y}_* - 1 = -100 \hat{y}_*$$
+$$\Rightarrow \hat{y}_* = \frac{1}{102}$$
+
+So we should refer a patient for testing whenever $\hat{y} \geq \frac{1}{102}$. This is _very_ different than the aproach we would get if we used the default classifier threshold, which in scikit-learn is $\frac{1}{2}$.
