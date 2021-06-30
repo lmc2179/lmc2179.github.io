@@ -27,3 +27,24 @@ There are four possible outcomes of this process:
 * We **refer** the patient for further testing, and the second test reveals the tumor is **malignant**. This means our initial test provided a **_true positive (TP)_**.
 * We **decline** to pursue further testing. Unknown to us, the second test would have shown the tumor is **benign**. This means our initial test provided a **_true negative (TN)_**.
 * We **decline** to pursue further testing. Unknown to us, the second test would have shown the tumor is **malignant**. This means our initial test provided a **_false negative (FN)_**.
+
+We can group the outcomes into "bad" outcomes (false positives, false negatives), as well as "good" outcomes (true positives, true negatives). However, there's a small detail here we need to keep in mind - not all bad outcomes are equally bad. A false positive results in costly testing and psychological distress for the patient, which is certainly an outcome we'd like to avoid; however, a false negative results in an untreated cancer, posing a risk to the patient's life. There's an important **asymmetry** here, in that the cost of a FN is much larger than the cost of a FP.
+
+Let's be really specific about the costs of each of these outcomes. We'll write them down in the form of a **payoff matrix**, which looks like this:
+
+$$
+P = 
+
+\begin{bmatrix}
+\text{TN value} & \text{FP value}\\ 
+\text{FN value} & \text{TP value}
+\end{bmatrix}
+
+$$
+\begin{bmatrix}
+0 & -1\\ 
+-100 & 1
+\end{bmatrix}
+$$
+
+The matrix here has the same format as the commonly used [confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix). It is written (in this case) in unitless "utility" points which are relatively interpretable, but for some business problems we could write the matrix in dollars or another convenient unit. 
