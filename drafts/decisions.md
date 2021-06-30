@@ -7,7 +7,7 @@ tags: [datascience]
 image: decision.png
 ---
 
-*Machine learning practitioners spend a lot of time thinking about whether thir model makes good predictions. But for ML to add value, its predictions need to be harnessed for decision making, not just prediction.*
+*Machine learning practitioners spend a lot of time thinking about whether their model makes good predictions. But for ML to add value, its predictions need to be harnessed for decision making, not just prediction.*
 
 # The point of machine learning is to make decisions
 
@@ -49,3 +49,10 @@ P =
 $$
 
 The matrix here has the same format as the commonly used [confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix). It is written (in this case) in unitless "utility" points which are relatively interpretable, but for some business problems we could write the matrix in dollars or another convenient unit. 
+
+We can now combine our estimate of malignancy ($\hat{y}$) with the payoff matrix to compute the expected value of both referring the patient for testing and declining future testing:
+
+$$
+\mathbb{E}[Send for testing] = \mathbb{P}(Cancer | X) \times \text{TP value} + (1 - \mathbb{P}(Cancer | X)) \times \text{FP value} 
+= \hat{y} \times 1 + (1 - \hat{y}) \times (-1)
+$$
