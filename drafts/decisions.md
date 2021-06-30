@@ -9,14 +9,9 @@ image: decision.png
 
 *Machine learning practitioners spend a lot of time thinking about whether their model makes good predictions. But for ML to add value, its predictions need to be harnessed for decision making, not just prediction.*
 
-# The point of machine learning is to make decisions
+# The point of machine learning is to make predictions that help us decisions
 
-$$
-\begin{bmatrix}
-t & t\\ 
-t & t
-\end{bmatrix}
-$$
+?
 
 # A prototypical example: Disease detection
 
@@ -70,3 +65,38 @@ $$2\hat{y}_* - 1 = -100 \hat{y}_*$$
 $$\Rightarrow \hat{y}_* = \frac{1}{102}$$
 
 So we should refer a patient for testing whenever $\hat{y} \geq \frac{1}{102}$. This is _very_ different than the aproach we would get if we used the default classifier threshold, which in scikit-learn is $\frac{1}{2}$.
+
+# Picking the best threshold and evaluating out-of-sample decision-making in Python
+
+```python
+from sklearn.datasets import load_breast_cancer
+from sklearn.linear_model import LogisticRegression
+import numpy as np
+
+payoff = np.array([[0, -1], [-100, 1]])
+
+X, y = load_breast_cancer(return_X_y=True)
+y = 1-y # In the original dataset, 1 = Benign
+
+model = LogisticRegression(max_iter=10000)
+model.fit(X, y)
+
+y_threshold = (payoff[0][0] - payoff[0][1]) / (payoff[0][0] + payoff[1][1] - payoff[0][1] - payoff[1][0])
+
+send_for_testing = model.predict_proba(X)[:,1] >= y_threshold
+```
+
+```python
+# Cross val - show that the theoretical threshold is the best one for this data
+```
+
+# Where do the numbers in the payoff matrix come from
+
+These are decisions about your priorities, they don't come from the data set
+
+Maybe in some cases you can determine them experimentally or observationally using a causal analysis
+
+# When should we use a custom threshold instead of using $\frac{1}{2}$?
+
+?
+
