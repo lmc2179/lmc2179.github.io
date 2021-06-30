@@ -48,11 +48,19 @@ P =
 \end{bmatrix}
 $$
 
-The matrix here has the same format as the commonly used [confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix). It is written (in this case) in unitless "utility" points which are relatively interpretable, but for some business problems we could write the matrix in dollars or another convenient unit. 
+The matrix here has the same format as the commonly used [confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix). It is written (in this case) in unitless "utility" points which are relatively interpretable, but for some business problems we could write the matrix in dollars or another convenient unit. This particular matrix implies that a false negative is 100 times worse than a false positive, but that's based on nothing except my subjective opinion. Some amount of subjectivity (or if you prefer, "expert judgement") is usually required to set the values of this matrix.
 
 We can now combine our estimate of malignancy ($\hat{y}$) with the payoff matrix to compute the expected value of both referring the patient for testing and declining future testing:
 
 $$
-\mathbb{E}[Send for testing] = \mathbb{P}(Cancer | X) \times \text{TP value} + (1 - \mathbb{P}(Cancer | X)) \times \text{FP value} 
+\mathbb{E}[\text{Send for testing}] = \mathbb{P}(Cancer | X) \times \text{TP value} + (1 - \mathbb{P}(Cancer | X)) \times \text{FP value} \\
 = \hat{y} \times 1 + (1 - \hat{y}) \times (-1)
+= 2 \hat{y} - 1
 $$
+
+$$
+\mathbb{E}[\text{Do not test}] = \mathbb{P}(Cancer | X) \times \text{FN value} + (1 - \mathbb{P}(Cancer | X)) \times \text{TN value} \\
+= \hat{y} \times (-100) + (1 - \hat{y}) \times 0
+= -100 \hat{y}
+$$
+
