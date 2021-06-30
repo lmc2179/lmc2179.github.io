@@ -64,3 +64,4 @@ $$
 = -100 \hat{y}
 $$
 
+The choice to test or to decline testing will depend on the value of $\hat{y}$ - it serves as the threshold for the classifier.
