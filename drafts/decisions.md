@@ -40,7 +40,6 @@ P =
 \text{FN value} & \text{TP value}
 \end{bmatrix}
 
-$$
 \begin{bmatrix}
 0 & -1\\ 
 -100 & 1
