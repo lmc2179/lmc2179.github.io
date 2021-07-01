@@ -96,7 +96,7 @@ These are decisions about your priorities, they don't come from the data set
 
 Maybe in some cases you can determine them experimentally or observationally using a causal analysis
 
-# When should we use a custom threshold instead of using $\frac{1}{2}$?
+# When aren't there asymmetric payoffs?
 
 ?
 
