@@ -13,6 +13,12 @@ image: decision.png
 
 ?
 
+For example:
+* Irrelevant content
+* Criminal sentencing
+* Fraudulent user ban
+* Systems that diagnose disease 
+
 # A prototypical example: Disease detection
 
 Assume we've used our favorite library to build a model which predicts the probability that an individual has a malignant tumor based on some tests we ran. We're going to use this prediction to decide whether we want to refer the patient for a more detailed test, which is more accurate but more costly and invasive. Following tradition, we refer to the test data as $X$ and the estimated probability of a malignant tumor as $\hat{y}$. We think, based on cross-validation, that our model proves a well-calibrated estimate of $\mathbb{P}(Cancer \mid X) = \hat{y}$. For some particular patient, we run their test results ($X$) through our model, and compute their probability of a malignant tumor, $\hat{y}$. We've used our model to make a prediction, now comes the decision: *Should we refer the patient for further, more accurate (but more invasive) testing?*
@@ -25,7 +31,13 @@ There are four possible outcomes of this process:
 
 We can group the outcomes into "bad" outcomes (false positives, false negatives), as well as "good" outcomes (true positives, true negatives). However, there's a small detail here we need to keep in mind - not all bad outcomes are equally bad. A false positive results in costly testing and psychological distress for the patient, which is certainly an outcome we'd like to avoid; however, a false negative results in an untreated cancer, posing a risk to the patient's life. There's an important **asymmetry** here, in that the cost of a FN is much larger than the cost of a FP.
 
-Let's be really specific about the costs of each of these outcomes. We'll write them down in the form of a **payoff matrix**, which looks like this:
+Let's be really specific about the costs of each of these outcomes, by assigning a score to each. Specifically, we'll say:
+* In the case of a True Negative (correctly detecting that there is no illness), nothing has really changed for the patient. Since this is the status quo case, we'll assign this outcome a score of 0.
+* In the case of a True Positive (correctly detecting that there is illness), we've successfully found someone who needs treatment. While such therapies are notoriously challenging for those who endure them, this is a positive outcome for our system because we're improving the health of people. We'll assign this outcome a score of 1.
+* In the case of a False Positive (referring for more testing, which will reveal no illness), we've incurred extra costs of testing and inflicted undue distress on the patient. This is a bad outcome, and we'll assign it a score of -1.
+* In the case of a False Negative (failing to refer for testing, which would have revealed an illness), we've let a potentially deadly disease continue to grow. This is a bad outcome, but it's much worse than the previous one. We'll assign it a score of -100, reflecting our belief that it is about 100 times worse than a False Positive. 
+
+We'll write each of these down in the form of a **payoff matrix**, which looks like this:
 
 $$
 P = 
@@ -43,9 +55,9 @@ P =
 \end{bmatrix}
 $$
 
-The matrix here has the same format as the commonly used [confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix). It is written (in this case) in unitless "utility" points which are relatively interpretable, but for some business problems we could write the matrix in dollars or another convenient unit. This particular matrix implies that a false negative is 100 times worse than a false positive, but that's based on nothing except my subjective opinion. Some amount of subjectivity (or if you prefer, "expert judgement") is usually required to set the values of this matrix.
+The matrix here has the same format as the commonly used [confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix). It is written (in this case) in unitless "utility" points which are relatively interpretable, but for some business problems we could write the matrix in dollars or another convenient unit. This particular matrix implies that a false negative is 100 times worse than a false positive, but that's based on nothing except my subjective opinion. Some amount of subjectivity (or if you prefer, "expert judgement") is usually required to set the values of this matrix, and the values are usually up for debate in any given use case.
 
-We can now combine our estimate of malignancy ($\hat{y}$) with the payoff matrix to compute the expected value of both referring the patient for testing and declining future testing:
+We can now combine our estimate of malignancy probability ($\hat{y}$) with the payoff matrix to compute the expected value of both referring the patient for testing and declining future testing:
 
 $$
 \mathbb{E}[\text{Send for testing}] = \mathbb{P}(Cancer | X) \times \text{TP value} + (1 - \mathbb{P}(Cancer | X)) \times \text{FP value} \\
@@ -99,4 +111,6 @@ Maybe in some cases you can determine them experimentally or observationally usi
 # When aren't there asymmetric payoffs?
 
 ?
+
+# Wrapping it up: The short version
 
