@@ -7,6 +7,7 @@ Have read/use as reference
 - Bishop PRML
 - ESL
 - MHE
+- https://www.itl.nist.gov/div898/handbook/index.htm
 
 Have heard about
 - Morgan and winship
