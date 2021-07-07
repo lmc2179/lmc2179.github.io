@@ -122,6 +122,7 @@ plt.ylabel('Average payoff')
 plt.legend()
 plt.show()
 ```
+We can use this for model selection too
 
 # Where do the numbers in the payoff matrix come from
 
