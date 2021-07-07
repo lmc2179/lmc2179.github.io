@@ -84,6 +84,7 @@ So we should refer a patient for testing whenever $\hat{y} \geq \frac{1}{102}$. 
 from sklearn.datasets import load_breast_cancer
 from sklearn.linear_model import LogisticRegression
 import numpy as np
+from matplotlib import pyplot as plt
 
 payoff = np.array([[0, -1], [-100, 1]])
 
@@ -100,6 +101,26 @@ send_for_testing = model.predict_proba(X)[:,1] >= y_threshold
 
 ```python
 # Cross val - show that the theoretical threshold is the best one for this data
+
+from sklearn.metrics import confusion_matrix
+from sklearn.model_selection import cross_val_predict
+
+y_pred = cross_val_predict(LogisticRegression(max_iter=10000), X, y, method='predict_proba')[:,1]
+
+thresholds = np.linspace(0, .95, 1000)
+avg_payoffs = []
+
+for threshold in thresholds:
+  cm = confusion_matrix(y, y_pred > threshold)
+  avg_payoffs += [np.sum(cm * payoff) / np.sum(cm)]
+
+plt.plot(thresholds, avg_payoffs)
+plt.title('Effect of threshold on average payoff')
+plt.axvline(y_threshold, color='orange', linestyle='dotted', label='Theoretically optimal threshold')
+plt.xlabel('Threshold')
+plt.ylabel('Average payoff')
+plt.legend()
+plt.show()
 ```
 
 # Where do the numbers in the payoff matrix come from
