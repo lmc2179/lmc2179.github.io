@@ -80,6 +80,12 @@ So we should refer a patient for testing whenever $\hat{y} \geq \frac{1}{102}$. 
 
 # Picking the best threshold and evaluating out-of-sample decision-making in Python
 
+We can do a little algebra to show that if we know the 2x2 payoff matrix, then the optimal threshold is:
+
+$y_* = \frac{\text{TN value - FP value}}{TP value + TN value - FP value - FN value}$
+
+Let's compute this threshold and apply it to the in-sample predictions in Python:
+
 ```python
 from sklearn.datasets import load_breast_cancer
 from sklearn.linear_model import LogisticRegression
@@ -98,6 +104,8 @@ y_threshold = (payoff[0][0] - payoff[0][1]) / (payoff[0][0] + payoff[1][1] - pay
 
 send_for_testing = model.predict_proba(X)[:,1] >= y_threshold
 ```
+
+Does the $y_*$ we computed lead to optimal decision making on this data set? Let's find out by computing the average out-of-sample payoff for each threshold:
 
 ```python
 # Cross val - show that the theoretical threshold is the best one for this data
@@ -122,7 +130,9 @@ plt.ylabel('Average payoff')
 plt.legend()
 plt.show()
 ```
-We can use this for model selection too
+Our $y_*$ is very close to optimal on this data set. It is much better than the sklearn default of $\frac{1}{2}$.
+
+Note that in the above example we calculate the out-of-sample confusion matrix $cm$, and estimate the average out-of-sample payoff as `np.sum(cm * payoff) / np.sum(cm)`. We could also use this as a metric for model selection, letting us directly select the model that makes the best decisions on average.
 
 # Where do the numbers in the payoff matrix come from
 
