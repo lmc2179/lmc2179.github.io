@@ -82,7 +82,7 @@ So we should refer a patient for testing whenever $\hat{y} \geq \frac{1}{102}$. 
 
 We can do a little algebra to show that if we know the 2x2 payoff matrix, then the optimal threshold is:
 
-$y_* = \frac{\text{TN value - FP value}}{TP value + TN value - FP value - FN value}$
+$y_* = \frac{\text{TN value - FP value}}{\text{TP value + TN value - FP value - FN value}}$
 
 Let's compute this threshold and apply it to the in-sample predictions in Python:
 
