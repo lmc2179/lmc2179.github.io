@@ -9,7 +9,7 @@ image: decision.png
 
 *Machine learning practitioners spend a lot of time thinking about whether their model makes good predictions, usually in the form of checking calibration, accuracy, ROC-AUC, precision or recall. But for ML to add value, its predictions need to be harnessed for decision making, not just prediction. We'll walk through how you can use probabilistic classifiers not just to make accurate predictions, but to make decisions that lead to the best outcomes.*
 
-# The point of machine learning is to make predictions that help us decisions
+# Machine learning gives us a prediction, which we use to make a decision
 
 ?
 
