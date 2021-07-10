@@ -156,7 +156,15 @@ How would things be different if our goal was simply to make our predictions as 
 
 $$P_{accuracy} = \begin{bmatrix} 1 & 0\\  0 & 1 \end{bmatrix}$$
 
-For this payoff matrix, we are awarded a point for each correct prediction (TP or TN), and no points for incorrect predictions (FP or FN). IF we do the math for this payoff matrix, we see that $y_* = \frac{1}{2}$. That is, the default threshold of $\frac{1}{2}$ makes sense when we want to maximize the prediction accuracy, and there are no asymmetric payoffs. Other "accuracy-like" payoff matrices like $\begin{bmatrix} 0 & -1\\  -1 & 0 \end{bmatrix}$ and $\begin{bmatrix} 1 & -1\\  -1 & 1 \end{bmatrix}$ also have $y_* = \frac{1}{2}$.
+For this payoff matrix, we are awarded a point for each correct prediction (TP or TN), and no points for incorrect predictions (FP or FN). IF we do the math for this payoff matrix, we see that $y_* = \frac{1}{2}$. That is, the default threshold of $\frac{1}{2}$ makes sense when we want to maximize the prediction accuracy, and there are no asymmetric payoffs. Other "accuracy-like" payoff matrices like 
+
+$$P_{accuracy} = \begin{bmatrix} 0 & -1\\  -1 & 0 \end{bmatrix}$$
+
+or perhaps
+
+$$P_{accuracy} = \begin{bmatrix} 1 & -1\\  -1 & 1 \end{bmatrix}$$
+
+also have $y_* = \frac{1}{2}$.
 
 
 # Wrapping it up: The short version
