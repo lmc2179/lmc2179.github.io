@@ -16,7 +16,7 @@ Lots of use cases for ML classifiers in production involve using the classifier 
 * Systems which try to detect fraudulent users do so because we'd like to ban these users.
 * Systems which try to detect the presence of treatable illnesses do so because we'd like to refer people with illnesses for further testing or treatment.
 
-In all of these cases, there are two classes: a class that we have targeted for action (irrelevant content, fraudulent users, people with treatable illnesses). It's common practice to train a model
+In all of these cases, there are two classes: a class that we have targeted for action (irrelevant content, fraudulent users, people with treatable illnesses), and a class that we'd like to leave alone (relevant content, legitimate users, healthy people). It's common practice to train a model
 
 1. Observe the newest instance we want to make a decision about.
 2. Use our model to predict the probability that this instance belongs to the class we have targeted for action.
