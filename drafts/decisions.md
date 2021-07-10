@@ -143,11 +143,13 @@ Our $y_*$ is very close to optimal on this data set. It is much better than the 
 
 Note that in the above example we calculate the out-of-sample confusion matrix `cm`, and estimate the average out-of-sample payoff as `np.sum(cm * payoff) / np.sum(cm)`. We could also use this as a metric for model selection, letting us directly select the model that makes the best decisions on average.
 
-# Where do the numbers in the payoff matrix come from
+# Where do the numbers in the payoff matrix come from? What if I don't know the
 
 These are decisions about your priorities, they don't come from the data set
 
-Maybe in some cases you can determine them experimentally or observationally using a causal analysis
+Maybe in some cases you can determine them experimentally
+
+Or maybe you could build a heterogeneous treatment effect model to estimate the likely outcomes of treating an individual
 
 # When _is_ the optimal threshold $y_* = \frac{1}{2}?$
 
