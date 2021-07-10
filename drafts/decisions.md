@@ -19,6 +19,14 @@ For example:
 * Fraudulent user ban
 * Systems that diagnose disease 
 
+1. Observe the newest instance we want to make a decision about.
+2. Use our model to predict whether or not this instance belongs to the class we have targeted for action.
+3. If it's likely that the instance
+
+The default
+
+What should the threshold be
+
 # A prototypical example: Disease detection
 
 Assume we've used our favorite library to build a model which predicts the probability that an individual has a malignant tumor based on some tests we ran. We're going to use this prediction to decide whether we want to refer the patient for a more detailed test, which is more accurate but more costly and invasive. Following tradition, we refer to the test data as $X$ and the estimated probability of a malignant tumor as $\hat{y}$. We think, based on cross-validation, that our model proves a well-calibrated estimate of $\mathbb{P}(Cancer \mid X) = \hat{y}$. For some particular patient, we run their test results ($X$) through our model, and compute their probability of a malignant tumor, $\hat{y}$. We've used our model to make a prediction, now comes the decision: *Should we refer the patient for further, more accurate (but more invasive) testing?*
