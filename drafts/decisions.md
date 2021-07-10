@@ -7,7 +7,7 @@ tags: [datascience]
 image: decision.png
 ---
 
-*Machine learning practitioners spend a lot of time thinking about whether their model makes good predictions. But for ML to add value, its predictions need to be harnessed for decision making, not just prediction.*
+*Machine learning practitioners spend a lot of time thinking about whether their model makes good predictions, usually in the form of checking calibration, accuracy, ROC-AUC, precision or recall. But for ML to add value, its predictions need to be harnessed for decision making, not just prediction. We'll walk through how you can use probabilistic classifiers not just to make accurate predictions, but to make decisions that lead to the best outcomes.*
 
 # The point of machine learning is to make predictions that help us decisions
 
@@ -15,12 +15,13 @@ image: decision.png
 
 For example:
 * Irrelevant content
-* Criminal sentencing
 * Fraudulent user ban
 * Systems that diagnose disease 
 
+In all of these cases, there are two classes: a class that we have targeted for action (irrelevant posts, fraudulent users, people with treatable illnesses). It's common practice to train a model
+
 1. Observe the newest instance we want to make a decision about.
-2. Use our model to predict whether or not this instance belongs to the class we have targeted for action.
+2. Use our model to predict the probability that this instance belongs to the class we have targeted for action.
 3. If it's likely that the instance
 
 The default
