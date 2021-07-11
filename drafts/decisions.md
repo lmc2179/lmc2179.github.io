@@ -12,19 +12,18 @@ image: decision.png
 # Machine learning gives us a prediction, which we use to make a decision
 
 Lots of use cases for ML classifiers in production involve using the classifier to predict whether a newly observed instance is in the class of items we would like to perform some action on. For example:
-* Systems which try to detect irrelevant content on platforms do so because we'd like to limit the distribution of this content.
-* Systems which try to detect fraudulent users do so because we'd like to ban these users.
-* Systems which try to detect the presence of treatable illnesses do so because we'd like to refer people with illnesses for further testing or treatment.
+* Systems which try to detect **irrelevant content** on platforms do so because we'd like to **limit the distribution of this content**.
+* Systems which try to detect **fraudulent users** do so because we'd like to **ban these users**.
+* Systems which try to detect the presence of **treatable illnesses** do so because we'd like to **refer people with illnesses for further testing or treatment**.
 
-In all of these cases, there are two classes: a class that we have targeted for action (irrelevant content, fraudulent users, people with treatable illnesses), and a class that we'd like to leave alone (relevant content, legitimate users, healthy people). It's common practice to train a model
+In all of these cases, there are two classes: a class that we have targeted for treatment (irrelevant content, fraudulent users, people with treatable illnesses), and a class that we'd like to leave alone (relevant content, legitimate users, healthy people). Some systems choose between more than just these two options, but let's keep things simple for now. It's common to have a workflow that goes something like this:
 
+0. Train the model on historical data. The model will compute the probability that an instance is in the class targeted for treatment.
 1. Observe the newest instance we want to make a decision about.
 2. Use our model to predict the probability that this instance belongs to the class we have targeted for action.
-3. If it's likely that the instance
+3. If the probability that the instance is in the targeted class is greater than *\frac{1}{2}*, apply the treatment. 
 
-The default
-
-What should the threshold be
+The use of $\frac{1}{2}$ as a threshold is a priori pretty reasonable - we'll end up predicting the class that is more likely for a given instance. It's so commonly used that it's the default for the `predict` method in `scikit-learn`. However, in most real life situations, we're not just looking for a model that is accurate, we're looking for a model that helps us make a decision. We need to consider the payoffs and risks of incorrect decisions, and use the probability output by the classifier to make our decision. The main question will be something like: *"How do we use the output of a probabilistic classifier to decide if we should take an action? What threshold should we apply?"*. The answer, it turns out, will depend on whether or not your use case involves asymmetric risks.
 
 # A prototypical example: Disease detection
 
