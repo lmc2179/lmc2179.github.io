@@ -136,6 +136,8 @@ plt.ylabel('Average payoff')
 plt.legend()
 plt.show()
 ```
+![Threshold vs Average payoff](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/decisions/chart_1.png)
+
 Our $y_*$ is very close to optimal on this data set. It is much better than the sklearn default of $\frac{1}{2}$.
 
 Note that in the above example we calculate the out-of-sample confusion matrix `cm`, and estimate the average out-of-sample payoff as `np.sum(cm * payoff) / np.sum(cm)`. We could also use this as a metric for model selection, letting us directly select the model that makes the best decisions on average.
