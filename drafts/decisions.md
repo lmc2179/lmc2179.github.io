@@ -16,7 +16,7 @@ Lots of use cases for ML classifiers in production involve using the classifier 
 * Systems which try to detect **fraudulent users** do so because we'd like to **ban these users**.
 * Systems which try to detect the presence of **treatable illnesses** do so because we'd like to **refer people with illnesses for further testing or treatment**.
 
-In all of these cases, there are two classes: a class that we have targeted for treatment (irrelevant content, fraudulent users, people with treatable illnesses), and a class that we'd like to leave alone (relevant content, legitimate users, healthy people). Some systems choose between more than just these two options, but let's keep things simple for now. It's common to have a workflow that goes something like this:
+In all of these cases, there are **two classes: a class that we have targeted for treatment** (irrelevant content, fraudulent users, people with treatable illnesses), and **a class that we'd like to leave alone** (relevant content, legitimate users, healthy people). Some systems choose between more than just these two options, but let's keep things simple for now. It's common to have a workflow that goes something like this:
 
 0. Train the model on historical data. The model will compute the probability that an instance is in the class targeted for treatment.
 1. Observe the newest instance we want to make a decision about.
@@ -35,13 +35,13 @@ There are four possible outcomes of this process:
 * We **decline** to pursue further testing. Unknown to us, the second test would have shown the tumor is **benign**. This means our initial test provided a **_true negative (TN)_**.
 * We **decline** to pursue further testing. Unknown to us, the second test would have shown the tumor is **malignant**. This means our initial test provided a **_false negative (FN)_**.
 
-We can group the outcomes into "bad" outcomes (false positives, false negatives), as well as "good" outcomes (true positives, true negatives). However, there's a small detail here we need to keep in mind - not all bad outcomes are equally bad. A false positive results in costly testing and psychological distress for the patient, which is certainly an outcome we'd like to avoid; however, a false negative results in an untreated cancer, posing a risk to the patient's life. There's an important **asymmetry** here, in that the cost of a FN is much larger than the cost of a FP.
+We can group the outcomes into "bad" outcomes (false positives, false negatives), as well as "good" outcomes (true positives, true negatives). However, there's a small detail here we need to keep in mind - not all bad outcomes are equally bad. A false positive results in costly testing and psychological distress for the patient, which is certainly an outcome we'd like to avoid; however, a false negative results in an untreated cancer, posing a risk to the patient's life. There's an important **asymmetry** here, in that **the cost of a FN is much larger than the cost of a FP**.
 
 Let's be really specific about the costs of each of these outcomes, by assigning a score to each. Specifically, we'll say:
-* In the case of a True Negative (correctly detecting that there is no illness), nothing has really changed for the patient. Since this is the status quo case, we'll assign this outcome a score of 0.
-* In the case of a True Positive (correctly detecting that there is illness), we've successfully found someone who needs treatment. While such therapies are notoriously challenging for those who endure them, this is a positive outcome for our system because we're improving the health of people. We'll assign this outcome a score of 1.
-* In the case of a False Positive (referring for more testing, which will reveal no illness), we've incurred extra costs of testing and inflicted undue distress on the patient. This is a bad outcome, and we'll assign it a score of -1.
-* In the case of a False Negative (failing to refer for testing, which would have revealed an illness), we've let a potentially deadly disease continue to grow. This is a bad outcome, but it's much worse than the previous one. We'll assign it a score of -100, reflecting our belief that it is about 100 times worse than a False Positive. 
+* In the case of a **True Negative** (correctly detecting that there is no illness), nothing has really changed for the patient. Since this is the status quo case, we'll assign this outcome **a score of 0**.
+* In the case of a **True Positive** (correctly detecting that there is illness), we've successfully found someone who needs treatment. While such therapies are notoriously challenging for those who endure them, this is a positive outcome for our system because we're improving the health of people. We'll assign this outcome **a score of 1**.
+* In the case of a **False Positive** (referring for more testing, which will reveal no illness), we've incurred extra costs of testing and inflicted undue distress on the patient. This is a bad outcome, and we'll assign it **a score of -1**.
+* In the case of a **False Negative** (failing to refer for testing, which would have revealed an illness), we've let a potentially deadly disease continue to grow. This is a bad outcome, but it's much worse than the previous one. We'll assign it **a score of -100, reflecting our belief that it is about 100 times worse than a False Positive**. 
 
 We'll write each of these down in the form of a **payoff matrix**, which looks like this:
 
@@ -61,7 +61,7 @@ P =
 \end{bmatrix}
 $$
 
-The matrix here has the same format as the commonly used [confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix). It is written (in this case) in unitless "utility" points which are relatively interpretable, but for some business problems we could write the matrix in dollars or another convenient unit. This particular matrix implies that a false negative is 100 times worse than a false positive, but that's based on nothing except my subjective opinion. Some amount of subjectivity (or if you prefer, "expert judgement") is usually required to set the values of this matrix, and the values are usually up for debate in any given use case.
+The matrix here has the same format as the commonly used [confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix). It is written (in this case) in unitless "utility" points which are relatively interpretable, but for some business problems we could write the matrix in dollars or another convenient unit. This particular matrix implies that a false negative is 100 times worse than a false positive, but that's based on nothing except my subjective opinion. Some amount of subjectivity (or if you prefer, "expert judgement") is usually required to set the values of this matrix, and the values are usually up for debate in any given use case. We'll come back to the choice of specific values here in a bit.
 
 We can now combine our estimate of malignancy probability ($\hat{y}$) with the payoff matrix to compute the expected value of both referring the patient for testing and declining future testing:
 
@@ -77,9 +77,9 @@ $$
 = -100 \hat{y}
 $$
 
-What value of $\hat{y}$ is large enough that we should refer the patient for further testing? That is - what **threshold** should we use to turn the probabilistic output of our model into a decision? We want to send the patient for testing whenver $\mathbb{E}[\text{Send for testing}] \geq \mathbb{E}[\text{Do not test}]$. So we can set the two expected values equal, and find the point at whch they cross to get the threshold value, which we'll call $y_*$:
+What value of $\hat{y}$ is large enough that we should refer the patient for further testing? That is - what **threshold** should we use to turn the probabilistic output of our model into a decision to treat? We want to send the patient for testing whenver $\mathbb{E}[\text{Send for testing}] \geq \mathbb{E}[\text{Do not test}]$. So we can set the two expected values equal, and find the point at whch they cross to get **the threshold value, which we'll call $y_*$**:
 
-$$2y_* - 1 = -100 y_*_*$$
+$$2 y_* - 1 = -100 y_*$$
 $$\Rightarrow y_* = \frac{1}{102}$$
 
 So we should refer a patient for testing whenever $\hat{y} \geq \frac{1}{102}$. This is _very_ different than the aproach we would get if we used the default classifier threshold, which in scikit-learn is $\frac{1}{2}$.
@@ -138,9 +138,9 @@ plt.show()
 ```
 ![Threshold vs Average payoff](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/decisions/chart_1.png)
 
-Our $y_*$ is very close to optimal on this data set. It is much better than the sklearn default of $\frac{1}{2}$.
+Our $y_*$ is very close to optimal on this data set. It is much better in average payoff terms than the sklearn default of $\frac{1}{2}$.
 
-Note that in the above example we calculate the out-of-sample confusion matrix `cm`, and estimate the average out-of-sample payoff as `np.sum(cm * payoff) / np.sum(cm)`. We could also use this as a metric for model selection, letting us directly select the model that makes the best decisions on average.
+Note that in the above example we calculate the out-of-sample confusion matrix `cm`, and estimate the average out-of-sample payoff as `np.sum(cm * payoff) / np.sum(cm)`. **We could also use this as a metric for model selection, letting us directly select the model that makes the best decisions on average.**
 
 # When _is_ the optimal threshold $y_* = \frac{1}{2}?$
 
@@ -170,7 +170,7 @@ Repeating the exercise for a "recall-like" matrix (1 point for true positives, -
 
 $$P_{recall} = \begin{bmatrix} 0 & 0\\  -1 & 1 \end{bmatrix}$$
 
-Yields something different - for this matrix, $y_* = 0$. This might be initially surprising - but if we inspect the definition of recall, we see that we will not be penalized for false positives, so we might as well treat every instance we come across (this is why it's often used in tandem with precision, which _does_ penalize false positives).
+This yields something different - for this matrix, $y_* = 0$. This might be initially surprising - but if we inspect the definition of recall, we see that we will not be penalized for false positives, so we might as well treat every instance we come across (this is why it's often used in tandem with precision, which _does_ penalize false positives).
 
 # Where do the numbers in the payoff matrix come from? 
 
