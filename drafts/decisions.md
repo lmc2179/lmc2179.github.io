@@ -146,6 +146,8 @@ Note that in the above example we calculate the out-of-sample confusion matrix `
 
 These are decisions about your priorities, they don't come from the data set
 
+You should probably do a sensitivity analysis
+
 Maybe in some cases you can determine them experimentally
 
 Or maybe you could build a heterogeneous treatment effect model to estimate the likely outcomes of treating an individual
