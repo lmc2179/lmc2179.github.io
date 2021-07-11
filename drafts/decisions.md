@@ -168,6 +168,17 @@ $$P_{accuracy} = \begin{bmatrix} 1 & -1\\  -1 & 1 \end{bmatrix}$$
 
 also have $y_* = \frac{1}{2}$.
 
+You might at this point wonder whether the $y_* = \frac{1}{2}$ threshold also maximizes other popular metrics under symmetric payoffs, like [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall). We can define a "precision" payoff matrix (1 point for true positives, -1 point for false positives, 0 otherwise) as something like
+
+$$P_{precision} = \begin{bmatrix} 0 & -1\\  0 & 1 \end{bmatrix}$$
+
+If we plug $P_{precision}$ into the formula from before, we see that  $y_* = \frac{1}{2}$ in this case too.
+
+Repeating the exercise for a "recall-like" matrix (1 point for true positives, -1 point for false negatives, 0 otherwise):
+
+$$P_{recall} = \begin{bmatrix} 0 & 0\\  -1 & 1 \end{bmatrix}$$
+
+Yields something different - for this matrix, $y_* = 0$. This might be initially surprising - but if we inspect the definition of recall, we see that we will not be penalized for false positives, so we might as well treat every instance we come across (this is why it's often used in tandem with precision, which _does_ penalize false positives).
 
 # Wrapping it up: The short version
 
