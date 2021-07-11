@@ -21,7 +21,7 @@ In all of these cases, there are two classes: a class that we have targeted for 
 0. Train the model on historical data. The model will compute the probability that an instance is in the class targeted for treatment.
 1. Observe the newest instance we want to make a decision about.
 2. Use our model to predict the probability that this instance belongs to the class we have targeted for action.
-3. If the probability that the instance is in the targeted class is greater than *\frac{1}{2}*, apply the treatment. 
+3. If the probability that the instance is in the targeted class is greater than $\frac{1}{2}$, apply the treatment. 
 
 The use of $\frac{1}{2}$ as a threshold is a priori pretty reasonable - we'll end up predicting the class that is more likely for a given instance. It's so commonly used that it's the default for the `predict` method in `scikit-learn`. However, in most real life situations, we're not just looking for a model that is accurate, we're looking for a model that helps us make a decision. We need to consider the payoffs and risks of incorrect decisions, and use the probability output by the classifier to make our decision. The main question will be something like: *"How do we use the output of a probabilistic classifier to decide if we should take an action? What threshold should we apply?"*. The answer, it turns out, will depend on whether or not your use case involves asymmetric risks.
 
