@@ -77,10 +77,10 @@ $$
 = -100 \hat{y}
 $$
 
-What value of $\hat{y}$ is large enough that we should refer the patient for further testing? That is - what **threshold** should we use to turn the probabilistic output of our model into a decision? We want to send the patient for testing whenver $\mathbb{E}[\text{Send for testing}] \geq \mathbb{E}[\text{Do not test}]$. So we can set the two expected values equal, and find the point at whch they cross to get the threshold value, which we'll call $\hat{y}_*$:
+What value of $\hat{y}$ is large enough that we should refer the patient for further testing? That is - what **threshold** should we use to turn the probabilistic output of our model into a decision? We want to send the patient for testing whenver $\mathbb{E}[\text{Send for testing}] \geq \mathbb{E}[\text{Do not test}]$. So we can set the two expected values equal, and find the point at whch they cross to get the threshold value, which we'll call $y_*$:
 
-$$2\hat{y}_* - 1 = -100 \hat{y}_*$$
-$$\Rightarrow \hat{y}_* = \frac{1}{102}$$
+$$2y_* - 1 = -100 y_*_*$$
+$$\Rightarrow y_* = \frac{1}{102}$$
 
 So we should refer a patient for testing whenever $\hat{y} \geq \frac{1}{102}$. This is _very_ different than the aproach we would get if we used the default classifier threshold, which in scikit-learn is $\frac{1}{2}$.
 
@@ -142,16 +142,6 @@ Our $y_*$ is very close to optimal on this data set. It is much better than the 
 
 Note that in the above example we calculate the out-of-sample confusion matrix `cm`, and estimate the average out-of-sample payoff as `np.sum(cm * payoff) / np.sum(cm)`. We could also use this as a metric for model selection, letting us directly select the model that makes the best decisions on average.
 
-# Where do the numbers in the payoff matrix come from? What if I don't know the
-
-These are decisions about your priorities, they don't come from the data set
-
-You should probably do a sensitivity analysis
-
-Maybe in some cases you can determine them experimentally
-
-Or maybe you could build a heterogeneous treatment effect model to estimate the likely outcomes of treating an individual
-
 # When _is_ the optimal threshold $y_* = \frac{1}{2}?$
 
 In the cancer example above, we may think it's more likely than not that the patient is healthy, yet still refer them for testing. Because the cost of a false negative is so large, the optimal behavior is to act conservatively, recommending testing in all but the most clear-cut cases.
@@ -182,5 +172,8 @@ $$P_{recall} = \begin{bmatrix} 0 & 0\\  -1 & 1 \end{bmatrix}$$
 
 Yields something different - for this matrix, $y_* = 0$. This might be initially surprising - but if we inspect the definition of recall, we see that we will not be penalized for false positives, so we might as well treat every instance we come across (this is why it's often used in tandem with precision, which _does_ penalize false positives).
 
-# Wrapping it up: The short version
+# Where do the numbers in the payoff matrix come from? 
 
+In the easiest case, we the know the values a priori, or someone has measured the effects of each outcome. If we know these values in dollars or some other fungible unit, we can plug them right into the payoff matrix. In some cases, you might be able to run an experiment, or a causal analysis, to estimate the values of the matrix. We would expect the payoffs along the main diagonal (TP, TN) to be positive or zero, and the payoffs off the diagonal (FP, FN) to be negative. 
+
+If you don't have those available to you, or there's no obvious unit of measurement, you can put values into the matrix which accord with your relative preferences between the outcomes. In the cancer example, our choice of payoff matrix reflected our conviction that a FN was 100x worse than a FP - it's a statement about our preferences, not something we computed from the data. This is not ideal in a lot of ways, but such an encoding of preferences is usually much more realistic than the implicit assumption that payoffs are symmetric, which is what we get when we use the default. When you take this approach, it may be worth running a sensitivity analysis, and understanding how sensitive your ideal threshold is to small changes in your preferences.
