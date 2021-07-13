@@ -7,6 +7,9 @@ $$
 + \underbrace{\epsilon_t}_\textrm{White Noise} 
 $$
 
+https://otexts.com/fpp2/AR.html
+https://otexts.com/fpp2/wn.html
+
 ```python
 import pandas as pd
 from matplotlib import pyplot as plt
