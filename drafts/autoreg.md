@@ -1,3 +1,12 @@
+$$
+ \underbrace{y_t}_\textrm{Outcome at time t} \sim
+\underbrace{(\sum_{i=1}^{p} \phi_i y_{t-i})}_\textrm{Lag terms} 
++ \underbrace{\alpha}_\textrm{Intercept} 
++ \underbrace{\gamma t}_\textrm{Trend}
++ \underbrace{\beta X_t}_\textrm{Extra factors}
++ \underbrace{\epsilon_t}_\textrm{White Noise} 
+$$
+
 ```python
 import pandas as pd
 from matplotlib import pyplot as plt
