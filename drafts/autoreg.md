@@ -23,3 +23,5 @@ plt.plot(train_df.t, ar_fit.predict(start=train_df.t.min(), end=train_df.t.max()
 plt.plot(test_df.t, ar_fit.predict(start=test_df.t.min(), end=test_df.t.max()), linestyle='dashed', label='Out-of-sample prediction')
 plt.show()
 ```
+
+Add a monthly cycle; Logarithm; Check https://www.statsmodels.org/stable/generated/statsmodels.graphics.tsaplots.plot_acf.html
