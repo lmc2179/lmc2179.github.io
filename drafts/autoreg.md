@@ -9,7 +9,7 @@ Our model will include:
 - A linear trend term
 - A set of lag terms, encoding how the next observation depends on those just before it
 - A set of "additional factors", which in our case will be dummy variables for the months of the year
-- A [white noise term](https://en.wikipedia.org/wiki/White_noise), the time-series analogue of IID Gaussian noise (the two are [not quite identical](https://dsp.stackexchange.com/questions/23881/what-is-the-difference-between-i-i-d-noise-and-white-noise), but the differences aren't relevant here)
+- A [white noise term](https://otexts.com/fpp2/wn.html), the time-series analogue of IID Gaussian noise (the two are [not quite identical](https://dsp.stackexchange.com/questions/23881/what-is-the-difference-between-i-i-d-noise-and-white-noise), but the differences aren't relevant here)
 
 $$
  log \underbrace{y_t}_\textrm{Outcome at time t} \sim
