@@ -13,9 +13,9 @@ Our model will include:
 
 $$
  log \underbrace{y_t}_\textrm{Outcome at time t} \sim
-\underbrace{(\sum_{i=1}^{p} \phi_i y_{t-i})}_\textrm{Lag terms} 
-+ \underbrace{\alpha}_\textrm{Intercept} 
+\underbrace{\alpha}_\textrm{Intercept} 
 + \underbrace{\gamma t}_\textrm{Trend}
++ \underbrace{(\sum_{i=1}^{p} \phi_i y_{t-i})}_\textrm{Lag terms} 
 + \underbrace{\beta X_t}_\textrm{Extra factors}
 + \underbrace{\epsilon_t}_\textrm{White Noise} 
 $$
