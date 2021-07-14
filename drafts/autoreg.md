@@ -16,6 +16,7 @@ from matplotlib import pyplot as plt
 from statsmodels.tsa.ar_model import AutoReg
 import numpy as np
 from patsy import dmatrix, build_design_matrices
+from statsmodels.graphics.tsaplots import plot_pacf
 
 df = pd.read_csv('airline.csv')
 
@@ -37,12 +38,42 @@ test_exog = build_design_matrices([dm.design_info], test_df, return_type='datafr
 ar_model = AutoReg(endog=train_df.log_passengers, exog=train_exog, lags=5, trend='ct')
 ar_fit = ar_model.fit()
 
+train_log_pred = ar_fit.predict(start=train_df.t.min(), end=train_df.t.max(), exog=train_exog)
+test_log_pred = ar_fit.predict(start=test_df.t.min(), end=test_df.t.max(), exog_oos=test_exog)
+
 plt.plot(df.t, df.Passengers, label='Observed')
 plt.plot(train_df.t, 
-         np.exp(ar_fit.predict(start=train_df.t.min(), end=train_df.t.max(), exog=train_exog)), linestyle='dashed', label='In-sample prediction')
+         np.exp(train_log_pred), linestyle='dashed', label='In-sample prediction')
 plt.plot(test_df.t, 
-        np.exp(ar_fit.predict(start=test_df.t.min(), end=test_df.t.max(), exog_oos=test_exog)), 
+        np.exp(test_log_pred), 
         linestyle='dashed', label='Out-of-sample prediction')
+plt.show()
+
+# Model check
+plot_pacf(ar_fit.resid)
+plt.show()
+
+# Prediction intervals
+residual_variance = np.var(ar_fit.resid)
+
+plt.plot(df.t, df.Passengers, label='Observed')
+plt.plot(train_df.t, 
+         np.exp(train_log_pred), linestyle='dashed', label='In-sample prediction')
+
+prediction_interval_variance = np.arange(1, len(test_df)+1) * residual_variance
+test_log_pred_lower = test_log_pred - 1.96*np.sqrt(prediction_interval_variance)
+test_log_pred_upper = test_log_pred + 1.96*np.sqrt(prediction_interval_variance)
+
+plt.plot(test_df.t, 
+        np.exp(test_log_pred), 
+        linestyle='dashed', label='Out-of-sample prediction')
+plt.plot(test_df.t, 
+        np.exp(test_log_pred), 
+        linestyle='dashed', label='Out-of-sample prediction')
+plt.fill_between(test_df.t, 
+        np.exp(test_log_pred_lower), np.exp(test_log_pred_upper), 
+        label='Prediction interval', alpha=.1)
+plt.legend()
 plt.show()
 ```
 
