@@ -1,3 +1,22 @@
+# Intro
+
+TS data is everywhere
+
+Use cases:
+- Monitoring KPIs
+- Capacity planning
+- Understanding treatment rollout
+
+Tasks
+- Description task
+- Forecasting task
+
+# Example: Airline passenger forecasting and the AR-X(p) model
+
+Read CSV
+
+Show plot with validation line
+
 We can observe a few features of this data set which will show up in our model:
 - On the first date observed, the value is non-zero
 - There is a positive trend
@@ -11,6 +30,12 @@ Our model will include:
 - A set of "additional factors", which in our case will be dummy variables for the months of the year
 - A [white noise term](https://otexts.com/fpp2/wn.html), the time-series analogue of IID Gaussian noise (the two are [not quite identical](https://dsp.stackexchange.com/questions/23881/what-is-the-difference-between-i-i-d-noise-and-white-noise), but the differences aren't relevant here)
 
+Log post - https://lmc2179.github.io/posts/multiplicative.html
+
+This gives us the [AR-X model](https://www.statsmodels.org/stable/generated/statsmodels.tsa.ar_model.AutoReg.html)
+
+An [AR(p) model](https://otexts.com/fpp2/AR.html) with extra factors
+
 $$
  log \underbrace{y_t}_\textrm{Outcome at time t} \sim
 \underbrace{\alpha}_\textrm{Intercept} 
@@ -20,7 +45,29 @@ $$
 + \underbrace{\epsilon_t}_\textrm{White Noise} 
 $$
 
-https://otexts.com/fpp2/AR.html
+fit(), summary()
+
+plot the in-sample fit
+
+# Model checking and model selection
+
+plot OoS fit on validation
+
+error vs choice of p plot
+
+residual plot
+
+PACF
+
+# Producing forecasts and prediction intervals
+
+Show prediction intervals
+
+$\sqrt{k \hat{\sigma}^2}$
+
+------------------------------
+
+
 
 ```python
 import pandas as pd
