@@ -1,5 +1,17 @@
+We can observe a few features of this data set which will show up in our model:
+- On the first date observed, the value is non-zero
+- There is a positive trend
+- There are regular cycles of 12 months
+- The next point is close to the last point
+
+Our model will include:
+- An intercept term, representing the value at t = 0
+- A linear trend term
+- A set of lag terms, encoding how the next observation depends on those just before it
+- A set of "additional factors", which in our case will be dummy variables for the months of the year
+
 $$
- \underbrace{y_t}_\textrm{Outcome at time t} \sim
+ log \underbrace{y_t}_\textrm{Outcome at time t} \sim
 \underbrace{(\sum_{i=1}^{p} \phi_i y_{t-i})}_\textrm{Lag terms} 
 + \underbrace{\alpha}_\textrm{Intercept} 
 + \underbrace{\gamma t}_\textrm{Trend}
