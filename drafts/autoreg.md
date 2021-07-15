@@ -158,8 +158,11 @@ plt.show()
 ```
 
 ```python
-ar_model = AutoReg(endog=train_df.log_passengers, 
-                   exog=train_exog, lags=17, trend='ct')
+train_and_select_df = df[df['t'] <= validate_cutoff]
+train_and_select_exog = build_design_matrices([dm.design_info], train_and_select_df, return_type='dataframe')[0]
+
+ar_model = AutoReg(endog=train_and_select_df.log_passengers, 
+                   exog=train_and_select_exog, lags=17, trend='ct')
                    # Actually this should be on both the train + select sets :(
 ar_fit = ar_model.fit()
 
@@ -167,6 +170,7 @@ plt.title('Residuals')
 plt.plot(ar_fit.resid)
 plt.show()
 ```
+
 residual plot [IMAGE]
 
 ```python
@@ -175,11 +179,51 @@ from statsmodels.graphics.tsaplots import plot_pacf
 plot_pacf(ar_fit.resid)
 plt.show()
 ```
+
 PACF [IMAGE]
 
 # Producing forecasts and prediction intervals
 
-Show prediction intervals [CODE][IMAGE]
+```python
+train_and_select_log_pred = ar_fit.predict(start=train_and_select_df.t.min(), end=train_and_select_df.t.max(), exog_oos=train_and_select_exog)
+forecast_log_pred = ar_fit.predict(start=forecast_df.t.min(), end=forecast_df.t.max(), exog_oos=forecast_exog)
+
+plt.plot(train_and_select_df.t, 
+         np.exp(train_and_select_log_pred), linestyle='dashed', label='In-sample prediction')
+plt.plot(forecast_df.t, 
+         np.exp(forecast_log_pred), linestyle='dashed', label='Forecast')
+plt.plot(train_and_select_df.t, train_and_select_df.Passengers, label='Training data')
+plt.plot(forecast_df.t, forecast_df.Passengers, label='Out-of-sample')
+plt.legend()
+plt.title('Airline passengers by month')
+plt.ylabel('Total passengers')
+plt.xlabel('Month')
+plt.show()
+```
+
+```python
+residual_variance = np.var(ar_fit.resid)
+prediction_interval_variance = np.arange(1, len(forecast_df)+1) * residual_variance
+forecast_log_pred_lower = forecast_log_pred - 1.96*np.sqrt(prediction_interval_variance)
+forecast_log_pred_upper = forecast_log_pred + 1.96*np.sqrt(prediction_interval_variance)
+
+plt.plot(train_and_select_df.t, 
+         np.exp(train_and_select_log_pred), linestyle='dashed', label='In-sample prediction')
+plt.plot(forecast_df.t, 
+         np.exp(forecast_log_pred), linestyle='dashed', label='Forecast')
+plt.fill_between(forecast_df.t, 
+        np.exp(forecast_log_pred_lower), np.exp(forecast_log_pred_upper), 
+        label='Prediction interval', alpha=.1)
+plt.plot(train_and_select_df.t, train_and_select_df.Passengers, label='Training data')
+plt.plot(forecast_df.t, forecast_df.Passengers, label='Out-of-sample')
+plt.legend()
+plt.title('Airline passengers by month')
+plt.ylabel('Total passengers')
+plt.xlabel('Month')
+plt.show()
+```
+
+Show prediction intervals [IMAGE]
 
 $\sqrt{k \hat{\sigma}^2}$
 
