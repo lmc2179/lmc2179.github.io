@@ -13,9 +13,9 @@ Tasks
 
 # Example: Airline passenger forecasting and the AR-X(p) model
 
-Read CSV
+Read CSV [CODE]
 
-Show plot with validation line
+Show plot with validation line [CODE][IMAGE]
 
 We can observe a few features of this data set which will show up in our model:
 - On the first date observed, the value is non-zero
@@ -46,23 +46,23 @@ As we've [previously discussed in this post](https://lmc2179.github.io/posts/mul
 
 
 
-fit(), summary()
+fit(), summary() [CODE]
 
-plot the in-sample fit
+plot the in-sample fit [CODE][IMAGE]
 
 # Model checking and model selection
 
-plot OoS fit on validation
+plot OoS fit on validation [CODE][IMAGE]
 
-error vs choice of p plot
+error vs choice of p plot [CODE][IMAGE]
 
-residual plot
+residual plot [CODE][IMAGE]
 
-PACF
+PACF [CODE][IMAGE]
 
 # Producing forecasts and prediction intervals
 
-Show prediction intervals
+Show prediction intervals [CODE][IMAGE]
 
 $\sqrt{k \hat{\sigma}^2}$
 
