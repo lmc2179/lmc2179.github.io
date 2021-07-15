@@ -1,15 +1,11 @@
 # Intro
 
-TS data is everywhere
+For practicing data scientists, time series data is everywhere - almost anything we care to observe can be observed over time. Some use cases that have shown up frequently in my work are:
+- **Monitoring metrics and KPIs**: We use KPIs to understand some aspect of the business as it changes over time. We often want to model changes in KPIs to see what affects them, or construct a forecast for them into the near future.
+- **Capacity planning**: Many businesses have seasonal changes in their demand or supply. Understanding these trends helps us make sure we have enough production, bandwidth, sales staff, etc as conditions change.
+- **Understanding the rollout of a new treatment or policy**: As a new policy takes effect, what results do we see? How do our measurements compare with what we expected? By comparing post-treatment observations to a forecast, or including treatment indicators in the model, we can get an understanding of this.
 
-Use cases:
-- Monitoring KPIs
-- Capacity planning
-- Understanding treatment rollout
-
-Tasks
-- Description task
-- Forecasting task
+Each of these use cases is a combination of **description** (understanding the structure of the series as we observe it) and **forecasting** (predicting how the series will look in the future). We can perform both of these tasks using the implementation of Autoregressive models in Python found in statsmodels. 
 
 # Example: Airline passenger forecasting and the AR-X(p) model
 
