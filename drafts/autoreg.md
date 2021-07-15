@@ -13,9 +13,42 @@ Tasks
 
 # Example: Airline passenger forecasting and the AR-X(p) model
 
-Read CSV [CODE]
+Read CSV
 
-Show plot with validation line [CODE][IMAGE]
+```python
+import pandas as pd
+from matplotlib import pyplot as plt
+
+df = pd.read_csv('airline.csv')
+
+df['log_passengers'] = np.log(df.Passengers)
+
+df['year'] = df['Month'].apply(lambda x: int(x.split('-')[0]))
+df['month_number'] = df['Month'].apply(lambda x: int(x.split('-')[1]))
+df['t'] = df.index.values
+
+train_cutoff = 96
+validate_cutoff = 120
+
+train_df = df[df['t'] <= train_cutoff]
+select_df = df[(df['t'] > train_cutoff) & (df['t'] <= validate_cutoff)]
+forecast_df = df[df['t'] > validate_cutoff]
+
+dm = dmatrix('C(month_number)-1', df)
+select_exog = build_design_matrices([dm.design_info], select_df, return_type='dataframe')[0]
+forecast_exog = build_design_matrices([dm.design_info], forecast_df, return_type='dataframe')[0]
+
+plt.plot(train_df.t, train_df.Passengers, label='Training data')
+plt.plot(select_df.t, select_df.Passengers, label='Model selection holdout')
+plt.legend()
+plt.title('Airline passengers by month')
+plt.ylabel('Total passengers')
+plt.xlabel('Month')
+plt.show()
+
+```
+
+Show plot with validation line [IMAGE]
 
 We can observe a few features of this data set which will show up in our model:
 - On the first date observed, the value is non-zero
