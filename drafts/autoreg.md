@@ -31,6 +31,7 @@ Our model will include:
 - A [white noise term](https://otexts.com/fpp2/wn.html), the time-series analogue of IID Gaussian noise (the two are [not quite identical](https://dsp.stackexchange.com/questions/23881/what-is-the-difference-between-i-i-d-noise-and-white-noise), but the differences aren't relevant here)
 
 Formally, the model we'll use looks like this:
+
 $$
  log \underbrace{y_t}_\textrm{Outcome at time t} \sim
 \underbrace{\alpha}_\textrm{Intercept} 
