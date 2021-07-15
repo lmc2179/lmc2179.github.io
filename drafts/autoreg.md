@@ -158,7 +158,9 @@ plt.show()
 ```
 
 ```python
-ar_model = AutoReg(endog=train_df.log_passengers, exog=train_exog, lags=17, trend='ct') # Actually this should be on both the train + select sets :(
+ar_model = AutoReg(endog=train_df.log_passengers, 
+                   exog=train_exog, lags=17, trend='ct')
+                   # Actually this should be on both the train + select sets :(
 ar_fit = ar_model.fit()
 
 plt.title('Residuals')
