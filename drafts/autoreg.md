@@ -133,11 +133,70 @@ plt.show()
 
 error vs choice of p plot [CODE][IMAGE]
 
-residual plot [CODE][IMAGE]
+```python
+from scipy.stats import sem
 
-PACF [CODE][IMAGE]
+lag_values = np.arange(1, 40)
+mse = []
+error_sem = []
+
+for p in lag_values:
+    ar_model = AutoReg(endog=train_df.log_passengers, exog=train_exog, lags=p, trend='ct')
+    ar_fit = ar_model.fit()
+    
+    select_log_pred = ar_fit.predict(start=select_df.t.min(), end=select_df.t.max(), exog_oos=select_exog)
+    select_resid = select_df.Passengers - np.exp(select_log_pred)
+    mse.append(np.mean(select_resid**2))
+    error_sem.append(sem(select_resid**2))
+    
+mse = np.array(mse)
+error_sem = np.array(error_sem)
+    
+plt.plot(lag_values, mse, marker='o')
+plt.fill_between(lag_values, mse - error_sem, mse + error_sem, alpha=.1)
+plt.show()
+```
+
+```python
+ar_model = AutoReg(endog=train_df.log_passengers, exog=train_exog, lags=17, trend='ct') # Actually this should be on both the train + select sets :(
+ar_fit = ar_model.fit()
+
+plt.title('Residuals')
+plt.plot(ar_fit.resid)
+plt.show()
+```
+residual plot [IMAGE]
+
+```python
+from statsmodels.graphics.tsaplots import plot_pacf
+
+plot_pacf(ar_fit.resid)
+plt.show()
+```
+PACF [IMAGE]
 
 # Producing forecasts and prediction intervals
+
+```python
+train_log_pred = ar_fit.predict(start=train_df.t.min(), end=train_df.t.max(), exog_oos=train_exog)
+select_log_pred = ar_fit.predict(start=select_df.t.min(), end=select_df.t.max(), exog_oos=select_exog)
+forecast_log_pred = ar_fit.predict(start=forecast_df.t.min(), end=forecast_df.t.max(), exog_oos=forecast_exog)
+
+plt.plot(train_df.t, 
+         np.exp(train_log_pred), linestyle='dashed', label='In-sample prediction')
+plt.plot(select_df.t, 
+         np.exp(select_log_pred), linestyle='dashed', label='Validation set prediction')
+plt.plot(forecast_df.t, 
+         np.exp(forecast_log_pred), linestyle='dashed', label='Forecast prediction')
+plt.plot(train_df.t, train_df.Passengers, label='Training data')
+plt.plot(select_df.t, select_df.Passengers, label='Model selection holdout')
+plt.plot(forecast_df.t, forecast_df.Passengers, label='Forecast holdout')
+plt.legend()
+plt.title('Airline passengers by month')
+plt.ylabel('Total passengers')
+plt.xlabel('Month')
+plt.show()
+```
 
 Show prediction intervals [CODE][IMAGE]
 
