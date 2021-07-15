@@ -30,12 +30,7 @@ Our model will include:
 - A set of "additional factors", which in our case will be dummy variables for the months of the year
 - A [white noise term](https://otexts.com/fpp2/wn.html), the time-series analogue of IID Gaussian noise (the two are [not quite identical](https://dsp.stackexchange.com/questions/23881/what-is-the-difference-between-i-i-d-noise-and-white-noise), but the differences aren't relevant here)
 
-Log post - https://lmc2179.github.io/posts/multiplicative.html
-
-This gives us the [AR-X model](https://www.statsmodels.org/stable/generated/statsmodels.tsa.ar_model.AutoReg.html)
-
-An [AR(p) model](https://otexts.com/fpp2/AR.html) with extra factors
-
+Formally, the model we'll use looks like this:
 $$
  log \underbrace{y_t}_\textrm{Outcome at time t} \sim
 \underbrace{\alpha}_\textrm{Intercept} 
@@ -44,6 +39,12 @@ $$
 + \underbrace{\beta X_t}_\textrm{Extra factors}
 + \underbrace{\epsilon_t}_\textrm{White Noise} 
 $$
+
+The model above is a type of autoregressive model (so named because the target variable is regressed on lagged versions of itself). More precisely, this gives us the [AR-X(p) model](https://www.statsmodels.org/stable/generated/statsmodels.tsa.ar_model.AutoReg.html), an [AR(p) model](https://otexts.com/fpp2/AR.html) with extra inputs.
+
+As we've [previously discussed in this post](https://lmc2179.github.io/posts/multiplicative.html), it makes sense to take the log of the dependent variable here.
+
+
 
 fit(), summary()
 
