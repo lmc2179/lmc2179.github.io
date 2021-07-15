@@ -179,27 +179,6 @@ PACF [IMAGE]
 
 # Producing forecasts and prediction intervals
 
-```python
-train_log_pred = ar_fit.predict(start=train_df.t.min(), end=train_df.t.max(), exog_oos=train_exog)
-select_log_pred = ar_fit.predict(start=select_df.t.min(), end=select_df.t.max(), exog_oos=select_exog)
-forecast_log_pred = ar_fit.predict(start=forecast_df.t.min(), end=forecast_df.t.max(), exog_oos=forecast_exog)
-
-plt.plot(train_df.t, 
-         np.exp(train_log_pred), linestyle='dashed', label='In-sample prediction')
-plt.plot(select_df.t, 
-         np.exp(select_log_pred), linestyle='dashed', label='Validation set prediction')
-plt.plot(forecast_df.t, 
-         np.exp(forecast_log_pred), linestyle='dashed', label='Forecast prediction')
-plt.plot(train_df.t, train_df.Passengers, label='Training data')
-plt.plot(select_df.t, select_df.Passengers, label='Model selection holdout')
-plt.plot(forecast_df.t, forecast_df.Passengers, label='Forecast holdout')
-plt.legend()
-plt.title('Airline passengers by month')
-plt.ylabel('Total passengers')
-plt.xlabel('Month')
-plt.show()
-```
-
 Show prediction intervals [CODE][IMAGE]
 
 $\sqrt{k \hat{\sigma}^2}$
