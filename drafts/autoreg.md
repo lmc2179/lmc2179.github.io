@@ -18,6 +18,8 @@ Read CSV
 ```python
 import pandas as pd
 from matplotlib import pyplot as plt
+import numpy as np
+from patsy import dmatrix, build_design_matrices
 
 df = pd.read_csv('airline.csv')
 
@@ -35,6 +37,7 @@ select_df = df[(df['t'] > train_cutoff) & (df['t'] <= validate_cutoff)]
 forecast_df = df[df['t'] > validate_cutoff]
 
 dm = dmatrix('C(month_number)-1', df)
+train_exog = build_design_matrices([dm.design_info], train_df, return_type='dataframe')[0]
 select_exog = build_design_matrices([dm.design_info], select_df, return_type='dataframe')[0]
 forecast_exog = build_design_matrices([dm.design_info], forecast_df, return_type='dataframe')[0]
 
@@ -78,15 +81,55 @@ The model above is a type of autoregressive model (so named because the target v
 
 As we've [previously discussed in this post](https://lmc2179.github.io/posts/multiplicative.html), it makes sense to take the log of the dependent variable here.
 
+```python
+from statsmodels.tsa.ar_model import AutoReg
 
+ar_model = AutoReg(endog=train_df.log_passengers, exog=train_exog, lags=5, trend='ct')
+ar_fit = ar_model.fit()
 
-fit(), summary() [CODE]
+train_log_pred = ar_fit.predict(start=train_df.t.min(), end=train_df.t.max(), exog=train_exog)
 
-plot the in-sample fit [CODE][IMAGE]
+plt.plot(train_df.t, 
+         np.exp(train_log_pred), linestyle='dashed', label='In-sample prediction')
+plt.plot(train_df.t, train_df.Passengers, label='Training data')
+plt.legend()
+plt.title('Airline passengers by month')
+plt.ylabel('Total passengers')
+plt.xlabel('Month')
+plt.show()
+```
+
+plot the in-sample fit [IMAGE]
+
+summary()
+
+```python
+print(ar_fit.summary())
+```
+
+```
+[OUTPUT]
+```
 
 # Model checking and model selection
 
-plot OoS fit on validation [CODE][IMAGE]
+plot OoS fit on validation [IMAGE]
+
+```python
+select_log_pred = ar_fit.predict(start=select_df.t.min(), end=select_df.t.max(), exog_oos=select_exog)
+
+plt.plot(train_df.t, 
+         np.exp(train_log_pred), linestyle='dashed', label='In-sample prediction')
+plt.plot(select_df.t, 
+         np.exp(select_log_pred), linestyle='dashed', label='Validation set prediction')
+plt.plot(train_df.t, train_df.Passengers, label='Training data')
+plt.plot(select_df.t, select_df.Passengers, label='Model selection holdout')
+plt.legend()
+plt.title('Airline passengers by month')
+plt.ylabel('Total passengers')
+plt.xlabel('Month')
+plt.show()
+```
 
 error vs choice of p plot [CODE][IMAGE]
 
