@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Conjugate priors for normal (and not-so-normal) data: The Normal-Gamma model"
+title: "Conjugate priors for normal (and not-so-normal) data: The Normal-Gamma model in Python"
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
