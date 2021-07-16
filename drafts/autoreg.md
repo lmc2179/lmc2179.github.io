@@ -1,4 +1,12 @@
-# Intro
+
+---
+layout: post
+title: "Autoregressive models in Python"
+author: "Louis Cialdella"
+categories: posts
+tags: [datascience]
+image: autoreg.png
+---
 
 For practicing data scientists, time series data is everywhere - almost anything we care to observe can be observed over time. Some use cases that have shown up frequently in my work are:
 - **Monitoring metrics and KPIs**: We use KPIs to understand some aspect of the business as it changes over time. We often want to model changes in KPIs to see what affects them, or construct a forecast for them into the near future.
