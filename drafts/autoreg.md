@@ -64,7 +64,7 @@ plt.show()
 
 ```
 
-Show plot with validation line [IMAGE]
+Show plot with validation line ![Plot of data](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/autoreg/Figure_1.png)
 
 We can observe a few features of this data set which will show up in our model:
 - On the first date observed, the value is non-zero
@@ -102,9 +102,9 @@ ar_fit = ar_model.fit()
 
 train_log_pred = ar_fit.predict(start=train_df.t.min(), end=train_df.t.max(), exog=train_exog)
 
+plt.plot(train_df.t, train_df.Passengers, label='Training data')
 plt.plot(train_df.t, 
          np.exp(train_log_pred), linestyle='dashed', label='In-sample prediction')
-plt.plot(train_df.t, train_df.Passengers, label='Training data')
 plt.legend()
 plt.title('Airline passengers by month')
 plt.ylabel('Total passengers')
@@ -112,7 +112,7 @@ plt.xlabel('Month')
 plt.show()
 ```
 
-plot the in-sample fit [IMAGE]
+plot the in-sample fit ![In-sample fit](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/autoreg/Figure_2.png)
 
 summary()
 
@@ -126,23 +126,25 @@ print(ar_fit.summary())
 
 # Model checking and model selection
 
-plot OoS fit on validation [IMAGE]
+plot OoS fit on validation
 
 ```python
 select_log_pred = ar_fit.predict(start=select_df.t.min(), end=select_df.t.max(), exog_oos=select_exog)
 
+plt.plot(train_df.t, train_df.Passengers, label='Training data')
+plt.plot(select_df.t, select_df.Passengers, label='Model selection holdout')
 plt.plot(train_df.t, 
          np.exp(train_log_pred), linestyle='dashed', label='In-sample prediction')
 plt.plot(select_df.t, 
          np.exp(select_log_pred), linestyle='dashed', label='Validation set prediction')
-plt.plot(train_df.t, train_df.Passengers, label='Training data')
-plt.plot(select_df.t, select_df.Passengers, label='Model selection holdout')
 plt.legend()
 plt.title('Airline passengers by month')
 plt.ylabel('Total passengers')
 plt.xlabel('Month')
 plt.show()
 ```
+
+![OoS fit](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/autoreg/Figure_3.png)
 
 error vs choice of p plot [CODE][IMAGE]
 
@@ -167,8 +169,13 @@ error_sem = np.array(error_sem)
     
 plt.plot(lag_values, mse, marker='o')
 plt.fill_between(lag_values, mse - error_sem, mse + error_sem, alpha=.1)
+plt.xlabel('Lag Length P')
+plt.ylabel('MSE')
+plt.title('Lag length vs error')
 plt.show()
 ```
+
+![Lag selection](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/autoreg/Figure_4.png)
 
 ```python
 train_and_select_df = df[df['t'] <= validate_cutoff]
@@ -184,7 +191,9 @@ plt.plot(ar_fit.resid)
 plt.show()
 ```
 
-residual plot [IMAGE]
+residual plot 
+
+![Residual plot](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/autoreg/Figure_5.png)
 
 ```python
 from statsmodels.graphics.tsaplots import plot_pacf
@@ -193,7 +202,9 @@ plot_pacf(ar_fit.resid)
 plt.show()
 ```
 
-PACF [IMAGE]
+PACF 
+
+![PACF plot](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/autoreg/Figure_6.png)
 
 # Producing forecasts and prediction intervals
 
@@ -201,18 +212,20 @@ PACF [IMAGE]
 train_and_select_log_pred = ar_fit.predict(start=train_and_select_df.t.min(), end=train_and_select_df.t.max(), exog_oos=train_and_select_exog)
 forecast_log_pred = ar_fit.predict(start=forecast_df.t.min(), end=forecast_df.t.max(), exog_oos=forecast_exog)
 
+plt.plot(train_and_select_df.t, train_and_select_df.Passengers, label='Training data')
+plt.plot(forecast_df.t, forecast_df.Passengers, label='Out-of-sample')
 plt.plot(train_and_select_df.t, 
          np.exp(train_and_select_log_pred), linestyle='dashed', label='In-sample prediction')
 plt.plot(forecast_df.t, 
          np.exp(forecast_log_pred), linestyle='dashed', label='Forecast')
-plt.plot(train_and_select_df.t, train_and_select_df.Passengers, label='Training data')
-plt.plot(forecast_df.t, forecast_df.Passengers, label='Out-of-sample')
 plt.legend()
 plt.title('Airline passengers by month')
 plt.ylabel('Total passengers')
 plt.xlabel('Month')
 plt.show()
 ```
+
+![Forecast demo](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/autoreg/Figure_7.png)
 
 ```python
 residual_variance = np.var(ar_fit.resid)
@@ -220,6 +233,8 @@ prediction_interval_variance = np.arange(1, len(forecast_df)+1) * residual_varia
 forecast_log_pred_lower = forecast_log_pred - 1.96*np.sqrt(prediction_interval_variance)
 forecast_log_pred_upper = forecast_log_pred + 1.96*np.sqrt(prediction_interval_variance)
 
+plt.plot(train_and_select_df.t, train_and_select_df.Passengers, label='Training data')
+plt.plot(forecast_df.t, forecast_df.Passengers, label='Out-of-sample')
 plt.plot(train_and_select_df.t, 
          np.exp(train_and_select_log_pred), linestyle='dashed', label='In-sample prediction')
 plt.plot(forecast_df.t, 
@@ -227,8 +242,6 @@ plt.plot(forecast_df.t,
 plt.fill_between(forecast_df.t, 
         np.exp(forecast_log_pred_lower), np.exp(forecast_log_pred_upper), 
         label='Prediction interval', alpha=.1)
-plt.plot(train_and_select_df.t, train_and_select_df.Passengers, label='Training data')
-plt.plot(forecast_df.t, forecast_df.Passengers, label='Out-of-sample')
 plt.legend()
 plt.title('Airline passengers by month')
 plt.ylabel('Total passengers')
@@ -236,6 +249,8 @@ plt.xlabel('Month')
 plt.show()
 ```
 
-Show prediction intervals [IMAGE]
+Show prediction intervals 
+
+![Prediction intervals](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/autoreg/Figure_8.png)
 
 $\sqrt{k \hat{\sigma}^2}$
