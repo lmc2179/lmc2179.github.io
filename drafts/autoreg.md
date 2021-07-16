@@ -9,7 +9,9 @@ Each of these use cases is a combination of **description** (understanding the s
 
 # Example: Airline passenger forecasting and the AR-X(p) model
 
-Read CSV
+We'll use a time series of [monthly airline passenger counts from 1949 to 1960](https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv) in this example. An airline or shipping company might use this for capacity planning.
+
+We'll read in the data using pandas:
 
 ```python
 import pandas as pd
@@ -24,7 +26,11 @@ df['log_passengers'] = np.log(df.Passengers)
 df['year'] = df['Month'].apply(lambda x: int(x.split('-')[0]))
 df['month_number'] = df['Month'].apply(lambda x: int(x.split('-')[1]))
 df['t'] = df.index.values
+```
 
+Then, we'll split it into three segments: training, model selection, and forecasting. We'll select the complexity of the model using the model selection set as a holdout, and then attempt to forecast into the future on the forecasting set. Note that this is time series data, so we need to split the data set into three sequential groups, rather than splitting it randomly. We'll use a model selection/forecasting set of about 24 months each, a plausible period of time for an airline to forecast demand.
+
+```python
 train_cutoff = 96
 validate_cutoff = 120
 
@@ -36,7 +42,11 @@ dm = dmatrix('C(month_number)-1', df)
 train_exog = build_design_matrices([dm.design_info], train_df, return_type='dataframe')[0]
 select_exog = build_design_matrices([dm.design_info], select_df, return_type='dataframe')[0]
 forecast_exog = build_design_matrices([dm.design_info], forecast_df, return_type='dataframe')[0]
+```
 
+Let's visualize the training and model selection data:
+
+```python
 plt.plot(train_df.t, train_df.Passengers, label='Training data')
 plt.plot(select_df.t, select_df.Passengers, label='Model selection holdout')
 plt.legend()
