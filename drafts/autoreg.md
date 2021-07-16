@@ -37,6 +37,8 @@ df['t'] = df.index.values
 
 Then, we'll split it into three segments: training, model selection, and forecasting. We'll select the complexity of the model using the model selection set as a holdout, and then attempt to forecast into the future on the forecasting set. Note that this is time series data, so we need to split the data set into three sequential groups, rather than splitting it randomly. We'll use a model selection/forecasting set of about 24 months each, a plausible period of time for an airline to forecast demand.
 
+Note that we'll use patsy's `dmatrix` to turn the month number into a set of categorical dummy variables. This corresponds to the R-style formula `C(month_number)-1`; we could insert whatever R-style formula we like here to generate the design matrix for the additional factor matrix $X$ in the model above.
+
 ```python
 train_cutoff = 96
 validate_cutoff = 120
@@ -64,7 +66,7 @@ plt.show()
 
 ```
 
-Show plot with validation line ![Plot of data](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/autoreg/Figure_1.png)
+![Plot of data](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/autoreg/Figure_1.png)
 
 We can observe a few features of this data set which will show up in our model:
 - On the first date observed, the value is non-zero
@@ -94,6 +96,8 @@ The model above is a type of autoregressive model (so named because the target v
 
 As we've [previously discussed in this post](https://lmc2179.github.io/posts/multiplicative.html), it makes sense to take the log of the dependent variable here.
 
+There's one hyperparameter in this model - the number of lag terms to include, called $p$. For now we'll set $p=5$, but we'll tune this later with cross validation. Let's fit the model, and see how the in-sample fit looks for our training set:
+
 ```python
 from statsmodels.tsa.ar_model import AutoReg
 
@@ -112,9 +116,9 @@ plt.xlabel('Month')
 plt.show()
 ```
 
-plot the in-sample fit ![In-sample fit](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/autoreg/Figure_2.png)
+![In-sample fit](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/autoreg/Figure_2.png)
 
-summary()
+So far, so good! Since we're wary of overfitting, we'll check the out-of-sample fit in the next section. Before we do, I want to point out that we can call `summary()` on the AR model to see the usual regression output:
 
 ```python
 print(ar_fit.summary())
@@ -166,9 +170,11 @@ C(month_number)[11]     0.0165      0.053      0.311      0.756      -0.087     
 C(month_number)[12]     0.1692      0.053      3.207      0.001       0.066       0.273
 ```
 
+In this case, we see that there's a positive intercept, a positive trend, and a spike in travel over the summary (months 6, 7, 8) and the winter holidays (month 12).
+
 # Model checking and model selection
 
-plot OoS fit on validation
+Since our in-sample fit looked good, let's see how the $p=5$ model performs out-of-sample.
 
 ```python
 select_log_pred = ar_fit.predict(start=select_df.t.min(), end=select_df.t.max(), exog_oos=select_exog)
@@ -188,7 +194,7 @@ plt.show()
 
 ![OoS fit](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/autoreg/Figure_3.png)
 
-error vs choice of p plot [CODE][IMAGE]
+Visually, this seems pretty good - our model seems to capture the long-term trend and cyclic structure of the data. However, our choice of $p=5$ was a guess; perhaps a more or less complex model (that is, a model with more or fewer lag terms) would perform better. We'll perform cross-validation by trying different values of $p$ with the holdout set.
 
 ```python
 from scipy.stats import sem
@@ -219,6 +225,10 @@ plt.show()
 
 ![Lag selection](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/autoreg/Figure_4.png)
 
+Adding more lags seems to improve the model, but has diminishing returns. We've computed a standard error on the average squared residual. Using the [one standard error rule](https://lmc2179.github.io/posts/cvci.html), we'll pick $p=17$, the lag which is smallest but within 1 standard error of the best model.
+
+Now that we've picked the lag length, let's see whether the model assumptions hold.
+
 ```python
 train_and_select_df = df[df['t'] <= validate_cutoff]
 train_and_select_exog = build_design_matrices([dm.design_info], train_and_select_df, return_type='dataframe')[0]
@@ -233,9 +243,9 @@ plt.plot(ar_fit.resid)
 plt.show()
 ```
 
-residual plot 
-
 ![Residual plot](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/autoreg/Figure_5.png)
+
+The mean residual is about zero. Does this residual look like white-noise, ie is it uncorrelated with itself?
 
 ```python
 from statsmodels.graphics.tsaplots import plot_pacf
@@ -244,11 +254,11 @@ plot_pacf(ar_fit.resid)
 plt.show()
 ```
 
-PACF 
-
 ![PACF plot](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/autoreg/Figure_6.png)
 
 # Producing forecasts and prediction intervals
+
+So far we've selected a model, and confirm the model assumptions. Now, let's re-fit the model up to the forecast period, and see how we do on some new dates.
 
 ```python
 train_and_select_log_pred = ar_fit.predict(start=train_and_select_df.t.min(), end=train_and_select_df.t.max(), exog_oos=train_and_select_exog)
@@ -268,6 +278,8 @@ plt.show()
 ```
 
 ![Forecast demo](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/autoreg/Figure_7.png)
+
+
 
 ```python
 residual_variance = np.var(ar_fit.resid)
