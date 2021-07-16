@@ -4,7 +4,7 @@ title: "Conjugate priors for normal (and not-so-normal) data: The Normal-Gamma m
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
-image: jellybeans.png
+image: bayes_neon.jpg
 ---
 
 > If we take in our hand any volume; of divinity or school metaphysics, for instance; let us ask, Does it contain any abstract reasoning concerning quantity or number? No. Does it contain any experimental reasoning, concerning matter of fact and existence? No. Commit it then to the flames: for it can contain nothing but sophistry and illusion.
