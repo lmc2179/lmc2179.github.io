@@ -7,6 +7,10 @@ tags: [datascience]
 image: jellybeans.png
 ---
 
+> If we take in our hand any volume; of divinity or school metaphysics, for instance; let us ask, Does it contain any abstract reasoning concerning quantity or number? No. Does it contain any experimental reasoning, concerning matter of fact and existence? No. Commit it then to the flames: for it can contain nothing but sophistry and illusion.
+An Enquiry Concerning Human Understanding (1748) sect. 12, pt. 3
+
+
 Bayesian analysis of proportions using the beta conjugate prior is relatively easy to automate once you've got the basics down ([this](https://www.quantstart.com/articles/Bayesian-Inference-of-a-Binomial-Proportion-The-Analytical-Approach/), [this](https://stephens999.github.io/fiveMinuteStats/bayes_beta_binomial.html), and [this](https://www.youtube.com/watch?v=D0CjtN8RYWc) are some good references if it's a topic that's new to you or you'd like a refresher). For practitioners using Python, it's not much harder than `from scipy.stats import beta`. Analyzing the mean of continuous data is a little more slippery, though. The compound distribution named in the [Wikipedia page](https://en.wikipedia.org/wiki/Conjugate_prior#When_likelihood_function_is_a_continuous_distribution), the frightening-sounding "Normal Gamma", isn't even implemented in scipy. What's an analyst who just wants to evaluate a posterior distribution of the mean and variance to do?
 
 Well, it turns out it's not too bad - there's just some assembly required. It's worth a tour of the theory to get the context, and then we'll do an example in Python.
