@@ -227,7 +227,7 @@ plt.show()
 
 Adding more lags seems to improve the model, but has diminishing returns. We've computed a standard error on the average squared residual. Using the [one standard error rule](https://lmc2179.github.io/posts/cvci.html), we'll pick $p=17$, the lag which is smallest but within 1 standard error of the best model.
 
-Now that we've picked the lag length, let's see whether the model assumptions hold.
+Now that we've picked the lag length, let's see whether the model assumptions hold. When we subtract out the predictions of our model, we should be left with something that looks like Gaussian white noise - errors which are normally distributed around zero, and which have no autocorrelection. Let's start by 
 
 ```python
 train_and_select_df = df[df['t'] <= validate_cutoff]
@@ -235,7 +235,6 @@ train_and_select_exog = build_design_matrices([dm.design_info], train_and_select
 
 ar_model = AutoReg(endog=train_and_select_df.log_passengers, 
                    exog=train_and_select_exog, lags=17, trend='ct')
-                   # Actually this should be on both the train + select sets :(
 ar_fit = ar_model.fit()
 
 plt.title('Residuals')
@@ -245,7 +244,7 @@ plt.show()
 
 ![Residual plot](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/autoreg/Figure_5.png)
 
-The mean residual is about zero. Does this residual look like white-noise, ie is it uncorrelated with itself?
+The mean residual is about zero. If I run `np.mean` and `sem`, we see that average residual is 3.2e-14, with a standard error of .003. So this does appear to be centered around zero. To see if it's uncorrelated with itself, we'll compute the [partial autocorrelation](https://en.wikipedia.org/wiki/Partial_autocorrelation_function).
 
 ```python
 from statsmodels.graphics.tsaplots import plot_pacf
@@ -255,6 +254,8 @@ plt.show()
 ```
 
 ![PACF plot](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/autoreg/Figure_6.png)
+
+This plot is exactly what we'd hope to see - we can't find any lag for which there is a non-zero partial autocorrelation.
 
 # Producing forecasts and prediction intervals
 
@@ -279,7 +280,16 @@ plt.show()
 
 ![Forecast demo](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/autoreg/Figure_7.png)
 
+Our predictions look pretty good! Our selected model performs well when forecasting data it did not see during the training or model selection process. The predictions are arrived at recursively - so by predicting next month's value, then using that to predict the month after that, etc. `statsmodels` hides that annoying recursion behind a nice interface, letting us get a point forecast out into the future.
 
+In addition to a point prediction, it's often useful to make an interval prediction. For example:
+- In capacity planning you often want to know the largest value that might occur in the future
+- In risk management you often want to know the smallest value that your investments might produce in the future
+- When monitoring metrics, you might want to know whether the observed value is within the bounds of what we expect.
+
+Because our prediction is recursive, our prediction intervals will get wider as the forecast range gets further out. I think this makes intuitive sense; forecasts of the distance future are harder than the immediate future, since errors pile up more and more as you go further out in time.
+
+More formally, our white noise has some standard deviation, say $\sigma$. We can get a point estimate, $\hat{\sigma}$ by looking at the standard deviation of the residuals. In that case, a 95% prediction interval for the next time step is $\pm 1.96 \hat{\sigma}$. If we want to forecast two periods in the future, we're adding two white noise steps to our prediction, meaning the prediction interval is $\pm 1.96 \sqrt{2 \hat{\sigma}^2}$ since the [the variance of the sum is the sum of the variances](https://en.wikipedia.org/wiki/Sum_of_normally_distributed_random_variables). In general, the prediction interval for $k$ time steps in the future is $\pm 1.96 \sqrt{k \hat{\sigma}^2}$.
 
 ```python
 residual_variance = np.var(ar_fit.resid)
@@ -303,8 +313,6 @@ plt.xlabel('Month')
 plt.show()
 ```
 
-Show prediction intervals 
-
 ![Prediction intervals](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/autoreg/Figure_8.png)
 
-$\sqrt{k \hat{\sigma}^2}$
+And there we have it! Our prediction intervals fully cover the observations in the forecast period; note how the intervals become wider as the forecast window gets larger.
