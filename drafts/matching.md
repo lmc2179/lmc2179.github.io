@@ -9,7 +9,6 @@ Look at X and y for treat and control
 https://vincentarelbundock.github.io/Rdatasets/doc/Ecdat/Treatment.html
 
 ```python
-
 import pandas as pd
 
 df = pd.read_csv('https://vincentarelbundock.github.io/Rdatasets/csv/Ecdat/Treatment.csv')
@@ -17,12 +16,16 @@ df = pd.read_csv('https://vincentarelbundock.github.io/Rdatasets/csv/Ecdat/Treat
 covariate_columns = ['age', 'educ', 'ethn', 'married', 're74', 're75', 'u74', 'u75']
 outcome_column = 're78'
 
-X_c = df[df['treat']][covariate_columns]
-y_c = df[df['treat']][outcome_column]
+treatment_indicator = df['treat']
 
-X_t = df[~df['treat']][covariate_columns]
-y_t = df[~df['treat']][outcome_column]
+y_c = df[treatment_indicator][outcome_column]
+y_t = df[~treatment_indicator][outcome_column]
 
+df = pd.get_dummies(df[covariate_columns])
+
+X_c = df[treatment_indicator].astype('float')
+
+X_t = df[~treatment_indicator].astype('float')
 ```
 
 # The idea of matching
@@ -36,23 +39,27 @@ Notions of similarity, distance
 https://gist.github.com/lmc2179/7ae1dcc04ba95cccd8c118f25bd94e4f
 
 ```python
+from scipy.spatial.distance import mahalanobis
+from scipy.optimize import linear_sum_assignment
 
 def mahalanobis_matrix(X_c, X_t):
-    V = np.cov(X, rowvar=0)
+    V = np.cov(np.concatenate((X_c, X_t)), rowvar=0)
     VI = np.linalg.inv(V)
-    D = np.zeros((len(X),len(X)))
-    for i in range(len(X)):
-        for j in range(i, len(X)):
-            D[i][j] = D[j][i] = mahalanobis(X[i], X[j], VI)
+    D = np.zeros((len(X_c),len(X_t)))
+    for i in range(len(X_c)):
+        for j in range(len(X_t)):
+            D[i][j] = mahalanobis(X_c[i], X_t[j], VI)
     return D
+    
+D = mahalanobis_matrix(X_c.values, X_t.values)
 
+D[np.isnan(D)] = np.inf # Hack to get rid of nans, where are they coming from
+
+c_pair, t_pair = linear_sum_assignment(D)
+pair_distances = [D[c][t] for c, t in zip(c_pair, t_pair)]
 ```
 
-Need the VI matrix for all the data, then create the rectangular matrix
-
-https://gist.github.com/lmc2179/d4bd1091821db7048bbca5f77b785a4c
-
-Gower? ^^
+Compare with Gower (https://gist.github.com/lmc2179/d4bd1091821db7048bbca5f77b785a4c), Exact similarity (or almost-exact matching)
 
 # Checking the match quality
 
