@@ -65,9 +65,30 @@ Compare with Gower (https://gist.github.com/lmc2179/d4bd1091821db7048bbca5f77b78
 
 Distance distribution and spot checks
 
-SMDs
+Differences and SMDs
+```python
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6351359/
+
+age_diffs = (X_t.iloc[t_pair]['age'].values - X_c.iloc[c_pair]['age'].values)
+
+print(np.sum((age_diffs <= 10) & (age_diffs >= -10)))
+
+age_smd = (X_t.iloc[t_pair]['age'].values.mean() - X_c.iloc[c_pair]['age'].values.mean()) / np.sqrt((X_t.iloc[t_pair]['age'].values.var() + X_c.iloc[c_pair]['age'].values.var()) / 2)
+
+sns.kdeplot(age_diffs)
+plt.show()
+```
 
 marginal dist plots for external validity
+
+```python
+sns.kdeplot(X_t.iloc[t_pair]['age'].values, label='Treatment matches')
+sns.kdeplot(X_c.iloc[c_pair]['age'].values, label='Control matches')
+sns.kdeplot(df['age'].values, label='Full data set')
+
+plt.show()
+
+```
 
 # Causal considerations
 
