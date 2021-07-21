@@ -97,3 +97,5 @@ dagitty, DAGs, backdoor
 # Other matching methods
 
 CEM, PSM; mention regression as matching
+
+https://arxiv.org/pdf/1707.06315.pdf
