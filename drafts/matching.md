@@ -30,11 +30,15 @@ X_t = df[~treatment_indicator].astype('float')
 
 # The idea of matching
 
+Stuart step 1: Closeness
+
 http://biostat.jhsph.edu/~estuart/Stuart10.StatSci.pdf
 
 Notions of similarity, distance
 
 # Matching in Python
+
+Stuart step 2: Do matching
 
 https://gist.github.com/lmc2179/7ae1dcc04ba95cccd8c118f25bd94e4f
 
@@ -63,6 +67,8 @@ Compare with Gower (https://gist.github.com/lmc2179/d4bd1091821db7048bbca5f77b78
 
 # Checking the match quality
 
+Stuart step 3
+
 Distance distribution and spot checks
 
 Differences and SMDs
@@ -90,7 +96,15 @@ plt.show()
 
 ```
 
+# Estimating the treatment effect
+
+Stuart step 4
+
+?
+
 # Causal considerations
+
+What causal assumptions were embedded in the previous analysis
 
 dagitty, DAGs, backdoor
 
