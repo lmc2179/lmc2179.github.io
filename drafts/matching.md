@@ -1,5 +1,9 @@
 # What is observational analysis
 
+Potential outcomes; the experimental ideal
+
+Matching as a common-sense solution
+
 # Example:
 
 Introduce the problem; the treatment, outcome, and confounders
