@@ -7,6 +7,10 @@ tags: [datascience]
 image: autoreg.png
 ---
 
+*Plenty of problems confronted by practicing data scientists have a time series component. Luckily, building time series models for forecasting and description is easy in statsmodels. We'll walk through a forecasting problem using an autoregressive model with covariates (AR-X) model in Python.*
+
+# Time series data is everywhere
+
 For practicing data scientists, time series data is everywhere - almost anything we care to observe can be observed over time. Some use cases that have shown up frequently in my work are:
 - **Monitoring metrics and KPIs**: We use KPIs to understand some aspect of the business as it changes over time. We often want to model changes in KPIs to see what affects them, or construct a forecast for them into the near future.
 - **Capacity planning**: Many businesses have seasonal changes in their demand or supply. Understanding these trends helps us make sure we have enough production, bandwidth, sales staff, etc as conditions change.
