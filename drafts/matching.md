@@ -34,7 +34,7 @@ X_c = df[treatment_indicator].astype('float')
 X_t = df[~treatment_indicator].astype('float')
 ```
 
-this is the ATT
+this is the ATC, weirdly enough
 
 # The idea of matching
 
