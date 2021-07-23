@@ -17,7 +17,7 @@ import pandas as pd
 
 df = pd.read_csv('https://vincentarelbundock.github.io/Rdatasets/csv/Ecdat/Treatment.csv')
 
-http://business.baylor.edu/scott_cunningham/teaching/lalonde-1986.pdf
+#http://business.baylor.edu/scott_cunningham/teaching/lalonde-1986.pdf
 
 covariate_columns = ['age', 'educ', 'ethn', 'married', 're74', 're75', 'u74', 'u75']
 outcome_column = 're78'
