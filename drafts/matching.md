@@ -1,8 +1,8 @@
 # What is observational analysis
 
-Potential outcomes; the experimental ideal
+Potential outcomes; the potential-outcome ideal
 
-Matching as a common-sense solution
+Matching as a common-sense solution: fill in the other side of the potential outcome with a unit that looks like it but got the opposite treatment status
 
 # Example:
 
