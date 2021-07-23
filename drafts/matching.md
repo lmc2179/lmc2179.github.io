@@ -79,7 +79,7 @@ Stuart step 3
 
 Distance distribution and spot checks
 
-Differences and SMDs
+Differences and SMDs; SMD of matched vs all data
 ```python
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6351359/
 
