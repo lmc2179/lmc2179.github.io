@@ -34,6 +34,8 @@ X_c = df[treatment_indicator].astype('float')
 X_t = df[~treatment_indicator].astype('float')
 ```
 
+this is the ATT
+
 # The idea of matching
 
 Stuart step 1: Closeness
