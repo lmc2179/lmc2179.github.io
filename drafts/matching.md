@@ -78,6 +78,12 @@ def coarsened_almost_exact_match_distance(x_c, x_t, tol): # Three np arrays of e
     abs_diff = np.abs(x_c - x_t)
     almost_match = abs_diff <= tol
     return 1. - (sum(almost_match) / len(tol))
+    
+def dist_matrix(X_c, X_t, tol):
+    for i in range(len(X_c)):
+        for j in range(len(X_t)):
+            D[i][j] = coarsened_almost_exact_match_distance(X_c[i], X_t[j], tol)
+    return D
 ```
 
 # Checking the match quality
