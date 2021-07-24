@@ -73,6 +73,13 @@ pair_distances = [D[c][t] for c, t in zip(c_pair, t_pair)]
 
 Compare with Gower (https://gist.github.com/lmc2179/d4bd1091821db7048bbca5f77b785a4c), Exact similarity (or almost-exact matching)
 
+```python
+def coarsened_almost_exact_match_distance(x_c, x_t, tol): # Three np arrays of equal length; differences less than tol are considered matches
+    abs_diff = np.abs(x_c - x_t)
+    almost_match = abs_diff <= tol
+    return 1. - (sum(almost_match) / len(tol))
+```
+
 # Checking the match quality
 
 Stuart step 3
