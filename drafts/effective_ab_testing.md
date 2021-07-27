@@ -1,10 +1,12 @@
 Effective A/B testing is about practical significance, not statistical significance
 
-# Why we A/B testing, and why we often do it badly
+# Why we do A/B testing, and why we often do it badly
 
 Why A/B test? Definitive estimate of a causal effect clarifies decisions and creates organizational consensus
 
 Example: New UI feature - does it do anything? does it do enough to care about?
+
+An anti-pattern: P-value sanctification
 
 # Problems with P-values, and some solutions
 
