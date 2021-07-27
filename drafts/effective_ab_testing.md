@@ -10,7 +10,7 @@ An anti-pattern: P-value sanctification
 
 # Problems with P-values, and some solutions
 
-P-values/H0 issues: H0 isn't true, H0 isn't interesting, P-values run together power + effect
+P-values/H0 issues: H0 isn't true, H0 isn't interesting, P-values run together power + effect - Gelman citation
 
 Beyond binary effect sizes: What is ES; unitless standardized measures of ES like Cohen's D as measures of effect vs background noise; what is "large" is still unclear (https://stats.stackexchange.com/questions/469203/what-is-the-intuition-behind-cohens-d, https://stats.stackexchange.com/questions/23775/interpreting-effect-size/87968#87968) and so I'd skip them
 
