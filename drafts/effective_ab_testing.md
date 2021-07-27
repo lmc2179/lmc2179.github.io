@@ -1,4 +1,35 @@
-A/B testing is about practical significance, not statistical significance
+Effective A/B testing is about practical significance, not statistical significance
+
+# Why we A/B testing, and why we often do it badly
+
+Why A/B test? Definitive estimate of a causal effect clarifies decisions and creates organizational consensus
+
+Example: New UI feature - does it do anything? does it do enough to care about?
+
+# Problems with P-values, and some solutions
+
+P-values/H0 issues: H0 isn't true, H0 isn't interesting, P-values run together power + effect
+
+Beyond binary effect sizes: What is ES; traditional measures of ES like Cohen's D as measures of effect vs background noise; what is "large" is still unclear
+
+Effects large enough to care about: Org goals and the ROPE; work with your stakeholders!!
+
+# An effective A/B test workflow: From design to decision
+
+- Measure or guess the variance
+- Elicit a ROPE
+- Plan on a sample size which gets you a CI about the size of the ROPE
+- Collect data and don't stop early
+- Analysis: Compute delta CI, check if it is in ROPE; look at CI bounds, not the point estimate
+
+# Appendix: Bayesian bonus:
+
+P(delta)
+
+Tripartition view
+
+--------------------------------------------------------
+
 
 - A common anti-pattern is:
   - Collect $y^T, y^C$, calculate $\hat{\mu}^T, \hat{\mu}^C$
