@@ -31,6 +31,15 @@ Standard errors for reweighting
 
 # Post-stratifying with models
 
+- We observe units ${(X_1, y_1), ..., (X_n, y_n)}$
+- We know about some set of strata $S = {S_1, ..., S_k}$
+- Each of the strata has a known population proportion $p_j = \mathbb{P}(X = S_j)$
+- Note that $\sum_{j=1}^k p_j = 1$
+- We estimate the model $\hat{\mathbb{E}}[y \mid X]$ from the observed units who responded
+- Let $\hat{\mu_j} = \hat{\mathbb{E}}[y \mid S_j]$
+- Then $\hat{\mu} = \sum_{j=1}^k p_j \hat{\mu_j}$
+- And $SE(\hat{\mu}) = \sqrt{\sum_{j=1}^k p_j^2 \hat{\mu_j}^2}$
+
 Post-stratification formalism
 
 More complex example: 3x5 table
