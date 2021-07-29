@@ -80,6 +80,29 @@ Compute poststratified estimates and SEs
 
 # Appendix: Importance sampling
 
+# Appendix: Generating the data
+
+```python
+import numpy as np
+from scipy.special import expit, softmax
+from itertools import product
+import pandas as pd
+
+def gen_sample(n):
+  R_PROB_SAMPLE = {'A': 1, 'B':1, 'C': 1}
+  S_PROB_SAMPLE = {'Free': 5, 'Personal': 3, 'Enterprise': 1}
+  R_PROB_YES = {'A': 1, 'B':1, 'C': 1}
+  S_PROB_YES = {'Free': 5, 'Personal': 3, 'Enterprise': 1}
+  possible_pairs = np.array(list(product(R_PROB_SAMPLE.keys(), S_PROB_SAMPLE.keys())))
+  p_sample = softmax([R_PROB_SAMPLE[r] + S_PROB_SAMPLE[s] for r, s in possible_pairs])
+  sampled_index = np.random.choice(np.arange(len(possible_pairs)), size=n, p=p_sample)
+  sampled_pairs = possible_pairs[sampled_index]
+  p_yes = np.array([expit(R_PROB_YES[r] + S_PROB_SAMPLE[s]) for r, s in possible_pairs])
+  sampled_yes = (np.random.uniform(size=n) <= p_yes[sampled_index]).astype(int)
+  sampled_r, sampled_s = zip(*sampled_pairs)
+  return pd.DataFrame({'region': sampled_r, 'size': sampled_s, 'yes': sampled_yes})
+```
+
 ------------------------------
 
 
