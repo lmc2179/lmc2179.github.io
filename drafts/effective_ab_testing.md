@@ -37,6 +37,25 @@ P(delta)
 
 Tripartition view
 
+# Appendix: Halfnorm stuff
+
+```python
+import sympy as sm
+from scipy.stats import halfnorm
+
+x = sm.Symbol('x')
+s = sm.Symbol('s')
+
+f = (sm.sqrt(2/pi) * sm.exp(-x**2/2))/s
+
+mean = sm.integrate(x*f, (x, 0, sm.oo))
+
+var = sm.integrate(((x-mean)**2)*f, (x, 0, sm.oo))
+
+print(mean.subs(s, 1).subs(pi, np.pi).evalf(), halfnorm(scale=1).mean())
+print(var.subs(s, 1).subs(pi, np.pi).evalf(), halfnorm(scale=1).var())
+```
+
 --------------------------------------------------------
 
 
