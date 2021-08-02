@@ -54,6 +54,10 @@ var = sm.integrate(((x-mean)**2)*f, (x, 0, sm.oo))
 
 print(mean.subs(s, 1).subs(pi, np.pi).evalf(), halfnorm(scale=1).mean())
 print(var.subs(s, 1).subs(pi, np.pi).evalf(), halfnorm(scale=1).var())
+
+s_in_terms_of_mu = sm.solve(mean-mu,s)[0]
+
+s_when_mu_is_8 = s_in_terms_of_mu.subs(mu, 8).evalf()
 ```
 
 --------------------------------------------------------
