@@ -16,11 +16,28 @@ I call this anti-pattern **P-value sanctification**. The internal logic of this 
 
 # Problems with P-value sanctification, and some solutions
 
+Before I point out the issues with this workflow, I'll note some _good_ things about the above method, which might explain why it's commonly observed in the wild.
+
+1. It is easy to automate: each step involves a well-defined calculation that doesn't need a human in the loop. 
+2. It provides an unambiguous decision process. Once we collect the data, we can simply compute $\hat{\mu}^T$, $\hat{\mu}^C$, and $p$, and we'll know whether we should switch to the new algorithm or not.
+
+These are good things! As we try to improve this approach, we'll preserve these properties.
+
+Let's turn now to the **flaws of this approach**:
+
+1. The P-value analysis does not actually tell us about the magnitude of the lift. We only tested the hypothesis that the difference between treatment and control isn't _exactly_ zero. If we want to understand the size of the treatment effect, we should put error bars around it.
+2. An increase which is statistically significant may not be **practically significant**. Even if we reject $H_0$, meaning that we think treatment provides more revenue than control, it can still be true that the increase is to small to make any practical difference to the success of the business. That is, the increse can be non-zero, but still be too small to matter to our stakeholders.
+
+???
+
 P-values/H0 issues: H0 isn't true, H0 isn't interesting, P-values run together power + effect - Gelman citation; even when they work, P-values only tell us about a non-zero effect, that's what "statistical significance" means
 
 Beyond binary effect sizes: What is ES; unitless standardized measures of ES like Cohen's D as measures of effect vs "background noise"; what is "large" is still unclear (https://stats.stackexchange.com/questions/469203/what-is-the-intuition-behind-cohens-d, https://stats.stackexchange.com/questions/23775/interpreting-effect-size/87968#87968) and so I'd skip them
 
+
 Effects large enough to care about: Org goals and the ROPE; work with your stakeholders!!
+
+
 
 # An effective A/B test workflow: From design to decision
 
