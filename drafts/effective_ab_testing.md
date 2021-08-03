@@ -6,16 +6,15 @@ We run an A/B test to learn how a change in the user experience affects user beh
 
 Companies run A/B tests to see **how changes in the user experience affect user behavior**. They split users between the old, "control" experience and a new "treatment" experience, providing an estimate of how the change affects one or more measured **outcome metrics**. For example, ecommerce retailers like Amazon provide recommendations to users in the hope of increasing revenue per user. They might A/B test a new recommendation alongside an old one, to estimate the impact of the new algorithm on revenue. **Because they randomize away sources of variation other than the intervention, A/B tests provide a high-quality estimate of the causal effect of the change.** This clarifies the decision of whether to switch everyone over to the new algorithm. This post is about how to turn the test data into a decision: should we change algorithms or not?
 
-Does the new feature improve revenue per user enough for us to care about?
+A common **anti-pattern** I've observed is a workflow that goes like this:
+  - Collect your data from the treated and control groups, and calculate the treatment and control averages per user (such as revenue per user). Since we're fancy data scientists who need to justify our salaries, we'll call the treatment and control averages estimated from the data $\hat{\mu}^T$ and  $\hat{\mu}^C$
+  - Check if $\hat{\mu}^T > \hat{\mu}^C$. If not, call the test a failure.
+  - Run a T-test on $H_0:\mu^T = \mu^C$. The idea here is that we'd like to be able to reject the null hypothesis that they're the same, ie that the treatment had no effect.
+  - If $p < .05$ (or your favorite $\alpha$) and $\hat{\mu}^ > \hat{\mu}^C$, the test is a winner! You say it caused a $\hat{\mu}^T - \hat{\mu}^C$ increase in revenue, which your PM can put in the next update deck.
 
-A common workflow of the "P-value sanctification" anti-pattern is:
-  - Collect $y^T, y^C$, calculate $\hat{\mu}^T, \hat{\mu}^C$
-  - Run a T-test on $\mu^T = \mu^C$
-  - If $p < .05$ and $\hat{\mu}^ > \hat{\mu}^C$, the test is a winner, and caused a $\frac{\hat{\mu}^T - \hat{\mu}^C}{\hat{\mu}^C}$ lift which your PM can put in the next update deck
+I call this anti-pattern **P-value sanctification**. The internal logic of this approach goes something like this: if $p < .05$, then the observed treatment effect of $\hat{\mu}^T - \hat{\mu}^C$ is "real", in the sense that it's not noise. Unfortunately, this interpretation isn't quite right.
 
-This is an anti-pattern because it misleads us about the size of the treatment effect. The analysis does _not_ tell us about the size of the effect, aside from telling us that it is non-zero. The goal of A/B testing is to get a precise estimate of the treatment effect (Kruschke).
-
-# Problems with P-values, and some solutions
+# Problems with P-value sanctification, and some solutions
 
 P-values/H0 issues: H0 isn't true, H0 isn't interesting, P-values run together power + effect - Gelman citation; even when they work, P-values only tell us about a non-zero effect, that's what "statistical significance" means
 
