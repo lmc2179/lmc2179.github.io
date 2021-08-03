@@ -4,7 +4,7 @@ Effective A/B testing is about practical significance, not statistical significa
 
 We run an A/B test to learn how a change in the user experience affects user behavior. Since a well-planned A/B test can provide a definitive estimate of the causal effect of the change, it gives decision makers a set of facts to base decisons in. It creates organizational consensus.
 
-Example: New recommendation algorithm for an ecomm site - does it do anything? does it do enough to care about?
+Companies run A/B tests to see **how changes in the user experience affect user behavior**. They split users between the old, "control" experience and a new "treatment" experience, providing an estimate of how the change affects one or more measured **outcome metrics**. For example, ecommerce retailers like Amazon provide recommendations to users in the hope of increasing revenue per user. They might A/B test a new recommendation alongside an old one, to estimate the impact of the new algorithm on revenue. **Because they randomize away sources of variation other than the intervention, A/B tests provide a high-quality estimate of the causal effect of the change.** This clarifies the decision of whether to switch everyone over to the new algorithm. This post is about how to turn the test data into a decision: should we change algorithms or not?
 
 Does the new feature improve revenue per user enough for us to care about?
 
