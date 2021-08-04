@@ -79,12 +79,18 @@ print(mean.subs(s, random_s).subs(sm.pi, np.pi).evalf(), halfnorm(scale=random_s
 print(var.subs(s, random_s).subs(sm.pi, np.pi).evalf(), halfnorm(scale=random_s).var())
 ```
 
+Lastly, we'll create a new symbol for $\mu$, and rewrite $s$ in terms of it:
+
 ```python
 mu = sm.Symbol('mu')
 
 s_in_terms_of_mu = sm.solve(mean-mu,s)[0]
+```
 
-s_when_mu_is_8 = s_in_terms_of_mu.subs(mu, 8).evalf()
+We see that $s = \frac{\sqrt{2} \sqrt{\pi} \mu}{2}$.
+
+```python
+print(s_in_terms_of_mu.subs(mu, mean.subs(s, random_s).subs(sm.pi, np.pi).evalf()).evalf(), random_s)
 ```
 
 # Symbolic Differentiation: Finding the maximum of a response surface model
@@ -95,9 +101,8 @@ set partials df/dx and df/dy to zero, solve for x and y
 
 ```python
 import sympy as sm
-from sympy import init_printing
-
-init_printing(use_unicode=False)
+from matplotlib import pyplot as plt
+from sklearn.utils.extmath import cartesian
 
 x, y, a, b_x_1, b_y_1, b_x_y, b_x_2, b_y_2 = sm.symbols('x y a b_x_1 b_y_1 b_x_y b_x_2 b_y_2')
 
@@ -107,6 +112,29 @@ result = sm.solve([sm.Eq(f.diff(var), 0) for var in [x, y]], [x, y])
 
 print(print(sm.latex(result[x])))
 print(print(sm.latex(result[y])))
+
+coefficient_values = [
+(a, 1),
+(b_x_1, 1), 
+(b_y_1, 1), 
+(b_x_y, 1), 
+(b_x_2, 1), 
+(b_y_2, 1)
+]
+
+f_from_experiment = f.subs(coefficient_values)
+
+numpy_f_from_experiment = sm.lambdify((x, y), f_from_experiment)
+
+x_y_pairs = cartesian([np.linspace(-1, 1), np.linspace(-1, 1)])
+z = [numpy_f_from_experiment(x_i, y_i) for x_i, y_i in x_y_pairs]
+
+x_plot, y_plot = zip(*x_y_pairs)
+
+plt.tricontour(x_plot, y_plot, z)
+
+plt.scatter([result[x].subs(coefficient_values)], [result[y].subs(coefficient_values)], marker='x')
+plt.show()
 ```
 
 Plot level curves for a specific quadratic, calculate point at max
