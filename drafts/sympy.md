@@ -7,37 +7,54 @@ tags: [datascience]
 image: sympy.png
 ---
 
-
-
-_My job seems to involve just enough calculus that I can't afford to forget it, but little enough that I always feel rusty when I need to do it. In those cases, I'm thankful to be able to check my work with [Sympy](https://www.sympy.org/en/index.html), a symbolic mathematics library in Python. Here are two examples of recent places I've used Sympy to do calculus._
+_My job seems to involve just enough calculus that I can't afford to forget it, but little enough that I always feel rusty when I need to do it. In those cases, I'm thankful to be able to check my work with [Sympy](https://www.sympy.org/en/index.html), a symbolic mathematics library in Python. Here are two examples of recent places I've used Sympy to do calculus. We'll start by computing the expected value of a distribution by doing a symbolic definite integral. Then, we'll find the maximum of a model by finding its partial derivatives symbolically, and setting it to zero._
 
 # Symbolic Integration: Finding the moments of a probability distribution
 
-Scipy halfnorm has one param - what are its moments? How does the mean and SD depend on s?
+A simple model for a continuous, non-negative random variable is a [half-normal distribution](https://en.wikipedia.org/wiki/Half-normal_distribution). This is implemented in scipy as [halfnorm](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.halfnorm.html), but that implementation differs from the one on Wikipedia (the PDFs are different). The `scipy` version is implemented in terms of a `scale` parameter which we'll call $s$. If we're going to use this distribution, there are a few questions we'd like to answer about it:
+- What are the moments of this distribution? How do the mean and variance of the distribution depend on $s$?
+- How might we estimate $s$ from some data?
 
-$f(x) = \sqrt{\frac{2}{\pi}} exp(\frac{-x^2}{2})$
+Scipy lets us do all of these numerically (using functions like `mean()`, `var()`, and `fit(data)`).
+
+$f(x) = \frac{1}{s} \sqrt{\frac{2}{\pi}} exp(\frac{-x^2}{2})$
+
+[mean](https://en.wikipedia.org/wiki/Expected_value#Absolutely_continuous_case)
 
 How would we estimate s hat from the data? [Method of Moments](https://en.wikipedia.org/wiki/Method_of_moments_(statistics))
 
-Compute mu in terms of s by integrating, then rearrange
+Compute mu and var in terms of s by integrating, then rearrange
 
 $\mu = \int_{0}^{\infty} x f(x) dx$
 
 ```python
 import sympy as sm
 from scipy.stats import halfnorm
+import numpy as np
+```
 
+```python
 x = sm.Symbol('x')
 s = sm.Symbol('s')
+```
 
-f = (sm.sqrt(2/pi) * sm.exp(-x**2/2))/s
+```python
+f = (sm.sqrt(2/sm.pi) * sm.exp(-x**2/2))/s
+```
 
+``python
 mean = sm.integrate(x*f, (x, 0, sm.oo))
 
 var = sm.integrate(((x-mean)**2)*f, (x, 0, sm.oo))
+```
 
-print(mean.subs(s, 1).subs(pi, np.pi).evalf(), halfnorm(scale=1).mean())
-print(var.subs(s, 1).subs(pi, np.pi).evalf(), halfnorm(scale=1).var())
+```python```
+print(mean.subs(s, 1).subs(sm.pi, np.pi).evalf(), halfnorm(scale=1).mean())
+print(var.subs(s, 1).subs(sm.pi, np.pi).evalf(), halfnorm(scale=1).var())
+```
+
+```python
+mu = sm.Symbol('mu')
 
 s_in_terms_of_mu = sm.solve(mean-mu,s)[0]
 
