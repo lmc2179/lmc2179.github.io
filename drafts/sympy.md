@@ -15,7 +15,7 @@ A simple model for a continuous, non-negative random variable is a [half-normal 
 - What are the moments of this distribution? How do the mean and variance of the distribution depend on $s$?
 - How might we estimate $s$ from some data? If we knew the relationship between the first moment and $s$, we could use the [Method of Moments](https://en.wikipedia.org/wiki/Method_of_moments_(statistics)) for this univariate distribution.
 
-Scipy lets us do all of these numerically (using functions like `mean()`, `var()`, and `fit(data)`). However, answering the above gives us some intuition about how the distribution behaves more generally, and could be the starting point for further analysis like computing the standard errors of $s$.
+Scipy lets us do all of these numerically (using functions like `mean()`, `var()`, and `fit(data)`). However, computing closed-form expressions for the above gives us some intuition about how the distribution behaves more generally, and could be the starting point for further analysis like computing the standard errors of $s$.
 
 The scipy docs tell us that the PDF is:
 
@@ -54,7 +54,7 @@ We'll specify the PDF of `scipy.halfnorm` as a function of $x$ and $s$:
 f = (sm.sqrt(2/sm.pi) * sm.exp(-(x/s)**2/2))/s
 ```
 
-It's now a simple task to symbolically compute the definite integrals defining the first and second moments. The first argument to `integrate` is the function to integrate, and the second is a tuple `(x, start, end)` defining the variable and range of integration. For an indefinite integral, the second argument is just the target variable.
+It's now a simple task to symbolically compute the definite integrals defining the first and second moments. The first argument to `integrate` is the function to integrate, and the second is a tuple `(x, start, end)` defining the variable and range of integration. For an indefinite integral, the second argument is just the target variable. Note that `oo` is the cute sympy way of writing $\infty$.
 
 ```python
 mean = sm.integrate(x*f, (x, 0, sm.oo))
@@ -75,9 +75,21 @@ $\sigma^2 = - \frac{2 s^{2}}{\pi} + s^{2}$
 ```python
 random_s = np.random.uniform(0, 10)
 
-print(mean.subs(s, random_s).subs(sm.pi, np.pi).evalf(), halfnorm(scale=random_s).mean())
-print(var.subs(s, random_s).subs(sm.pi, np.pi).evalf(), halfnorm(scale=random_s).var())
+print('Testing for s = ', random_s)
+print('The mean computed symbolically', mean.subs(s, random_s).subs(sm.pi, np.pi).evalf(), '\n',
+      'The mean from Scipy is:', halfnorm(scale=random_s).mean())
+print('The variance computed symbolically', var.subs(s, random_s).subs(sm.pi, np.pi).evalf(), '\n',
+      'The variance from Scipy is:', halfnorm(scale=random_s).var())
 ```
+```
+Testing for s =  3.2530297154660213
+The mean computed symbolically 2.59554218580328
+ The mean from Scipy is: 2.595542185803277
+The variance computed symbolically 3.84536309142049
+ The variance from Scipy is: 3.8453630914204933
+```
+
+It looks like our expressions for the mean and variance are correct, at least for this randomly chosen value of $s$. Running it a few more times, it looks like it works more generally.
 
 Lastly, we'll create a new symbol for $\mu$, and rewrite $s$ in terms of it:
 
@@ -87,11 +99,7 @@ mu = sm.Symbol('mu')
 s_in_terms_of_mu = sm.solve(mean-mu,s)[0]
 ```
 
-We see that $s = \frac{\sqrt{2} \sqrt{\pi} \mu}{2}$.
-
-```python
-print(s_in_terms_of_mu.subs(mu, mean.subs(s, random_s).subs(sm.pi, np.pi).evalf()).evalf(), random_s)
-```
+If we `print(sm.latex(s_in_terms_of_mu))`, we see that $s = \frac{\sqrt{2} \sqrt{\pi} \mu}{2}$. 
 
 # Symbolic Differentiation: Finding the maximum of a response surface model
 
