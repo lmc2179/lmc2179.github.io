@@ -48,7 +48,7 @@ s = sm.Symbol('s', positive=True)
 # x, s = sm.symbols('x s') # This works too
 ```
 
-We'll specify the PDF of `scipy.halfnorm` as a fimctopm pf $x$ and $s$:
+We'll specify the PDF of `scipy.halfnorm` as a function of $x$ and $s$:
 
 ```python
 f = (sm.sqrt(2/sm.pi) * sm.exp(-(x/s)**2/2))/s
@@ -95,31 +95,46 @@ print(s_in_terms_of_mu.subs(mu, mean.subs(s, random_s).subs(sm.pi, np.pi).evalf(
 
 # Symbolic Differentiation: Finding the maximum of a response surface model
 
-Imagine you are the editor of an email newsletter for an ecommerce company. You currently send out newsletters with two types of content, in the hopes of convinncing customers to spend more with your business. You've just run an experiment where you change the frequency at which newsletters of each type are sent out. 
+Imagine you are the editor of an email newsletter for an ecommerce company. You currently send out newsletters with two types of content, in the hopes of convinncing customers to spend more with your business. You've just run an experiment where you change the frequency at which newsletters of each type are sent out. This experiment includes two variables:
+- $x$, the change from the current frequency in percent terms for email type 1. In the experiment varied in the range $[-10%, 10%]$, as you considered an increase in the frequency as large as 10% and a decrease of the same magnitude.
+- $y$, the change from the current frequency in percent terms for email type 2. This also was varied in the range $[-10%, 10%]$.
 
-You'd like to know: based on your experiment data, what frequency of email sends will maximize revenue?
+In your experiment, you tried a large number of combinations of $x$ and $y$ in the range $[-10%, 10%]$. You'd like to know: based on your experiment data, what frequency of email sends will maximize revenue? In order to learn this, you fit a quadratic model to your experimental data, estimating the revenue function $r$:
 
 $r(x, y) = \alpha + \beta_x x + \beta_y y + \beta_{x2} x^2 + \beta_{y2} y^2 + \beta_{xy} xy$
 
-what value of the inputs maximizes the output?
+We can now learn where the maxima of the function are, doing some basic calculus.
 
-set partials df/dx and df/dy to zero, solve for x and y
+Again, we start with our imports:
 
 ```python
 import sympy as sm
 from matplotlib import pyplot as plt
 from sklearn.utils.extmath import cartesian
 import numpy as np
+```
 
-x, y, alpha, beta_x, beta_y, beta_xy, beta_x2, beta_y2 = sm.symbols('x y a b_x_1 b_y_1 b_x_y b_x_2 b_y_2')
+Next, we define symbols for the model:
 
-f = alpha + beta_x*x + beta_y*y + beta_x_y*x*y + beta_x2*x**2 + beta_y2*y**2 
+```python
+x, y, alpha, beta_x, beta_y, beta_xy, beta_x2, beta_y2 = sm.symbols('x y alpha beta_x beta_y beta_xy beta_x2 beta_y2')
 
-result = sm.solve([sm.Eq(f.diff(var), 0) for var in [x, y]], [x, y])
+f = alpha + beta_x*x + beta_y*y + beta_xy*x*y + beta_x2*x**2 + beta_y2*y**2 
+```
 
-print(sm.latex(result[x]))
-print(sm.latex(result[y]))
+We'll find the critical points by using the [usual method from calculus](https://en.wikipedia.org/wiki/Second_partial_derivative_test), that is by finding the points where $\frac{dr}{dx} = 0$ and $\frac{dr}{dy} = 0$.
 
+```python
+critical_points = sm.solve([sm.Eq(f.diff(var), 0) for var in [x, y]], [x, y])
+
+print(sm.latex(critical_points[x]))
+print(sm.latex(critical_points[y]))
+```
+
+$x_* = \frac{- 2 \beta_{x} \beta_{y2} + \beta_{xy} \beta_{y}}{4 \beta_{x2} \beta_{y2} - \beta_{xy}^{2}}$
+$y_* = \frac{\beta_{x} \beta_{xy} - 2 \beta_{x2} \beta_{y}}{4 \beta_{x2} \beta_{y2} - \beta_{xy}^{2}}$
+
+```python
 coefficient_values = [
 (alpha, 1),
 (beta_x, 0), 
@@ -128,11 +143,20 @@ coefficient_values = [
 (beta_x2, -1), 
 (beta_y2, 0)
 ]
+```
 
+We `subs`titute the estimated coefficients into the revenue function:
+```python
 f_from_experiment = f.subs(coefficient_values)
+```
 
+That code generated a symbolic function. Let's use it to create a numpy function which we can evaluate quickly using `lambdify`:
+```python
 numpy_f_from_experiment = sm.lambdify((x, y), f_from_experiment)
+```
 
+Then, we'll plot the revenue surface over the experiment space, and plot the maximum we found analytically:
+```python
 x_y_pairs = cartesian([np.linspace(-.1, .1), np.linspace(-.1, .1)])
 z = [numpy_f_from_experiment(x_i, y_i) for x_i, y_i in x_y_pairs]
 
@@ -140,6 +164,6 @@ x_plot, y_plot = zip(*x_y_pairs)
 
 plt.tricontour(x_plot, y_plot, z)
 
-plt.scatter([result[x].subs(coefficient_values)], [result[y].subs(coefficient_values)], marker='x')
+plt.scatter([critical_points[x].subs(coefficient_values)], [critical_points[y].subs(coefficient_values)], marker='x')
 plt.show()
 ```
