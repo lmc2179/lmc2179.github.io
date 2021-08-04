@@ -95,6 +95,12 @@ print(s_in_terms_of_mu.subs(mu, mean.subs(s, random_s).subs(sm.pi, np.pi).evalf(
 
 # Symbolic Differentiation: Finding the maximum of a response surface model
 
+Imagine you are the editor of an email newsletter for an ecommerce company. You currently send out newsletters with two types of content, in the hopes of convinncing customers to spend more with your business. You've just run an experiment where you change the frequency at which newsletters of each type are sent out. 
+
+You'd like to know: based on your experiment data, what frequency of email sends will maximize revenue?
+
+$r(x, y) = \alpha + \beta_x x + \beta_y y + \beta_{x2} x^2 + \beta_{y2} y^2 + \beta_{xy} xy$
+
 what value of the inputs maximizes the output?
 
 set partials df/dx and df/dy to zero, solve for x and y
@@ -103,30 +109,31 @@ set partials df/dx and df/dy to zero, solve for x and y
 import sympy as sm
 from matplotlib import pyplot as plt
 from sklearn.utils.extmath import cartesian
+import numpy as np
 
-x, y, a, b_x_1, b_y_1, b_x_y, b_x_2, b_y_2 = sm.symbols('x y a b_x_1 b_y_1 b_x_y b_x_2 b_y_2')
+x, y, alpha, beta_x, beta_y, beta_xy, beta_x2, beta_y2 = sm.symbols('x y a b_x_1 b_y_1 b_x_y b_x_2 b_y_2')
 
-f = a + b_x_1*x + b_y_1*y + b_x_y*x*y + b_x_2*x**2 + b_y_2*y**2 
+f = alpha + beta_x*x + beta_y*y + beta_x_y*x*y + beta_x2*x**2 + beta_y2*y**2 
 
 result = sm.solve([sm.Eq(f.diff(var), 0) for var in [x, y]], [x, y])
 
-print(print(sm.latex(result[x])))
-print(print(sm.latex(result[y])))
+print(sm.latex(result[x]))
+print(sm.latex(result[y]))
 
 coefficient_values = [
-(a, 1),
-(b_x_1, 1), 
-(b_y_1, 1), 
-(b_x_y, 1), 
-(b_x_2, 1), 
-(b_y_2, 1)
+(alpha, 1),
+(beta_x, 0), 
+(beta_y, 0), 
+(beta_xy, -1), 
+(beta_x2, -1), 
+(beta_y2, 0)
 ]
 
 f_from_experiment = f.subs(coefficient_values)
 
 numpy_f_from_experiment = sm.lambdify((x, y), f_from_experiment)
 
-x_y_pairs = cartesian([np.linspace(-1, 1), np.linspace(-1, 1)])
+x_y_pairs = cartesian([np.linspace(-.1, .1), np.linspace(-.1, .1)])
 z = [numpy_f_from_experiment(x_i, y_i) for x_i, y_i in x_y_pairs]
 
 x_plot, y_plot = zip(*x_y_pairs)
@@ -136,5 +143,3 @@ plt.tricontour(x_plot, y_plot, z)
 plt.scatter([result[x].subs(coefficient_values)], [result[y].subs(coefficient_values)], marker='x')
 plt.show()
 ```
-
-Plot level curves for a specific quadratic, calculate point at max
