@@ -39,7 +39,7 @@ from scipy.stats import halfnorm
 import numpy as np
 ```
 
-Variables which we can manipulate algebraically in Sympy are called "symbols". We can instantiate one at a time using `Symbol`, or a few at a time using `symbols:
+Variables which we can manipulate algebraically in Sympy are called "symbols". We can instantiate one at a time using `Symbol`, or a few at a time using `symbols`:
 
 ```python
 x = sm.Symbol('x', positive=True)
@@ -62,7 +62,7 @@ mean = sm.integrate(x*f, (x, 0, sm.oo))
 var = sm.integrate(((x-mean)**2)*f, (x, 0, sm.oo))
 ```
 
-Easy! You could use the [LOTUS](https://en.wikipedia.org/wiki/Law_of_the_unconscious_statistician) to calculate the EV of any function of a random variable this way, if you wanted to.
+And just like that, we have computed closed-form expressions for the mean and variance in terms of $s$. You could use the [LOTUS](https://en.wikipedia.org/wiki/Law_of_the_unconscious_statistician) to calculate the EV of any function of a random variable this way, if you wanted to.
 
 Printing $sm.latex(mean)$ and $sm.latex(var)$, we see that:
 
@@ -70,7 +70,7 @@ $\mu = \frac{\sqrt{2} s}{\sqrt{\pi}}$
 
 $\sigma^2 = - \frac{2 s^{2}}{\pi} + s^{2}$
 
-?
+Let's make sure our calculation is right by running a quick test. We'll select a random value for $s$, then compute its mean/variance symbolically as well as using Scipy:
 
 ```python
 random_s = np.random.uniform(0, 10)
@@ -106,8 +106,8 @@ If we `print(sm.latex(s_in_terms_of_mu))`, we see that $s = \frac{\sqrt{2} \sqrt
 Sympy also lets us perform symbolic differentiation. Unlike [numerical differentiation](https://en.wikipedia.org/wiki/Numerical_differentiation) and [automatic differentiation](https://en.wikipedia.org/wiki/Automatic_differentiation), symbolic differentiation lets us compute the closed form of the derivative when it is available.
 
 Imagine you are the editor of an email newsletter for an ecommerce company. You currently send out newsletters with two types of content, in the hopes of convinncing customers to spend more with your business. You've just run an experiment where you change the frequency at which newsletters of each type are sent out. This experiment includes two variables:
-- $x$, the change from the current frequency in percent terms for email type 1. In the experiment varied in the range $[-10%, 10%]$, as you considered an increase in the frequency as large as 10% and a decrease of the same magnitude.
-- $y$, the change from the current frequency in percent terms for email type 2. This also was varied in the range $[-10%, 10%]$.
+- $x$, the change from the current frequency in percent terms for email type 1. In the experiment varied in the range $[-10\%, 10\%]$, as you considered an increase in the frequency as large as 10% and a decrease of the same magnitude.
+- $y$, the change from the current frequency in percent terms for email type 2. This also was varied in the range $[-10\%, 10\%]$.
 
 In your experiment, you tried a large number of combinations of $x$ and $y$ in the range $[-10%, 10%]$. You'd like to know: based on your experiment data, what frequency of email sends will maximize revenue? In order to learn this, you fit a quadratic model to your experimental data, estimating the revenue function $r$:
 
