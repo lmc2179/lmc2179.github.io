@@ -95,6 +95,8 @@ print(s_in_terms_of_mu.subs(mu, mean.subs(s, random_s).subs(sm.pi, np.pi).evalf(
 
 # Symbolic Differentiation: Finding the maximum of a response surface model
 
+Sympy also lets us perform symbolic differentiation. Unlike [numerical differentiation](https://en.wikipedia.org/wiki/Numerical_differentiation) and [automatic differentiation](https://en.wikipedia.org/wiki/Automatic_differentiation), symbolic differentiation lets us compute the closed form of the derivative when it is available.
+
 Imagine you are the editor of an email newsletter for an ecommerce company. You currently send out newsletters with two types of content, in the hopes of convinncing customers to spend more with your business. You've just run an experiment where you change the frequency at which newsletters of each type are sent out. This experiment includes two variables:
 - $x$, the change from the current frequency in percent terms for email type 1. In the experiment varied in the range $[-10%, 10%]$, as you considered an increase in the frequency as large as 10% and a decrease of the same magnitude.
 - $y$, the change from the current frequency in percent terms for email type 2. This also was varied in the range $[-10%, 10%]$.
