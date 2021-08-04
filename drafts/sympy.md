@@ -106,10 +106,10 @@ If we `print(sm.latex(s_in_terms_of_mu))`, we see that $s = \frac{\sqrt{2} \sqrt
 Sympy also lets us perform symbolic differentiation. Unlike [numerical differentiation](https://en.wikipedia.org/wiki/Numerical_differentiation) and [automatic differentiation](https://en.wikipedia.org/wiki/Automatic_differentiation), symbolic differentiation lets us compute the closed form of the derivative when it is available.
 
 Imagine you are the editor of an email newsletter for an ecommerce company. You currently send out newsletters with two types of content, in the hopes of convinncing customers to spend more with your business. You've just run an experiment where you change the frequency at which newsletters of each type are sent out. This experiment includes two variables:
-- $x$, the change from the current frequency in percent terms for email type 1. In the experiment varied in the range $[-10\%, 10\%]$, as you considered an increase in the frequency as large as 10% and a decrease of the same magnitude.
+- $x$, the change from the current frequency in percent terms for email type 1. In the experiment this varied in the range $[-10\%, 10\%]$, as you considered an increase in the frequency as large as 10% and a decrease of the same magnitude.
 - $y$, the change from the current frequency in percent terms for email type 2. This also was varied in the range $[-10\%, 10\%]$.
 
-In your experiment, you tried a large number of combinations of $x$ and $y$ in the range $[-10%, 10%]$. You'd like to know: based on your experiment data, what frequency of email sends will maximize revenue? In order to learn this, you fit a quadratic model to your experimental data, estimating the revenue function $r$:
+In your experiment, you tried a large number of combinations of $x$ and $y$ in the range $[-10\%, 10\%]$. You'd like to know: **based on your experiment data, what frequency of email sends will maximize revenue?** In order to learn this, you fit a quadratic model to your experimental data, estimating the revenue function $r$:
 
 $r(x, y) = \alpha + \beta_x x + \beta_y y + \beta_{x2} x^2 + \beta_{y2} y^2 + \beta_{xy} xy$
 
@@ -199,4 +199,4 @@ plt.show()
 
 IMAGE
 
-And there you have it! We've used our expression for the maximum of the model to find the value of $x$ and $y$ that maximizes revenue. I'll note here that in a full experimental analysis, you would want to do more than just this: you'd also want to check the specification of your quadratic model, and consider the uncertainty around the maximum. In practice, I'd probably do this by running a Bayesian version of the quadratic regression and getting the joint posterior of $(x_*, y_*)$. You could probably also do some Taylor expanding to come up with standard errors for these, if you wanted to do _even more_ calculus.
+And there you have it! We've used our expression for the maximum of the model to find the value of $x$ and $y$ that maximizes revenue. I'll note here that in a full experimental analysis, you would want to do more than just this: you'd also want to check the specification of your quadratic model, and consider the uncertainty around the maximum. In practice, I'd probably do this by running a Bayesian version of the quadratic regression and getting the joint posterior of $(x_{*}$ and $y_{*})$. You could probably also do some Taylor expanding to come up with standard errors for these, if you wanted to do _even more_ calculus.
