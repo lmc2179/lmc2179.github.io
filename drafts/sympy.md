@@ -19,7 +19,7 @@ Scipy lets us do all of these numerically (using functions like `mean()`, `var()
 
 The scipy docs tell us that the PDF is:
 
-$f(x) = \frac{1}{s} \sqrt{\frac{2}{\pi}} exp(\frac{-x^2}{2})$
+$f(x) = \frac{1}{s} \sqrt{\frac{2}{\pi}} exp(\frac{-\frac{x}{s}^2}{2})$
 
 Computing the [mean](https://en.wikipedia.org/wiki/Expected_value#Absolutely_continuous_case) of the distribution requires solving a definite integral:
 
