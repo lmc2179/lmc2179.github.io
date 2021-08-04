@@ -17,7 +17,7 @@ Scipy halfnorm has one param - what are its moments? How does the mean and SD de
 
 $f(x) = \sqrt{\frac{2}{\pi}} exp(\frac{-x^2}{2})$
 
-How would we estimate s hat from the data? MoM
+How would we estimate s hat from the data? [Method of Moments](https://en.wikipedia.org/wiki/Method_of_moments_(statistics))
 
 Compute mu in terms of s by integrating, then rearrange
 
