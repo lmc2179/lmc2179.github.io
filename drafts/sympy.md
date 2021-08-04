@@ -119,13 +119,13 @@ Next, we define symbols for the model:
 ```python
 x, y, alpha, beta_x, beta_y, beta_xy, beta_x2, beta_y2 = sm.symbols('x y alpha beta_x beta_y beta_xy beta_x2 beta_y2')
 
-f = alpha + beta_x*x + beta_y*y + beta_xy*x*y + beta_x2*x**2 + beta_y2*y**2 
+rev = alpha + beta_x*x + beta_y*y + beta_xy*x*y + beta_x2*x**2 + beta_y2*y**2 
 ```
 
 We'll find the critical points by using the [usual method from calculus](https://en.wikipedia.org/wiki/Second_partial_derivative_test), that is by finding the points where $\frac{dr}{dx} = 0$ and $\frac{dr}{dy} = 0$.
 
 ```python
-critical_points = sm.solve([sm.Eq(f.diff(var), 0) for var in [x, y]], [x, y])
+critical_points = sm.solve([sm.Eq(rev.diff(var), 0) for var in [x, y]], [x, y])
 
 print(sm.latex(critical_points[x]))
 print(sm.latex(critical_points[y]))
@@ -147,18 +147,18 @@ coefficient_values = [
 
 We `subs`titute the estimated coefficients into the revenue function:
 ```python
-f_from_experiment = f.subs(coefficient_values)
+rev_from_experiment = rev.subs(coefficient_values)
 ```
 
 That code generated a symbolic function. Let's use it to create a numpy function which we can evaluate quickly using `lambdify`:
 ```python
-numpy_f_from_experiment = sm.lambdify((x, y), f_from_experiment)
+numpy_rev_from_experiment = sm.lambdify((x, y), rev_from_experiment)
 ```
 
 Then, we'll plot the revenue surface over the experiment space, and plot the maximum we found analytically:
 ```python
 x_y_pairs = cartesian([np.linspace(-.1, .1), np.linspace(-.1, .1)])
-z = [numpy_f_from_experiment(x_i, y_i) for x_i, y_i in x_y_pairs]
+z = [numpy_rev_from_experiment(x_i, y_i) for x_i, y_i in x_y_pairs]
 
 x_plot, y_plot = zip(*x_y_pairs)
 
