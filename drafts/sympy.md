@@ -9,15 +9,19 @@ image: sympy.png
 
 
 
-My job seems to involve just enough calculus that I can't afford to forget it, but little enough that I always feel rusty when I need to do it. In those cases, I'm thankful to be able to check my work with [Sympy](https://www.sympy.org/en/index.html), a symbolic mathematics library in Python. Here are two examples of recent places I've used Sympy to do basic calculus.
+_My job seems to involve just enough calculus that I can't afford to forget it, but little enough that I always feel rusty when I need to do it. In those cases, I'm thankful to be able to check my work with [Sympy](https://www.sympy.org/en/index.html), a symbolic mathematics library in Python. Here are two examples of recent places I've used Sympy to do calculus._
 
 # Symbolic Integration: Finding the moments of a probability distribution
 
 Scipy halfnorm has one param - what are its moments? How does the mean and SD depend on s?
 
+$f(x) = \sqrt{\frac{2}{\pi}} exp(\frac{-x^2}{2})$
+
 How would we estimate s hat from the data? MoM
 
 Compute mu in terms of s by integrating, then rearrange
+
+$\mu = \int_{0}^{\infty} x f(x) dx$
 
 ```python
 import sympy as sm
