@@ -122,6 +122,7 @@ import sympy as sm
 from matplotlib import pyplot as plt
 from sklearn.utils.extmath import cartesian
 import numpy as np
+import matplotlib.ticker as mtick
 ```
 
 Next, we define symbols for the model:
@@ -146,12 +147,12 @@ $y_* = \frac{\beta_{x} \beta_{xy} - 2 \beta_{x2} \beta_{y}}{4 \beta_{x2} \beta_{
 
 ```python
 coefficient_values = [
-(alpha, 1),
-(beta_x, 0), 
-(beta_y, 0), 
+(alpha, 5),
+(beta_x, 1), 
+(beta_y, 1), 
 (beta_xy, -1), 
-(beta_x2, -1), 
-(beta_y2, 0)
+(beta_x2, -10), 
+(beta_y2, -10)
 ]
 ```
 
@@ -167,13 +168,25 @@ numpy_rev_from_experiment = sm.lambdify((x, y), rev_from_experiment)
 
 Then, we'll plot the revenue surface over the experiment space, and plot the maximum we found analytically:
 ```python
+plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(1))
+plt.gca().xaxis.set_major_formatter(mtick.PercentFormatter(1))
+
 x_y_pairs = cartesian([np.linspace(-.1, .1), np.linspace(-.1, .1)])
 z = [numpy_rev_from_experiment(x_i, y_i) for x_i, y_i in x_y_pairs]
 
 x_plot, y_plot = zip(*x_y_pairs)
 
-plt.tricontour(x_plot, y_plot, z)
+plt.tricontourf(x_plot, y_plot, z)
+plt.colorbar(label='Revenue per user')
 
-plt.scatter([critical_points[x].subs(coefficient_values)], [critical_points[y].subs(coefficient_values)], marker='x')
+x_star = critical_points[x].subs(coefficient_values)
+y_star = critical_points[y].subs(coefficient_values)
+plt.scatter([x_star], [y_star], marker='x', label='Revenue-maximizing choice')
+
+plt.xlabel('Change in frequency of email type 1')
+plt.ylabel('Change in frequency of email type 2')
+plt.title('Revenue surface from experimental data')
+plt.tight_layout()
+plt.legend()
 plt.show()
 ```
