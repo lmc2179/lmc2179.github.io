@@ -197,6 +197,6 @@ plt.legend()
 plt.show()
 ```
 
-IMAGE
+![Contour plot](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/sympy/Figure_1.png)
 
 And there you have it! We've used our expression for the maximum of the model to find the value of $x$ and $y$ that maximizes revenue. I'll note here that in a full experimental analysis, you would want to do more than just this: you'd also want to check the specification of your quadratic model, and consider the uncertainty around the maximum. In practice, I'd probably do this by running a Bayesian version of the quadratic regression and getting the joint posterior of the critical points. You could probably also do some Taylor expanding to come up with standard errors for these, if you wanted to do _even more_ calculus.
