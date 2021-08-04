@@ -64,7 +64,7 @@ var = sm.integrate(((x-mean)**2)*f, (x, 0, sm.oo))
 
 And just like that, we have computed closed-form expressions for the mean and variance in terms of $s$. You could use the [LOTUS](https://en.wikipedia.org/wiki/Law_of_the_unconscious_statistician) to calculate the EV of any function of a random variable this way, if you wanted to.
 
-Printing $sm.latex(mean)$ and $sm.latex(var)$, we see that:
+Printing `sm.latex(mean)` and `sm.latex(var)`, we see that:
 
 $\mu = \frac{\sqrt{2} s}{\sqrt{\pi}}$
 
@@ -125,7 +125,7 @@ import numpy as np
 import matplotlib.ticker as mtick
 ```
 
-Next, we define symbols for the model:
+Next, we define symbols for the model. We have the experiment variables $x$ and $y$, plus all the free parameters of our model, and the revenue function.
 
 ```python
 x, y, alpha, beta_x, beta_y, beta_xy, beta_x2, beta_y2 = sm.symbols('x y alpha beta_x beta_y beta_xy beta_x2 beta_y2')
@@ -142,8 +142,14 @@ print(sm.latex(critical_points[x]))
 print(sm.latex(critical_points[y]))
 ```
 
+We find that the critical points are:
+
 $x_* = \frac{- 2 \beta_{x} \beta_{y2} + \beta_{xy} \beta_{y}}{4 \beta_{x2} \beta_{y2} - \beta_{xy}^{2}}$
 $y_* = \frac{\beta_{x} \beta_{xy} - 2 \beta_{x2} \beta_{y}}{4 \beta_{x2} \beta_{y2} - \beta_{xy}^{2}}$
+
+This gives us the general solution - if we estimate the coefficients from our data set, we can find the mix that maximizes revenue.
+
+Let's say that we fit the model from the data, and that we got the following estimated coefficient values:
 
 ```python
 coefficient_values = [
@@ -190,3 +196,7 @@ plt.tight_layout()
 plt.legend()
 plt.show()
 ```
+
+IMAGE
+
+And there you have it! We've used our expression for the maximum of the model to find the value of $x$ and $y$ that maximizes revenue. I'll note here that in a full experimental analysis, you would want to do more than just this: you'd also want to check the specification of your quadratic model, and consider the uncertainty around the maximum. In practice, I'd probably do this by running a Bayesian version of the quadratic regression and getting the joint posterior of $(x_*, y_*)$. You could probably also do some Taylor expanding to come up with standard errors for these, if you wanted to do _even more_ calculus.
