@@ -42,13 +42,13 @@ s = sm.Symbol('s')
 f = (sm.sqrt(2/sm.pi) * sm.exp(-x**2/2))/s
 ```
 
-``python
+```python
 mean = sm.integrate(x*f, (x, 0, sm.oo))
 
 var = sm.integrate(((x-mean)**2)*f, (x, 0, sm.oo))
 ```
 
-```python```
+```python
 print(mean.subs(s, 1).subs(sm.pi, np.pi).evalf(), halfnorm(scale=1).mean())
 print(var.subs(s, 1).subs(sm.pi, np.pi).evalf(), halfnorm(scale=1).var())
 ```
