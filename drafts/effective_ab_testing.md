@@ -28,16 +28,25 @@ Let's turn now to the **flaws of this approach**:
 1. The P-value analysis does not actually tell us about the magnitude of the lift. We only tested the hypothesis that the difference between treatment and control isn't _exactly_ zero. If we want to understand the size of the treatment effect, we should put error bars around it.
 2. An increase which is statistically significant may not be **practically significant**. Even if we reject $H_0$, meaning that we think treatment provides more revenue than control, it can still be true that the increase is to small to make any practical difference to the success of the business. That is, the increse can be non-zero, but still be too small to matter to our stakeholders.
 
+The first issue can be solved simply by reporting the estimated treatment effect with its error bars. The second problem, though, is trickier - it requires us to answer a substantive question about the business. Specifically, we need to answer the question: **what size of treatment effect _would_ be practically significant?** 
+
 ???
 
 P-values/H0 issues: H0 isn't true, H0 isn't interesting, P-values run together power + effect - Gelman citation; even when they work, P-values only tell us about a non-zero effect, that's what "statistical significance" means
 
-Beyond binary effect sizes: What is ES; unitless standardized measures of ES like Cohen's D as measures of effect vs "background noise"; what is "large" is still unclear (https://stats.stackexchange.com/questions/469203/what-is-the-intuition-behind-cohens-d, https://stats.stackexchange.com/questions/23775/interpreting-effect-size/87968#87968) and so I'd skip them
+## How effect size measures like Cohen's $d$ try to solve this problem, and their pitfalls
 
+Beyond binary effect sizes: What is ES; unitless standardized measures of ES like Cohen's D as measures of effect vs "background noise"; what is "large" is still unclear (https://stats.stackexchange.com/questions/469203/what-is-the-intuition-behind-cohens-d, https://stats.stackexchange.com/questions/23775/interpreting-effect-size/87968#87968) and so this is not an ideal solution
+
+
+
+similar to R-squared interpretability; R-squared is sort of like an effect size measure since we're comparing vs the regression background noise
+
+## ROPE
 
 Effects large enough to care about: Org goals and the ROPE; work with your stakeholders!!
 
-
+How to elicit a ROPE - bracket it with "Would it be worth it to switch if the increase were x"; start too small and too large, find the r where it switches
 
 # An effective A/B test workflow: From design to decision
 
@@ -47,47 +56,26 @@ Effects large enough to care about: Org goals and the ROPE; work with your stake
 - Collect data and don't stop early
 - Analysis: Compute delta CI, check if it is in ROPE; look at CI bounds, not the point estimate
 
+0. Make some assumptions: balanced samples sizes, equal variance in control and treatment, CLT, positive change is better
+1. Measure or guess the variance of the goal metric for the test. If there's no historical data, consider a pessimistic case based on what you know (ie, Bernoulli example)
+2. Work with stakeholders to select a ROPE
+3. Compute the sample size
+4. Collect the data
+5. Calculate the treatment effect $\hat{\delta} = \hat{\mu^T} - \hat{\mu^C}$, $\hat{SE} = \sqrt{\hat{SE}_T^{2} + \hat{SE}_C^{2}}$
+
+# Appendix: Computing sample sizes when a ROPE is used and sample sizes are balanced
+
+- Let $[0, r]$ be the ROPE
+- Let $\sigma_T^2, \sigma_C^2$ be the variances in each bucket
+- Let $z_\alpha$ be the critical value, like 1.96
+- Let $n_T, n_C$ be the sample sizes in each bucket
+- Then $SE(\hat{\delta}) = \sqrt{\frac{\sigma_T^2}{n_T} + \sigma_C^2}{n_C}}$
+- We want: $2z_\alpha SE(\hat{\delta}) = r$
+- Let variances and samples sizes be equal
+- Solve for $n$
+
 # Appendix: Bayesian bonus:
 
 P(delta)
 
 Tripartition view
-
-# Appendix: Halfnorm stuff
-
-```python
-import sympy as sm
-from scipy.stats import halfnorm
-
-x = sm.Symbol('x')
-s = sm.Symbol('s')
-
-f = (sm.sqrt(2/pi) * sm.exp(-x**2/2))/s
-
-mean = sm.integrate(x*f, (x, 0, sm.oo))
-
-var = sm.integrate(((x-mean)**2)*f, (x, 0, sm.oo))
-
-print(mean.subs(s, 1).subs(pi, np.pi).evalf(), halfnorm(scale=1).mean())
-print(var.subs(s, 1).subs(pi, np.pi).evalf(), halfnorm(scale=1).var())
-
-s_in_terms_of_mu = sm.solve(mean-mu,s)[0]
-
-s_when_mu_is_8 = s_in_terms_of_mu.subs(mu, 8).evalf()
-```
-
---------------------------------------------------------
-
-
-- A common anti-pattern is:
-  - Collect $y^T, y^C$, calculate $\hat{\mu}^T, \hat{\mu}^C$
-  - Run a T-test on $\mu^T = \mu^C$
-  - If $p < .05$ and $\hat{\mu}^ > \hat{\mu}^C$, the test is a winner, and caused a $\frac{\hat{\mu}^T - \hat{\mu}^C}{\hat{\mu}^C}$ lift which your PM can put in the next update deck
-
-This is an anti-pattern because it misleads us about the size of the treatment effect. The analysis does _not_ tell us about the size of the effect, aside from telling us that it is non-zero. The goal of A/B testing is to get a precise estimate of the treatment effect (Kruschke).
-
-$H_0$ is never true or interesting
-
-P-values run together precision and effect size
-
-We need to define practical significance (ROPE) - usually we need to do ROPE elicitation
