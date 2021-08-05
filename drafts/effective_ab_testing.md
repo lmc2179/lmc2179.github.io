@@ -38,7 +38,9 @@ P-values/H0 issues: H0 isn't true, H0 isn't interesting, P-values run together p
 
 Beyond binary effect sizes: What is ES; unitless standardized measures of ES like Cohen's D as measures of effect vs "background noise"; what is "large" is still unclear (https://stats.stackexchange.com/questions/469203/what-is-the-intuition-behind-cohens-d, https://stats.stackexchange.com/questions/23775/interpreting-effect-size/87968#87968) and so this is not an ideal solution
 
+$d = \frac{\mu^T - \mu^C}{\sigma}$; numerator is effect, denominator is "background noise" the normal amount of variation
 
+this is a step in the right direction, in that it compares the effect with a benchmark and doesn't depend on sample size
 
 similar to R-squared interpretability; R-squared is sort of like an effect size measure since we're comparing vs the regression background noise
 
