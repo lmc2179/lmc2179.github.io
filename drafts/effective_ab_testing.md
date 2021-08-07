@@ -47,7 +47,15 @@ How to elicit a ROPE - bracket it with "Would it be worth it to switch if the in
 
 ## An alternative solution: How effect size measures like Cohen's $d$ try to solve this problem, and their pitfalls
 
-I'll put my cards on the table here, and note that I involving stakeholders to agree on a ROPE is the best way to understand practical significance. However, another common solution is to use the language of "effect size" measures like Cohen's $d$. While it's not my preferred solution, it's an interesting solution which is in common use, so we'll examine it briefly here.
+I'll put my cards on the table here, and note that I involving stakeholders to agree on a ROPE is the best way to understand practical significance. However, another common solution is to use the language of "effect size" measures like Cohen's $d$. While it's not my preferred solution, it's an interesting solution which is in common use, so we'll examine it briefly here. In some cases, it's useful to do an analysis like this to complement the analysis with a ROPE above.
+
+One answer to the question of "what treatment effect would be practically signficant?" is to say that an effect is practically significant when it is large compared to the size of the background noise. The idea here is that we can compare $\hat{\Delta}$ with the level of the background noise, like the variance of the experimental data. The intuition is that effects of this size are "obvious", and often stand out on a graph even without an analysis. The most popular statistic I know of for this is **Cohen's $d$**, which is defined as
+
+$$d = \frac{\text{Treatment effect}}{\text{Background noise}} = \frac{\hat{\Delta}}{\sigma}$$.
+
+This is a step in the right direction, in that it directly compares the treatment effect with a benchmark
+
+[compute d for the example; show that the effect is larger than the rope but d is small]
 
 An . I found [this SE answer](https://stats.stackexchange.com/questions/469203/what-is-the-intuition-behind-cohens-d) to be a good additional explanation of the interpretation of $d$.
 
