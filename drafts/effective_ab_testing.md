@@ -1,5 +1,9 @@
 Effective A/B testing is about practical significance, not statistical significance
 
+> The physical sciences have learned much by storing up amounts, not just directions. If, for example, elasticity had been confined to "When you pull on it, it gets longer!" Hooke's law, the elastic limit, plasticity, and many other important topics could not have appeared.
+~ John Tukey, [_Analyzing data: Sanctification or detective work?_](https://garstats.files.wordpress.com/2016/08/tukey-ap-1969.pdf)
+
+
 # Why we do A/B testing, and why we often do it badly
 
 We run an A/B test to learn how a change in the user experience affects user behavior. Since a well-planned A/B test can provide a definitive estimate of the causal effect of the change, it gives decision makers a set of facts to base decisons in. It creates organizational consensus.
@@ -34,9 +38,21 @@ The first issue can be solved simply by reporting the estimated treatment effect
 
 P-values/H0 issues: H0 isn't true, H0 isn't interesting, P-values run together power + effect - Gelman citation; even when they work, P-values only tell us about a non-zero effect, that's what "statistical significance" means
 
-## How effect size measures like Cohen's $d$ try to solve this problem, and their pitfalls
+## ROPE
 
-Beyond binary effect sizes: What is ES; unitless standardized measures of ES like Cohen's D as measures of effect vs "background noise"; what is "large" is still unclear (https://stats.stackexchange.com/questions/469203/what-is-the-intuition-behind-cohens-d, https://stats.stackexchange.com/questions/23775/interpreting-effect-size/87968#87968) and so this is not an ideal solution
+Effects large enough to care about: Org goals and the ROPE; work with your stakeholders!!
+
+How to elicit a ROPE - bracket it with "Would it be worth it to switch if the increase were x"; start too small and too large, find the r where it switches
+
+## An alternative solution: How effect size measures like Cohen's $d$ try to solve this problem, and their pitfalls
+
+I'll put my cards on the table here, and note that I involving stakeholders to agree on a ROPE is the best way to understand practical significance. However, another common solution is to use the language of "effect size" measures like Cohen's $d$. While it's not my preferred solution, it's an interesting solution which is in common use, so we'll examine it briefly here.
+
+An . I found [this SE answer](https://stats.stackexchange.com/questions/469203/what-is-the-intuition-behind-cohens-d) to be a good additional explanation of the interpretation of $d$.
+
+While this is an attractive idea that does not require extra conversations with stakeholders about goals, it's still an incomplete one. https://stats.stackexchange.com/questions/23775/interpreting-effect-size/87968#87968 Cohen himself is aware of this criticism, and his excellent paper http://www.iro.umontreal.ca/~dift3913/cours/papers/cohen1994_The_earth_is_round.pdf
+
+Beyond binary effect sizes: What is ES; unitless standardized measures of ES like Cohen's D as measures of effect vs "background noise"; what is "large" is still unclear (, ) and so this is not an ideal solution
 
 $d = \frac{\mu^T - \mu^C}{\sigma}$; numerator is effect, denominator is "background noise" the normal amount of variation
 
@@ -44,11 +60,7 @@ this is a step in the right direction, in that it compares the effect with a ben
 
 similar to R-squared interpretability; R-squared is sort of like an effect size measure since we're comparing vs the regression background noise
 
-## ROPE
 
-Effects large enough to care about: Org goals and the ROPE; work with your stakeholders!!
-
-How to elicit a ROPE - bracket it with "Would it be worth it to switch if the increase were x"; start too small and too large, find the r where it switches
 
 # An effective A/B test workflow: From design to decision
 
