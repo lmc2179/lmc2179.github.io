@@ -1,4 +1,4 @@
-Effective A/B testing is about practical significance, not statistical significance
+A/B test analysis for effective decision making: practical significance, not statistical significance
 
 > The physical sciences have learned much by storing up amounts, not just directions. If, for example, elasticity had been confined to "When you pull on it, it gets longer!" Hooke's law, the elastic limit, plasticity, and many other important topics could not have appeared.
 
