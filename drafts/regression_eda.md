@@ -2,10 +2,19 @@
 
 # EDA has no clear-cut recipe
 
+- Organizations need to know how things are going, and how to improve them
+- Often, these do not start as well-formed questions, but rather as vague "what is going on" questions
+- What groups appear to be driving the outcome of interest?
+- What does this suggest about the causal relationships at work?
+
 # Why do EDA? (What are examples of EDA insights)
 
 - Build intuition about potential intervention points (points of leverage)
 - Check assumptions we have about which variables are associated with the outcome
+- Which customers are having positive/negative experiences?
+- Which groups are providing the best monetization?
+- Who is most likely to convert?
+
 - Challenges: many variables, maybe many subgroups, hard to intuit the "unique impact" of each
 
 
