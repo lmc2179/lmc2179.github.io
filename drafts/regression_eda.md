@@ -1,6 +1,20 @@
 # Forest plots and regression models are great Exploratory Data Analysis tools
 
+> Consistent with this view, we believe, is a clear demand that pictures based on exploration of data should _force_ their messages upon us. Pictures that emphasize what we already know - "security blankets" to reassure us - are frequently not worth the space they take. Pictures that have to be gone over with a reading glass to see the main point are wasteful of time and adequate of effect. The **greatest value of a picture** is when it _forces_ us to notice **what we never expected to see**.
+
+~John Tukey, _Exploratory Data Analysis_ (emphasis in original)
+
+> ...there are rarely any widely accepted, nearly right models that can be used with real data. By default, the true enterprise is description. Most everything else is puffery.
+
+Richard Berk, [_What You Can and Can’t Properly Do with Regression_](http://www.public.asu.edu/~gasweete/crj604/readings/2010-Berk%20(what%20you%20can%20and%20can't%20do%20with%20regression).pdf)
+
+> Think of a series of models, starting with the too-simple and continuing through to the hopelessly messy. Generally it’s a good idea to start simple. Or start complex if you’d like, but prepare to quickly drop things out and move to the simpler model to help understand what’s going on. Working with simple models is not a research goal—in the problems we work on, we usually find complicated models more believable—but rather a technique to help understand the fitting process
+
+Andrew Gelman and Jennifer Hill, _Data Analysis Using Regression and Multilevel/Hierarchical Models_
+
 # EDA has no clear-cut recipe
+
+Most analysis guides act as if you have the model in mind before you run the analysis, but really there's a feedback loop between exploring the data and fitting models, which we call "exploration"
 
 - Organizations need to know how things are going, and how to improve them
 - Often, these do not start as well-formed questions, but rather as vague "what is going on" questions
