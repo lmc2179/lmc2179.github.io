@@ -1,4 +1,13 @@
-A/B test analysis for effective decision making: practical significance, not statistical significance
+---
+layout: post
+title: "A/B test analysis for effective decision making: practical significance, not statistical significance"
+author: "Louis Cialdella"
+categories: posts
+tags: [datascience]
+image: effective_ab_testing.png
+---
+
+
 
 > The physical sciences have learned much by storing up amounts, not just directions. If, for example, elasticity had been confined to "When you pull on it, it gets longer!" Hooke's law, the elastic limit, plasticity, and many other important topics could not have appeared.
 
