@@ -1,3 +1,12 @@
+---
+layout: post
+title: "?"
+author: "Louis Cialdella"
+categories: posts
+tags: [datascience]
+image: supervised_unsupervised.png
+---
+
 https://gist.github.com/lmc2179/ae47161cc4125db228ca79f4e6859d5b
 
 ESL section
