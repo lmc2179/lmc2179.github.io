@@ -27,7 +27,7 @@ X, y = piv.drop(i, axis=1), piv[i]
 from operator import add
 from functools import partial
 
-def loss_w(W, X, y) -> float:
+def loss_w(W, X, y):
     return np.sqrt(np.mean((y - X.dot(W))**2))
 
 from scipy.optimize import fmin_slsqp
