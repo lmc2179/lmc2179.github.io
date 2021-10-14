@@ -24,7 +24,6 @@ i = 30
 
 X, y = piv.drop(i, axis=1), piv[i]
 
-from operator import add
 from functools import partial
 
 def loss_w(W, X, y):
@@ -44,6 +43,10 @@ def get_w(X, y):
     return weights
     
 w_fit = get_w(X, y)
+
+plt.plot(y.index, y)
+plt.plot(y.index, np.dot(X, w_fit))
+plt.show()
 ```
 
 https://rdrr.io/cran/Synth/man/basque.html
