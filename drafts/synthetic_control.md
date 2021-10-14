@@ -20,28 +20,30 @@ df = pd.read_csv('https://raw.githubusercontent.com/matheusfacure/python-causali
 
 piv = df[['year', 'state', 'cigsale']].pivot(index='year', columns='state')['cigsale']
 
-i = 31
+i = 30
 
 X, y = piv.drop(i, axis=1), piv[i]
 
-#def f(w):
-#  if np.any(w < 0):
-#    return np.inf
-#  y_pred = np.dot(X, w)
-#  err = np.sum((y - y_pred)**2)
-#  print(err)
-#  return err
-#
-#n_vars = X.shape[1]
-#
-#sum_to_one_constraint = LinearConstraint([[1]*n_vars], [1], [1])
-#positive_constraint = LinearConstraint([[1]*n_vars], [0], [np.inf])
-#bounds = [(0, 1) for _ in range(n_vars)]
-#
-#x0 =  ([1./n_vars]*n_vars)
-#x0 = (np.random.dirichlet([1.]*n_vars))
-#
-#res = minimize(f, x0,  constraints=[sum_to_one_constraint])
+from operator import add
+from functools import partial
+
+def loss_w(W, X, y) -> float:
+    return np.sqrt(np.mean((y - X.dot(W))**2))
+
+from scipy.optimize import fmin_slsqp
+
+def get_w(X, y):
+    
+    w_start = [1/X.shape[1]]*X.shape[1]
+
+    weights = fmin_slsqp(partial(loss_w, X=X, y=y),
+                         np.array(w_start),
+                         f_eqcons=lambda x: np.sum(x) - 1,
+                         bounds=[(0.0, 1.0)]*len(w_start),
+                         disp=False)
+    return weights
+    
+w_fit = get_w(X, y)
 ```
 
 https://rdrr.io/cran/Synth/man/basque.html
