@@ -49,6 +49,8 @@ plt.plot(y.index, np.dot(X, w_fit))
 plt.show()
 ```
 
+https://matheusfacure.github.io/python-causality-handbook/Debiasing-with-Orthogonalization.html
+
 https://rdrr.io/cran/Synth/man/basque.html
 
 https://mixtape.scunning.com/synthetic-control.html#synthetic-control
