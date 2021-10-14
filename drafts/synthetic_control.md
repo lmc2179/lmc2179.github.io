@@ -12,6 +12,38 @@ linear_constraint = LinearConstraint([[1]*n_vars], [1], [1])
 res = minimize(f, [1./n_vars]*n_vars,  constraints=[linear_constraint])
 ```
 
+```
+from scipy.optimize import LinearConstraint, minimize
+import pandas as pd
+
+df = pd.read_csv('https://raw.githubusercontent.com/matheusfacure/python-causality-handbook/master/causal-inference-for-the-brave-and-true/data/smoking.csv')
+
+piv = df[['year', 'state', 'cigsale']].pivot(index='year', columns='state')['cigsale']
+
+i = 31
+
+X, y = piv.drop(i, axis=1), piv[i]
+
+#def f(w):
+#  if np.any(w < 0):
+#    return np.inf
+#  y_pred = np.dot(X, w)
+#  err = np.sum((y - y_pred)**2)
+#  print(err)
+#  return err
+#
+#n_vars = X.shape[1]
+#
+#sum_to_one_constraint = LinearConstraint([[1]*n_vars], [1], [1])
+#positive_constraint = LinearConstraint([[1]*n_vars], [0], [np.inf])
+#bounds = [(0, 1) for _ in range(n_vars)]
+#
+#x0 =  ([1./n_vars]*n_vars)
+#x0 = (np.random.dirichlet([1.]*n_vars))
+#
+#res = minimize(f, x0,  constraints=[sum_to_one_constraint])
+```
+
 https://rdrr.io/cran/Synth/man/basque.html
 
 https://mixtape.scunning.com/synthetic-control.html#synthetic-control
