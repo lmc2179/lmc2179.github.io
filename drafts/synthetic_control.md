@@ -49,6 +49,34 @@ plt.plot(y.index, np.dot(X, w_fit))
 plt.show()
 ```
 
+```
+from scipy.optimize import LinearConstraint, minimize
+import pandas as pd
+from scipy.special import softmax
+
+df = pd.read_csv('https://raw.githubusercontent.com/matheusfacure/python-causality-handbook/master/causal-inference-for-the-brave-and-true/data/smoking.csv')
+
+piv = df[['year', 'state', 'cigsale']].pivot(index='year', columns='state')['cigsale']
+
+i = 30
+
+X, y = piv.drop(i, axis=1), piv[i]
+
+
+def f(w_raw):
+  w = softmax(w_raw)
+  y_pred = np.dot(X, w)
+  err = np.sum((y - y_pred)**2)
+  print(err)
+  return err
+
+n_vars = X.shape[1]
+
+x0 = np.zeros(n_vars)
+
+res = minimize(f, x0)
+```
+
 What if we use the softmax function?
 
 https://matheusfacure.github.io/python-causality-handbook/Debiasing-with-Orthogonalization.html
