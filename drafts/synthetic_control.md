@@ -1,3 +1,12 @@
+# How terrorism affect the GDP of the Basque region
+
+# Synthetic control lets us create a counterfactual time series
+
+# P-value method
+
+# Posterior of the synthetic control curve with the laplace approximation
+
+
 ```
 from scipy.optimize import LinearConstraint, minimize
 
