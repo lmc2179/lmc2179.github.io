@@ -75,6 +75,12 @@ n_vars = X.shape[1]
 x0 = np.zeros(n_vars)
 
 res = minimize(f, x0)
+
+w_fit = softmax(res.x)
+
+plt.plot(y.index, y)
+plt.plot(y.index, np.dot(X, w_fit))
+plt.show()
 ```
 
 What if we use the softmax function?
