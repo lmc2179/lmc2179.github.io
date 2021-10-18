@@ -1,4 +1,4 @@
-# How terrorism affect the GDP of the Basque region
+# How did terrorism affect the GDP of the Basque region
 
 # Synthetic control lets us create a counterfactual time series
 
