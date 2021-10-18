@@ -49,6 +49,8 @@ plt.plot(y.index, np.dot(X, w_fit))
 plt.show()
 ```
 
+What if we use the softmax function?
+
 https://matheusfacure.github.io/python-causality-handbook/Debiasing-with-Orthogonalization.html
 
 https://rdrr.io/cran/Synth/man/basque.html
