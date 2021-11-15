@@ -48,6 +48,7 @@ Just now we did two inferences, computing the sample quantiles of our dataset. A
 3. u = 
 
 ```
+import seaborn as sns
 from scipy.stats import norm, binom, pareto
 import numpy as np
 from matplotlib import pyplot as plt
@@ -89,6 +90,12 @@ for q in tqdm(Q):
   upper_dist = np.array(upper_dist)
       
   coverage += [results / n_sim]
+  
+plt.plot(data)
+plt.show()
+
+sns.distplot(data, kde=False)
+plt.show()
   
 plt.plot(Q, coverage)
 plt.show()
