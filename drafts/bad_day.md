@@ -47,6 +47,53 @@ Just now we did two inferences, computing the sample quantiles of our dataset. A
 2. l = 
 3. u = 
 
+```
+from scipy.stats import norm, binom, pareto
+import numpy as np
+from matplotlib import pyplot as plt
+from tqdm import tqdm
+
+def compute_quantile_ci(q, data, alpha):
+  data = sorted(data)
+  n = len(data)
+  l = int(binom(n, p=q).ppf(alpha/2))
+  u = int(binom(n, p=q).ppf(1.-alpha/2)) - 1 
+  return data[l], data[u]
+
+gen_dist = pareto(2)
+
+n = 100
+
+Q = np.linspace(0.0275, 0.975)
+alpha = .05
+
+coverage = []
+
+for q in tqdm(Q):
+  TRUE_QUANTILE = gen_dist.ppf(q)
+
+  n_sim = 200
+  results = 0
+  lower_dist = []
+  upper_dist = []
+
+  for _ in range(n_sim):
+    data = gen_dist.rvs(n)
+    l, u = compute_quantile_ci(q, data, alpha)
+    if l <= TRUE_QUANTILE <= u:
+      results += 1
+    lower_dist.append(l)
+    upper_dist.append(u)
+      
+  lower_dist = np.array(lower_dist)
+  upper_dist = np.array(upper_dist)
+      
+  coverage += [results / n_sim]
+  
+plt.plot(Q, coverage)
+plt.show()
+```
+
 ## Our model assumes every day has the same distribution, which is probably not true
 
 So far, we've put together a method that tells us: What is the
