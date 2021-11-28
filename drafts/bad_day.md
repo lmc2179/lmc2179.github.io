@@ -13,6 +13,8 @@ image: bad_day.png
 
 Number of newsletter opens - 
 
+Possible distributions with the same mean
+
 Similar examples: Anomaly detection (if the process is serially uncorrelated)
 
 [Zombo.com newZletter](https://www.zombo.com/join1.htm)
