@@ -101,6 +101,103 @@ plt.plot(Q, coverage)
 plt.show()
 ```
 
+```
+http://mqala.co.za/veed/Introduction%20to%20Robust%20Estimation%20and%20Hypothesis%20Testing.pdf
+
+def mj_quantile_se(data, q): # Introduction to Robust Estimation and Hypothesis testing, Wilcox, 3.5.3
+    data = np.sort(data)
+    n = len(data)
+    I = np.arange(n)+1
+    m = np.round(q*n + 0.5)
+    cdf = beta(m-1, n-m).cdf 
+    W = cdf(I/n) - cdf((I-1)/n)
+    c2 = np.sum(W*data**2)
+    c1 = np.sum(W*data)
+    se = np.sqrt(c2 - c1**2)
+    return se
+
+import seaborn as sns
+from scipy.stats import norm, binom, pareto
+import numpy as np
+from matplotlib import pyplot as plt
+from tqdm import tqdm
+
+def compute_quantile_ci(q, data, alpha):
+  se = mj_quantile_se(data, q)
+  z = norm.ppf(1.-alpha/2)
+  emp_q = np.quantile(data, q)
+  return emp_q - z*se, emp_q + z*se
+
+gen_dist = pareto(2)
+#gen_dist = norm(0, 1)
+
+n = 100
+
+Q = np.linspace(0.0275, 0.975)
+alpha = .05
+
+coverage = []
+
+for q in tqdm(Q):
+  TRUE_QUANTILE = gen_dist.ppf(q)
+
+  n_sim = 200
+  results = 0
+  lower_dist = []
+  upper_dist = []
+
+  for _ in range(n_sim):
+    data = gen_dist.rvs(n)
+    l, u = compute_quantile_ci(q, data, alpha)
+    if l <= TRUE_QUANTILE <= u:
+      results += 1
+    lower_dist.append(l)
+    upper_dist.append(u)
+      
+  lower_dist = np.array(lower_dist)
+  upper_dist = np.array(upper_dist)
+      
+  coverage += [results / n_sim]
+  
+plt.plot(data)
+plt.show()
+
+sns.distplot(data, kde=False)
+plt.show()
+  
+plt.plot(Q, coverage)
+plt.axhline(1.-alpha, linestyle='dotted')
+plt.ylim(0, 1)
+plt.show()
+
+###### Quantile curve and CIs
+gen_dist = poisson(1000) # Consider skewnorm? to show tail diffs
+alpha = .05
+
+data = gen_dist.rvs(100)
+ppfs = np.quantile(data, Q)
+SEs = np.array([mj_quantile_se(data, q) for q in Q])
+CIs = [compute_quantile_ci(q, data, .05) for q in Q]
+L, U = zip(*CIs)
+plt.fill_between(Q, L, U, alpha=.5)
+plt.plot(Q, ppfs)
+plt.show()
+
+# Diff of two quantile curves
+
+data2 = gen_dist.rvs(100)
+ppfs2 = np.quantile(data2, Q)
+SEs2 = np.array([mj_quantile_se(data2, q) for q in Q])
+diff = ppfs2 - ppfs
+diff_ses = np.sqrt(SEs**2 + SEs2**2)
+z = norm.ppf(1.-(alpha/len(Q))) # Bonferroni
+plt.fill_between(Q, diff - z*diff_ses, 
+                    diff + z*diff_ses, alpha=.5)
+plt.plot(Q, diff)
+plt.axhline(0, linestyle='dotted')
+plt.show()
+```
+
 ## Our model assumes every day has the same distribution, which is probably not true
 
 So far, we've put together a method that tells us: What is the
