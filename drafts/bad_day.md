@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "What range of outcomes can I expect? What's the worst day I need to plan for? And other quantile-y questions"
+title: "Beyond the mean: What's the worst day I need to plan for? How did my experiment affect my distribution of revenue? Quantiles and their confidence intervals in Python"
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
