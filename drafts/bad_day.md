@@ -13,7 +13,7 @@ image: bad_day.png
 
 Number of newsletter opens - 
 
-Possible distributions with the same mean
+Possible distributions with the same mean (poisson, skellam, nbinom, uniform, geom(1./50)
 
 Similar examples: Anomaly detection (if the process is serially uncorrelated)
 
