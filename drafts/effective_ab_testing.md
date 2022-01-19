@@ -26,7 +26,7 @@ A common **anti-pattern** I've observed is a workflow that goes like this:
   - Run a T-test on $H_0:\mu^T = \mu^C$. The idea here is that we'd like to be able to reject the null hypothesis that they're the same, ie that the treatment had no effect.
   - If $p < .05$ (or your favorite $\alpha$) and $\hat{\mu}^ > \hat{\mu}^C$, the test is a winner! You say it caused a $\hat{\mu}^T - \hat{\mu}^C$ increase in revenue, which your PM can put in the next update deck.
 
-I call this anti-pattern **P-value sanctification**. The internal logic of this approach goes something like this: if $p < .05$, then the observed treatment effect of $\hat{\mu}^T - \hat{\mu}^C$ is "real", in the sense that it's not noise. Unfortunately, this interpretation isn't quite right.
+I refer to this this anti-pattern as **P-value sanctification**, a term borrowed from Tukey's article above. The internal logic of this approach goes something like this: if $p < .05$, then the observed treatment effect of $\hat{\mu}^T - \hat{\mu}^C$ is "real", in the sense that it's not noise. Unfortunately, this interpretation isn't quite right.
 
 # Problems with P-value sanctification, and some solutions
 
