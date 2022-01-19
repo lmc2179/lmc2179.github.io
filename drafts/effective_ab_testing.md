@@ -26,7 +26,7 @@ A common **anti-pattern** I've observed is a workflow that goes like this:
   - Run a T-test on $H_0:\mu^T = \mu^C$. The idea here is that we'd like to be able to reject the null hypothesis that they're the same, ie that the treatment had no effect.
   - If $p < .05$ (or your favorite $\alpha$) and $\hat{\mu}^ > \hat{\mu}^C$, the test is a winner! You say it caused a $\hat{\mu}^T - \hat{\mu}^C$ increase in revenue, which your PM can put in the next update deck.
 
-I refer to this this anti-pattern as **P-value sanctification**, a term borrowed from Tukey's article above. The internal logic of this approach goes something like this: if $p < .05$, then the observed treatment effect of $\hat{\mu}^T - \hat{\mu}^C$ is "real", in the sense that it's not noise. Unfortunately, this interpretation isn't quite right. **The short version is that the p-value tells us about whether the effect is exactly zero, but it doesn't tell us how large the effect is.**
+I refer to this this anti-pattern as **P-value sanctification**, a term borrowed from Tukey's article above. The internal logic of this approach goes something like this: if $p < .05$, then the observed treatment effect of $\hat{\mu}^T - \hat{\mu}^C$ is "real", in the sense that it's not noise. Unfortunately, this interpretation isn't quite right. **The short version is that the p-value tells us about whether the effect is exactly zero, but it doesn't tell us how large the effect is. However, understanding whether the effect is practically meaningful requires understanding it's size.**
 
 # Problems with P-value sanctification, and some solutions
 
@@ -40,13 +40,14 @@ These are good things! As we try to improve this approach, we'll preserve these 
 Let's turn now to the **flaws of this approach**:
 
 1. The P-value analysis does not actually tell us about the magnitude of the lift. We only tested the hypothesis that the difference between treatment and control isn't _exactly_ zero. If we want to understand the size of the treatment effect, we should put error bars around it.
-2. An increase which is statistically significant may not be **practically significant**. Even if we reject $H_0$, meaning that we think treatment provides more revenue than control, it can still be true that the increase is to small to make any practical difference to the success of the business. That is, the increse can be non-zero, but still be too small to matter to our stakeholders.
+2. An increase which is statistically significant may not be **practically significant**. Even if we reject $H_0$, meaning that we think treatment provides more revenue than control, it can still be true that the increase is too small to make any practical difference to the success of the business. That is, the increse can be non-zero, but still be too small to matter to our stakeholders.
 
 The first issue can be solved simply by reporting the estimated treatment effect with its error bars. The second problem, though, is trickier - it requires us to answer a substantive question about the business. Specifically, we need to answer the question: **what size of treatment effect _would_ be practically significant?** 
 
 ???
 
 P-values/H0 issues: H0 isn't true, H0 isn't interesting, P-values run together power + effect - Gelman citation; even when they work, P-values only tell us about a non-zero effect, that's what "statistical significance" means
+http://www.stat.columbia.edu/~gelman/research/published/abandon.pdf
 
 ## ROPE
 
