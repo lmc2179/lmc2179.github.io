@@ -7,12 +7,13 @@ tags: [datascience]
 image: effective_ab_testing.png
 ---
 
+>Even a correct interpretation of p-values does not achieve very much...[but] don't look for a magic alternative to NHST, some other objective mechanical ritual to replace it. It doesn't exist.
 
+~ Jacob Cohen [The Earth is Round (p < .05)](http://www.iro.umontreal.ca/~dift3913/cours/papers/cohen1994_The_earth_is_round.pdf)
 
 > The physical sciences have learned much by storing up amounts, not just directions. If, for example, elasticity had been confined to "When you pull on it, it gets longer!" Hooke's law, the elastic limit, plasticity, and many other important topics could not have appeared.
 
 ~ John Tukey, [_Analyzing data: Sanctification or detective work?_](https://garstats.files.wordpress.com/2016/08/tukey-ap-1969.pdf)
-
 
 # Why we do A/B testing, and why we often do it badly
 
