@@ -15,11 +15,58 @@ image: effective_ab_testing.png
 
 ~ John Tukey, [_Analyzing data: Sanctification or detective work?_](https://garstats.files.wordpress.com/2016/08/tukey-ap-1969.pdf)
 
-# Why we do A/B testing, and why we often do it badly
+Practical A/B testing session
+Afterwards, you should be able to explain the design and analysis of an A/B test using confidence intervals around the effect size, and explain how this provides more information about 
 
-We run an A/B test to learn how a change in the user experience affects user behavior. Since a well-planned A/B test can provide a definitive estimate of the causal effect of the change, it gives decision makers a set of facts to base decisons in. It creates organizational consensus.
+# Why A/B test? To estimate the size of the treatment effect, so we can make a decision
 
 Companies run A/B tests to see **how changes in the user experience affect user behavior**. They split users between the old, "control" experience and a new "treatment" experience, providing an estimate of how the change affects one or more measured **outcome metrics**. For example, ecommerce retailers like Amazon provide recommendations to users in the hope of increasing revenue per user. They might A/B test a new recommendation alongside an old one, to estimate the impact of the new algorithm on revenue. **Because they randomize away sources of variation other than the intervention, A/B tests provide a high-quality estimate of the causal effect of the change.** This clarifies the decision of whether to switch everyone over to the new algorithm. This post is about how to turn the test data into a decision: should we change algorithms or not?
+
+PRECISION IS THE GOAL
+
+# First things first: What are we testing, and on who?
+
+Select the units for sampling, the treatment/control states, and the outcome metric of interest. 
+
+# How noisy is the outcome of of interest? 
+
+Measure or guess the variance of the outcome metric.
+
+# How much improvement would be meaningful?
+
+Work with your stakeholders to determine what size of treatment effect would be "meaningful".
+
+Effects large enough to care about: Org goals and the ROPE; work with your stakeholders!!
+
+How to elicit a ROPE - bracket it with "Would it be worth it to switch if the increase were x"; start too small and too large, find the r where it switches
+
+# How many samples do we need for a precise estimate?
+
+Plan on a sample size that gets you a Confidence Interval about the size of the "meaningful" increase.
+
+- Let $[0, r]$ be the ROPE
+- Let $\sigma_T^2, \sigma_C^2$ be the variances in each bucket
+- Let $z_\alpha$ be the critical value, like 1.96
+- Let $n_T, n_C$ be the sample sizes in each bucket
+- Then $SE(\hat{\delta}) = \sqrt{\frac{\sigma_T^2}{n_T} + \sigma_C^2}{n_C}}$
+- We want: $2z_\alpha SE(\hat{\delta}) = r$
+- Let variances and samples sizes be equal
+- Solve for $n$
+
+
+# The boring part: Waiting for the data to arrive
+
+Collect the data until you have a suitable precise sample. Don't stop based on the outcome of the effect, but on the precision.
+
+# Did the treatment produce a meaningful change?
+
+Calculate the treatment effect at your significance level. Make your decision based on whether you've found that the treatment effect is large enough to be meaningful.
+
+# Summary: The simplest case
+
+
+
+# Appendix: Problems with P-values
 
 A common **anti-pattern** I've observed is a workflow that goes like this:
   - Collect your data from the treated and control groups, and calculate the treatment and control averages per user (such as revenue per user). Since we're fancy data scientists who need to justify our salaries, we'll call the treatment and control averages estimated from the data $\hat{\mu}^T$ and  $\hat{\mu}^C$. The jaunty hat indicates that they're the sample versions of $\mu^T$ and $\mu^C$, the population means.
@@ -28,8 +75,6 @@ A common **anti-pattern** I've observed is a workflow that goes like this:
   - If $p < .05$ (or your favorite $\alpha$) and $\hat{\mu}^ > \hat{\mu}^C$, the test is a winner! You say it caused a $\hat{\mu}^T - \hat{\mu}^C$ increase in revenue, which your PM can put in the next update deck.
 
 I refer to this this anti-pattern as **P-value sanctification**, a term borrowed from Tukey's article above. The internal logic of this approach goes something like this: if $p < .05$, then the observed treatment effect of $\hat{\mu}^T - \hat{\mu}^C$ is "real", in the sense that it's not noise. Unfortunately, this interpretation isn't quite right. **The short version is that the p-value tells us about whether the effect is exactly zero, but it doesn't tell us how large the effect is. However, understanding whether the effect is practically meaningful requires understanding it's size.**
-
-# Problems with P-value sanctification, and some solutions
 
 Before I point out the issues with this workflow, I'll note some _good_ things about the above method, which might explain why it's commonly observed in the wild.
 
@@ -50,13 +95,7 @@ The first issue can be solved simply by reporting the estimated treatment effect
 P-values/H0 issues: H0 isn't true, H0 isn't interesting, P-values run together power + effect - Gelman citation; even when they work, P-values only tell us about a non-zero effect, that's what "statistical significance" means
 http://www.stat.columbia.edu/~gelman/research/published/abandon.pdf
 
-## ROPE
-
-Effects large enough to care about: Org goals and the ROPE; work with your stakeholders!!
-
-How to elicit a ROPE - bracket it with "Would it be worth it to switch if the increase were x"; start too small and too large, find the r where it switches
-
-## An alternative solution: How effect size measures like Cohen's $d$ try to solve this problem, and their pitfalls
+# Appendix: Pitfalls of standardized effect sizes
 
 I'll put my cards on the table here, and note that I involving stakeholders to agree on a ROPE is the best way to understand practical significance. However, another common solution is to use the language of "effect size" measures like Cohen's $d$. While it's not my preferred solution, it's an interesting solution which is in common use, so we'll examine it briefly here. In some cases, it's useful to do an analysis like this to complement the analysis with a ROPE above.
 
@@ -80,6 +119,15 @@ this is a step in the right direction, in that it compares the effect with a ben
 
 similar to R-squared interpretability; R-squared is sort of like an effect size measure since we're comparing vs the regression background noise
 
+# Appendix: Bayesian Bonus
+
+P(delta)
+
+Tripartition view
+
+
+
+---------------------------------------------------------------------------------
 
 
 # An effective A/B test workflow: From design to decision
@@ -97,19 +145,3 @@ similar to R-squared interpretability; R-squared is sort of like an effect size 
 4. Collect the data
 5. Calculate the treatment effect $\hat{\delta} = \hat{\mu^T} - \hat{\mu^C}$, $\hat{SE} = \sqrt{\hat{SE}_T^{2} + \hat{SE}_C^{2}}$
 
-# Appendix: Computing sample sizes when a ROPE is used and sample sizes are balanced
-
-- Let $[0, r]$ be the ROPE
-- Let $\sigma_T^2, \sigma_C^2$ be the variances in each bucket
-- Let $z_\alpha$ be the critical value, like 1.96
-- Let $n_T, n_C$ be the sample sizes in each bucket
-- Then $SE(\hat{\delta}) = \sqrt{\frac{\sigma_T^2}{n_T} + \sigma_C^2}{n_C}}$
-- We want: $2z_\alpha SE(\hat{\delta}) = r$
-- Let variances and samples sizes be equal
-- Solve for $n$
-
-# Appendix: Bayesian bonus:
-
-P(delta)
-
-Tripartition view
