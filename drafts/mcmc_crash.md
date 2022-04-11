@@ -29,14 +29,20 @@ The Bayes Playbook (Write down variables, priors, relationships, data, MCMC)
 # ?
 
 Examples: Usual normal, reduced normal
-Model check
 
 # Detour: What happened when we call the sample function
 
 intuitive MCMC
 
-# ?
+# How do we know it worked
+
 Sampling statistics for diagnosing issues
+
+Model checks
+
+Posterior Predictive
+
+LOOCV?
 
 # Good books on Bayesian Inference
 
