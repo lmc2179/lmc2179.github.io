@@ -29,6 +29,7 @@ The Bayes Playbook (Write down variables, priors, relationships, data, MCMC)
 # ?
 
 Examples: Usual normal, reduced normal
+Model check
 
 # Detour: What happened when we call the sample function
 
