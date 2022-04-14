@@ -26,7 +26,7 @@ Why?
 
 The absolute shortest, quickest, Hemingwayest description of Bayesian Analysis that I can think of is this:
 
-> We have a question about some parameter, $\Theta$. We have some prior beliefs about $\Theta$, which is represented by the probability distribution $\mathbb{P}(\Theta)$. We collect some data, $X$, which we believe will tell us something additional about $\Theta$. We update our belief based on the data, using Bayes Rule to obtain $P(\Theta \mid X)$, which is called the posterior distribution. Armed wih $P(\Theta \mid X)$, we answer our question about $\Theta$ to the best of our knowledge.
+> We have a question about some parameter, $\Theta$. We have some prior beliefs about $\Theta$, which is represented by the probability distribution $\mathbb{P}(\Theta)$. We collect some data, $X$, which we believe will tell us something additional about $\Theta$. We update our belief based on the data, using Bayes Rule to obtain $\mathbb{P}(\Theta \mid X)$, which is called the posterior distribution. Armed with $\mathbb{P}(\Theta \mid X)$, we answer our question about $\Theta$ to the best of our knowledge.
 
 This short synopsis of the Bayesian update process gives us a playbook for doing Bayesian statistics:
 
