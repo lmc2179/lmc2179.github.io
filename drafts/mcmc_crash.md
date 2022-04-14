@@ -73,6 +73,7 @@ with pm.Model() as normal_model:
 Example:
 
 ```python
+np.quantile(posterior_samples['mean'], .05)
 ```
 
 # ?
