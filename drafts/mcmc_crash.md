@@ -36,7 +36,7 @@ Example: We've collected a sample of ..., and we want to know about its mean and
 
 2. Specify the relationship between $\Theta$ and the data you could collect. This relationship is expressed as $\mathbb{P}(X \mid \Theta)$, which is called the data generating distribution.
 
-Example: We believe that the ... are normally distributed. In that case, $\mathbb{P}(\Theta \mid X)$ is a $N(\mu, sigma)$ distribution. Alternatively, we might write $X \sim N(\mu, \sigma)$.
+Example: We believe that the ... are normally distributed. In that case, $\mathbb{P}(\Theta \mid X)$ is a $N(\mu, \sigma)$ distribution. Alternatively, we might write $X \sim N(\mu, \sigma)$.
 
 3. Specify a prior distribution $\mathbb{P}(\Theta)$ which represents our beliefs about $\Theta$ before observing the data.
 
