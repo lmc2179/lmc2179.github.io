@@ -30,15 +30,15 @@ The absolute shortest, quickest, Hemingwayest description of Bayesian Analysis t
 
 This short synopsis of the Bayesian update process gives us a playbook for doing Bayesian statistics:
 
-1. Decide on a parameter of interest, $\Theta$, which we want to answer a question about. 
+(1) Decide on a parameter of interest, $\Theta$, which we want to answer a question about.
 
 Example: We've collected a sample of ..., and we want to know about its mean and variance. According to tradition, we will denote the mean $\mu$ and the variance $\sigma$. That means that our parameter has two dimensions, $\Theta=(\mu, \sigma)$.
 
-2. Specify the relationship between $\Theta$ and the data you could collect. This relationship is expressed as $\mathbb{P}(X \mid \Theta)$, which is called the data generating distribution.
+(2) Specify the relationship between $\Theta$ and the data you could collect. This relationship is expressed as $\mathbb{P}(X \mid \Theta)$, which is called the data generating distribution.
 
 Example: We believe that the ... are normally distributed. In that case, $\mathbb{P}(\Theta \mid X)$ is a $N(\mu, \sigma)$ distribution. Alternatively, we might write $X \sim N(\mu, \sigma)$.
 
-3. Specify a prior distribution $\mathbb{P}(\Theta)$ which represents our beliefs about $\Theta$ before observing the data.
+(3) Specify a prior distribution $\mathbb{P}(\Theta)$ which represents our beliefs about $\Theta$ before observing the data.
 
 Example: 
 
@@ -46,9 +46,9 @@ $\mu \sim N(100, 10)$
 
 $\sigma \sim HalfNormal(1000000)$
 
-4. Go out and collect the data, $X$. Go on, you could probably use a break from reading anyhow. I'll wait here until you get back.
+(4) Go out and collect the data, $X$. Go on, you could probably use a break from reading anyhow. I'll wait here until you get back.
 
-5. Obtain the posterior distribution $\mathbb{P}(\Theta \mid X)$. We can do this analytically by doing some math, which is usually unpleasant unless you have a [conjugate prior]. If you don't want to do integrals today (and who can blame you?), you can obtain samples from the posterior by using [MCMC].
+(5) Obtain the posterior distribution $\mathbb{P}(\Theta \mid X)$. We can do this analytically by doing some math, which is usually unpleasant unless you have a [conjugate prior]. If you don't want to do integrals today (and who can blame you?), you can obtain samples from the posterior by using [MCMC].
 
 Example:
 
@@ -68,7 +68,7 @@ with pm.Model() as normal_model:
   posterior_samples = pm.sample(draws=100)
 ```
 
-6. You now have either a formula for $\mathbb{P}(\Theta \mid X)$, so you can answer your question.
+(6) You now have either a formula for $\mathbb{P}(\Theta \mid X)$, so you can answer your question.
 
 Example:
 
