@@ -9,7 +9,7 @@ image: test.png
 
 # Everything you need to run a Bayesian analysis
 
-I've met lots of folks who are interested in Bayesian methods but don't know where to start; this is for them
+I've met lots of folks who are interested in Bayesian methods but don't know where to start; this is for them. It's only a little bit about code of PyMC3 (there's a lot of that in the docs [link]) and more about the process of how to use bayesian analysis to do stuff
 
 For stats people but not Bayesians
 
