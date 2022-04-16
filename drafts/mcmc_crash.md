@@ -108,3 +108,32 @@ Kruschke
 
 emcee
 bayes boot
+
+# Appendix: Alternative model specification using summary statistics
+
+```python
+import pymc3 as pm
+import numpy as np
+from matplotlib import pyplot as plt
+import seaborn as sns
+from scipy.stats import sem
+
+x = np.random.normal(115, 5, size=1000)
+
+with pm.Model() as normal_model:
+  mean = pm.Normal('mean', mu=100, sigma=10)
+  standard_deviation = pm.HalfNormal('standard_deviation', sigma=1000000)
+  observations = pm.Normal('observations', mu=mean, sigma=standard_deviation, observed=x) # Observations is the pymc3 object, x is the vector of observations
+  
+  posterior_samples = pm.sample(draws=1000)
+
+with pm.Model() as reduced_model:
+  mean = pm.Normal('mean', mu=100, sigma=10)
+  observations = pm.Normal('observations', mu=mean, sigma=sem(x), observed=np.mean(x)) # Observations is the pymc3 object, x is the vector of observations
+  
+  reduced_posterior_samples = pm.sample(draws=1000)
+
+sns.distplot(posterior_samples['mean'])
+sns.distplot(reduced_posterior_samples['mean'])
+plt.show()
+```
