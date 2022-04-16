@@ -72,7 +72,10 @@ with pm.Model() as normal_model:
 
 Example:
 
+
 ```python
+sns.distplot(posterior_samples['mean'])
+
 np.quantile(posterior_samples['mean'], .05)
 ```
 
@@ -86,11 +89,17 @@ intuitive MCMC
 
 # How do we know it worked
 
+Traceplot
+
+`pm.traceplot(posterior_samples)`
+
 Sampling statistics for diagnosing issues
 
-Model checks
+[Gelman-Rubin](https://pymc3-testing.readthedocs.io/en/rtd-docs/api/diagnostics.html#pymc3.diagnostics.gelman_rubin)
 
-Posterior Predictive
+[Effective Sample size](https://pymc3-testing.readthedocs.io/en/rtd-docs/api/diagnostics.html#pymc3.diagnostics.effective_n)
+
+Posterior Predictive, Model checks
 
 ```python
 with normal_model:
