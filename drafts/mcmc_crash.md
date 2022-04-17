@@ -42,7 +42,9 @@ This short synopsis of the Bayesian update process gives us a playbook for doing
 
 (6) You now have either a formula for $\mathbb{P}(\Theta \mid X)$, so you can answer your question.
 
-# ?
+# Ad spend analysis
+
+Average spend is about $100
 
 We've collected a sample of ..., and we want to know about its mean and variance. According to tradition, we will denote the mean $\mu$ and the variance $\sigma$. That means that our parameter has two dimensions, $\Theta=(\mu, \sigma)$.
 
