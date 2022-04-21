@@ -44,9 +44,7 @@ This short synopsis of the Bayesian update process gives us a playbook for doing
 
 # Ad spend analysis
 
-Average spend is about $100
-
-We've collected a sample of ..., and we want to know about its mean and variance. According to tradition, we will denote the mean $\mu$ and the variance $\sigma$. That means that our parameter has two dimensions, $\Theta=(\mu, \sigma)$.
+We've collected a sample of customer orders, and we want to know about their mean and variance. According to tradition, we will denote the mean $\mu$ and the variance $\sigma$. That means that our parameter has two dimensions, $\Theta=(\mu, \sigma)$.
 
 We believe that the ... are normally distributed. In that case, $\mathbb{P}(\Theta \mid X)$ is a $N(\mu, \sigma)$ distribution. Alternatively, we might write $X \sim N(\mu, \sigma)$. 
 
