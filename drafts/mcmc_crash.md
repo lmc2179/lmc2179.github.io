@@ -81,9 +81,13 @@ intuitive MCMC
 
 # How do we know it worked
 
+## Diagnostic checks of the MCMC process
+
 Traceplot
 
-`pm.traceplot(posterior_samples)`
+```
+pm.traceplot(posterior_samples)
+```
 
 Sampling statistics for diagnosing issues
 
@@ -91,14 +95,60 @@ Sampling statistics for diagnosing issues
 
 [Effective Sample size](https://pymc3-testing.readthedocs.io/en/rtd-docs/api/diagnostics.html#pymc3.diagnostics.effective_n)
 
+## Checking the observations against our model
+
 Posterior Predictive, Model checks
 
 ```python
 with normal_model:
-  spp =  pm.sample_posterior_predictive(posterior_samples)
+  spp =  pm.sample_posterior_predictive(posterior_samples, 5000)
+  
+simulated_observations = spp['observations'] # 5000 data sets we might see under the posterior
 ```
 
-LOOCV?
+Compare CDFs to the observed CDF
+
+```
+from statsmodels.distributions.empirical_distribution import ECDF
+
+for sim_x in simulated_observations:
+  plt.plot(ECDF(sim_x).x, ECDF(sim_x).y, color='blue', alpha=.1)
+
+plt.plot(ECDF(x).x, ECDF(x).y, color='orange')
+plt.show()
+```
+
+```
+observed_mean = np.mean(x)
+sim_means = np.array([np.mean(sim_x) for sim_x in simulated_observations])
+sns.distplot(sim_means)
+plt.axvline(observed_mean)
+plt.show()
+
+p = np.mean(observed_mean <= sim_means)
+print(p)
+
+observed_variance = np.var(x)
+sim_vars = np.array([np.var(sim_x) for sim_x in simulated_observations])
+sns.distplot(sim_vars)
+plt.axvline(observed_variance)
+plt.show()
+
+p = np.mean(observed_variance <= sim_vars)
+print(p)
+```
+
+```
+observation_p_values = []
+
+for i, observation in enumerate(x):
+  sim_ith_observation = simulated_observations[:,i]
+  p = np.mean(observation <= sim_ith_observation)
+  observation_p_values.append(p)
+  
+sns.distplot(observation_p_values, fit=uniform)
+plt.show()
+```
 
 # Good books on Bayesian Inference
 
