@@ -66,7 +66,7 @@ with pm.Model() as normal_model:
   standard_deviation = pm.HalfNormal('standard_deviation', sigma=1000000)
   observations = pm.Normal('observations', mu=mean, sigma=standard_deviation, observed=x) # Observations is the pymc3 object, x is the vector of observations
   
-  posterior_samples = pm.sample(draws=100)
+  posterior_samples = pm.sample(draws=1000, tune=1000)
 ```
 
 ```python
@@ -87,13 +87,22 @@ Traceplot
 
 ```
 pm.traceplot(posterior_samples)
+plt.show()
 ```
 
 Sampling statistics for diagnosing issues
 
 [Gelman-Rubin](https://pymc3-testing.readthedocs.io/en/rtd-docs/api/diagnostics.html#pymc3.diagnostics.gelman_rubin)
 
+```python
+print(pm.rhat(posterior_samples))
+```
+
 [Effective Sample size](https://pymc3-testing.readthedocs.io/en/rtd-docs/api/diagnostics.html#pymc3.diagnostics.effective_n)
+
+```python
+pm.ess(posterior_samples)
+```
 
 ## Checking the observations against our model
 
