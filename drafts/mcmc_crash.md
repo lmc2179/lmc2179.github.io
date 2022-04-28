@@ -26,7 +26,7 @@ Why?
 
 The absolute shortest, quickest, Hemingwayest description of Bayesian Analysis that I can think of is this:
 
-> We have a question about some parameter, $\Theta$. We have some prior beliefs about $\Theta$, which is represented by the probability distribution $\mathbb{P}(\Theta)$. We collect some data, $X$, which we believe will tell us something additional about $\Theta$. We update our belief based on the data, using Bayes Rule to obtain $\mathbb{P}(\Theta \mid X)$, which is called the posterior distribution. Armed with $\mathbb{P}(\Theta \mid X)$, we answer our question about $\Theta$ to the best of our knowledge.
+> We have a question about some parameter, $\Theta$. We have some prior beliefs about $\Theta$, which is represented by the probability distribution $\mathbb{P}(\Theta)$. We collect some data, $X$, which we believe will tell us something additional about $\Theta$. We update our belief based on the data, using Bayes Rule to obtain $\mathbb{P}(\Theta \mid X)$, which is called the posterior distribution. We check to ensure the model does not fail to capture any relevant characteristics of the data. Armed with $\mathbb{P}(\Theta \mid X)$, we answer our question about $\Theta$ to the best of our knowledge.
 
 This short synopsis of the Bayesian update process gives us a playbook for doing Bayesian statistics:
 
@@ -40,7 +40,9 @@ This short synopsis of the Bayesian update process gives us a playbook for doing
 
 (5) Obtain the posterior distribution $\mathbb{P}(\Theta \mid X)$. We can do this analytically by doing some math, which is usually unpleasant unless you have a [conjugate prior]. If you don't want to do integrals today (and who can blame you?), you can obtain samples from the posterior by using [MCMC].
 
-(6) You now have either a formula for $\mathbb{P}(\Theta \mid X)$, so you can answer your question.
+(6) Attempt to falsify the model
+
+(7) You now have either a formula for $\mathbb{P}(\Theta \mid X)$, so you can answer your question.
 
 # Ad spend analysis
 
