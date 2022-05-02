@@ -8,6 +8,7 @@ Have read/use as reference
 - ESL
 - MHE
 - https://www.itl.nist.gov/div898/handbook/index.htm
+- Pearl Causal Inference Primer
 
 Have heard about
 - Morgan and winship
