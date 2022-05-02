@@ -150,7 +150,11 @@ plt.show()
 
 # Appendix: How the data was actually generated
 
-?
+```python
+from scipy.stats import skellam
+
+observed_x = skellam(100, 10).rvs(100)
+```
 
 # Appendix: Falsification and Bayesian models
 
