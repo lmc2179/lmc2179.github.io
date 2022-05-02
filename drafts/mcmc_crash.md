@@ -77,6 +77,9 @@ with negative_binomial_model:
 
 ## What the heck even is MCMC?
 
+Examples:
+https://chi-feng.github.io/mcmc-demo/app.html
+
 ## Running the Sampler
 
 ## Diagnostic checks
