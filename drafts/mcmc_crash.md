@@ -56,6 +56,23 @@ Formulating a question in a Bayesian analysis
 
 # Specifying the model: The data-generating story and our prior
 
+```python
+import pymc3 as pm
+import numpy as np
+from matplotlib import pyplot as plt
+import seaborn as sns
+
+with pm.Model() as negative_binomial_model:
+  mu = pm.HalfNormal('mean', sigma=1000)
+  alpha = pm.HalfNormal('alpha', sigma=1000)
+  observations = pm.NegativeBinomial('observations', mu=mu, alpha=alpha, observed=observed_x)
+```  
+  
+```python
+with negative_binomial_model:
+  posterior_samples = pm.sample(draws=1000, tune=100000)
+```
+
 # MCMC
 
 ## What the heck even is MCMC?
@@ -92,10 +109,20 @@ pm.ess(posterior_samples)
 Posterior Predictive, Model checks
 
 ```python
-with normal_model:
+with negative_binomial_model:
   spp =  pm.sample_posterior_predictive(posterior_samples, 5000)
   
 simulated_observations = spp['observations'] # 5000 data sets we might see under the posterior
+```
+
+Compare KDE countours to the observed one
+
+```
+for sim_x in simulated_observations[:1000]:
+  sns.kdeplot(sim_x, color='blue', alpha=.1)
+
+sns.kdeplot(observed_x, color='orange')
+plt.show()
 ```
 
 Compare CDFs to the observed CDF
@@ -106,12 +133,14 @@ from statsmodels.distributions.empirical_distribution import ECDF
 for sim_x in simulated_observations:
   plt.plot(ECDF(sim_x).x, ECDF(sim_x).y, color='blue', alpha=.1)
 
-plt.plot(ECDF(x).x, ECDF(x).y, color='orange')
+plt.plot(ECDF(observed_x).x, ECDF(observed_x).y, color='orange')
 plt.show()
 ```
 
+Compare simulated statistics to actual one; are we likely to be representing the mean and variance correctly?
+
 ```
-observed_mean = np.mean(x)
+observed_mean = np.mean(observed_x)
 sim_means = np.array([np.mean(sim_x) for sim_x in simulated_observations])
 sns.distplot(sim_means)
 plt.axvline(observed_mean)
@@ -120,7 +149,7 @@ plt.show()
 p = np.mean(observed_mean <= sim_means)
 print(p)
 
-observed_variance = np.var(x)
+observed_variance = np.var(observed_x)
 sim_vars = np.array([np.var(sim_x) for sim_x in simulated_observations])
 sns.distplot(sim_vars)
 plt.axvline(observed_variance)
@@ -131,22 +160,39 @@ print(p)
 ```
 
 ```
+from scipy.stats import uniform
+
 observation_p_values = []
 
-for i, observation in enumerate(x):
+for i, observation in enumerate(observed_x):
   sim_ith_observation = simulated_observations[:,i]
   p = np.mean(observation <= sim_ith_observation)
   observation_p_values.append(p)
   
-sns.distplot(observation_p_values, fit=uniform)
+observation_p_values = np.array(observation_p_values)
+sns.distplot(observation_p_values, fit=uniform, kde=False, norm_hist=True)
 plt.show()
+
+print('Proportion of observations with significant P-values:', sum(observation_p_values) / len(observed_x))
 ```
 
 ## What do we do when we find evidence of a bad fit? Model expansion
 
+An example of an overly-restrictive prior for the variance, found by a check above; led to more diffuse prior over the variance
+
+Generally, the goal is the make the prior more expansive, to include the entire universe of plausible models. the goal is not to overfit
+
 ## A note on model comparison
 
+Gelman
+
+This is not really what we're doing here but it's worth knowing about
+
 # Using the posterior samples to answer our question
+
+```python
+np.quantile(posterior_samples['mean'], .05)
+```
 
 # Appendix: How the data was actually generated
 
