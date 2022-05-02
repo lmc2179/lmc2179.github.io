@@ -67,11 +67,6 @@ with pm.Model() as negative_binomial_model:
   alpha = pm.HalfNormal('alpha', sigma=1000)
   observations = pm.NegativeBinomial('observations', mu=mu, alpha=alpha, observed=observed_x)
 ```  
-  
-```python
-with negative_binomial_model:
-  posterior_samples = pm.sample(draws=1000, tune=100000)
-```
 
 # MCMC
 
@@ -81,6 +76,13 @@ Examples:
 https://chi-feng.github.io/mcmc-demo/app.html
 
 ## Running the Sampler
+
+```python
+with negative_binomial_model:
+  posterior_samples = pm.sample(draws=1000, tune=100000)
+```
+
+default is nuts
 
 ## Diagnostic checks
 
