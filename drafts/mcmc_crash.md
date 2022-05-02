@@ -185,11 +185,15 @@ An example of an overly-restrictive prior for the variance, found by a check abo
 
 Generally, the goal is the make the prior more expansive, to include the entire universe of plausible models. the goal is not to overfit
 
-## A note on model comparison
+## Some other things to consider: Model selection and Bayesian Model averaging
 
-Gelman
+The goal above is to try and poke holes in our model so we can improve it; starts with a model that may be too simple and attempts to expand it
+
+Gelman's recommendation of continuous model expansion: "building a larger model that includes the separate models as separate cases" https://statmodeling.stat.columbia.edu/2017/01/05/30811/
 
 This is not really what we're doing here but it's worth knowing about
+
+https://docs.pymc.io/en/v3/pymc-examples/examples/diagnostics_and_criticism/model_averaging.html
 
 # Using the posterior samples to answer our question
 
