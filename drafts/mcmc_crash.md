@@ -88,7 +88,7 @@ default is nuts
 
 Traceplot
 
-```
+```python
 pm.traceplot(posterior_samples)
 plt.show()
 ```
@@ -122,7 +122,7 @@ simulated_observations = spp['observations'] # 5000 data sets we might see under
 
 Compare KDE countours to the observed one
 
-```
+```python
 for sim_x in simulated_observations[:1000]:
   sns.kdeplot(sim_x, color='blue', alpha=.1)
 
@@ -132,7 +132,7 @@ plt.show()
 
 Compare CDFs to the observed CDF
 
-```
+```python
 from statsmodels.distributions.empirical_distribution import ECDF
 
 for sim_x in simulated_observations:
@@ -144,7 +144,7 @@ plt.show()
 
 Compare simulated statistics to actual one; are we likely to be representing the mean and variance correctly?
 
-```
+```python
 observed_mean = np.mean(observed_x)
 sim_means = np.array([np.mean(sim_x) for sim_x in simulated_observations])
 sns.distplot(sim_means)
@@ -164,7 +164,7 @@ p = np.mean(observed_variance <= sim_vars)
 print(p)
 ```
 
-```
+```python
 from scipy.stats import uniform
 
 observation_p_values = []
