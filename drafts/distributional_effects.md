@@ -38,10 +38,16 @@ plt.show()
 
 ## What might we do differently if we thought about the distributional effects?
 
+https://en.wikipedia.org/wiki/Distributional_effects
+
 * If an experiment negatively affected some group, we can consider mitigation
 * Do we want ot make dist shape a goal, ie min service level
 
 # An example
+
+Revenue per customer
+
+Imports
 
 ```python
 from scipy.stats import norm, sem
@@ -54,10 +60,9 @@ import seaborn as sns
 import numpy as np
 ```
 
-```python
-def z_a_over_2(alpha):
-  return norm(0, 1).ppf(1.-alpha/2.)
+Histogram - a little tough to read
 
+```python
 plt.title('Distribution of revenue per customer')
 sns.distplot(data_control, label='Control')
 sns.distplot(data_treatment, label='Treatment')
@@ -67,10 +72,17 @@ plt.legend()
 plt.show()
 ```
 
+The usual estimate of treatment effect
+
 ```python
+def z_a_over_2(alpha):
+  return norm(0, 1).ppf(1.-alpha/2.)
+
 print(np.mean(data_treatment) - np.mean(data_control))
 print(z_a_over_2(.05) * np.sqrt(sem(data_treatment)**2 + sem(data_control)**2))
 ```
+
+Box and whisker - uh, hm
 
 ```python
 Q = np.linspace(0.05, .95, 20)
@@ -82,6 +94,8 @@ plt.title('Box and Whisker plot')
 plt.show()
 ```
 
+Quantiles - There's something a little clearer
+
 ```python
 plt.title('Quantiles of revenue per customer')
 plt.xlabel('Quantile')
@@ -92,6 +106,10 @@ plt.plot(Q, treatment_quantiles, label='Treatment')
 plt.legend()
 plt.show()
 ```
+
+Quantile difference
+
+With MJ https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mstats.mjci.html
 
 ```python
 plt.title('Quantile difference (Treatment - Control)')
@@ -107,6 +125,8 @@ plt.fill_between(Q, diff_lower, diff_upper, alpha=.5)
 plt.axhline(0, linestyle='dashed', color='grey', alpha=.5)
 plt.show()
 ```
+
+Big takeaways; effect in upper quartiler
 
 # Outro: Other ideas and alternatives
 
