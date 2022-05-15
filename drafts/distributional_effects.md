@@ -11,6 +11,18 @@ image: distributional_effects.png
 
 ## The group averages and average treatment effect hide a lot of information
 
+We often compute the mean, difference of means, and their standard errors
+
+This does not tell us about the shape of the distribution, and does not allow comparison of distribution shapes
+
+Single digit summaries of shape (variance, skewness, kurtosis) his details of shape; they describe a single attribute of the shape
+
+A deeper understanding of the shape comes from looking at the quantiles; the inverse of the quantile curve is the CDF
+
+
+
+
+
 ```python
 from matplotlib import pyplot as plt
 import seaborn as sns
