@@ -132,7 +132,7 @@ Big takeaways; effect in upper quartiler
 
 * Hetereogeneous effect analysis/subgroup analysis: Possible introduction of mitigation strategy
 * Conditional variance modeling: Also a way of understanding change in the shape (conditional kurtosis? don't think anyone ever does that)
-* Change in Gini, change in Entropy
+* Change in Gini, change in Entropy, change in https://en.wikipedia.org/wiki/Income_inequality_metrics#Gini_index
 * Many variables: Quantile regression is a good framework
 
 # DGP
