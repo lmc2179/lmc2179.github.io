@@ -11,17 +11,11 @@ image: distributional_effects.png
 
 ## The group averages and average treatment effect hide a lot of information
 
-We often compute the mean, difference of means, and their standard errors
+Data analysts often spend a lot of time thinking about means. What's the revenue per customer? What's the average time spent to service incoming requests? How large was the average treatment effect in my A/B test? We do this with good reason - if we are consistently running A/B tests that increase the revenue per customer (or whatever our favorite metric is), we'll end up reaching our organization's goals. Nonetheless, thinking only about the average effect leaves out a lot of valuable information about the shape of the distribution, and does not allow comparison of distribution shapes
 
-This does not tell us about the shape of the distribution, and does not allow comparison of distribution shapes
-
-Single digit summaries of shape (variance, skewness, kurtosis) his details of shape; they describe a single attribute of the shape
+Single digit summaries of shape (variance, skewness, kurtosis) hide details of shape; they describe a single attribute of the shape
 
 A deeper understanding of the shape comes from looking at the quantiles; the inverse of the quantile curve is the CDF
-
-
-
-
 
 ```python
 from matplotlib import pyplot as plt
