@@ -66,6 +66,8 @@ plt.legend()
 plt.show()
 ```
 
+![Histogram](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/distributional_effects/Figure_1.png)
+
 The usual estimate of treatment effect
 
 ```python
@@ -84,15 +86,19 @@ Q = np.linspace(0.05, .95, 20)
 plt.boxplot(data_control, positions=[0], whis=[0, 100])
 plt.boxplot(data_treatment, positions=[1], whis=[0, 100])
 plt.xticks([0, 1], ['Control', 'Treatment'])
-plt.title('Box and Whisker plot')
+plt.ylabel('Revenue ($)')
+plt.title('Box and Whisker - Revenue per customer by Treatment status')
 plt.show()
 ```
+
+https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/distributional_effects/Figure_2.png
 
 Quantiles - There's something a little clearer
 
 ```python
 plt.title('Quantiles of revenue per customer')
 plt.xlabel('Quantile')
+plt.ylabel('Revenue ($)')
 control_quantiles = np.quantile(data_control, Q)
 treatment_quantiles = np.quantile(data_treatment, Q)
 plt.plot(Q, control_quantiles, label='Control')
@@ -101,6 +107,8 @@ plt.legend()
 plt.show()
 ```
 
+https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/distributional_effects/Figure_3.png
+
 Quantile difference
 
 With MJ https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mstats.mjci.html
@@ -108,6 +116,7 @@ With MJ https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mstats.
 ```python
 plt.title('Quantile difference (Treatment - Control)')
 plt.xlabel('Quantile')
+plt.ylabel('Treatment - Control')
 quantile_diff = treatment_quantiles - control_quantiles
 control_se = mjci(data_control, Q)
 treatment_se = mjci(data_treatment, Q)
@@ -119,6 +128,8 @@ plt.fill_between(Q, diff_lower, diff_upper, alpha=.5)
 plt.axhline(0, linestyle='dashed', color='grey', alpha=.5)
 plt.show()
 ```
+
+https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/distributional_effects/Figure_4.png
 
 Big takeaways; effect in upper quartiler
 
