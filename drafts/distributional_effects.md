@@ -91,7 +91,7 @@ plt.title('Box and Whisker - Revenue per customer by Treatment status')
 plt.show()
 ```
 
-https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/distributional_effects/Figure_2.png
+![Box and Whisker plot](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/distributional_effects/Figure_2.png)
 
 Quantiles - There's something a little clearer
 
@@ -107,7 +107,7 @@ plt.legend()
 plt.show()
 ```
 
-https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/distributional_effects/Figure_3.png
+![Quantile plots](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/distributional_effects/Figure_3.png)
 
 Quantile difference
 
@@ -129,7 +129,7 @@ plt.axhline(0, linestyle='dashed', color='grey', alpha=.5)
 plt.show()
 ```
 
-https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/distributional_effects/Figure_4.png
+![Quantile difference](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/distributional_effects/Figure_4.png)
 
 Big takeaways; effect in upper quartiler
 
