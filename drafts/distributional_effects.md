@@ -30,6 +30,8 @@ plt.title('Four distributions with a mean of 100')
 plt.show()
 ```
 
+![Four distributions with different shapes but the same mean](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/distributional_effects/Figure_0.png)
+
 ## What might we do differently if we thought about the distributional effects?
 
 https://en.wikipedia.org/wiki/Distributional_effects
