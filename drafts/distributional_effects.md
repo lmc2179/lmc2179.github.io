@@ -20,6 +20,7 @@ A deeper understanding of the shape comes from looking at the quantiles; the inv
 ```python
 from matplotlib import pyplot as plt
 import seaborn as sns
+import numpy as np
 from scipy.stats import poisson, skellam, nbinom, randint, geom
 
 for dist in [poisson(100), skellam(1101, 1000), randint(0, 200), geom(1./100)]:
