@@ -74,8 +74,13 @@ The usual estimate of treatment effect
 def z_a_over_2(alpha):
   return norm(0, 1).ppf(1.-alpha/2.)
 
-print(np.mean(data_treatment) - np.mean(data_control))
-print(z_a_over_2(.05) * np.sqrt(sem(data_treatment)**2 + sem(data_control)**2))
+te = np.mean(data_treatment) - np.mean(data_control)
+ci_radius = z_a_over_2(.05) * np.sqrt(sem(data_treatment)**2 + sem(data_control)**2)
+print('Average treatment effect: ', te, '+-', ci_radius)
+```
+
+```
+Average treatment effect:  1.1241231969779277 +- 0.29768161367254564
 ```
 
 Box and whisker - uh, hm
