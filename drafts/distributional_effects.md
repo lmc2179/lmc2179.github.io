@@ -51,9 +51,9 @@ Single digit summaries of shape (variance, skewness, kurtosis) hide details of s
 A deeper understanding of the shape comes from looking at the quantiles; the inverse of the quantile curve is the CDF
 
 
-# An example
+# An example: How did my A/B test affect
 
-Revenue per customer
+Revenue per customer - email campaign change in subject line for sunglass cats ("Weekly Newsletter" vs "**W**ow so chic ✨ shades 🕶 for cats 😻 summer SALE ☀ _buy now_"
 
 Imports
 
@@ -150,7 +150,7 @@ plt.show()
 
 ![Quantile difference](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/distributional_effects/Figure_4.png)
 
-Big takeaways; effect in upper quartiler
+Big takeaways; effect in upper quartiler; the fat cats get fatter
 
 # Outro: Other ideas and alternatives
 
