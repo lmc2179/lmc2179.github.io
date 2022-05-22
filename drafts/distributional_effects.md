@@ -7,16 +7,19 @@ tags: [datascience]
 image: distributional_effects.png
 ---
 
-# Distributional effects are often overlooked but provide a deeper understanding
+# Distributional effects of A/B tests are often overlooked but provide a deeper understanding
 
 ## The group averages and average treatment effect hide a lot of information
 
-Data analysts often spend a lot of time thinking about means. What's the revenue per customer? What's the average time spent to service incoming requests? How large was the average treatment effect in my A/B test? We do this with good reason - if we are consistently running A/B tests that increase the revenue per customer (or whatever our favorite metric is), we'll end up reaching our organization's goals. Nonetheless, thinking only about the average effect leaves out a lot of valuable information about the shape of the distribution, and does not allow comparison of distribution shapes
+Most companies I know of that include A/B testing in their product development process usually do something like the following for most of their tests:
+* Pick your favorite metric which you want to increase, and perhaps some other metrics that will act as guard rails. Often, this is some variant of "revenue per user", "engagment per user", ROI or the efficiency of the process.
+* Design and launch an experiment which compares the existing product's performance to that of some variant products.
+* At some point, decide to stop collecting data.
+* Compute the average treatment effect for the control version vs the test variant(s) on each metric. Make a decision about whether to replace the existing production product with one of the test variants.
 
-Single digit summaries of shape (variance, skewness, kurtosis) hide details of shape; they describe a single attribute of the shape
+This process is so common because, well, it works - if followed, it will usually result in the introduction of product features which increase our favorite metric. It is a series of discrete steps in the product space which attempt to optimize the favorite metric without incurring unacceptable losses on the other metrics.
 
-A deeper understanding of the shape comes from looking at the quantiles; the inverse of the quantile curve is the CDF
-
+In this process, the average treatment effect is the star of the show. But as we learn in Stats 101, two distributions can look drastically different while still having the same average.
 ```python
 from matplotlib import pyplot as plt
 import seaborn as sns
@@ -33,12 +36,20 @@ plt.show()
 
 ![Four distributions with different shapes but the same mean](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/distributional_effects/Figure_0.png)
 
-## What might we do differently if we thought about the distributional effects?
+Similarly, the average treatment effect does not tell us much about how our treatment changed the shape of the distribution of outcomes. But it's worth thinking about what the shape of the distribution is!
 
 https://en.wikipedia.org/wiki/Distributional_effects
 
 * If an experiment negatively affected some group, we can consider mitigation
 * Do we want ot make dist shape a goal, ie min service level
+* Do we want to move up market
+* Do we want to diversify
+
+
+Single digit summaries of shape (variance, skewness, kurtosis) hide details of shape; they describe a single attribute of the shape
+
+A deeper understanding of the shape comes from looking at the quantiles; the inverse of the quantile curve is the CDF
+
 
 # An example
 
