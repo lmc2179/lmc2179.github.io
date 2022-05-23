@@ -7,6 +7,9 @@ tags: [datascience]
 image: distributional_effects.png
 ---
 
+
+https://pxhere.com/en/photo/932166
+
 # Distributional effects of A/B tests are often overlooked but provide a deeper understanding
 
 ## The group averages and average treatment effect hide a lot of information
