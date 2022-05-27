@@ -163,7 +163,7 @@ plt.show()
 
 ![Quantile difference](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/distributional_effects/Figure_4.png)
 
-Big takeaways; effect in upper quartiler; the fat cats get fatter
+Big takeaways; effect in upper quartiler; the fat cats get fatter; feline fashionistas buy up all the sale inventory
 
 # Outro: Other ideas and alternatives
 
