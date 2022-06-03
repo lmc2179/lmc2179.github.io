@@ -62,26 +62,26 @@ Let's take a look at an example of how we might use these in practice to learn a
 
 # An example: How did my A/B test affect
 
-Let's once more [?](https://lmc2179.github.io/posts/confidence_prediction.html)
+Let's once more put ourselves in the shoes of that most beloved of Capitalist Heroes, the [purveyor of little tiny cat sunglasses](https://lmc2179.github.io/posts/confidence_prediction.html). Having harnessed the illuminating insights of your business' data, you've consistently been improving your key metric of Revenue per Cat. You currently send out a weekly email about the current purrmotional sales, a newsletter beloved by dashing calicos and tabbies the world over. As you are the sort of practical, industrious person who is willing to spend their valuable time reading a blog about statistics, you originally gave this email the very efficient subject line of "Weekly Newsletter" and move on to other things. 
 
-Revenue per customer - email campaign change in subject line for sunglass cats 
+However, you're realizing it's time to revisit that decision - your previous analysis demonstrated that warm eather is correlated with stronger sales, as cats everywhere flock to sunny patches of light on the rug in the living room. Perhaps, if you could write a suitably eye-catching subject line, you could make the most of this seasonal oppourtunity. Cats are notoriously aloof, so you settle on the overstuffed subject line "**W**ow so chic ✨ shades 🕶 for cats 😻 summer SALE ☀ _buy now_" in a desperate bid for their attention. As you are (likely) a person and not a cat, you decide to run an A/B test on this subject line to see if your audience likes the new subject line.
 
-You currently send out a weekly email about product sales going on. As you are the sort of practical person who is willing to spend their valuable time reading a blog about statistics, you originally gave this email the very efficient subject line of "Weekly Newsletter" and move on to other things. However, you're realizing it's time to revisit that decision - your previous analysis demonstrated that warm eather is correlated with stronger sales, as cats everywhere flock to sunny patches of light on the rug in the living room. Perhaps, if you could write a suitably eye-catching subject line, you could make the most of this seasonal oppourtunity. Cats are notoriously aloof, so you settle on the overstuffed subject line "**W**ow so chic ✨ shades 🕶 for cats 😻 summer SALE ☀ _buy now_" in a desperate bid for attention.
+You fire up your A/B testing platform, and get 1000 lucky cats to try the new subject line, and 1000 to try the old one. You measure the revenue purr customer in the period after the test, and you're ready to analyze the test results.
 
-Imports
+Lets import some things from the usual suspects:
 
 ```python
-from scipy.stats import norm, sem
-from copy import deepcopy
+from scipy.stats import norm, sem # Normal distribution, Standard error of the mean
+from copy import deepcopy 
 import pandas as pd
-from tqdm import tqdm
-from scipy.stats.mstats import mjci
-from matplotlib import pyplot as plt
-import seaborn as sns
-import numpy as np
+from tqdm import tqdm # A nice little progress bar
+from scipy.stats.mstats import mjci # Calculates the standard error of the quantiles: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mstats.mquantiles_cimj.html
+from matplotlib import pyplot as plt # Pretty pictures
+import seaborn as sns # Matplotlib's best friend
+import numpy as np 
 ```
 
-Histogram - a little tough to read
+Histogram
 
 ```python
 plt.title('Distribution of revenue per customer')
@@ -94,6 +94,8 @@ plt.show()
 ```
 
 ![Histogram](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/distributional_effects/Figure_1.png)
+
+Hm. That's a little tough to read. Just eyeballing it, the tail on the Treatment group seems a little thicker, but it's hard to say much more than that.
 
 The usual estimate of treatment effect
 
