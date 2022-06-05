@@ -116,6 +116,8 @@ Now lets think distributionally;
 * Is the gain coming from squeezing more out of the big spenders or increasing engagement with those who spend least
 * Was any part of the distribution negatively affected
 
+these questions are answered by looking at how the distribution shifted; for this problem we might also look at whether the treatment increased open rate vs AOV
+
 Box and whisker - uh, hm
 
 ```python
