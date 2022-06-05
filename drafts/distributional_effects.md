@@ -80,7 +80,7 @@ import seaborn as sns # Matplotlib's best friend
 import numpy as np 
 ```
 
-In order to get a feel for how revenue differed between treatment and control, let's start with the trusty histogram:
+In order to get a feel for how revenue differed between treatment and control, let's start with our usual first tool for understanding distribution shape, the trusty histogram:
 
 ```python
 plt.title('Distribution of revenue per customer')
@@ -96,14 +96,14 @@ plt.show()
 
 Hm. That's a little tough to read. Just eyeballing it, the tail on the Treatment group seems a little thicker, but it's hard to say much more than that.
 
-Let's see what we can learn about how treatment differs from control. We'll compute the usually estimate of the average treatment effect, along with its standard error.
+Let's see what we can learn about how treatment differs from control. We'll compute the usual estimate of the average treatment effect on revenue per customer, along with its standard error.
 
 ```python
 def z_a_over_2(alpha):
   return norm(0, 1).ppf(1.-alpha/2.)
 
-te = np.mean(data_treatment) - np.mean(data_control)
-ci_radius = z_a_over_2(.05) * np.sqrt(sem(data_treatment)**2 + sem(data_control)**2)
+te = np.mean(data_treatment) - np.mean(data_control) # Point estimate of the treatment effect
+ci_radius = z_a_over_2(.05) * np.sqrt(sem(data_treatment)**2 + sem(data_control)**2) # Propagate the standard errors of each mean, and compute a CI
 print('Average treatment effect: ', te, '+-', ci_radius)
 ```
 
@@ -116,12 +116,14 @@ Okay, so it looks like our treatment moved the average revenue per user! That's 
 (An aside: in a test like this, you might pause here to consider other factors. For example: is there evidence that this is a novelty effect, rather than a durable change in the metric? Did I wait long enough to collect my data, to capture downstream events after the email was opened? These are good questions, but we will table them for now.)
 
 It's certainly good news that the average revenue moved. But, wise statistics sage that you are, you know the average isn't the whole story. Now, lets think distributionally - let's consider questions like:
-* Is the gain coming from squeezing more out of the big spenders or increasing engagement with those who spend least
-* Was any part of the distribution negatively affected
+* Is the gain coming from squeezing more out of the big spenders, or increasing engagement with those who spend least?
+* Was any part of the distribution negatively affected, even if the gain was positive on average?
 
-these questions are answered by looking at how the distribution shifted; for this problem we might also look at whether the treatment increased open rate vs AOV
+We answer these questions by looking at how the distribution shifted. 
 
-Box and whisker - uh, hm
+(Another aside: For this particular problem related to the effects of an email change, we might also look at whether the treatment increased the open rate, or the average order value, or if they went in different directions. This is a useful way to decompose the revenue per customer, but we'll avoid it in this discussion since it's pretty email-specific.)
+
+Before we talk about the quantile function, we can also consider another commonly used tool for inspecting distribution shape, the box-and-whisker plot.
 
 ```python
 Q = np.linspace(0.05, .95, 20)
