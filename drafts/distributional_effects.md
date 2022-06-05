@@ -112,6 +112,10 @@ print('Average treatment effect: ', te, '+-', ci_radius)
 Average treatment effect:  1.1241231969779277 +- 0.29768161367254564
 ```
 
+Now lets think distributionally;
+* Is the gain coming from squeezing more out of the big spenders or increasing engagement with those who spend least
+* Was any part of the distribution negatively affected
+
 Box and whisker - uh, hm
 
 ```python
