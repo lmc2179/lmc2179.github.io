@@ -20,7 +20,7 @@ Most companies I know of that include A/B testing in their product development p
 * Pick your favorite metric which you want to increase, and perhaps some other metrics that will act as guard rails. Often, this is some variant of "revenue per user", "engagment per user", ROI or the efficiency of the process.
 * Design and launch an experiment which compares the existing product's performance to that of some variant products.
 * At some point, decide to stop collecting data.
-* Compute the average treatment effect for the control version vs the test variant(s) on each metric. Make a decision about whether to replace the existing production product with one of the test variants.
+* Compute the average treatment effect for the control version vs the test variant(s) on each metric. Calculate some measure of uncertainty (like a P-value or confidence/credible interval). Make a decision about whether to replace the existing production product with one of the test variants.
 
 This process is so common because, well, it works - if followed, it will usually result in the introduction of product features which increase our favorite metric. It is a series of discrete steps in the product space which attempt to optimize the favorite metric without incurring unacceptable losses on the other metrics.
 
@@ -52,11 +52,10 @@ Similarly, the average treatment effect does not tell us much about how our trea
 
 The usual average treatment effect cannot answer these questions. We could compare single digit summaries of shape (variance, skewness, kurtosis) between treatment and control. However, even these are only simplified summaries; they describe a single attribute of the shape like the dispersion, symmetry, or heavy tailedness.
 
-Instead, we'll look at the empirical [quantiles](https://en.wikipedia.org/wiki/Quantile) of control and treatment, and the difference between them. We'll lay out some basic definitions here:
-* We'll call
-* Empirical quantile
-* Quantile curve
-* the inverse of the quantile curve is the CDF , and its empirical counterpart is the [empirical CDF](https://www.statsmodels.org/devel/generated/statsmodels.distributions.empirical_distribution.ECDF.html)
+Instead, we'll look at the empirical [quantile function](https://en.wikipedia.org/wiki/Quantile_function) of control and treatment, and the difference between them. We'll lay out some basic definitions here:
+* The quantile function is the smooth version of the more familiar percentile distribution. For example, the 0.5 quantile is the median, the value that's larger than 50% of the mass in the distribution, and the 50th percentile (those are all the same thing).
+* The empirical quantile function is the set of quantile values in the treatment/control results which we actually observe. 
+* The inverse of the quantile function is the CDF , and its empirical counterpart is the [empirical CDF](https://www.statsmodels.org/devel/generated/statsmodels.distributions.empirical_distribution.ECDF.html). We won't talk much about the CDF here, but it's useful to link the two because the CDF is such a common description of a distribution.
 
 Let's take a look at an example of how we might use these in practice to learn about the distributional effects of a test.
 
@@ -81,7 +80,7 @@ import seaborn as sns # Matplotlib's best friend
 import numpy as np 
 ```
 
-Histogram
+In order to get a feel for how revenue differed between treatment and control, let's start with the trusty histogram:
 
 ```python
 plt.title('Distribution of revenue per customer')
@@ -97,7 +96,7 @@ plt.show()
 
 Hm. That's a little tough to read. Just eyeballing it, the tail on the Treatment group seems a little thicker, but it's hard to say much more than that.
 
-The usual estimate of treatment effect
+Let's see what we can learn about how treatment differs from control. We'll compute the usually estimate of the average treatment effect, along with its standard error.
 
 ```python
 def z_a_over_2(alpha):
@@ -112,7 +111,11 @@ print('Average treatment effect: ', te, '+-', ci_radius)
 Average treatment effect:  1.1241231969779277 +- 0.29768161367254564
 ```
 
-Now lets think distributionally;
+Okay, so it looks like our treatment moved the average revenue per user! That's good news - it means your carefully chosen subject line will actually translate into better outcomes, all for the low price of a changed subject line.
+
+(An aside: in a test like this, you might pause here to consider other factors. For example: is there evidence that this is a novelty effect, rather than a durable change in the metric? Did I wait long enough to collect my data, to capture downstream events after the email was opened? These are good questions, but we will table them for now.)
+
+It's certainly good news that the average revenue moved. But, wise statistics sage that you are, you know the average isn't the whole story. Now, lets think distributionally - let's consider questions like:
 * Is the gain coming from squeezing more out of the big spenders or increasing engagement with those who spend least
 * Was any part of the distribution negatively affected
 
