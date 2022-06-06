@@ -138,7 +138,9 @@ plt.show()
 
 ![Box and Whisker plot](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/distributional_effects/Figure_2.png)
 
-Quantiles - There's something a little clearer
+This isn't especially easy to read either. We can get a couple of things from it: it looks like the max revenue per user in the treatment group was much higher, and the median was lower. (I also tried this one on a log axis, and didn't find it much easier, but you may find that a more intuitive plot than I did.)
+
+Let's try a different approach to understanding the distribution shape - we'll plot the empirical quantile function. We can get this using the `np.quantile` function, and telling it which quantiles of the data we want to calculate.
 
 ```python
 plt.title('Quantiles of revenue per customer')
@@ -153,6 +155,9 @@ plt.show()
 ```
 
 ![Quantile plots](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/distributional_effects/Figure_3.png)
+
+I find this a little easier to understand. Here are some things we can read off from it:
+* The 0.75 quantile of the two are the same.
 
 Quantile difference
 
