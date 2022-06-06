@@ -157,11 +157,14 @@ plt.show()
 ![Quantile plots](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/distributional_effects/Figure_3.png)
 
 I find this a little easier to understand. Here are some things we can read off from it:
-* The 0.75 quantile of the two are the same.
+* The 0.5 quantile (the median) of revenue was higher in control than treatment - even though the average treatment user produced more revenue than control!
+* Below the 0.75 quantile, it looks like control produced more revenue than treatment. That is, the treatment looks like it may have _decreased_ revenue per customer in about 75% of users (we can't tell for sure, because there are no confidence intervals on the curves).
+* The 0.75 quantile of the two are the same. So 75% of the users in _both_ treatment and control produced less than about $1.
+* The big spenders, the top 25% of the distribution produced _much_ more revenue in treatment than control. It appears that the treatment primarily creates an increase in revenue per user by increasing revenue among these highly engaged users.
 
-Quantile difference
+This is a much more detailed survey of the how the treatment affected our outcome than the average treatment effect can provide. At this point, we might decide to dive a little deeper into what happened with that 75% of users. If we can understand why they were affected negatively by the treatment, perhaps there is something we can do in the next iteration of the test to improve their experience. 
 
-With MJ https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mstats.mjci.html
+Let's look at this one more way - we'll look at the treatment effect on the whole quantile curve. That is, we'll subtract the control curve from the treatment curve, showing us how the treatment changed the shape of the distribution.
 
 ```python
 plt.title('Quantile difference (Treatment - Control)')
@@ -181,6 +184,8 @@ plt.show()
 
 ![Quantile difference](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/distributional_effects/Figure_4.png)
 
+With MJ https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mstats.mjci.html
+
 Big takeaways; effect in upper quartiler; the fat cats get fatter; feline fashionistas buy up all the sale inventory
 
 # Outro: Other ideas and alternatives
@@ -190,7 +195,9 @@ Big takeaways; effect in upper quartiler; the fat cats get fatter; feline fashio
 * Change in Gini, change in Entropy, change in https://en.wikipedia.org/wiki/Income_inequality_metrics#Gini_index
 * Many variables: Quantile regression is a good framework
 
-# DGP
+# Appendix: Intuition for the MJ standard error estimator
+
+# Appendix: DGP
 
 ```python
 sample_size = 1000
