@@ -184,20 +184,24 @@ plt.show()
 
 ![Quantile difference](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/distributional_effects/Figure_4.png)
 
-With MJ https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mstats.mjci.html
+This one includes confidence intervals computed using the [Maritz-Jarrett estimator of the quantile standard error](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mstats.mjci.html). We've applied a [Bonferroni correction](https://en.wikipedia.org/wiki/Bonferroni_correction) to the estimates as well, so no one accuse us of a poor Familywise Error Rate.
 
-Big takeaways; effect in upper quartiler; the fat cats get fatter; feline fashionistas buy up all the sale inventory
+We can read off from this chart where the statistically significant treatment effects on the quantile function are. Namely, the treatment lifted the top 25% of the revenue distribution, and depressed roughly the middle 50%. The mid-revenue users were less interested in the new subject line, but the fat cats in the top 25% of the distribution got even fatter; the entire treatment effect came from high-revenue feline fashionistas buying up all the inventory, so much so that it overshadowed the decrease in the middle.
+
 
 # Outro: Other ideas and alternatives
 
-* Hetereogeneous effect analysis/subgroup analysis: Possible introduction of mitigation strategy
+The above analysis tells us more than the usual "average" analysis does; it lets us answer questions about how the treatment affects the revenue distribution. In a sense, we decomposed the average treatment effect by user quantile. But it's not the only tool that provides such a decomposition! There are some other methods we might consider as well:
+* Hetereogeneous effect analysis/subgroup analysis: Relate the average treatment effect to covariates/subgroups; Possible introduction of mitigation strategy
 * Conditional variance modeling: Also a way of understanding change in the shape (conditional kurtosis? don't think anyone ever does that)
 * Change in Gini, change in Entropy, change in https://en.wikipedia.org/wiki/Income_inequality_metrics#Gini_index
-* Many variables: Quantile regression is a good framework
+* Relating the change in the distribution shape to many variables: Quantile regression is a good framework
+
+# Appendix: Decomposing the average treatment effect by quantile more formally
 
 # Appendix: Intuition for the MJ standard error estimator
 
-# Appendix: DGP
+# Appendix: Where the data in the example came from
 
 ```python
 sample_size = 1000
