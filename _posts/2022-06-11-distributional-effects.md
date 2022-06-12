@@ -57,7 +57,7 @@ Instead, we'll look at the empirical [quantile function](https://en.wikipedia.or
 
 Let's take a look at an example of how we might use these in practice to learn about the distributional effects of a test.
 
-# An example: How did my A/B test affect
+# An example: How did my A/B test affect the distribution of revenue?
 
 Let's once more put ourselves in the shoes of that most beloved of Capitalist Heroes, the [purveyor of little tiny cat sunglasses](https://lmc2179.github.io/posts/confidence_prediction.html). Having harnessed the illuminating insights of your business' data, you've consistently been improving your key metric of Revenue per Cat. You currently send out a weekly email about the current purrmotional sales, a newsletter beloved by dashing calicos and tabbies the world over. As you are the sort of practical, industrious person who is willing to spend their valuable time reading a blog about statistics, you originally gave this email the very efficient subject line of "Weekly Newsletter" and move on to other things. 
 
@@ -187,7 +187,7 @@ This one includes confidence intervals computed using the [Maritz-Jarrett estima
 We can read off from this chart where the statistically significant treatment effects on the quantile function are. Namely, the treatment lifted the top 25% of the revenue distribution, and depressed roughly the middle 50%. The mid-revenue users were less interested in the new subject line, but the fat cats in the top 25% of the distribution got even fatter; the entire treatment effect came from high-revenue feline fashionistas buying up all the inventory, so much so that it overshadowed the decrease in the middle.
 
 
-# Outro: Other ideas and alternatives
+# Some other ways to explore beyond the average treatment effect
 
 The above analysis tells us more than the usual "average" analysis does; it lets us answer questions about how the treatment affects properties of the revenue distribution other than the mean. In a sense, we decomposed the average treatment effect by user quantile. But it's not the only tool that lets us see how aspects of the distribution changed. There are some other methods we might consider as well:
 * **Hetereogeneous effect analysis/subgroup analysis**: Instead of thinking about how the treatment effect varied by quantile, we can relate it to some set of pre-treatment covariates of interest. By doing so, we can learn how our favorite customer was affected, which might tell us more about the mechanism that makes the treatment work or let us introduce mitigation. This might involve computing interactions between the treatment and subgroups, creating PDPs of the covariates plus treatment indicator, using [X-learning](https://arxiv.org/abs/1706.03461) or [causal forests](https://arxiv.org/abs/1902.07409), to name a few approaches.
