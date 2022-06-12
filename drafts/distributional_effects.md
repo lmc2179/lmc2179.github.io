@@ -7,9 +7,7 @@ tags: [datascience]
 image: juniper_sunglasses.jpeg
 ---
 
-*?*
-
-*[Photo credit](https://pxhere.com/en/photo/932166)*
+*We're familiar with A/B tests that tell us how our metric (usually an average of some kind) changed due to the treatment. But if we want to get a better than average insight into the treatment effect, we should look beyond the mean. This post demonstrates why and how we might look at the way the quantiles of the distribution changed as a result of the treatment, complete with neat visualizations you can show in your next A/B test report built in Python.*
 
 
 # Distributional effects of A/B tests are often overlooked but provide a deeper understanding
