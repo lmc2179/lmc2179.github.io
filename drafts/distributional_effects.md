@@ -4,7 +4,7 @@ title: "How did my treatment affect the distribution of my outcomes? A/B testing
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
-image: distributional_effects.png
+image: juniper_sunglasses.jpeg
 ---
 
 *?*
