@@ -20,7 +20,7 @@ Most companies I know of that include A/B testing in their product development p
 * At some point, decide to stop collecting data.
 * Compute the average treatment effect for the control version vs the test variant(s) on each metric. Calculate some measure of uncertainty (like a P-value or confidence/credible interval). Make a decision about whether to replace the existing production product with one of the test variants.
 
-This process is so common because, well, it works - if followed, it will usually result in the introduction of product features which increase our favorite metric. It is a series of discrete steps in the product space which attempt to optimize the favorite metric without incurring unacceptable losses on the other metrics.
+This process is so common because, well, it works - if followed, it will usually result in the introduction of product features which increase our favorite metric. It creates a series of discrete steps in the product space which attempt to optimize the favorite metric without incurring unacceptable losses on the other metrics.
 
 In this process, the average treatment effect is the star of the show. But as we learn in Stats 101, two distributions can look drastically different while still having the same average. For example, here are four remarkably different distributions with the same average:
 
@@ -121,7 +121,7 @@ We answer these questions by looking at how the distribution shifted.
 
 (Another aside: For this particular problem related to the effects of an email change, we might also look at whether the treatment increased the open rate, or the average order value, or if they went in different directions. This is a useful way to decompose the revenue per customer, but we'll avoid it in this discussion since it's pretty email-specific.)
 
-Before we talk about the quantile function, we can also consider another commonly used tool for inspecting distribution shape, the box-and-whisker plot.
+Before we talk about the quantile function, we can also consider another commonly used tool for inspecting distribution shape, which goes by the thematically-appropriate name of [box-and-whisker plot](https://en.wikipedia.org/wiki/Box_plot).
 
 ```python
 Q = np.linspace(0.05, .95, 20)
