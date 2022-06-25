@@ -15,7 +15,7 @@ t = list(df.index)
 y = df['Robberies']
 diff_y = y - y.shift(12)
 
-def gen_iid_noise(size, sigma):
+def gen_iid_noise(size, sigma): # Note that this is Gaussian IID noise, not white noise
   return np.random.normal(0, sigma, size=size)
 
 def gen_random_walk(size, sigma):
@@ -33,6 +33,9 @@ for i in range(100):
 plt.plot(t, diff_y, color='blue')
 plt.show()
 
+# Estimates of sigma, drift, predictions at each point
 # Model comparison? Select model based on leave-one-out sequential CV/avg error
+# How do we attempt to falsify the "normal-shaped noise" assumption? Is there a non-parametric version with chebyshev's inequality
+# Include a measure of surprise, like a Z-score
 
 ```
