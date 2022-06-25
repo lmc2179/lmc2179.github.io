@@ -36,6 +36,6 @@ plt.show()
 # Estimates of sigma, drift, predictions at each point
 # Model comparison? Select model based on leave-one-out sequential CV/avg error
 # How do we attempt to falsify the "normal-shaped noise" assumption? Is there a non-parametric version with chebyshev's inequality
-# Include a measure of surprise, like a Z-score
+# Include a measure of surprise, like a Z-score (distance from mean in standard deviations) or Normal quantile
 
 ```
