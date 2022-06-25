@@ -9,10 +9,20 @@ import seaborn as sns
 import numpy as np
 import pandas as pd
 
-df = pd.read_csv('https://raw.githubusercontent.com/jbrownlee/Datasets/master/monthly-robberies.csv')
+#df = pd.read_csv('https://raw.githubusercontent.com/jbrownlee/Datasets/master/monthly-robberies.csv') # IID I think
+#y = df['Robberies']
+
+#df = pd.read_csv('https://raw.githubusercontent.com/jbrownlee/Datasets/master/monthly-mean-temp.csv') # IID
+#y = df['Temperature']
+
+#df = pd.read_csv('https://raw.githubusercontent.com/jbrownlee/Datasets/master/monthly_champagne_sales.csv') # IID
+#y = df['Sales']
+
+df = pd.read_csv('https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv') # Looks more random walk than IID
+y = df['Passengers']
 
 t = list(df.index)
-y = df['Robberies']
+
 diff_y = y - y.shift(12)
 
 def gen_iid_noise(size, sigma): # Note that this is Gaussian IID noise, not white noise
@@ -33,7 +43,8 @@ for i in range(100):
 plt.plot(t, diff_y, color='blue')
 plt.show()
 
-# Estimates of sigma, drift, predictions at each point
+# What separates these two models? One is the cumulative sum of the other
+# Estimates of sigma, drift, predictions at each point - implement both in python/pandas with shift and window functions
 # Model comparison? Select model based on leave-one-out sequential CV/avg error
 # How do we attempt to falsify the "normal-shaped noise" assumption? Is there a non-parametric version with chebyshev's inequality
 # Include a measure of surprise, like a Z-score (distance from mean in standard deviations) or Normal quantile
