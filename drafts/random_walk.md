@@ -45,6 +45,7 @@ plt.show()
 
 # What separates these two models? One is the cumulative sum of the other
 # Estimates of sigma, drift, predictions at each point - implement both in python/pandas with shift and window functions
+# Gelman style measures of similarity of observed data to simulated data: Quantiles of observed vs simulated for summary stats, observation at each time point
 # Model comparison? Select model based on leave-one-out sequential CV/avg error
 # How do we attempt to falsify the "normal-shaped noise" assumption? Is there a non-parametric version with chebyshev's inequality
 # Include a measure of surprise, like a Z-score (distance from mean in standard deviations) or Normal quantile
