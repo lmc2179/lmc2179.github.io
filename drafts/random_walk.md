@@ -52,6 +52,13 @@ plt.show()
 # Model comparison? Select model based on leave-one-out sequential CV/avg error
 # Include a measure of surprise, like a Z-score (distance from mean in standard deviations) or Normal quantile
 
+low = -2*np.std(diff_y)
+high = 2*np.std(diff_y)
+plt.axhline(low)
+plt.axhline(high)
+plt.plot(t, diff_y)
+plt.show()
+
 diff_y_second_diff = diff_y - diff_y.shift(1)
 sd = diff_y_second_diff.rolling(24).std()
 low = diff_y.shift(1) - 2*sd
