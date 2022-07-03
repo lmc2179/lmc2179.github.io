@@ -6,6 +6,6 @@ Example: Non-linear relationship of NOX and Price in the Boston housing data
 
 How to use them in Python
 
-Graphing them with a PDP (?); plotting them somehow
+Graphing them with a PDP (?); plotting them somehow (what does this do if it's nonlinear: https://www.statsmodels.org/stable/generated/statsmodels.graphics.regressionplots.plot_partregress.html#statsmodels.graphics.regressionplots.plot_partregress)
 
 Looking at CIs of the PDP
