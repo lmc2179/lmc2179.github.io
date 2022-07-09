@@ -33,10 +33,17 @@ daily_trip_regression_data['after_trend'] = np.cumsum(daily_trip_regression_data
 
 plt.scatter(daily_trip_regression_data['date'], daily_trip_regression_data['trips'])
 
-model = smf.ols('trips ~ trend + after + after_trend', daily_trip_regression_data)
-#model = smf.ols('trips ~ bs(trend, df=5) + after + bs(after_trend, df=5)', daily_trip_regression_data)
+#model = smf.ols('trips ~ trend + after + after_trend', daily_trip_regression_data)
+model = smf.ols('trips ~ bs(trend, df=5) + after + bs(after_trend, df=5) + C(month)', daily_trip_regression_data)
 result = model.fit()
 plt.plot(daily_trip_regression_data['date'], result.fittedvalues)
+
+prediction_se = result.get_prediction(daily_trip_regression_data).se_mean
+plt.fill_between(daily_trip_regression_data['date'], result.fittedvalues - 2 * prediction_se, result.fittedvalues + 2 * prediction_se, alpha=.5)
+
+obs_se = result.get_prediction(daily_trip_regression_data).se_obs
+plt.plot(daily_trip_regression_data['date'], result.fittedvalues + 2 * obs_se, color='black', linestyle='dotted')
+plt.plot(daily_trip_regression_data['date'], result.fittedvalues - 2 * obs_se, color='black', linestyle='dotted')
 
 plt.show()
 ```
