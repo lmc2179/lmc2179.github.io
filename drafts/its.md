@@ -6,6 +6,16 @@ Key idea: In the absence of an ironclad causal inference method (experiment, cle
 
 Nonlinear extensions with B-splines
 
+ITS Analysis
+
+Outcome = Intercept + Cycle + Long-term trend + Impact of Treatment + Post-treatment change in trend + Noise
+
+Views: EV + CI
+Data + Expectation ( + Prediction interval)
+Cycle only
+Trends only
+Impact only
+
 ```python
 import pandas as pd
 from tqdm import tqdm
