@@ -28,6 +28,7 @@ daily_trip_regression_data['month'] = daily_trip_regression_data['date'].apply(l
 daily_trip_regression_data['year'] = daily_trip_regression_data['date'].apply(lambda x: x.year)
 daily_trip_regression_data['trend'] = np.arange(len(daily_trip_regression_data))
 daily_trip_regression_data['after'] = (daily_trip_regression_data['date'] >= '2020-04-01').apply(int)
+daily_trip_regression_data['trend'] = np.arange(len(daily_trip_regression_data)) * (1. - daily_trip_regression_data['after']) + (daily_trip_regression_data['after'] * np.max(np.arange(len(daily_trip_regression_data)) * (1. - daily_trip_regression_data['after']))) # Forgive me...goal is to count up to the time when the intervention happens, then stay at that value. There's probably a nice way to do it with np.clip
 daily_trip_regression_data['after'].mask(daily_trip_regression_data['date'] == '2020-03-01', 1./3, inplace=True)
 daily_trip_regression_data['after_trend'] = np.cumsum(daily_trip_regression_data['after'])
 
@@ -45,5 +46,29 @@ obs_se = result.get_prediction(daily_trip_regression_data).se_obs
 plt.plot(daily_trip_regression_data['date'], result.fittedvalues + 2 * obs_se, color='black', linestyle='dotted')
 plt.plot(daily_trip_regression_data['date'], result.fittedvalues - 2 * obs_se, color='black', linestyle='dotted')
 
+plt.show()
+
+plt.title('Monthly cycle removed')
+plt.scatter(daily_trip_regression_data['date'], daily_trip_regression_data['trips'])
+daily_trip_regression_data_plot = daily_trip_regression_data.copy()
+daily_trip_regression_data_plot['month'] = 6
+plt.plot(daily_trip_regression_data['date'], result.predict(daily_trip_regression_data_plot))
+plt.show()
+
+plt.title('Monthly cycle only')
+plt.scatter(daily_trip_regression_data['date'], daily_trip_regression_data['trips'])
+daily_trip_regression_data_plot = daily_trip_regression_data.copy()
+daily_trip_regression_data_plot['trend'] = 0
+daily_trip_regression_data_plot['after'] = 0
+daily_trip_regression_data_plot['after_trend'] = 0
+plt.plot(daily_trip_regression_data['date'], result.predict(daily_trip_regression_data_plot))
+plt.show()
+
+plt.title('Counterfactual')
+plt.scatter(daily_trip_regression_data['date'], daily_trip_regression_data['trips'])
+daily_trip_regression_data_plot = daily_trip_regression_data.copy()
+daily_trip_regression_data_plot['after'] = 0
+daily_trip_regression_data_plot['after_trend'] = 0
+plt.plot(daily_trip_regression_data['date'], result.predict(daily_trip_regression_data_plot))
 plt.show()
 ```
