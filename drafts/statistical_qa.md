@@ -41,3 +41,4 @@ Swap X with a different distribution
 Is this exact for the binomial distribution!? Note that the correct SE is correct event for tiny sample sizes
 
 Bayesian view: Predictive posterior for the unobserved values for binomial (exact I think), else bootstrap unknown values
+(Draw a beta, then draw a binomial - so beta binomial)
