@@ -24,3 +24,5 @@ print(np.mean(l12), sem(l12))
 ```
 
 This is really a fixed-effects model; consider also a mixed-effects or hierarchical bayesian approach
+
+Compare with a bayesian non-hierarchical approach (same result if the parameter is shared...I think) and wtih a hierarchical analysis
