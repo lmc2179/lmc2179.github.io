@@ -22,3 +22,5 @@ print(combine_estimates([np.mean(l1), np.mean(l2)],
                         [sem(l1), sem(l2)]))
 print(np.mean(l12), sem(l12))
 ```
+
+This is really a fixed-effects model; consider also a mixed-effects or hierarchical bayesian approach
