@@ -1,3 +1,5 @@
+Rule of three for rare events
+
 Finite population correction
 
 ```python
