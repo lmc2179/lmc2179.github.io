@@ -1,4 +1,11 @@
-Rule of three for rare events
+
+# A touch of statistics makes QA much easier
+
+QA questions related to estimating the number of defective units pop up all the time, even outside the manufacturing context
+
+QA is expensive, so we should be careful about how much of it we do
+
+# Estimating the proportion of defects in a finite population: The finite population correction
 
 Finite population correction
 
@@ -44,3 +51,17 @@ Is this exact for the binomial distribution!? Note that the correct SE is correc
 
 Bayesian view: Predictive posterior for the unobserved values for binomial (exact I think), else bootstrap unknown values
 (Draw a beta, then draw a binomial - so beta binomial)
+
+# Prediction the proportion defective units: the Beta-Binomial model
+
+```python
+from scipy.stats import betabinom, beta, binomial
+
+betabinom(a, b, n).rvs(k)
+
+binom(n, beta(a, b).rvs(k)).rvs() # Same deal
+
+```
+
+# A shortcut when defects are rare events: The rule of three
+
