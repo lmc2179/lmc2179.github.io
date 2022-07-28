@@ -64,7 +64,7 @@ Is this exact for the binomial distribution!? Note that the correct SE is correc
 Bayesian view: Predictive posterior for the unobserved values for binomial (exact I think), else bootstrap unknown values
 (Draw a beta, then draw a binomial - so beta binomial)
 
-# Prediction the proportion defective units: the Beta-Binomial model
+# Prediction the number defective units based on the sample: the Beta-Binomial model
 
 ```python
 from scipy.stats import betabinom, beta, binomial
@@ -77,3 +77,4 @@ binom(n, beta(a, b).rvs(k)).rvs() # Same deal
 
 # A shortcut when defects are rare events: The rule of three
 
+compare with beta interval using jeffrey's prior
