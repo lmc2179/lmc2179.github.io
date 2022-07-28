@@ -1,4 +1,16 @@
 
+# Quantity ☯ Quality
+
+if set our sights on quality alone we become perfectionists; if we aim for pure quantity we will produce a large volume of low-value output
+
+It's often easy to measure quantity so metrics usuall do; it's usually more expensive to measure quality
+
+but we need to
+
+Often, we can only measure the quality of a subset of outputs due to the cost, so we need to do some statistics
+
+luckily its easy
+
 # A touch of statistics makes QA much easier
 
 QA questions related to estimating the number of defective units pop up all the time, even outside the manufacturing context
