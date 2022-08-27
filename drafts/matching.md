@@ -28,8 +28,8 @@ outcome_column = 're78'
 
 treatment_indicator = df['treat']
 
-y_c = df[treatment_indicator][outcome_column]
-y_t = df[~treatment_indicator][outcome_column]
+y_c = df[~treatment_indicator][outcome_column]
+y_t = df[treatment_indicator][outcome_column]
 
 df = pd.get_dummies(df[covariate_columns])
 
