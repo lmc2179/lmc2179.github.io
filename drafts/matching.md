@@ -6,6 +6,8 @@ Matching as a common-sense solution: fill in the other side of the potential out
 
 A bonus: this gives you an opportunity to get your hands dirty with the data and see how the coverage/validity looks up close
 
+Stuart's list of steps
+
 # Example:
 
 Introduce the problem; the treatment, outcome, and confounders
@@ -55,6 +57,7 @@ https://gist.github.com/lmc2179/7ae1dcc04ba95cccd8c118f25bd94e4f
 ```python
 from scipy.spatial.distance import mahalanobis
 from scipy.optimize import linear_sum_assignment
+import numpy as np
 
 def mahalanobis_matrix(X_c, X_t):
     V = np.cov(np.concatenate((X_c, X_t)), rowvar=0)
@@ -70,29 +73,7 @@ D = mahalanobis_matrix(X_c.values, X_t.values)
 D[np.isnan(D)] = np.inf # Hack to get rid of nans, where are they coming from
 
 c_pair, t_pair = linear_sum_assignment(D)
-pair_distances = [D[c][t] for c, t in zip(c_pair, t_pair)]
-```
-
-Compare with Gower (https://gist.github.com/lmc2179/d4bd1091821db7048bbca5f77b785a4c), Exact similarity (or almost-exact matching)
-
-```python
-def coarsened_almost_exact_match_distance(x_c, x_t, tol): # Three np arrays of equal length; differences less than tol are considered matches
-    abs_diff = np.abs(x_c - x_t)
-    almost_match = abs_diff <= tol
-    return 1. - (sum(almost_match) / len(tol))
-
-def dist_matrix(X_c, X_t, tol): # I think we need a per-dimension tol :/
-    for i in range(len(X_c)):
-        for j in range(len(X_t)):
-            D[i][j] = coarsened_almost_exact_match_distance(X_c[i], X_t[j], tol)
-    return D
-    
-D = dist_matrix(X_c.values, X_t.values, np.zeros(X_c.shape[1]))
-
-D[np.isnan(D)] = np.inf # Hack to get rid of nans, where are they coming from
-
-c_pair, t_pair = linear_sum_assignment(D)
-pair_distances = [D[c][t] for c, t in zip(c_pair, t_pair)]
+pair_distances = pd.Series([D[c][t] for c, t in zip(c_pair, t_pair)])
 ```
 
 # Checking the match quality
@@ -100,6 +81,24 @@ pair_distances = [D[c][t] for c, t in zip(c_pair, t_pair)]
 Stuart step 3
 
 Distance distribution and spot checks
+
+```python
+# Apply caliper
+sns.kdeplot(pair_distances)
+plt.show()
+
+distance_acceptable = pair_distances <= 1
+
+c_pair, t_pair = c_pair[distance_acceptable], t_pair[distance_acceptable]
+```
+
+spot check
+
+```python
+i = np.random.randint(0, len(c_pair))
+print(X_c.iloc[c_pair[i]])
+print(X_t.iloc[t_pair[i]])
+```
 
 Differences and SMDs; SMD of matched vs all data; do it for all columns
 ```python
@@ -131,6 +130,8 @@ plt.show()
 Stuart step 4
 
 ```python
+from scipy.stats import sem, norm
+
 y_t_pair = (y_t.iloc[t_pair].reset_index(drop=True))
 y_c_pair = (y_c.iloc[c_pair].reset_index(drop=True))
 
@@ -150,8 +151,6 @@ high = diff + z * se
 
 # Intuition of heterogeneity: Size of effect vs age
 sns.regplot(X_c.iloc[c_pair]['age'].values, match_diff)
-
-sns.regplot(X_t.iloc[t_pair]['age'].values, match_diff)
 ```
 
 # Causal considerations
@@ -165,6 +164,14 @@ dagitty, DAGs, backdoor
 CEM, PSM; mention regression as matching
 
 https://arxiv.org/pdf/1707.06315.pdf
+
+```
+df = pd.read_csv('https://vincentarelbundock.github.io/Rdatasets/csv/Ecdat/Treatment.csv')
+
+from statsmodels.api import formula as smf
+
+smf.ols(outcome_column + '~' + '+'.join(covariate_columns) + '+treat', df).fit().summary()
+```
 
 # Appendix: Matching and variance reduction
 
