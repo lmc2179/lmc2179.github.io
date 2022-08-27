@@ -10,6 +10,8 @@ Stuart's list of steps
 
 # Example:
 
+https://vincentarelbundock.github.io/Rdatasets/doc/openintro/mn_police_use_of_force.html better
+
 Introduce the problem; the treatment, outcome, and confounders
 
 Look at X and y for treat and control
