@@ -33,9 +33,9 @@ y_t = df[treatment_indicator][outcome_column]
 
 df = pd.get_dummies(df[covariate_columns])
 
-X_c = df[treatment_indicator].astype('float')
+X_c = df[~treatment_indicator].astype('float')
 
-X_t = df[~treatment_indicator].astype('float')
+X_t = df[treatment_indicator].astype('float')
 ```
 
 this is the ATC, weirdly enough
