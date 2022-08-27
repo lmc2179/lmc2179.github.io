@@ -4,6 +4,8 @@ Potential outcomes; the potential-outcome ideal
 
 Matching as a common-sense solution: fill in the other side of the potential outcome with a unit that looks like it but got the opposite treatment status
 
+A bonus: this gives you an opportunity to get your hands dirty with the data and see how the coverage/validity looks up close
+
 # Example:
 
 Introduce the problem; the treatment, outcome, and confounders
@@ -78,12 +80,19 @@ def coarsened_almost_exact_match_distance(x_c, x_t, tol): # Three np arrays of e
     abs_diff = np.abs(x_c - x_t)
     almost_match = abs_diff <= tol
     return 1. - (sum(almost_match) / len(tol))
-    
-def dist_matrix(X_c, X_t, tol):
+
+def dist_matrix(X_c, X_t, tol): # I think we need a per-dimension tol :/
     for i in range(len(X_c)):
         for j in range(len(X_t)):
             D[i][j] = coarsened_almost_exact_match_distance(X_c[i], X_t[j], tol)
     return D
+    
+D = dist_matrix(X_c.values, X_t.values, np.zeros(X_c.shape[1]))
+
+D[np.isnan(D)] = np.inf # Hack to get rid of nans, where are they coming from
+
+c_pair, t_pair = linear_sum_assignment(D)
+pair_distances = [D[c][t] for c, t in zip(c_pair, t_pair)]
 ```
 
 # Checking the match quality
@@ -92,13 +101,13 @@ Stuart step 3
 
 Distance distribution and spot checks
 
-Differences and SMDs; SMD of matched vs all data
+Differences and SMDs; SMD of matched vs all data; do it for all columns
 ```python
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6351359/
 
 age_diffs = (X_t.iloc[t_pair]['age'].values - X_c.iloc[c_pair]['age'].values)
 
-print(np.sum((age_diffs <= 10) & (age_diffs >= -10)))
+print(np.sum((age_diffs <= 10) & (age_diffs >= -10))) # How often are the age differences "large"?
 
 age_smd = (X_t.iloc[t_pair]['age'].values.mean() - X_c.iloc[c_pair]['age'].values.mean()) / np.sqrt((X_t.iloc[t_pair]['age'].values.var() + X_c.iloc[c_pair]['age'].values.var()) / 2)
 
@@ -121,7 +130,29 @@ plt.show()
 
 Stuart step 4
 
-?
+```python
+y_t_pair = (y_t.iloc[t_pair].reset_index(drop=True))
+y_c_pair = (y_c.iloc[c_pair].reset_index(drop=True))
+
+match_diff = y_t_pair - y_c_pair
+sns.kdeplot(match_diff)
+plt.show()
+
+diff = np.mean(match_diff)
+se = sem(match_diff)
+
+z = norm(0, 1).ppf(1.-(.01/2))
+
+low = diff - z * se
+high = diff + z * se
+
+# Statistically significant different means; Not clear if practically significant (look at lower end of bound and high uncertainty)
+
+# Intuition of heterogeneity: Size of effect vs age
+sns.regplot(X_c.iloc[c_pair]['age'].values, match_diff)
+
+sns.regplot(X_t.iloc[t_pair]['age'].values, match_diff)
+```
 
 # Causal considerations
 
@@ -134,3 +165,7 @@ dagitty, DAGs, backdoor
 CEM, PSM; mention regression as matching
 
 https://arxiv.org/pdf/1707.06315.pdf
+
+# Appendix: Matching and variance reduction
+
+Compare propagated SE with matched SE
