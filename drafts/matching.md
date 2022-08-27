@@ -55,20 +55,11 @@ Stuart step 2: Do matching
 https://gist.github.com/lmc2179/7ae1dcc04ba95cccd8c118f25bd94e4f
 
 ```python
-from scipy.spatial.distance import mahalanobis
+from scipy.spatial.distance import cdist, squareform
 from scipy.optimize import linear_sum_assignment
 import numpy as np
-
-def mahalanobis_matrix(X_c, X_t):
-    V = np.cov(np.concatenate((X_c, X_t)), rowvar=0)
-    VI = np.linalg.inv(V)
-    D = np.zeros((len(X_c),len(X_t)))
-    for i in range(len(X_c)):
-        for j in range(len(X_t)):
-            D[i][j] = mahalanobis(X_c[i], X_t[j], VI)
-    return D
     
-D = mahalanobis_matrix(X_c.values, X_t.values)
+D = cdist(X_c.values, X_t.values, 'mahalanobis')
 
 D[np.isnan(D)] = np.inf # Hack to get rid of nans, where are they coming from
 
