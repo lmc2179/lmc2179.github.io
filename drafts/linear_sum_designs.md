@@ -1,10 +1,13 @@
 
 Simulation:
 * Generate data (x properties)
+
 Version 1:
 * Assign pairs with LSA
+
 Version 2:
 * Assign pairs at random
+
 Then:
 * Generate y values
 * Compute treatment effects both ways
