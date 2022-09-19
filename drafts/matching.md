@@ -6,41 +6,58 @@ Matching as a common-sense solution: fill in the other side of the potential out
 
 A bonus: this gives you an opportunity to get your hands dirty with the data and see how the coverage/validity looks up close
 
+
+
 Stuart's list of steps
 
-# Example:
 
-https://vincentarelbundock.github.io/Rdatasets/doc/openintro/mn_police_use_of_force.html better
+My list of steps:
+0. Do causal diagramming to figure out the set of controls
+1. Split the dataframe into treated/untreated outcome vectors/covariate matrices.
+2. Compute distance matrix between treated and untreated units (we'll use the hamming distance)
+3. apply a caliper: drop pairs which are too far apart to be plausible counterfactuals
+4. run validity checks: what subgroup will my inferences apply over?
+5. run univariate balance checks: on average, how similar are paired units in each column?
+6. Compute the ATT
+
+# Example:
 
 Introduce the problem; the treatment, outcome, and confounders
 
 Look at X and y for treat and control
 
-https://vincentarelbundock.github.io/Rdatasets/doc/Ecdat/Treatment.html
+
 
 ```python
 import pandas as pd
 
-df = pd.read_csv('https://vincentarelbundock.github.io/Rdatasets/csv/Ecdat/Treatment.csv')
+df = pd.read_csv('https://vincentarelbundock.github.io/Rdatasets/csv/openintro/ames.csv')
 
-#http://business.baylor.edu/scott_cunningham/teaching/lalonde-1986.pdf
+covariate_columns = ['area', 'Lot.Area', 'Yr.Sold', 'Mo.Sold', 'Year.Built', 
+                     'Bldg.Type', 'House.Style', 'Overall.Qual', 'Overall.Cond', 
+                     'Foundation', 'Kitchen.Qual', 'Heating', '']
+outcome_column = 'price'
+treatment_column = 'Fireplaces'
 
-covariate_columns = ['age', 'educ', 'ethn', 'married', 're74', 're75', 'u74', 'u75']
-outcome_column = 're78'
+df = df[df['Fireplaces'].isin([0, 1])]
 
-treatment_indicator = df['treat']
+#Next line will apply:  # df[k] = np.digitize(df[k], v)
+covar_bin_edges = {'area': [], 
+                   'Lot.Area': []}
 
-y_c = df[~treatment_indicator][outcome_column]
-y_t = df[treatment_indicator][outcome_column]
+def split_treated_and_control(df, treatment_column, output_column, covariate_columns):
+    treatment_indicator = df[treatment_column]
 
-df = pd.get_dummies(df[covariate_columns])
+    y_c = df[~treatment_indicator][outcome_column]
+    y_t = df[treatment_indicator][outcome_column]
 
-X_c = df[~treatment_indicator].astype('float')
+    df = df[covariate_columns]
 
-X_t = df[treatment_indicator].astype('float')
+    X_c = df[~treatment_indicator].astype('float')
+
+    X_t = df[treatment_indicator].astype('float')
+    return
 ```
-
-this is the ATC, weirdly enough
 
 # The idea of matching
 
@@ -61,9 +78,7 @@ from scipy.spatial.distance import cdist, squareform
 from scipy.optimize import linear_sum_assignment
 import numpy as np
     
-D = cdist(X_c.values, X_t.values, 'mahalanobis')
-
-D[np.isnan(D)] = np.inf # Hack to get rid of nans, where are they coming from
+D = cdist(X_c.values, X_t.values, 'hamming') # Double check hamming works here
 
 c_pair, t_pair = linear_sum_assignment(D)
 pair_distances = pd.Series([D[c][t] for c, t in zip(c_pair, t_pair)])
@@ -165,6 +180,15 @@ from statsmodels.api import formula as smf
 
 smf.ols(outcome_column + '~' + '+'.join(covariate_columns) + '+treat', df).fit().summary()
 ```
+
+# Matching has many uses
+
+* Preprocessing to understand covariate common support
+* ATT estimation (what we did here)
+* HTE model training
+* Generating paired designs
+* Paired analysis after full randomization
+* Decomposing ATE by covariate (basically, another HTE idea)
 
 # Appendix: Matching and variance reduction
 
