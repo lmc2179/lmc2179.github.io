@@ -19,5 +19,6 @@ def run_simulation():
 ```
 For example above: Walk w/ changing drift est. from data
 
+A VaR type problem?
 
 For DES see this: https://www.youtube.com/watch?v=0KvA92ykPKI&ab_channel=UQComputingSociety
