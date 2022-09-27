@@ -1,5 +1,11 @@
 This is incremental time progression, not DES https://en.wikipedia.org/wiki/Discrete-event_simulation
 
+We talk a lot about inference, but it's less often we hear about its inverse, simulation
+
+Simulation is not prediction
+
+Generative models allow simulation
+
 What model could have produced this data? [Infer]
 
 ↕
