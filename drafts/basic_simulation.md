@@ -19,6 +19,18 @@ def run_simulation():
 ```
 For example above: Walk w/ changing drift est. from data
 
-A VaR type problem?
-
 For DES see this: https://www.youtube.com/watch?v=0KvA92ykPKI&ab_channel=UQComputingSociety
+
+Possible example 1:
+
+Idea: Get
+[house data](https://en.wikipedia.org/wiki/List_of_United_States_House_of_Representatives_elections,_1856%E2%80%93present)
+[pres data](https://en.wikipedia.org/wiki/List_of_United_States_presidential_elections_by_popular_vote_margin)
+with [wiki package](https://pypi.org/project/Wikipedia-API/)
+
+Hypothesis: Midterms are bad for the current president; incumbents tend to win; non-incumbent races are a toss-up
+Use ABC! Find rules that agree with the actual path 80% of the time
+
+Possible example 2: A VaR simulation problem, maybe on one of these data sets: https://github.com/lmc2179/lmc2179.github.io/blob/master/drafts/random_walk.md
+
+Possible example 3: A problem requiring strong assumptions, like a model of how a firm grows
