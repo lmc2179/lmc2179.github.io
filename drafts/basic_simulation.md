@@ -1,5 +1,9 @@
 This is incremental time progression, not DES https://en.wikipedia.org/wiki/Discrete-event_simulation
 
+What model could have produced this data? [Infer]
+↕
+What data would be produced by this model? [Simulate]
+
 ```python
 def gen_initial():
   return {} # TODO: Set initial conditions
