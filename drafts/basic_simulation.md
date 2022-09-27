@@ -33,4 +33,4 @@ Use ABC! Find rules that agree with the actual path 80% of the time
 
 Possible example 2: A VaR simulation problem, maybe on one of these data sets: https://github.com/lmc2179/lmc2179.github.io/blob/master/drafts/random_walk.md
 
-Possible example 3: A problem requiring strong assumptions, like a model of how a firm grows
+Possible example 3: A problem requiring strong assumptions, like a model of how a firm grows; lets us see how sensitive we are the the assumptions
