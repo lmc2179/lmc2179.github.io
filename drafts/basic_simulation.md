@@ -49,4 +49,4 @@ Possible example 3: A problem requiring strong assumptions, like a model of how 
 
 Possible example 4: A counterfactual example; how does the time series change if I intervene at time X
 
-Bayesian bonus: Bayesian inference creates a natural way to do simulation too
+Bayesian bonus: Bayesian inference creates a natural way to do simulation too (link gelman)
