@@ -48,3 +48,5 @@ Possible example 2: A VaR simulation problem, maybe on one of these data sets: h
 Possible example 3: A problem requiring strong assumptions, like a model of how a firm grows; lets us see how sensitive we are the the assumptions
 
 Possible example 4: A counterfactual example; how does the time series change if I intervene at time X
+
+Bayesian bonus: Bayesian inference creates a natural way to do simulation too
