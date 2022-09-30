@@ -27,6 +27,18 @@ plt.scatter(df['x'], df['y'])
 plt.show()
 
 from statsmodels.api import formula as smf
+
+ols_model = smf.ols('y ~ x', df).fit()
+pred = ols_model.get_prediction(df)
+
+high, low = zip(*pred.conf_int(.9))
+
+plt.scatter(df['x'], df['y'])
+plt.plot(df['x'], high)
+plt.plot(df['x'], pred.predicted_mean)
+plt.plot(df['x'], low)
+plt.show()
+
 high_model = smf.quantreg('y ~ x', df).fit(q=.95)
 mid_model = smf.quantreg('y ~ x', df).fit(q=.5)
 low_model = smf.quantreg('y ~ x', df).fit(q=.05)
