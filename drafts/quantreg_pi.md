@@ -4,6 +4,12 @@
 
 # Quantile regression example
 
+## Fitting the model
+
+## Checking the model
+
+## Generating simulated data
+
 # Other ideas
 
 Other uses of quantile regression
