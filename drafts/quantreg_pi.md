@@ -44,9 +44,14 @@ print(np.average(covered))
 ## Fitting the model
 
 Evidence of heteroskedasticity: non-zero slopes for high and low
-Evidence of asymmetry?
+
+Evidence of asymmetry? high - mid == mid - low
 
 ## Checking the model
+
+coverage
+
+consider other models?
 
 ## Generating simulated data
 
