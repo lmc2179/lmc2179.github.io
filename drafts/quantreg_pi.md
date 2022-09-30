@@ -1,6 +1,12 @@
 # PIs are good but OLS doesn't always get it right
 
+OLS PI fails when there is heteroskedasticity
+
+Log is not a panacea
+
 # Conditional quantiles for PIs
+
+Intuition: change loss to get conditional quantile
 
 # Quantile regression example
 
