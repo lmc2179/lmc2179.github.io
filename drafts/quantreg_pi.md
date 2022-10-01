@@ -1,33 +1,24 @@
 # PIs are good but OLS doesn't always get it right
 
-OLS PI fails when there is heteroskedasticity
+## PIs are useful
 
-Log is not a panacea
+point forecasts aren't true
 
-# Conditional quantiles for PIs
+biz usage: forecast ranges for planning
 
-Intuition: change loss to get conditional quantile
-
-# Quantile regression example
-
-## Looking at the data
+Data from previous year:
+X = previous spend at location, y = spend during upcoming high season
 
 ```python
-import numpy as np
-from scipy.stats import skewnorm
-import pandas as pd
-
-n = 250
-x = np.linspace(.1, 1, n)
-y = 1 + x + skewnorm(np.arange(len(x))+.01, scale=x).rvs()
-
-df = pd.DataFrame({'x': x, 'y': y})
-
 plt.scatter(df['x'], df['y'])
 plt.show()
 ```
 
-but ols doesn't work
+## OLS doesn't handle this well
+
+OLS PI fails when there is heteroskedasticity
+
+example where ols doesn't work; link last post
 
 ```python
 from statsmodels.api import formula as smf
@@ -46,6 +37,16 @@ plt.show()
 
 because it assumes constant, symmetric noise
 
+Log is not a panacea, link other post
+
+## Conditional quantiles for PIs
+
+Conditional quantile is kind of like conditional mean from ols
+
+Start with OLS, change loss to get conditional quantile
+
+# Quantile regression example
+
 ## Fitting the model
 
 Evidence of heteroskedasticity: non-zero slopes for high and low
@@ -62,25 +63,47 @@ plt.plot(df['x'], low_model.predict(df))
 plt.show()
 ```
 
+Evidence of heteroskedasticity? differing slopes of high and low
+
 Evidence of asymmetry? high - mid == mid - low
 
 ## Checking the model
 
+Coverage
+
 ```python
 covered = (df['y'] >= low_model.predict(df)) & (df['y'] <= high_model.predict(df))
 print(np.average(covered))
+```
 
+Coverage CI
+
+Coverage plot
+
+```python
 sns.regplot(df['x'], covered, x_bins=5)
 plt.axhline(.9, linestyle='dotted', color='black')
 plt.show()
 ```
 
-consider other models?
-
-## Generating simulated data
+What other models might we have considered? splines
 
 # Other ideas
 
-Other uses of quantile regression
+Other uses of quantile regression: seeing distributional impact when there are many covariates
 
-Other ways of doing PIs
+Other ways of doing PIs: link to shalizi
+
+# Appendix: DGP
+
+```python
+import numpy as np
+from scipy.stats import skewnorm
+import pandas as pd
+
+n = 250
+x = np.linspace(.1, 1, n)
+y = 1 + x + skewnorm(np.arange(len(x))+.01, scale=x).rvs()
+
+df = pd.DataFrame({'x': x, 'y': y})
+```
