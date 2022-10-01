@@ -25,7 +25,11 @@ df = pd.DataFrame({'x': x, 'y': y})
 
 plt.scatter(df['x'], df['y'])
 plt.show()
+```
 
+but ols doesn't work
+
+```python
 from statsmodels.api import formula as smf
 
 ols_model = smf.ols('y ~ x', df).fit()
@@ -38,7 +42,15 @@ plt.plot(df['x'], high)
 plt.plot(df['x'], pred.predicted_mean)
 plt.plot(df['x'], low)
 plt.show()
+```
 
+because it assumes constant, symmetric noise
+
+## Fitting the model
+
+Evidence of heteroskedasticity: non-zero slopes for high and low
+
+```python
 high_model = smf.quantreg('y ~ x', df).fit(q=.95)
 mid_model = smf.quantreg('y ~ x', df).fit(q=.5)
 low_model = smf.quantreg('y ~ x', df).fit(q=.05)
@@ -48,26 +60,20 @@ plt.plot(df['x'], high_model.predict(df))
 plt.plot(df['x'], mid_model.predict(df))
 plt.plot(df['x'], low_model.predict(df))
 plt.show()
-
-index_plot = np.arange(len(df))
-plt.vlines(index_plot, low_model.predict(df), high_model.predict(df))
-plt.scatter(index_plot, df['y'])
-plt.show()
-
-covered = (df['y'] >= low_model.predict(df)) & (df['y'] <= high_model.predict(df))
-print(np.average(covered))
-
 ```
-
-## Fitting the model
-
-Evidence of heteroskedasticity: non-zero slopes for high and low
 
 Evidence of asymmetry? high - mid == mid - low
 
 ## Checking the model
 
-coverage
+```python
+covered = (df['y'] >= low_model.predict(df)) & (df['y'] <= high_model.predict(df))
+print(np.average(covered))
+
+sns.regplot(df['x'], covered, x_bins=5)
+plt.axhline(.9, linestyle='dotted', color='black')
+plt.show()
+```
 
 consider other models?
 
