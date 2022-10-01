@@ -78,9 +78,13 @@ mid_model = smf.quantreg('on_season_revenue ~ off_season_revenue', df).fit(q=.5)
 low_model = smf.quantreg('on_season_revenue ~ off_season_revenue', df).fit(q=.05)
 
 plt.scatter(df['off_season_revenue'], df['on_season_revenue'])
-plt.plot(df['off_season_revenue'], high_model.predict(df))
-plt.plot(df['off_season_revenue'], mid_model.predict(df))
-plt.plot(df['off_season_revenue'], low_model.predict(df))
+plt.plot(df['off_season_revenue'], high_model.predict(df), label='95% Quantile')
+plt.plot(df['off_season_revenue'], mid_model.predict(df), label='50% Quantile (Median)')
+plt.plot(df['off_season_revenue'], low_model.predict(df), label='5% Quantile')
+plt.legend()
+plt.xlabel('Off season revenue at location')
+plt.ylabel('On season revenue at location')
+plt.title('Quantile Regression prediction intervals')
 plt.show()
 ```
 
@@ -93,8 +97,8 @@ Evidence of asymmetry? high - mid == mid - low
 Coverage
 
 ```python
-covered = (df['y'] >= low_model.predict(df)) & (df['y'] <= high_model.predict(df))
-print(np.average(covered))
+covered = (df['on_season_revenue'] >= low_model.predict(df)) & (df['on_season_revenue'] <= high_model.predict(df))
+print('In-sample coverage rate: ', np.average(covered))
 ```
 
 Coverage CI
@@ -102,8 +106,9 @@ Coverage CI
 Coverage plot
 
 ```python
-sns.regplot(df['x'], covered, x_bins=5)
+sns.regplot(df['off_season_revenue'], covered, x_bins=5)
 plt.axhline(.9, linestyle='dotted', color='black')
+plt.title('Coverage by revenue group')
 plt.show()
 ```
 
