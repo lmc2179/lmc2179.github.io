@@ -35,7 +35,7 @@ $y ~ \alpha + \beta x + N(0, \sigma)$
 ```python
 from statsmodels.api import formula as smf
 
-ols_model = smf.ols('y ~ x', df).fit()
+ols_model = smf.ols('on_season_revenue ~ off_season_revenue', df).fit()
 predictions = ols_model.predict(df)
 resid_sd = np.std(ols_model.resid)
 
@@ -73,14 +73,14 @@ $\mathbb{Q}[y \mid x]$
 Evidence of heteroskedasticity: non-zero slopes for high and low
 
 ```python
-high_model = smf.quantreg('y ~ x', df).fit(q=.95)
-mid_model = smf.quantreg('y ~ x', df).fit(q=.5)
-low_model = smf.quantreg('y ~ x', df).fit(q=.05)
+high_model = smf.quantreg('on_season_revenue ~ off_season_revenue', df).fit(q=.95)
+mid_model = smf.quantreg('on_season_revenue ~ off_season_revenue', df).fit(q=.5)
+low_model = smf.quantreg('on_season_revenue ~ off_season_revenue', df).fit(q=.05)
 
-plt.scatter(df['x'], df['y'])
-plt.plot(df['x'], high_model.predict(df))
-plt.plot(df['x'], mid_model.predict(df))
-plt.plot(df['x'], low_model.predict(df))
+plt.scatter(df['off_season_revenue'], df['on_season_revenue'])
+plt.plot(df['off_season_revenue'], high_model.predict(df))
+plt.plot(df['off_season_revenue'], mid_model.predict(df))
+plt.plot(df['off_season_revenue'], low_model.predict(df))
 plt.show()
 ```
 
