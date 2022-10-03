@@ -1,4 +1,11 @@
-# Flexible prediction intervals: Quantile Regression in Python
+---
+layout: post
+title: "Flexible prediction intervals: Quantile Regression in Python"
+author: "Louis Cialdella"
+categories: posts
+tags: [datascience]
+image: quantile_friend.png
+---
 
 ## Most useful forecasts include a range of likely outcomes
 
