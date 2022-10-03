@@ -38,6 +38,8 @@ expected value increases with x, so does variance; noise looks asymmetric
 
 OLS PI fails when there is heteroskedasticity
 
+we might use our [trusty OLS model](https://lmc2179.github.io/posts/confidence_prediction.html)
+
 example where ols doesn't work; link last post
 
 $y ~ \alpha + \beta x + N(0, \sigma)$
