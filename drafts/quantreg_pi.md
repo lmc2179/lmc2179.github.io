@@ -1,4 +1,4 @@
-# PIs are good but OLS doesn't always get it right
+# Flexible prediction intervals: Quantile Regression in Python
 
 ## Most useful forecasts include a range of likely outcomes
 
