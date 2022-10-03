@@ -84,6 +84,8 @@ $\mathbb{E}[y \mid x]$
 
 $\mathbb{Q}[y \mid x]$
 
+https://en.wikipedia.org/wiki/Quantile_regression#Conditional_quantile_and_quantile_regression
+
 # Quantile regression in action
 
 ## Fitting the model
