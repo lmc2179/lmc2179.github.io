@@ -2,11 +2,13 @@
 
 ## Most useful forecasts include a range of likely outcomes
 
-point forecasts aren't true
+How much will our new inventory cost; how much revenue will we make; 
 
-biz usage: forecast ranges for planning
+point forecasts aren't true or interesting
 
-As is so often the case, it's useful to consider a specific example.
+biz usage: forecast ranges for planning resource allocation (capacity planning, investing)
+
+As is so often the case, it's useful to consider a specific example. Let's imagine Purrberry
 
 Data from previous year:
 X = previous spend at location, y = spend during upcoming high season
@@ -23,15 +25,17 @@ plt.show()
 ```
 ![Scatterplot](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/quantreg_pi/Figure_1.png)
 
--scatterplot-
+expected value increases with x, so does variance; noise looks asymmetric
 
-## OLS doesn't handle this well
+## Our usual tool, OLS, doesn't always handle this well
 
 OLS PI fails when there is heteroskedasticity
 
 example where ols doesn't work; link last post
 
 $y ~ \alpha + \beta x + N(0, \sigma)$
+
+estimate of sigma; yes we're sweeping a little uncertainty under the rug
 
 ```python
 from statsmodels.api import formula as smf
@@ -59,7 +63,7 @@ because it assumes constant, symmetric noise
 
 Log is not a panacea, link other post
 
-## Conditional quantiles for PIs
+## The idea: create prediction intervals based on the conditional quantiles
 
 Conditional quantile is kind of like conditional mean from ols
 
@@ -69,7 +73,7 @@ $\mathbb{E}[y \mid x]$
 
 $\mathbb{Q}[y \mid x]$
 
-# Quantile regression example
+# Quantile regression in action
 
 ## Fitting the model
 
@@ -131,13 +135,13 @@ plt.show()
 
 What other models might we have considered? splines
 
-# Other ideas
+# Some other perspectives on quantile regression and prediction intervals
 
 Other uses of quantile regression: seeing distributional impact when there are many covariates
 
 Other ways of doing PIs: link to shalizi
 
-# Appendix: DGP
+# Appendix: How the data was generated
 
 ```python
 import numpy as np
