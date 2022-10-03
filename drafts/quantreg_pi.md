@@ -15,7 +15,7 @@ point forecasts aren't true or interesting
 
 biz usage: forecast ranges for planning resource allocation (capacity planning, investing)
 
-As is so often the case, it's useful to consider a specific example. Let's imagine Purrberry
+As is so often the case, it's useful to consider a specific example. Let's imagine Purrberry's summer sales projections for inventory allocation
 
 Data from previous year:
 X = previous spend at location, y = spend during upcoming high season
@@ -90,7 +90,7 @@ https://en.wikipedia.org/wiki/Quantile_regression#Conditional_quantile_and_quant
 
 ## Fitting the model
 
-Evidence of heteroskedasticity: non-zero slopes for high and low
+it's just like fitting an OLS model in R or Python
 
 ```python
 high_model = smf.quantreg('on_season_revenue ~ off_season_revenue', df).fit(q=.95)
@@ -116,7 +116,7 @@ Evidence of asymmetry? high - mid == mid - low
 
 ## Checking the model
 
-Coverage
+Coverage is the percentage of data points which fall into the predicted range
 
 ```python
 from scipy.stats import sem
@@ -129,11 +129,13 @@ In-sample coverage rate:  0.896
 Coverage SE:  0.019345100974843932
 ```
 
-Coverage CI
+Coverage CI using the SEM
 
-Model selection metric
+Could use this as a model selection metric if our goal is to find a model specification that maximizes predictive power
 
-Coverage plot
+we should see that the coverage is good across the support: Coverage plot
+
+consider extending to percentile uniformity
 
 ```python
 sns.regplot(df['off_season_revenue'], covered, x_bins=4)
@@ -146,7 +148,7 @@ plt.show()
 
 ![Coverage plot](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/quantreg_pi/Figure_4.png)
 
-What other models might we have considered? splines
+What other models might we have considered? splines or other non-linearities
 
 # Some other perspectives on quantile regression and prediction intervals
 
