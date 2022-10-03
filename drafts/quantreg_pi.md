@@ -65,6 +65,8 @@ Log is not a panacea, link other post
 
 ## The idea: create prediction intervals based on the conditional quantiles
 
+looks for the region where 90% of the observations will fall for a given store
+
 Conditional quantile is kind of like conditional mean from ols
 
 Start with OLS, change loss to get conditional quantile
@@ -142,6 +144,8 @@ Other uses of quantile regression: seeing distributional impact when there are m
 Other ways of doing PIs: link to shalizi
 
 # Appendix: How the data was generated
+
+The feline fashion visionaries at Purrberry are, regrettably, entirely fictional for the time being. The data from this example was generated using the below code, which creates skew normal distributed noise:
 
 ```python
 import numpy as np
