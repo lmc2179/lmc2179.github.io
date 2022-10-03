@@ -1,6 +1,6 @@
 # PIs are good but OLS doesn't always get it right
 
-## PIs are useful
+## Most useful forecasts include a range of likely outcomes
 
 point forecasts aren't true
 
