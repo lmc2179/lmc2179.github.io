@@ -68,7 +68,7 @@ plt.show()
 
 because it assumes constant, symmetric noise
 
-Log is not a panacea, link other post
+A choice sometimes recommended in a situation like this is to perform a log transformation, but [we've seen before](https://lmc2179.github.io/posts/multiplicative.html) that logarithms aren't a panacea when it comes to heteroskedasticity.
 
 ## The idea: create prediction intervals based on the conditional quantiles
 
