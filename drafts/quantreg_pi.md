@@ -9,9 +9,9 @@ image: quantile_friend.png
 
 ## Most useful forecasts include a range of likely outcomes
 
-How much will our new inventory cost; how much revenue will we make; 
+It's generally good to try and guess what the future will look like, so we can plan accordingly. How much will our new inventory cost? How many users will show up tomorrow? How much raw material will I need to buy? The first instinct we have is usual to look at historical averages; we know the average price of widgets, the average number of users, etc. If we're feeling extra fancy, we might build a model, like a linear regression, but this is also an average; a conditional average based on some covariates. Most out-of-the-box machine learning models are the same, giving us a prediction that is correct on average.
 
-point forecasts aren't true or interesting
+However, answering these questions with a single number, like an average, is a little dangerous. The actual cost will usually not be exactly the average; it will be somewhat higher or lower. How much higher? How much lower? If we could answer this question with a range of values, we could prepare appropriately for the worst and best case scenarios.
 
 biz usage: forecast ranges for planning resource allocation (capacity planning, investing)
 
