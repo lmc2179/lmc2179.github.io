@@ -91,6 +91,8 @@ print('10% increase in lotsize -->', round(100*(1.10**b-1), 2), '% increase in p
 
 The above analysis is, when you get down to it, mostly algebra. It's useful algebra to be sure, but it is really just repeated manipulation of the functional form $\alpha x ^ \beta$. 
 
+we should not mistake analytical convenience for truth
+
 # outro
 
 Some other options, esp. w/ zeros:
