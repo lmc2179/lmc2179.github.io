@@ -55,7 +55,7 @@ $\frac{f(xm)}{f(x)} = \frac{\alpha (xm)^\beta}{\alpha x ^ \beta} = m^\beta$
 
 $f^{-1}(y) = (y/\alpha)^(1/\beta)$
 
-$f^{-1}(ym) / f^{-1}(y) = m^(1/r)$
+$f^{-1}(ym) / f^{-1}(y) = m^(1/\beta)$
 
 ## We can use it to learn the value of adding marginal input
 
