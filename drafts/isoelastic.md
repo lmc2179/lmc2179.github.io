@@ -53,9 +53,9 @@ $\frac{f(xm)}{f(x)} = \frac{\alpha (xm)^\beta}{\alpha x ^ \beta} = m^\beta$
 
 ## We can use it to solve for input if we know the desired level of output
 
-$f^{-1}(y) = \frac{y}{\alpha}$
+$f^{-1}(y) = (y/\alpha)^(1/\beta)$
 
-$f^{-1}(ym) / f^{-1}(y) = m^{-\frac{1}{\beta}}$
+$f^{-1}(ym) / f^{-1}(y) = m^(1/r)$
 
 ## We can use it to learn the value of adding marginal input
 
