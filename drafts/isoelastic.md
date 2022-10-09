@@ -71,17 +71,16 @@ import pandas as pd
 from statsmodels.api import formula as smf
 
 df = pd.read_csv('https://vincentarelbundock.github.io/Rdatasets/csv/AER/HousePrices.csv')
+df = df.sort_values('lotsize')
 
 #%%
 model = smf.ols('np.log(price) ~ np.log(lotsize)', df).fit()
 
-df = df.sort_values('lotsize')
 sns.regplot(df['lotsize'], df['price'], fit_reg=False)
 plt.plot(df['lotsize'], np.exp(model.fittedvalues))
 plt.show()
 
 #%%
-df = df.sort_values('lotsize')
 sns.regplot(df['lotsize'], df['price'], fit_reg=False)
 plt.plot(df['lotsize'], np.exp(model.fittedvalues))
 plt.xscale('log')
@@ -91,6 +90,7 @@ plt.show()
 #%%
 
 b = model.params['np.log(lotsize)']
+a = np.exp(model.params['Intercept'])
 print('1% increase in lotsize -->', round(100*(1.01**b-1), 2), '% increase in price')
 print('10% increase in lotsize -->', round(100*(1.10**b-1), 2), '% increase in price')
 
