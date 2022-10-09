@@ -110,6 +110,7 @@ plt.show()
 b = model.params['np.log(lotsize)']
 a = np.exp(model.params['Intercept'])
 print('1% increase in lotsize -->', round(100*(1.01**b-1), 2), '% increase in price')
+print('2% increase in lotsize -->', round(100*(1.02**b-1), 2), '% increase in price')
 print('10% increase in lotsize -->', round(100*(1.10**b-1), 2), '% increase in price')
 
 #%%
