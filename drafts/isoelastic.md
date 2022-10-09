@@ -51,11 +51,41 @@ It also resembles cobb-douglas
 
 # code
 
-get data
+```python
+from matplotlib import pyplot as plt
+import seaborn as sns
+import numpy as np
+import pandas as pd 
+from statsmodels.api import formula as smf
 
-log log regression
+df = pd.read_csv('https://vincentarelbundock.github.io/Rdatasets/csv/AER/HousePrices.csv')
 
-notes about percent changes in a table
+#%%
+model = smf.ols('np.log(price) ~ np.log(lotsize)', df).fit()
+
+df = df.sort_values('lotsize')
+sns.regplot(df['lotsize'], df['price'], fit_reg=False)
+plt.plot(df['lotsize'], np.exp(model.fittedvalues))
+plt.show()
+
+#%%
+df = df.sort_values('lotsize')
+sns.regplot(df['lotsize'], df['price'], fit_reg=False)
+plt.plot(df['lotsize'], np.exp(model.fittedvalues))
+plt.xscale('log')
+plt.yscale('log')
+plt.show()
+
+#%%
+
+b = model.params['np.log(lotsize)']
+print('1% increase in lotsize -->', round(100*(1.01**b-1), 2), '% increase in price')
+print('10% increase in lotsize -->', round(100*(1.10**b-1), 2), '% increase in price')
+
+#%%
+
+#Prove it
+```
 
 # does this model really describe reality? some causal considerations and notes on modeling
 
