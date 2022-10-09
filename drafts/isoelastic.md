@@ -24,6 +24,24 @@ This relationship has a few key aspects that I notice over and over again:
 
 If you're an economist, or even if you just took econ 101, you likely recognize . Economists seem to be familiar with a lot of the useful properties of this kind of relationship 
 
+```python
+x = np.linspace(.1, 3)
+
+def f(x, a, b):
+  return a*x**b
+
+plt.title('Examples of ax^b')
+plt.plot(x, f(x, 1, 0.5), label='a=1,b=0.5')
+plt.plot(x, f(x, 1, 1.5), label='a=1,b=1.5')
+plt.plot(x, f(x, 1, 1.0), label='a=1,b=1.0')
+plt.plot(x, f(x, 3, 0.5), label='a=2,b=0.5')
+plt.plot(x, f(x, 3, 1.5), label='a=2,b=1.5')
+plt.plot(x, f(x, 3, 1.0), label='a=2,b=1.0')
+plt.legend()
+plt.show()
+```
+b affects the curvature (when b<1, diminishing returns; when b>1 increasing returns), a affects the vertical scale
+
 Nonetheless, I am not an economist (though I've had the pleasure of working with plenty of brilliant people with economics training). If you're like me, then you might not have these details close to hand. This post is meant to be a small primer for anyone who needs to build models with these kinds of functions
 
 We usually want to know this relationship so we can answer some practical questions such as:
@@ -37,13 +55,13 @@ Lots and lots and _lots_ of measured variables seem to have this relationship. T
 * Number of samples vs model quality
 * Time spent on a project and quality of result
 
-It also resembles cobb-douglas
-
-https://en.wikipedia.org/wiki/Cobb%E2%80%93Douglas_production_function
+It also resembles [Cobb-Douglas production function](https://en.wikipedia.org/wiki/Cobb%E2%80%93Douglas_production_function)
 
 # Some useful facts about the $y = \alpha x ^\beta$ model
 
 ## It's easy to fit with OLS because $log y = log \alpha + \beta log x$
+
+Compare with usual OLS interpretation (one unit increase --> output change)
 
 ## It makes it easy to talk about % change in input vs % change in output
 
