@@ -37,17 +37,25 @@ Lots and lots and _lots_ of measured variables seem to have this relationship. T
 
 It also resembles cobb-douglas
 
-# Some useful facts about 
+# Some useful facts about the $y = \alpha x ^\beta$ model
 
-## Algebra
+## It's easy to fit with OLS because $log y = log \alpha + \beta log x$
 
-### Functional form
+## It makes it easy to talk about % change in input vs % change in output
 
-### Percent changes and interpretations of the coefficient
+$f(x) = x = \alpha x ^ \beta$
 
-### Inverting the function
+$\frac{f(xm)}{f(x)} = \frac{\alpha (xm)^\beta}{\alpha x ^ \beta} = m^\beta$
 
-## Log-log regression
+## We can use it to solve for input if we know the desired level of output
+
+$f^{-1}(y) = \frac{y}{\alpha}$
+
+$f^{-1}(ym) / f^{-1}(y) = m^{-\frac{1}{\beta}}$
+
+## We can use it to learn the value of adding marginal input
+
+Calculate value of 1% increase, compare with cost; or calculate when marginal output < some value
 
 # code
 
