@@ -8,6 +8,8 @@ image: important_relationship.png
 ---
 
 https://en.wikipedia.org/wiki/Isoelastic_function
+https://en.wikipedia.org/wiki/Elasticity_(economics)
+https://en.wikipedia.org/wiki/Output_elasticity
 
 # it's everywhere
 
@@ -36,6 +38,8 @@ Lots and lots and _lots_ of measured variables seem to have this relationship. T
 * Time spent on a project and quality of result
 
 It also resembles cobb-douglas
+
+https://en.wikipedia.org/wiki/Cobb%E2%80%93Douglas_production_function
 
 # Some useful facts about the $y = \alpha x ^\beta$ model
 
@@ -102,6 +106,10 @@ The above analysis is, when you get down to it, mostly algebra. It's useful alge
 we should not mistake analytical convenience for truth; we need to check both the goodness of fit of the model to the data at hand, and consider the causal assumptions that our counterfactuals rest on
 
 # outro
+
+Related concepts
+https://en.wikipedia.org/wiki/Arc_elasticity
+https://en.wikipedia.org/wiki/Elasticity_of_a_function
 
 Some other options, esp. w/ zeros:
 
