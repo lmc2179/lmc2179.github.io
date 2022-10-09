@@ -40,7 +40,7 @@ plt.plot(x, f(x, 3, 1.0), label='a=2,b=1.0')
 plt.legend()
 plt.show()
 ```
-b affects the curvature (when b<1, diminishing returns; when b>1 increasing returns), a affects the vertical scale
+b affects the curvature (when b<1, diminishing returns; when b>1 increasing returns, when b=1 then it's linear), a affects the vertical scale
 
 Nonetheless, I am not an economist (though I've had the pleasure of working with plenty of brilliant people with economics training). If you're like me, then you might not have these details close to hand. This post is meant to be a small primer for anyone who needs to build models with these kinds of functions
 
