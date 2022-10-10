@@ -57,31 +57,43 @@ Lots and lots and _lots_ of measured variables seem to have this relationship. T
 
 Other connections
 * It also resembles [Cobb-Douglas production function](https://en.wikipedia.org/wiki/Cobb%E2%80%93Douglas_production_function)
-* "The Tendency of the Rate of Profit to Fall"
+* "The Tendency of the Rate of Profit to Fall" ; though this is a statement about the long run and is not true literally always
 
 # Some useful facts about the $y = \alpha x ^\beta$ model
 
 ## It makes it easy to talk about % change in input vs % change in output
 
-$f(x) = x = \alpha x ^ \beta$
+One of the many reasons that the common OLS model $y = \alpha + \beta x$ is so popular is that it lets us make a very succinct statement about the relationship between $x$ and $y$: "A one-unit increase in $x$ is associated with an increase of $\beta$ units of $y$." The usual linear model would be a poor fit for the relationship at hand, so we're using a slightly different one:
+
+$f(x) = y = \alpha x ^ \beta$
+
+The interpretation of this model is a little different
 
 $\frac{f(xm)}{f(x)} = \frac{\alpha (xm)^\beta}{\alpha x ^ \beta} = m^\beta$
 
 > Under this model, multiplying the input by _m_ multiplies the output by $m^\beta$.
 
+Or, if you are percentage afficionado:
+
+> Under this model, changing the input by $p%$ changes the output output by $(1+p%)^\beta$.
+
 ## It's easy to fit with OLS because $log y = log \alpha + \beta log x$
+
+Another reason that the OLS model is so popular is because it is easy to compute in practice. This is probably the reason that OLS is so popular at all; the OLS model may not always be true, but it is always possible to compute it.
 
 Compare with usual OLS interpretation (one unit increase --> output change)
 
 ## We can use it to solve for input if we know the desired level of output
 
-$f^{-1}(y) = (y/\alpha)^(1/\beta)$
+In practice, we often start with the desired quantity of output, and then try to understand if the required input is available or feasible. It's handy to have a closed form which inverts our model: 
 
-$f^{-1}(ym) / f^{-1}(y) = m^(1/\beta)$
+$f^{-1}(y) = (y/\alpha)^{\frac{1}{\beta}}$
 
-## We can use it to learn the value of adding marginal input
+If we want to know how a change in the output will require change in the input
 
-Calculate value of 1% increase, compare with cost; or calculate when marginal output < some value
+$\frac{f^{-1}(ym)}{f^{-1}(y)} = m^{\frac{1}{\beta}}$
+
+?
 
 # code
 
@@ -130,6 +142,8 @@ print((1+lotsize_pct_change) ** b - 1) # Is the same as we get from the closed f
 print(after_lotsize, (after_price_model/a)**(1/b)) # Successful inversion demo
 
 ```
+
+Calculate value of 1% increase, compare with cost; or calculate when marginal output < some value
 
 # does this model really describe reality? some causal considerations and notes on modeling
 
