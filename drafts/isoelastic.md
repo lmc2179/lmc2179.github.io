@@ -65,6 +65,8 @@ $f(x) = x = \alpha x ^ \beta$
 
 $\frac{f(xm)}{f(x)} = \frac{\alpha (xm)^\beta}{\alpha x ^ \beta} = m^\beta$
 
+> Under this model, multiplying the input by _m_ multiplies the output by $m^\beta$.
+
 ## It's easy to fit with OLS because $log y = log \alpha + \beta log x$
 
 Compare with usual OLS interpretation (one unit increase --> output change)
