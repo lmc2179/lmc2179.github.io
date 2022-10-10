@@ -59,15 +59,15 @@ It also resembles [Cobb-Douglas production function](https://en.wikipedia.org/wi
 
 # Some useful facts about the $y = \alpha x ^\beta$ model
 
-## It's easy to fit with OLS because $log y = log \alpha + \beta log x$
-
-Compare with usual OLS interpretation (one unit increase --> output change)
-
 ## It makes it easy to talk about % change in input vs % change in output
 
 $f(x) = x = \alpha x ^ \beta$
 
 $\frac{f(xm)}{f(x)} = \frac{\alpha (xm)^\beta}{\alpha x ^ \beta} = m^\beta$
+
+## It's easy to fit with OLS because $log y = log \alpha + \beta log x$
+
+Compare with usual OLS interpretation (one unit increase --> output change)
 
 ## We can use it to solve for input if we know the desired level of output
 
