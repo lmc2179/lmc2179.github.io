@@ -55,7 +55,9 @@ Lots and lots and _lots_ of measured variables seem to have this relationship. T
 * Number of samples vs model quality
 * Time spent on a project and quality of result
 
-It also resembles [Cobb-Douglas production function](https://en.wikipedia.org/wiki/Cobb%E2%80%93Douglas_production_function)
+Other connections
+* It also resembles [Cobb-Douglas production function](https://en.wikipedia.org/wiki/Cobb%E2%80%93Douglas_production_function)
+* "The Tendency of the Rate of Profit to Fall"
 
 # Some useful facts about the $y = \alpha x ^\beta$ model
 
