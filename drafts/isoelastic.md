@@ -115,7 +115,16 @@ print('10% increase in lotsize -->', round(100*(1.10**b-1), 2), '% increase in p
 
 #%%
 
-#Prove it
+lotsize_pct_change = .3
+before_lotsize = 4000
+after_lotsize = before_lotsize + before_lotsize*lotsize_pct_change 
+
+before_price_model, after_price_model = np.exp(model.predict(pd.DataFrame({'lotsize': [before_lotsize, after_lotsize]})))
+print(before_price_model, after_price_model, after_price_model/before_price_model-1) # The percent change in the model value
+print((1+lotsize_pct_change) ** b - 1) # Is the same as we get from the closed form
+
+print(after_lotsize, (after_price_model/a)**(1/b)) # Successful inversion demo
+
 ```
 
 # does this model really describe reality? some causal considerations and notes on modeling
