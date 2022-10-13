@@ -171,8 +171,12 @@ Appendix: Interpretation of regression coefficients under the log-log and relate
 
 https://openstax.org/books/introductory-business-statistics/pages/13-5-interpretation-of-regression-coefficients-elasticity-and-logarithmic-transformation
 Make a matrix!!!
+https://stats.stackexchange.com/questions/108274/linear-and-semi-log-regression-model
 
 | . | $y$ | $log \ y$ |
 | --- | ----------- |--- |
-| $x$ | $\beta = \frac{dY}{dX} = \frac{\text{Unit} \ \Delta Y}{\text{Unit} \ \Delta X}$ | $100\beta = \frac{\% \Delta Y}{\text{Unit} \ \Delta X}$ |
+| $x$ | $\beta = \frac{dY}{dX} = \frac{\text{Unit} \ \Delta Y}{\text{Unit} \ \Delta X}$ | $100 \ times (e^\beta - 1) = \frac{\% \Delta Y}{\text{Unit} \ \Delta X}$ |
 | $log \ x$ | $\frac{\beta}{100} = \frac{\text{Unit} \ \Delta Y}{\% \Delta X}$ | $\beta = \frac{\% \Delta Y}{\% \Delta X}$ |
+
+idk why some other sources use a different def for log y = x
+
