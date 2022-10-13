@@ -11,6 +11,9 @@ https://en.wikipedia.org/wiki/Isoelastic_function
 https://en.wikipedia.org/wiki/Elasticity_(economics)
 https://en.wikipedia.org/wiki/Output_elasticity
 
+https://openstax.org/books/introductory-business-statistics/pages/13-5-interpretation-of-regression-coefficients-elasticity-and-logarithmic-transformation
+Make a matrix!!!
+
 # it's everywhere
 
 I have spent a shocking percentage of my career drawing some version of this diagram on a whiteboard:
