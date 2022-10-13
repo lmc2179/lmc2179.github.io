@@ -180,3 +180,21 @@ https://stats.stackexchange.com/questions/108274/linear-and-semi-log-regression-
 
 idk why some other sources use a different def for log y = x
 
+include an example regression for each of these
+
+```python
+from matplotlib import pyplot as plt
+import seaborn as sns
+import numpy as np
+from statsmodels.api import formula as smf
+import pandas as pd
+
+df = pd.DataFrame({'t': [0]*10000 + [1]*10000, 
+                   'y': np.concatenate([np.random.normal(100, 1, 10000), 
+                                        np.random.normal(200, 1, 10000)])})
+model = smf.ols('np.log(y) ~ t', df).fit()
+
+print(model.summary())
+
+```
+
