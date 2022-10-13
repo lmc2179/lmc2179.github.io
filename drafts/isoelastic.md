@@ -169,6 +169,8 @@ Maybe sqrt
 
 Appendix: Interpretation of regression coefficients under the log-log and related models
 
+**WTF THESE ALL SEEM WRONG**
+
 https://openstax.org/books/introductory-business-statistics/pages/13-5-interpretation-of-regression-coefficients-elasticity-and-logarithmic-transformation
 Make a matrix!!!
 https://stats.stackexchange.com/questions/108274/linear-and-semi-log-regression-model
