@@ -174,5 +174,5 @@ Make a matrix!!!
 
 | . | $y$ | $log y$ |
 | --- | ----------- |--- |
-| $x$ | $\beta = \frac{dY}{dX} = \frac{Unit \Delta Y}{Unit \Delta X}$ | $100\beta = \frac{% \Delta Y}{Unit \Delta X}$ |
-| $log x$ | $\frac{\beta}{100} = \frac{Unit \Delta Y}{% \Delta X}$ | $\beta = \frac{% \Delta Y}{% \Delta X}$ |
+| $x$ | $\beta = \frac{dY}{dX} = \frac{\text{Unit} \Delta Y}{\text{Unit} \Delta X}$ | $100\beta = \frac{% \Delta Y}{\text{Unit} \Delta X}$ |
+| $log x$ | $\frac{\beta}{100} = \frac{\text{Unit} \Delta Y}{% \Delta X}$ | $\beta = \frac{% \Delta Y}{% \Delta X}$ |
