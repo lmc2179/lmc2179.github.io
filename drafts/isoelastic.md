@@ -11,8 +11,7 @@ https://en.wikipedia.org/wiki/Isoelastic_function
 https://en.wikipedia.org/wiki/Elasticity_(economics)
 https://en.wikipedia.org/wiki/Output_elasticity
 
-https://openstax.org/books/introductory-business-statistics/pages/13-5-interpretation-of-regression-coefficients-elasticity-and-logarithmic-transformation
-Make a matrix!!!
+
 
 # it's everywhere
 
@@ -168,3 +167,12 @@ https://worthwhile.typepad.com/worthwhile_canadian_initi/2011/07/a-rant-on-inver
 
 Maybe sqrt
 
+Appendix: Interpretation of regression coefficients under the log-log and related models
+
+https://openstax.org/books/introductory-business-statistics/pages/13-5-interpretation-of-regression-coefficients-elasticity-and-logarithmic-transformation
+Make a matrix!!!
+
+| Syntax | Description |
+| --- | ----------- |
+| Header | Title |
+| Paragraph | Text |
