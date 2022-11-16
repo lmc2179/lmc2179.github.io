@@ -26,7 +26,7 @@ from statsmodels.api import formula as smf
 import numpy as np
 
 df = pd.read_csv('https://www1.nyc.gov/assets/tlc/downloads/csv/data_reports_monthly.csv')
-df['trips'] = df['         Trips Per Day         '].str.replace(',', '').astype(float)
+df['trips'] = df['          Trips Per Day          '].str.replace(',', '').astype(float)
 df['date'] = df['Month/Year'].apply(lambda s: datetime.strptime(s + '-01', '%Y-%m-%d'))
 
 daily_trip_series = df.groupby('date').sum()['trips']
