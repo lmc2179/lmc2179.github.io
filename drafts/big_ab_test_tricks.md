@@ -15,7 +15,8 @@ There are two useful things to know about performing A/B test from summary stati
 
 the difference
 
-[latex]
+$\Delta = \bar{y^T} - \bar{y^C}$
+$SE(\Delta) = \sqrt{\frac{SE^T}{\sqrt{n^T}} + \frac{SE^C}{\sqrt{n^C}}}$w
 
 ```python
 def treatment_effect_with_se(m_t, v_t, n_t, m_c, v_c, n_c):
