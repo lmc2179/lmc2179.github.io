@@ -15,9 +15,9 @@ There are two useful things to know about performing A/B test from summary stati
 
 the difference
 
-$\Delta = m^T - m^C$
+$\Delta = m_T - m_C$
 
-$SE(\Delta) = \sqrt{\frac{SE^T}{\sqrt{n^T}} + \frac{SE^C}{\sqrt{n^C}}}$
+$SE(\Delta) = \sqrt{\frac{SE_T}{\sqrt{n_T}} + \frac{SE_C}{\sqrt{n_C}}}$
 
 ```python
 def treatment_effect_with_se(m_t, v_t, n_t, m_c, v_c, n_c):
@@ -30,9 +30,9 @@ def treatment_effect_with_se(m_t, v_t, n_t, m_c, v_c, n_c):
 
 the lift
 
-$\delta = \frac{m^T}{m^C}$
+$\delta = \frac{m_T}{m_C}$
 
-$SE(\delta) = \frac{m^T}{m^C} * (\frac{SE^T^2}{m^T^2} + \frac{SE^C^2}{M^C^2})$
+$SE(\delta) = \frac{m_T}{m_C} * (\frac{SE_T^2}{m_T^2} + \frac{SE_C^2}{m_C^2})$
 
 ```python
 def lift_with_se(m_t, v_t, n_t, m_c, v_c, n_c):
@@ -61,8 +61,8 @@ print('North treatment effect was: ', north_te, ' +- ', 1.96*north_te_se)
 
 combining means and combining variances
 
-$m^{combined} = \frac{m^1 \times n^1 + m^2 \times n^2}{n^1 + n^2}$
-$\sigma^{combined}^2 = \frac{\sigma^1^2 \times n^1 + \sigma^2^2 \times n^2}{n^1 + n^2}$
+$m_{combined} = \frac{m_1 \times n_1 + m_2 \times n_2}{n_1 + n_2}$
+$\sigma_{combined}^2 = \frac{\sigma_1^2 \times n_1 + \sigma_2^2 \times n_2}{n_1 + n_2}$
 
 ```python
 def combine(m1, v1, n1, m2, v2, n2):
