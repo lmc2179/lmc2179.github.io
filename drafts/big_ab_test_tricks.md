@@ -4,7 +4,7 @@ When sample sizes are _really_ big (millions of units), it's useful to analyze A
 
 Examples: Japanese cat island marketing campaign
 
-large sample, and also cat island has no wiki so you only have the summaries of a/b test results in North Cat Island and South Cat Island
+large sample, and also cat island has no wifi so you only have the summaries of a/b test results in North Cat Island and South Cat Island
 
 There are two useful things to know about performing A/B test from summary statistics:
 * Once you've constructed the appropriate data set; you can basically just do standard errors and treatment effects using some large-sample rules
