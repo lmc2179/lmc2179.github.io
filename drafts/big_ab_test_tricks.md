@@ -32,7 +32,7 @@ the lift
 
 $\delta = \frac{m_T}{m_C}$
 
-$SE(\delta) = \frac{m_T}{m_C} * (\frac{SE_T^2}{m_T^2} + \frac{SE_C^2}{m_C^2})$
+$SE(\delta) = \frac{m_T^2}{m_C^2} * (\frac{SE_T^2}{m_T^2} + \frac{SE_C^2}{m_C^2})$
 
 ```python
 def lift_with_se(m_t, v_t, n_t, m_c, v_c, n_c):
