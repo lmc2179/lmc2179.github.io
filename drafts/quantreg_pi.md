@@ -76,28 +76,27 @@ NB: A choice sometimes recommended in a situation like this is to perform a log 
 
 ## The idea: create prediction intervals based on the conditional quantiles
 
-We really want to answer a question like: "For a store with $x$ pre-summer sales, where will (say) 90% of the summer sales be?". We want to know how the bounds of the distribution, the highest and lowest plausible observations, change with the pre-summer sales numbers. If we weren't considering an input, we might look at the 5% and 95% [quantiles](https://en.wikipedia.org/wiki/Quantile) of the data to answer that question.
+We really want to answer a question like: "For all stores with $x$ in pre-summer sales, where will (say) 90% of the summer sales per store be?". **We want to know how the bounds of the distribution, the highest and lowest plausible observations, change with the pre-summer sales numbers**. If we weren't considering an input like the pre-summer sales, we might look at the 5% and 95% [quantiles](https://en.wikipedia.org/wiki/Quantile) of the data to answer that question.
 
-Conditional quantile is kind of like conditional mean from ols
+We want to know what the quantiles of the distribution will be if we condition on $x$, so our model will produce the _Conditional Quantiles_ given the pre-summer sales. This is analogous to the conditional mean, which is what OLS (and many machine learning models) give us. The conditional mean is $\mathbb{E}[y \mid x]$, or the expected value of $y$ given $x$.
 
 Start with OLS, change loss to get conditional quantile
 
-$\mathbb{E}[y \mid x]$
+$Median[y \mid x]$ 
 
-$Median[y \mid x]$ https://en.wikipedia.org/wiki/Least_absolute_deviations
+* $\mathbb{Q}_{50}[y \mid x]$
+* $\mathbb{Q}_{5}[y \mid x]$
+* $\mathbb{Q}_{95}[y \mid x]$
 
-$\mathbb{Q}[y \mid x]$
+You can look at [this section of the Wikipedia page](https://en.wikipedia.org/wiki/Quantile_regression#Conditional_quantile_and_quantile_regression) to learn about the minimization problem happening under the hood.
 
-
-https://en.wikipedia.org/wiki/Quantile_regression#Conditional_quantile_and_quantile_regression
-
-the whimsically name [pinball loss function](https://www.lokad.com/pinball-loss-function-definition)
+For the median model, the minimization happening is [LAD](https://en.wikipedia.org/wiki/Least_absolute_deviations), a relative of OLS. For a model which computes arbitrary quantiles, we mininimize the whimsically named [pinball loss function](https://www.lokad.com/pinball-loss-function-definition)
 
 # Quantile regression in action
 
 ## Fitting the model
 
-it's just like fitting an OLS model in R or Python
+As usual, we'll let our favorite Python library do the hard work. We'll build our quantile regression models using [the statsmodels implementation](https://www.statsmodels.org/dev/generated/statsmodels.regression.quantile_regression.QuantReg.html). The interface is similar to the OLS model in statsmodels, or to the R linear model notation. We'll fit three models: one for the 95th quantile, one for the median, and one for the 5th quantile.
 
 ```python
 high_model = smf.quantreg('on_season_revenue ~ off_season_revenue', df).fit(q=.95)
@@ -117,15 +116,15 @@ plt.show()
 
 ![Quantreg scatterplot](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/quantreg_pi/Figure_3.png)
 
+The 90% prediction intervals given by these models (the range between the green and blue lines) look like a much better fit than those given by the OLS model. On the left side of the X-axis, the interval is appropriately narrow, and then widens as the X-axis increases. This change in width
 
-
-Evidence of heteroskedasticity? differing slopes of high and low
-
-Evidence of asymmetry? high - mid == mid - low
+It also looks like noise around the median is asymmetric; the distance from the upper bound to the median looks larger than the distance from the lower bound to the median. We could see this in the model directly by looking at the slopes of each line, and seeing that $|\beta_{95} - \beta_{50}| \geq |\beta_{50} - \beta_{5}|$.
 
 ## Checking the model
 
-Coverage is the percentage of data points which fall into the predicted range
+Being careful consumers of models, we are sure to check the model's performance to see if there are any surprises.
+
+First, we can look at the prediction quality in-sample. We'll compute the **coverage** of the model's predictions. Coverage is the percentage of data points which fall into the predicted range. Our model was supposed to have 90% coverage - did it actually?
 
 ```python
 from scipy.stats import sem
@@ -138,13 +137,11 @@ In-sample coverage rate:  0.896
 Coverage SE:  0.019345100974843932
 ```
 
-Coverage CI using the SEM
+The coverage is within one standard error of 90%. Nice! 
 
-Could use this as a model selection metric if our goal is to find a model specification that maximizes predictive power
+There's no need to limit ourselves to looking in-sample and we probably shouldn't. We could use the coverage metric during cross-validation, ensuring that the out-of-sample coverage was similarly good. 
 
-we should see that the coverage is good across the support: Coverage plot
-
-consider extending to percentile uniformity
+When we do OLS regression, we often plot the predictor against the error to understand whether the linear specification was reasonable. We can do the same here by plotting our predictor against the coverage. This plot shows the coverage and a CI for each quartile.
 
 ```python
 sns.regplot(df['off_season_revenue'], covered, x_bins=4)
@@ -157,7 +154,9 @@ plt.show()
 
 ![Coverage plot](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/quantreg_pi/Figure_4.png)
 
-What other models might we have considered? splines or other non-linearities
+All the CIs contain 90% with no clear trend, so the linear specification seems reasonable. We could make the same plot by decile, or even percentile as well to get a more careful read.
+
+What if that last plot had looked different? If the coverage veers off the the target value, we could have considered introducing nonlinearities to the model, such as adding splines.
 
 # Some other perspectives on quantile regression and prediction intervals
 
