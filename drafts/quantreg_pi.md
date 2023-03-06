@@ -106,9 +106,9 @@ plt.show()
 
 ![Quantreg scatterplot](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/quantreg_pi/Figure_3.png)
 
-The 90% prediction intervals given by these models (the range between the green and blue lines) look like a much better fit than those given by the OLS model. On the left side of the X-axis, the interval is appropriately narrow, and then widens as the X-axis increases. This change in width
+The 90% prediction intervals given by these models (the range between the green and blue lines) look like a much better fit than those given by the OLS model. On the left side of the X-axis, the interval is appropriately narrow, and then widens as the X-axis increases. This change in width indicates that our model is heteroskedastic.
 
-It also looks like noise around the median is asymmetric; the distance from the upper bound to the median looks larger than the distance from the lower bound to the median. We could see this in the model directly by looking at the slopes of each line, and seeing that $|\beta_{95} - \beta_{50}| \geq |\beta_{50} - \beta_{5}|$.
+It also looks like noise around the median is asymmetric; the distance from the upper bound to the median looks larger than the distance from the lower bound to the median. We could see this in the model directly by looking at the slopes of each line, and seeing that $\mid \beta_{95} - \beta_{50} \mid \geq \mid \beta_{50} - \beta_{5} \mid$.
 
 ## Checking the model
 
