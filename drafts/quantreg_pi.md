@@ -76,21 +76,11 @@ NB: A choice sometimes recommended in a situation like this is to perform a log 
 
 ## The idea: create prediction intervals based on the conditional quantiles
 
-We really want to answer a question like: "For all stores with $x$ in pre-summer sales, where will (say) 90% of the summer sales per store be?". **We want to know how the bounds of the distribution, the highest and lowest plausible observations, change with the pre-summer sales numbers**. If we weren't considering an input like the pre-summer sales, we might look at the 5% and 95% [quantiles](https://en.wikipedia.org/wiki/Quantile) of the data to answer that question.
+We really want to answer a question like: "For all stores with $x$ in pre-summer sales, where will (say) 90% of the summer sales per store be?". **We want to know how the bounds of the distribution, the highest and lowest plausible observations, change with the pre-summer sales numbers**. If we weren't considering an input like the off-season sales, we might look at the 5% and 95% [quantiles](https://en.wikipedia.org/wiki/Quantile) of the data to answer that question.
 
-We want to know what the quantiles of the distribution will be if we condition on $x$, so our model will produce the _Conditional Quantiles_ given the pre-summer sales. This is analogous to the conditional mean, which is what OLS (and many machine learning models) give us. The conditional mean is $\mathbb{E}[y \mid x]$, or the expected value of $y$ given $x$.
+We want to know what the quantiles of the distribution will be if we condition on $x$, so our model will produce the _conditional quantiles_ given the off-season sales. This is analogous to the conditional mean, which is what OLS (and many machine learning models) give us. The conditional mean is $\mathbb{E}[y \mid x]$, or the expected value of $y$ given $x$. We'll represent the conditional median, or conditional 50th quantile, as $\mathbb{Q}_{50}[y \mid x]$. Similarly, we'll call the conditional 5th percentile $\mathbb{Q}_{5}[y \mid x]$, and the conditional 95th percentile will be $\mathbb{Q}_{95}[y \mid x]$.
 
-Start with OLS, change loss to get conditional quantile
-
-$Median[y \mid x]$ 
-
-* $\mathbb{Q}_{50}[y \mid x]$
-* $\mathbb{Q}_{5}[y \mid x]$
-* $\mathbb{Q}_{95}[y \mid x]$
-
-You can look at [this section of the Wikipedia page](https://en.wikipedia.org/wiki/Quantile_regression#Conditional_quantile_and_quantile_regression) to learn about the minimization problem happening under the hood.
-
-For the median model, the minimization happening is [LAD](https://en.wikipedia.org/wiki/Least_absolute_deviations), a relative of OLS. For a model which computes arbitrary quantiles, we mininimize the whimsically named [pinball loss function](https://www.lokad.com/pinball-loss-function-definition)
+OLS works by finding the coefficients that minimize the sum of the squared loss function. Quantile regression can be framed in a similar way, where the loss function is changed to something else. For the median model, the minimization happening is [LAD](https://en.wikipedia.org/wiki/Least_absolute_deviations), a relative of OLS. For a model which computes arbitrary quantiles, we mininimize the whimsically named [pinball loss function](https://www.lokad.com/pinball-loss-function-definition). You can look at [this section of the Wikipedia page](https://en.wikipedia.org/wiki/Quantile_regression#Conditional_quantile_and_quantile_regression) to learn about the minimization problem happening under the hood.
 
 # Quantile regression in action
 
