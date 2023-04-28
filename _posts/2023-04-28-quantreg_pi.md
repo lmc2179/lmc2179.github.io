@@ -150,8 +150,6 @@ What if that last plot had looked different? If the coverage veers off the the t
 
 # Some other perspectives on quantile regression and prediction intervals
 
-Other uses of quantile regression: seeing distributional impact when there are many covariates
-
 This is just one usage of quantile regression. QR models can also be used for multivariable analysis of [distributional impact](https://lmc2179.github.io/posts/distributional-effects.html), providing very rich summaries of how our covariates are correlated with change in the shape of the output distribution.
 
 We also could have thought about prediction intervals differently. If we believed that the noise was heteroskedastic but still symmetric (or perhaps even normally distributed), we could have used an OLS-based procedure model how the residual variance changed with the covariate. For a great summary of this, see [section 10.3 of Shalizi's data analysis book](https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf).
