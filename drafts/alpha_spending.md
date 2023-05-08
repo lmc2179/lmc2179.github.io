@@ -25,20 +25,22 @@ Let me tell you a story - perhaps a familiar one.
 
 _**Has this ever happened to you?**_
 
-This is a frustrating conversation for all involved
+This is a frustrating conversation for all involved. The PM is trying to play by the rules by looking at the significance of the test
 
-# demo of the problem
+# The issue with stopping early
 
-# a first attempt to fix it
+# Some quick fixes
 
 bonferroni
 
 linear spending
 
-# a better spending function
+# Solving the problem with the OBF Alpha spending function
 
 https://eclass.uoa.gr/modules/document/file.php/MATH301/PracticalSession3/LanDeMets.pdf
 
+```
 def obf_alpha(t_prop): return 2 - 2*(norm.cdf(1.96/np.sqrt(t_prop)))
+```
 
-
+# A note on coverage rates
