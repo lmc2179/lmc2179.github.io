@@ -1,4 +1,6 @@
+Idea: event counting is everywere. most funnels or production processes start with the arrival of raw material, then subsequent transformation into other stuff
 
+example: mulberries landing on my deck
 
 Demo of poisson-gamma distribution with "flat" prior. Note coverage is good with a single sample unless rate is near one
 
@@ -29,3 +31,8 @@ for true_rate in test_rates:
     
 plt.plot(test_rates, coverage_rates, marker='o')`
 ```
+compare also: Normal-based estimate
+
+afterwards: Rates based on binomial, or perhaps a more interesting function
+
+conditional poisson: poisson regression
