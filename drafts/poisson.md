@@ -1,6 +1,26 @@
+# Count data is everywhere ("Commonality of counting")
+
 Idea: event counting is everywere. most funnels or production processes start with the arrival of raw material, then subsequent transformation into other stuff
 
 example: mulberries landing on my deck
+
+# What are the key features of these count data questions
+
+a set period with exponential arrivals
+
+discrete counts of items
+
+# how do we make a formal model of these problems
+
+poisson and exponential relationship proof (there's one on stackoverflow). note about what is a poisson process vs a poisson distribution
+
+important feature of the poisson distribution: mean = variance
+
+model of the treatment effect
+
+# CIs and SEs of the rate
+
+poisson-gamma
 
 Demo of poisson-gamma distribution with "flat" prior. Note coverage is good with a single sample unless rate is near one
 
@@ -31,8 +51,13 @@ for true_rate in test_rates:
     
 plt.plot(test_rates, coverage_rates, marker='o')`
 ```
+
+# Also, a normal estimate 
+
 compare also: Normal-based estimate
 
-afterwards: Rates based on binomial, or perhaps a more interesting function
+# going from here
 
-conditional poisson: poisson regression
+afterwards: Rates based on binomial, or perhaps a more interesting function. convert raw product into other discrete products (Binomial) or yield base on average per unit.
+
+conditional means: poisson regression
