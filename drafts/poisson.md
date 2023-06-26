@@ -1,3 +1,12 @@
+---
+layout: post
+title: "Practical poisson"
+author: "Louis Cialdella"
+categories: posts
+tags: [datascience]
+image: MulberryPhiladelphia.jpg
+---
+
 # Count data is everywhere ("Commonality of counting")
 
 Idea: event counting is everywere. most funnels or production processes start with the arrival of raw material, then subsequent transformation into other stuff
@@ -58,6 +67,11 @@ compare also: Normal-based estimate
 
 # going from here
 
+
+
 afterwards: Rates based on binomial, or perhaps a more interesting function. convert raw product into other discrete products (Binomial) or yield base on average per unit.
 
 conditional means: poisson regression
+
+
+[Image from wikipedia.](https://commons.wikimedia.org/wiki/File:MulberryPhiladelphia.jpg)
