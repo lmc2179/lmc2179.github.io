@@ -9,7 +9,7 @@ image: MulberryPhiladelphia.jpg
 
 # Count data is everywhere ("Commonality of counting")
 
-So, I recently found out that my h
+So, I recently found out that my back yard has a _very_ productive mulberry tree. This overachiever
 
 Idea: event counting is everywere. most funnels or production processes start with the arrival of raw material, then subsequent transformation into other stuff
 
