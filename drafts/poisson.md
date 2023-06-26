@@ -9,6 +9,8 @@ image: MulberryPhiladelphia.jpg
 
 # Count data is everywhere ("Commonality of counting")
 
+So, I recently found out that my h
+
 Idea: event counting is everywere. most funnels or production processes start with the arrival of raw material, then subsequent transformation into other stuff
 
 example: mulberries landing on my deck
@@ -67,7 +69,7 @@ compare also: Normal-based estimate
 
 # going from here
 
-
+what if it's not poisson? negative binomial, https://en.wikipedia.org/wiki/Overdispersion
 
 afterwards: Rates based on binomial, or perhaps a more interesting function. convert raw product into other discrete products (Binomial) or yield base on average per unit.
 
