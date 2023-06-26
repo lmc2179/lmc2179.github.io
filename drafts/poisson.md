@@ -25,9 +25,11 @@ Let me provide a more colorful example (a purple one, it will turn out). So, I r
 
 Every day I was collecting a number of berries, which then provided the ingredients for these other products. It rained very hard today yesterday but not today - is there a statistically significant difference in the arrival count between the two days?
 
+This case study is tiny data; literally two numbers.
+
 # What are the key features of these count data questions
 
-a set period with exponential arrivals
+a set period with exponential arrivals - this is empirically measurable
 
 discrete counts of items
 
