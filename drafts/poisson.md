@@ -15,6 +15,7 @@ We are _constantly_ counting stuff, and collecting data about counts of things t
 * Leads landing in a sales system
 * Transactions being generated on ecommerce website
 * Raw material showing up to be refined or used in production
+* Count of errors
 
 We care about these counts - are they going up? Are they going down? Did we get more when we tried the new method? Usually, they form the first step in a funnel or production process, and our output is partly a function of how many inputs we get.
 
@@ -31,6 +32,8 @@ a set period with exponential arrivals
 discrete counts of items
 
 # how do we make a formal model of these problems
+
+poisson distribution. horse kick
 
 poisson and exponential relationship proof (there's one on stackoverflow). note about what is a poisson process vs a poisson distribution
 
