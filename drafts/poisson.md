@@ -9,11 +9,20 @@ image: MulberryPhiladelphia.jpg
 
 # Count data is everywhere ("Commonality of counting")
 
-So, I recently found out that my back yard has a _very_ productive mulberry tree. This overachiever
+We are _constantly_ counting stuff, and collecting data about counts of things that are happening. Some examples that come to mind easily:
 
-Idea: event counting is everywere. most funnels or production processes start with the arrival of raw material, then subsequent transformation into other stuff
+* Customers showing up on a website
+* Leads landing in a sales system
+* Transactions being generated on ecommerce website
+* Raw material showing up to be refined or used in production
 
-example: mulberries landing on my deck
+We care about these counts - are they going up? Are they going down? Did we get more when we tried the new method? Usually, they form the first step in a funnel or production process, and our output is partly a function of how many inputs we get.
+
+There are a bunch of handy statistical tools available for working with some common counting processes
+
+Let me provide a more colorful example (a purple one, it will turn out). So, I recently found out that my backyard has a _very_ productive berry tree. I know _very_ little about berries (I thought they only grew on bushes!?), but after some Googling I discovered that my new neighbor was a mulberry tree. Mulberries, it turns out, are edible and quite tasty! Since I had to clean them up anyway, I collected them and started turning them into jam and wine (jam is a success so far; wine is a work in progress). 
+
+Every day I was collecting a number of berries, which then provided the ingredients for these other products. It rained very hard today yesterday but not today - is there a statistically significant difference in the arrival count between the two days?
 
 # What are the key features of these count data questions
 
@@ -62,6 +71,8 @@ for true_rate in test_rates:
     
 plt.plot(test_rates, coverage_rates, marker='o')`
 ```
+
+posterior predictive: example, planning for how many berries I might get over the next week
 
 # Also, a normal estimate 
 
