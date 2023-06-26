@@ -9,7 +9,7 @@ image: MulberryPhiladelphia.jpg
 
 # Count data is everywhere ("Commonality of counting")
 
-We are _constantly_ counting stuff, and collecting data about counts of things that are happening. Some examples that come to mind easily:
+We are _constantly_ counting stuff, and collecting data about counts of things that are happening. Some examples that come to mind easily for practicing data analysts:
 
 * Customers showing up on a website
 * Leads landing in a sales system
@@ -17,15 +17,15 @@ We are _constantly_ counting stuff, and collecting data about counts of things t
 * Raw material showing up to be refined or used in production
 * Count of errors
 
-We care about these counts - are they going up? Are they going down? Did we get more when we tried the new method? Usually, they form the first step in a funnel or production process, and our output is partly a function of how many inputs we get.
+We care about these counts - are they going up? Are they going down? Did we get more when we tried some new method? Is there a change from last time to this time? Usually, they form the first step in a funnel or production process, and our final output is partly a function of how many inputs we get.
 
-There are a bunch of handy statistical tools available for working with some common counting processes
+More practically speaking, there are a bunch of handy statistical tools that we can use when we're counting things. Those tools make it easy to calculate standard errors and CIs when we only know the count of something. Those measures of uncertainty will help us separate signal from noise, and make better decisions as we think about those counting processes.
 
-Let me provide a more colorful example (a purple one, it will turn out). So, I recently found out that my backyard has a _very_ productive berry tree. I know _very_ little about berries (I thought they only grew on bushes!?), but after some Googling I discovered that my new neighbor was a mulberry tree. Mulberries, it turns out, are edible and quite tasty! Since I had to clean them up anyway, I collected them and started turning them into jam and wine (jam is a success so far; wine is a work in progress). 
+Let me provide a more colorful example (a purple one, it will turn out). So, I recently found out that my backyard has a _very_ productive berry tree. I know sadly little about berries (I thought they only grew on bushes!?), but after some Googling I discovered that my new neighbor was a mulberry tree. Mulberries, it turns out, are edible and quite tasty! Since I had to clean them up anyway, I collected them and started turning them into jam and wine (jam is a success so far; wine is a work in progress). 
 
-Every day I was collecting a number of berries, which then provided the ingredients for these other products. It rained very hard today yesterday but not today - is there a statistically significant difference in the arrival count between the two days?
+Let's ask a practical question now. It rained very hard today yesterday but not today - is there a statistically significant difference in the arrival count between the two days?
 
-This case study is tiny data; literally two numbers.
+This case study is tiny data; literally two numbers. However, if we're willing to make certain assumptions, it will turn out we can answer this question.
 
 # What are the key features of these count data questions
 
