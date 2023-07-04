@@ -21,11 +21,9 @@ types of variables:
 
 https://gking.harvard.edu/files/matchp.pdf
 
-Does adding aircon to a house change its price?
+Does adding aircon to a house change its price? Need to be careful of looking at same quality
 
-https://vincentarelbundock.github.io/Rdatasets/doc/AER/HousePrices.html
-
-https://vincentarelbundock.github.io/Rdatasets/csv/AER/HousePrices.csv
+https://replit.com/@srs_moonlight/overlap#main.py
 
 Validity checklist
 
