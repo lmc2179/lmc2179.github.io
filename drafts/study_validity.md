@@ -19,7 +19,7 @@ types of variables:
 * Outcome - assume one, real
 * Controls - maybe be real or categorical
 
-https://gking.harvard.edu/files/matchp.pdf
+https://gking.harvard.edu/files/matchp.pdf - Do CEM by coarsening, hashing, and then grouping.
 
 Does adding aircon to a house change its price? Need to be careful of looking at same quality
 
@@ -35,3 +35,5 @@ Internal validity
 External validity
 [] Sample vs population comparisons
 [] Changing external conditions
+
+
