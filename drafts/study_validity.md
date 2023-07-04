@@ -26,3 +26,14 @@ Does adding aircon to a house change its price?
 https://vincentarelbundock.github.io/Rdatasets/doc/AER/HousePrices.html
 
 https://vincentarelbundock.github.io/Rdatasets/csv/AER/HousePrices.csv
+
+Validity checklist
+
+Internal validity
+[] Are all the relevant confounders included in the dataset? Are there any others you can come up with? Consult with the relevant domain experts. Build a DAG.
+[] Balance checks
+[] Do you need to restrict
+
+External validity
+[] Sample vs population comparisons
+[] Changing external conditions
