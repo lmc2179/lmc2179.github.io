@@ -10,4 +10,10 @@ The intuitive reason we do experiments: it balances confounders
 
 Sometimes we can't do an experiment, but was some experiment-like data, can we use that?
 
+this will cover methods of verifying whether important variables are balanced across the treatment and control sets; randomized experiments should pass this perfectly, but observational analyis may not be  as perfect
+
 https://gking.harvard.edu/files/matchp.pdf
+
+https://vincentarelbundock.github.io/Rdatasets/doc/AER/ProgramEffectiveness.html
+
+https://vincentarelbundock.github.io/Rdatasets/csv/AER/ProgramEffectiveness.csv
