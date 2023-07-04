@@ -10,7 +10,7 @@ Checking for confounder overlap in observational studies
 
 The intuitive reason we do experiments: it balances confounders
 
-Sometimes we can't do an experiment, but was some experiment-like data, can we use that?
+Sometimes we can't do an experiment, but was some experiment-like data, can we use that? we use regression or matching to control for confounders. but doing so is only value when the confounders overlap
 
 this will cover methods of verifying whether important variables are balanced across the treatment and control sets; randomized experiments should pass this perfectly, but observational analyis may not be  as perfect
 
