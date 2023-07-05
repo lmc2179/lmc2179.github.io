@@ -27,20 +27,33 @@ Fair comparison requires overlap
 types of variables:
 * Treatment - assume one, binary
 * Outcome - assume one, real
-* Controls - maybe be real or categorical
-
+* Controls - maybe be real, ordinal or categorical
 
 Our example: Does adding aircon to a house change its price? Need to be careful of looking at same quality
+
+Show three examples here:
 
 https://replit.com/@srs_moonlight/overlap#main.py
 
 # Impact ofd restriction: what samples were discarded?
 
-# Final analysis (compare with unrestricted analysis
+Compare df and filtered df
+
+# Final analysis (compare with unrestricted analysis)
+
+Do a regression, compare original and new df
 
 # Matching and "higher order fairness"
 
-Validity checklist
+basically we made sure each confounder has overlap
+
+someone could point out to be really fair they'd need to have similar pairwise relationships too, so the same set of possible interactions is observed
+
+okay cool - maybe try matching
+
+An elaboration - matching as preproc - https://gking.harvard.edu/files/matchp.pdf - Do CEM by coarsening, hashing, and then grouping.
+
+Epilogue: Validity checklist
 
 Internal validity
 [] Are all the relevant confounders included in the dataset? Are there any others you can come up with? Consult with the relevant domain experts. Build a DAG.
@@ -50,8 +63,5 @@ Internal validity
 External validity
 [] Sample vs population comparisons
 [] Changing external conditions
-
-An elaboration - matching as preproc - https://gking.harvard.edu/files/matchp.pdf - Do CEM by coarsening, hashing, and then grouping.
-
 
 
