@@ -27,7 +27,7 @@ Let's ask a practical question now. It rained very hard today yesterday but not 
 
 # Count data and the Poisson process
 
-We talked about "counting problems", just now. How do we recognize one of those in the wild? The kind of data we're going to talk about in this conversation has the following features:
+We talked about processes that produce "count data", just now. How do we recognize one of those in the wild? The kind of data we're going to talk about in this conversation has the following features:
 * We're counting **discrete items** (think of distinct items on a conveyor belt, rather than a flow of liquid). In our example above, the berries are discrete, and we won't consider fractions of a berry.
 * The items arrive over a **fixed period**. In this example, it's a day, the time between berry collection.
 * The **time between arrivals has an exponential distribution**. In theory, I could verify this assumption by standing outside with a stopwatch and counting how much time passes in the inter-berry windows, then comparing to an exponential distribution (and it can often be verified in non-berry scenarios by looking at user data from your data warehouse). 
@@ -36,7 +36,7 @@ how do we make a formal model of these problems? poisson process. horse kick
 
 poisson and exponential relationship proof (there's one on stackoverflow). note about what is a poisson process vs a poisson distribution
 
-important feature of the poisson distribution: mean = variance
+important feature of the poisson distribution: mean = variance. how could we show this from real data? one possibility: look at time blocks next to each other. Is the average mean - average variance zero?
 
 model of the treatment effect
 
@@ -79,6 +79,8 @@ posterior predictive: example, planning for how many berries I might get over th
 # Also, a normal estimate 
 
 compare also: Normal-based estimate
+
+https://stats.stackexchange.com/questions/401754/determining-confidence-interval-with-one-observation-for-poisson-distribution
 
 # going from here
 
