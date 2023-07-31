@@ -29,12 +29,15 @@ Let's ask a practical question now. It rained very hard today yesterday but not 
 
 We talked about processes that produce "count data", just now. How do we recognize one of those in the wild? The kind of data we're going to talk about in this conversation has the following features:
 * We're counting **discrete items** (think of distinct items on a conveyor belt, rather than a flow of liquid). In our example above, the berries are discrete, and we won't consider fractions of a berry.
-* The items arrive over a **fixed period**. In this example, it's a day, the time between berry collection.
-* The **time between arrivals has an exponential distribution**. In theory, I could verify this assumption by standing outside with a stopwatch and counting how much time passes in the inter-berry windows, then comparing to an exponential distribution (and it can often be verified in non-berry scenarios by looking at user data from your data warehouse). 
+* The items arrive over a **fixed period**. In this example, it's a day, the time between berry collection. There's some average number of arrivals per period, which we'll call $\lambda$. More specifically, we'll assume that the number of arrivals per period has a $Poisson(\lambda)$ distribution, and each is independent. I could try to falsify this assumption by collecting berries for a few periods, and seeing whether the resulting data resembles a poisson distribution.
+* The **time between arrivals has an exponential distribution**. I could verify this assumption by standing outside with a stopwatch and counting how much time passes in the inter-berry windows, then comparing to an exponential distribution (and it can often be verified in non-berry scenarios by looking at user data from your data warehouse). 
 
-how do we make a formal model of these problems? poisson process. horse kick
+If we are comfortable making these assumptions based on our understanding of the process and the data we have at hand, then we are dealing with a Poisson process. There is a snarly bit of vocabulary here, as the Poisson process and Poisson distribution are different (but closely related). This [SO post](https://stats.stackexchange.com/questions/87988/what-is-the-difference-between-a-distribution-and-a-process-poisson) helped me understand it. Roughly, the way to differentiate this is that the entire setup of discrete berries arriving is a Poisson process, and in Poisson Process the arrival counts have a Poisson distribution. For the rest of this post, we'll mostly talk about the Poisson distribution and how to deal with it.
 
-poisson and exponential relationship proof (there's one on stackoverflow). note about what is a poisson process vs a poisson distribution
+Although berry-gathering is a slightly whimsical example, processes like this are all over the place, and organizations often need to think about that. A real-life (though perhaps still whimsical) example comes from an analysis done by [Ladislaus Bortkiewicz](https://en.wikipedia.org/wiki/Ladislaus_Bortkiewicz) for the Prussian army in the 19th century. Bortkiewicz modeled the number of Prussian soldiers killed annually by horse kick (!) as a Poisson distribution.
+
+
+The relationship between the expontial distribution and Poisson distributions is not immediately obvious to me, but I found [this SO thread](https://stats.stackexchange.com/questions/2092/relationship-between-poisson-and-exponential-distribution) to have useful explanations.
 
 important feature of the poisson distribution: mean = variance. how could we show this from real data? one possibility: look at time blocks next to each other. Is the average mean - average variance zero?
 
@@ -90,5 +93,6 @@ afterwards: Rates based on binomial, or perhaps a more interesting function. con
 
 conditional means: poisson regression
 
+maybe there's a random walk structure to \lambda; there's probably some way of modeling that
 
 [Image from wikipedia.](https://commons.wikimedia.org/wiki/File:MulberryPhiladelphia.jpg)
