@@ -26,6 +26,8 @@ This relationship has a few key aspects that I notice over and over again:
 
 If you're an economist, or even if you just took econ 101, you likely recognize . Economists seem to be familiar with a lot of the useful properties of this kind of relationship 
 
+a common way to formulate this is as $ax^b$
+
 ```python
 x = np.linspace(.1, 3)
 
