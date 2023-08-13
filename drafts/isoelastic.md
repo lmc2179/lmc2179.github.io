@@ -7,7 +7,7 @@ tags: [datascience]
 image: important_relationship.png
 ---
 
-_Models of [elasticity](https://en.wikipedia.org/wiki/Elasticity_(economics)) and log-log relationships seem to show up over and over in my work. Since I have only a fuzzy, gin-soaked memory of Econ 101, I always have to remind myself of the properties of these models. _
+_Models of [elasticity](https://en.wikipedia.org/wiki/Elasticity_(economics)) and log-log relationships seem to show up over and over in my work. Since I have only a fuzzy, gin-soaked memory of Econ 101, I always have to remind myself of the properties of these models. The commonly used  $y = \alpha x ^\beta$  version of this model ends up being pretty easy to interpret, and had wide applicabilty across many domains that actual data scientists work. _
 
 # It's everywhere!
 
@@ -56,10 +56,9 @@ Lots and lots and _lots_ of measured variables seem to have this relationship. T
 * Number of users who see something vs the number who engage with it
 * Number of samples vs model quality
 * Time spent on a project and quality of result
+* Size of an investment vs revenue generated (this one was popularized and explored by [a well known early data scientist](https://en.wikipedia.org/wiki/Tendency_of_the_rate_of_profit_to_fall))
 
-Other connections
-* It also resembles [Cobb-Douglas production function](https://en.wikipedia.org/wiki/Cobb%E2%80%93Douglas_production_function)
-* "The Tendency of the Rate of Profit to Fall" ; though this is a statement about the long run and is not true literally always
+A common model for all these things which has the  [Cobb-Douglas production function](https://en.wikipedia.org/wiki/Cobb%E2%80%93Douglas_production_function).
 
 # Some useful facts about the $y = \alpha x ^\beta$ model
 
