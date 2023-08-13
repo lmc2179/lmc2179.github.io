@@ -13,11 +13,11 @@ https://en.wikipedia.org/wiki/Output_elasticity
 
 
 
-# it's everywhere
+# It's everywhere!
 
 I have spent a shocking percentage of my career drawing some version of this diagram on a whiteboard:
 
--Important relationship plot-
+![image](https://raw.githubusercontent.com/lmc2179/lmc2179.github.io/master/assets/img/important_relationship.png)
 
 This relationship has a few key aspects that I notice over and over again:
 * The output increases when more input is added; the line slopes up.
