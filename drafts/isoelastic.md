@@ -7,11 +7,7 @@ tags: [datascience]
 image: important_relationship.png
 ---
 
-https://en.wikipedia.org/wiki/Isoelastic_function
-https://en.wikipedia.org/wiki/Elasticity_(economics)
-https://en.wikipedia.org/wiki/Output_elasticity
-
-
+_Models of [elasticity](https://en.wikipedia.org/wiki/Elasticity_(economics)) and log-log relationships seem to show up over and over in my work. Since I have only a fuzzy, gin-soaked memory of Econ 101, I always have to remind myself of the properties of these models. _
 
 # It's everywhere!
 
@@ -25,6 +21,8 @@ This relationship has a few key aspects that I notice over and over again:
 * Inputs and outputs are both positive
 
 If you're an economist, or even if you just took econ 101, you likely recognize . Economists seem to be familiar with a lot of the useful properties of this kind of relationship 
+
+https://en.wikipedia.org/wiki/Isoelastic_function
 
 a common way to formulate this is as $ax^b$
 
@@ -168,6 +166,8 @@ https://marcfbellemare.com/wordpress/wp-content/uploads/2019/02/BellemareWichman
 https://worthwhile.typepad.com/worthwhile_canadian_initi/2011/07/a-rant-on-inverse-hyperbolic-sine-transformations.html
 
 Maybe sqrt
+
+https://en.wikipedia.org/wiki/Output_elasticity
 
 Appendix: Interpretation of regression coefficients under the log-log and related models
 
