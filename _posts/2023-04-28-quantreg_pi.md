@@ -31,7 +31,7 @@ plt.show()
 
 We can read off a few things here straight away:
 * A location with high off-season sales will also have high summer sales; X and Y are positively correlated.
-* The outcomes are more certain for the stores with the highest off-season sales; the variance of Y increases with X.
+* The outcomes are more uncertain for the stores with the highest off-season sales; the variance of Y increases with X.
 * On the high end, outlier results are more likely to be extra high sales numbers instead of extra low; the noise is asymmetric, and positively skewed.
 
 After this first peek at the data, you might reach for that old standby, Linear Regression.
