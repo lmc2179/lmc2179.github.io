@@ -147,8 +147,6 @@ Okay, okay! Let's see how we might incorporate the uncertainty about the varianc
 
 If we don't: Normal Gamma
 
-https://richrelevance.com/blog/2013/07/31/bayesian-analysis-of-normal-distributions-with-python/
-
 $$\mu, \tau \sim N \Gamma (\mu_0, \nu, \alpha, \beta) $$
 
 We observe $x$
