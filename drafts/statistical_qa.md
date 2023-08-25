@@ -19,7 +19,7 @@ QA is expensive, so we should be careful about how much of it we do
 
 # basics: normal interval
 
-sometimes assume the worst case
+sometimes assume the worst case of p=0.5
 
 # Estimating the proportion of defects in a finite population: The finite population correction
 
