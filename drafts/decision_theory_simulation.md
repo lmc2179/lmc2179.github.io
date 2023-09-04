@@ -1,6 +1,6 @@
 How not to run out of gin: Decision simulations with Python
 
-
+Every analytics job I've ever had
 
 Note from the editor: The editorial team here at `Casual Inference: Data Analysis and Other Apocrypha™`
 
