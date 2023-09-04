@@ -12,7 +12,7 @@ Consequence: result of the hand
 
 # a real life scenario: how much raw material do we need to satisfy demand
 
-some realistic aspects: estimatimg inputs required for demand; complicated process and multi-dimensional;
+some realistic aspects: estimatimg inputs required for demand; lots of uncertainty; complicated process and multi-dimensional;
 
 defining the SAC
 
