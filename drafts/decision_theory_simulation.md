@@ -1,6 +1,10 @@
 How not to run out of gin: Decision simulations with Python
 
-# what's in a decision
+
+
+Note from the editor: The editorial team here at `Casual Inference: Data Analysis and Other Apocrypha™`
+
+# Anatomy of a decision
 
 Leonard J. Savage's _The Foundations of Statistics_
 
@@ -10,7 +14,7 @@ Action: check/raise/fold. made without necessarily knowing all the information.
 
 Consequence: result of the hand
 
-# a real life scenario: how much raw material do we need to satisfy demand
+# A real life analysis: How much raw material do we need to satisfy demand?
 
 some realistic aspects: estimatimg inputs required for demand; lots of uncertainty; complicated process and multi-dimensional;
 
@@ -22,7 +26,7 @@ picking one that doesn't fail
 
 estimating the level of waste for our chosen decision
 
-# where do scenarios come from
+# Where do the scenario parameters come from?
 
 elicit from expertise
 
