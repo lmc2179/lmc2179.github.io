@@ -36,3 +36,4 @@ previous experiment results
 
 bayesian analysis
 
+check them against historical data and how well your assumptions matched with reality
