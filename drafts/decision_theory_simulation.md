@@ -10,7 +10,7 @@ Action: check/raise/fold. made without necessarily knowing all the information.
 
 Consequence: result of the hand
 
-# a real life scenario: making drinks for a party
+# a real life scenario: how much raw material do we need to satisfy demand
 
 some realistic aspects: estimatimg inputs required for demand; complicated process and multi-dimensional;
 
