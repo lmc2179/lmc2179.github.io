@@ -32,6 +32,3 @@ previous experiment results
 
 bayesian analysis
 
-# appendix: a vectorized version
-
-the above is cool but probably not the fastest
