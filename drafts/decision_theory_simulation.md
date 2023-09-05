@@ -1,4 +1,11 @@
-How not to run out of gin: Decision under uncertainty with simulations with Python
+---
+layout: post
+title: "How not to run out of gin: Decision under uncertainty with simulations with Python"
+author: "Louis Cialdella"
+categories: posts
+tags: [datascience]
+image: gin_recipe.png
+---
 
 The reason we look at data is so we can make better decisions. However, even after consulting the data, there is still usually some uncertainty about the things we've studied. It's useful to have a framework to lean on as we think about how to make the best decisions we can.
 
