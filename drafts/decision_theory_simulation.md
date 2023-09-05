@@ -1,18 +1,20 @@
-How not to run out of gin: Decision simulations with Python
+How not to run out of gin: Decision under uncertainty simulations with Python
 
-Every analytics job I've ever had
+Every analytics job I've ever had has required me to advise stakeholders and project the 
 
 Note from the editor: The editorial team here at `Casual Inference: Data Analysis and Other Apocrypha™`
 
-# Anatomy of a decision
+# What exactly qualifies as a decision?
 
 Leonard J. Savage's _The Foundations of Statistics_
 
-Scenario: cards dealt, both known and unknown
+Scenario: weather when you get off the train - rain or no rain
 
-Action: check/raise/fold. made without necessarily knowing all the information.
+Action: go without umbrella, go with umbrella. made without necessarily knowing all the information.
 
-Consequence: result of the hand
+Consequence: got wet or didn't
+
+Find action which maximizes expected value (some alternatives are possible, discussed later)
 
 # A real life analysis: How much raw material do we need to satisfy demand?
 
