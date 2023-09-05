@@ -16,6 +16,8 @@ Consequence: got wet or didn't
 
 Find action which maximizes expected value (some alternatives are possible, discussed later)
 
+show a little mathematical formulation of this
+
 # A real life analysis: How much raw material do we need to satisfy demand?
 
 some realistic aspects: estimatimg inputs required for demand; lots of uncertainty; complicated process and multi-dimensional;
