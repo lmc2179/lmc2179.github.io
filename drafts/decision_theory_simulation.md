@@ -19,14 +19,14 @@ It seems unlikely that both choices are _equally_ bad. After all, on most days I
 * **The decision relies on certain unknown facts, ie whether it will be raining when I get off the train. But we usually have estimated probabilities about those facts obtained from data and expertise**. We usually have an estimate of the probability of rain - either a numerical one from the Weather app on my phone, or a rougher one obtained by squinting at the clouds and making a guess.
 * The worst cases are very different: Needing to carry an uncesessary umbrella is an annoyance, but getting caught in a downpour can make the rest of your day much more difficult. **The possible consequences of my decision vary in how bad (or good) they are**.
 
-Leonard J. Savage's _The Foundations of Statistics_
+Let's try and organize the situation so we can analyze the outcomes of the choices we have. We're going to use the framework laid out in Leonard J. Savage's _The Foundations of Statistics_. In this framework, we divide the problem into a few pieces:
+* The **Actions** which we can take. In this case, take an umbrella or don't.
+* The **States of the World, or Scenarios** which might end up being true. In this case, whether it is raining or not when I get off the train.
+* The **Consequences** of our action given the scenario. The results of the action we chose, plus the scenario together - getting rained on, having to carry an umbrella, etc.
 
 I'm going to replace the unwieldy "state of the world" with "scenario" in this writeup, just since I've found that easier to get across to people. Plus, then you can tell your MBA-wielding VP that you did a [scenario analysis](https://en.wikipedia.org/wiki/Scenario_planning), which I think you'll agree sounds very business-y.
 
-So we can break our decision into pieces
-* Scenario: weather when you get off the train - rain or no rain
-* Action: go without umbrella, go with umbrella. made without necessarily knowing all the information.
-* Consequence: got wet or didn't
+Savage spends a lot of time developing a theory about our preferences
 
 Consequences = Scenario-Action matrix
 
