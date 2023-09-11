@@ -19,27 +19,27 @@ It seems unlikely that both choices are _equally_ bad. After all, on most days I
 * **The decision relies on certain unknown facts, ie whether it will be raining when I get off the train. But we usually have estimated probabilities about those facts obtained from data and expertise**. We usually have an estimate of the probability of rain - either a numerical one from the Weather app on my phone, or a rougher one obtained by squinting at the clouds and making a guess.
 * The worst cases are very different: Needing to carry an uncesessary umbrella is an annoyance, but getting caught in a downpour can make the rest of your day much more difficult. **The possible consequences of my decision vary in how bad (or good) they are**.
 
-Let's try and organize the situation so we can analyze the outcomes of the choices we have. We're going to use the framework laid out in Leonard J. Savage's _The Foundations of Statistics_. In this framework, we divide the problem into a few pieces:
+Let's try and organize the situation so we can analyze the outcomes of the choices we have. We're going to use the framework laid out in Leonard J. Savage's _The Foundations of Statistics_. In this framework, we model the decision as:
 * The **Actions** which we can take. In this case, take an umbrella or don't.
 * The **States of the World, or Scenarios** which might end up being true. In this case, whether it is raining or not when I get off the train.
 * The **Consequences** of our action given the scenario. The results of the action we chose, plus the scenario together - getting rained on, having to carry an umbrella, etc.
 
 I'm going to replace the unwieldy "state of the world" with "scenario" in this writeup, just since I've found that easier to get across to people. Plus, then you can tell your MBA-wielding VP that you did a [scenario analysis](https://en.wikipedia.org/wiki/Scenario_planning), which I think you'll agree sounds very business-y.
 
-Savage spends a lot of time developing a theory about our preferences
+It's often handy to write out the "consequences" part of the model as a scenario $times$ action matrix:
 
-|     | Take umbrella | Don't take |
+|     | **Take umbrella** | **Don't take** |
 | -------- | ------- | ------- |
-| No Rain  | Mild inconvenience  🫤  | Status Quo |
-| Rain     | Status Quo    | Caught in downpour 😢 |
+| **No Rain**  | Mild inconvenience  🫤  | Status Quo |
+| **Rain**     | Status Quo    | Caught in downpour 😢 |
 
-Consequences = Scenario-Action matrix
 
-eagle-eyed readers will recognize this from the ML decision post
 
-Find action which maximizes expected value (some alternatives are possible, discussed later)
+Eagle-eyed readers will recognize this as a looking a lot like the confusion matrix, which we've [applied to optimal decision-making before](https://lmc2179.github.io/posts/decisions.html). In that case, we realized that if we know the probability distribution over the rows of the matrix, we can compute the expected value of each action. If we were to assign each of the consequences a score to create a score matrix, then we could just calculate
 
-show a little mathematical formulation of this
+$$\mathbb{E}[Score | Action] = \sum_i Score[Scenario \ i, Action] \times \mathbb{P}(Scenario \ i)$$
+
+And pick the action with the larger expected value. This is already pretty useful! However, sometimes we want more visibility into what kind of outcome we get. Perhaps the outcome space is difficult to summarize with a single number, for example.
 
 # A real life analysis: How much raw material do we need to satisfy demand?
 
