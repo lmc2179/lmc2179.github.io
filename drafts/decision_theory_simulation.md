@@ -55,14 +55,11 @@ picking one that doesn't fail
 
 estimating the level of waste for our chosen decision
 
-# Where do the scenario parameters come from?
+# A practical checklist for building decision simulations
 
-elicit from expertise
-
-predictive models
-
-previous experiment results
-
-bayesian analysis
-
+Where do the scenario parameters come from?
+* elicit from expertise
+* predictive models
+* previous experiment results
+* bayesian analysis
 check them against historical data and how well your assumptions matched with reality
