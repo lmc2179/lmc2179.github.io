@@ -28,7 +28,14 @@ I'm going to replace the unwieldy "state of the world" with "scenario" in this w
 
 Savage spends a lot of time developing a theory about our preferences
 
+|     | Take umbrella | Don't take |
+| -------- | ------- | ------- |
+| No Rain  | Mild inconvenience  🫤  | Status Quo |
+| Rain     | Status Quo    | Caught in downpour 😢 |
+
 Consequences = Scenario-Action matrix
+
+eagle-eyed readers will recognize this from the ML decision post
 
 Find action which maximizes expected value (some alternatives are possible, discussed later)
 
