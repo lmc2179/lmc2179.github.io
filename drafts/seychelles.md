@@ -1,3 +1,4 @@
 Evaluating your regression model with a diagnostic
 
-The regression sequel to the post about the confusion matrix
+The regression sequel to the post about the confusion matrix - main diagonal vs off-diagonal
+
