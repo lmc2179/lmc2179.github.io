@@ -2,6 +2,12 @@ Evaluating your regression model with a diagnostic
 
 The regression sequel to the post about the confusion matrix - main diagonal vs off-diagonal
 
+Idea: Tie size of miss to the resulting decision in a more interpretable way than MSE and friends
+
+Define a big hit, big miss, small miss, etc
+
+Train a model on housing; what is a big miss
+
 ```
 import pandas as pd
 import numpy as np
@@ -18,6 +24,8 @@ target_variable = 'MedHouseVal'
 X = data[input_features]
 y = data[target_variable]
 ```
+
+the seychelles
 
 ```
 model = HistGradientBoostingRegressor()
@@ -37,10 +45,16 @@ plt.xlabel('Predicted')
 plt.ylabel('Actual')
 plt.legend()
 plt.show()
+```
 
+Within-band percentage metrics
+
+```
 # Within triangle calculation
 
 within_triangle = sum((y*(1-p) < predictions) & (predictions < y*(1+p)))
 
 print(round(100 * (within_triangle / len(y))), 2)
 ```
+
+Could compare score to each size of miss
