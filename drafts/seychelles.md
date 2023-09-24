@@ -48,19 +48,17 @@ In this context, let's say that you're on a pretty tight budget, and you really 
 the seychelles
 
 ```
-
-
 predictions = cross_val_predict(model, X, y, cv=5)  # cv=5 for 5-fold cross-validation
 
 from matplotlib import pyplot as plt
 import seaborn as sns
 
-sns.histplot(x=predictions, y=y)
 x_y_line = np.array([min(predictions), max(predictions)])
-plt.plot(x_y_line, x_y_line, label='Perfect accuracy')
 p = 0.35 # Size of threshold
-plt.plot(x_y_line, x_y_line*(1+p), label='Acceptable upper bound')
-plt.plot(x_y_line, x_y_line*(1-p), label='Acceptable lower bound')
+
+sns.histplot(x=predictions, y=y)
+plt.plot(x_y_line, x_y_line, label='Perfect accuracy', color='orange')
+plt.fill_between(x_y_line, x_y_line*(1+p), x_y_line*(1-p), label='Acceptable error region', color='orange', alpha=.1)
 plt.xlabel('Predicted')
 plt.ylabel('Actual')
 plt.legend()
