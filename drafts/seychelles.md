@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Is my regression model "good enough"?"
+title: "Is my regression model good enough?"
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
