@@ -87,3 +87,5 @@ print(round(100 * (within_triangle / len(y))), 2)
 That gives us ??? - a strong start, though there's probably room for improvement
 
 If we wanted to get a finer idea of how our decisions might play out, we could break the plot into finer pieces, like introducing regions for "near misses" or "catastrophic misses".
+
+You could also probably analyze this with quantile regression, ie see how bad the 5% and 95% cases are
