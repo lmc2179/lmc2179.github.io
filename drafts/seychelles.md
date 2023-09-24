@@ -1,4 +1,11 @@
-# Is my regression model "good enough"?
+---
+layout: post
+title: "Is my regression model "good enough"?"
+author: "Louis Cialdella"
+categories: posts
+tags: [datascience]
+image: Flag_of_Seychelles.svg.png
+---
 
 We use predictive models as our advisors, helping us make better decisions using their output. A reasonable question, then, is "is my model accurate enough to be useful"? Every practitioner who uses ML methods is used to cross-validation, that beloved Swiss Army Knife of model validation. Anyone doing their due diligence when training a predictive model will try a few out, and select the one with the minimum Mean Squared Error, or perhaps use the [one standard error rule](https://lmc2179.github.io/posts/cvci.html). This doesn't usually answer our question, though. Model selection tells us which choice is the best among the available options, but it's unclear whether even the best one is actually good enough to be useful. I myself have had the frustrating experience of performing an in-depth model selection process, only to realize at the end that all my careful optimizing has given me a model which is better than the baseline, but still unusable for any practical purpose.
 
