@@ -18,11 +18,11 @@ The method that I've found most effective is to work with my stakeholders and tr
 
 This allows us to take our error measure, which is a continuous number, and discretize it. We could add more categories by defining what it means to have a "direct hit", a "near miss", a "bad miss" etc. You could then attach a predicted outcome to each of those discrete categories, and you've learned something not just about how the model makes **predictions**, but how it lets you make **decisions**. In this sense, it's the regression-oriented sequel to our previous discussion about [analyzing the confusion matrix](https://lmc2179.github.io/posts/decisions.html) for classifiers - we go from pure regression analysis to decision analysis using a diagnostic. The "direct hits" for a regression model are like landing in the main diagonal of the confusion matrix.
 
-Idea: Tie size of miss to the resulting decision in a more interpretable way than MSE and friends. how much percent can your prediction be off by, and still let you make a good decision?
+In a sense, this is a check of the model's "calibration quality". While I usually hear that term referring to [probability calibration](https://scikit-learn.org/stable/auto_examples/calibration/plot_calibration_curve.html), I think it's relevant here too. In the regression setting, a model is "well calibrated" when its prediction are at or near the actual value. We'll plot the regression equivalent of the calibration curve, and highlight the region that counts as a good enough fit.
 
-Let's do a quick example using this [dataset of California House Prices](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_california_housing.html). Imagine that you're planning on using this to figure out what the potential price of your house might be when you sell it; you want to know how much you might get for it so you can figure out how to budget for your other purchases.
+Let's do a quick example using this [dataset of California House Prices along with their attributes](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_california_housing.html). Imagine that you're planning on using this to figure out what the potential price of your house might be when you sell it; you want to know how much you might get for it so you can figure out how to budget for your other purchases. We'll use a Gradient Boosting model, but that's not especially important - whatever black-box method you're using should work.
 
-In this case it's a gradient booster but that doesn't really matter
+First, lets get all our favorite toys out of the closet, grabbing our data and desired model:
 
 ```
 import pandas as pd
@@ -43,9 +43,9 @@ y = data[target_variable]
 model = HistGradientBoostingRegressor()
 ```
 
-In this context, let's say that you're on a pretty tight budget, and you really need to get this number right in order to figure out what you cut. For your purposes, you decide that a difference of 10% compared to the actual value would be too much additional cost for you to bear.
+In this context, the acceptable amount of error is probably dictated by how much money you have in the bank as a backup in case you get less for the house than you expected. For your purposes, you decide that a difference of 35% compared to the actual value would be too much additional cost for you to bear.
 
-the seychelles
+For reasons I can't really explain, I find it very amusing that this diagram looks like the flag of the Seychelles, and would look even more so if we added finer gradations of hit vs missed targets. We'll first come up with out-of-sample predictions using the cross validation function, and then we'll plot the actual vs predicted values along with the "good enough" region we want to hit.
 
 ```
 predictions = cross_val_predict(model, X, y, cv=5)  # cv=5 for 5-fold cross-validation
@@ -54,11 +54,11 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 
 x_y_line = np.array([min(predictions), max(predictions)])
-p = 0.35 # Size of threshold
+p = 0.35 # Size of threshold, 35%
 
-sns.histplot(x=predictions, y=y)
-plt.plot(x_y_line, x_y_line, label='Perfect accuracy', color='orange')
-plt.fill_between(x_y_line, x_y_line*(1+p), x_y_line*(1-p), label='Acceptable error region', color='orange', alpha=.1)
+sns.histplot(x=predictions, y=y) # Plot the predicted vs actual values
+plt.plot(x_y_line, x_y_line, label='Perfect accuracy', color='orange') # Plot the "perfect calibration" line
+plt.fill_between(x_y_line, x_y_line*(1+p), x_y_line*(1-p), label='Acceptable error region', color='orange', alpha=.1) # Plot the "good enough" region
 plt.xlabel('Predicted')
 plt.ylabel('Actual')
 plt.legend()
@@ -70,11 +70,13 @@ In addition to a chart like this, it's also handy to define a numeric score (we 
 Within-band percentage metrics
 
 ```
-# Within triangle calculation
+# Within target region calculation
 
 within_triangle = sum((y*(1-p) < predictions) & (predictions < y*(1+p)))
 
 print(round(100 * (within_triangle / len(y))), 2)
 ```
 
-Could compare score to each size of miss
+That gives us ??? - a strong start, though there's probably room for improvement
+
+If we wanted to get a finer idea of how our decisions might play out, we could break the plot into finer pieces, like introducing regions for "near misses" or "catastrophic misses".
