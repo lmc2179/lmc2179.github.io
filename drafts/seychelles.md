@@ -8,17 +8,19 @@ We could try imposing a rule of thumb like "your MSE must be this small", but th
 
 Statistical measures of model or coefficient significance don't seem to help either; knowing that a given coefficient (or all of them) are statistically significantly different from zero is handy, but does not tell us that the model is ready for prime time. Even the legendary $R^2$ doesn't really have a clear a priori "threshold of good enough" (though surprisingly, I see to frequently run into people who are willing to do so). If you don't believe me, a perspective I found really helpful is Ch. 10 of Cosma Shalizi's [The Truth About Linear Regression](https://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf).
 
-An actual viable method is to look at whether your prediction intervals are both practically precise enough for the task and also cover the data, an approach detailed [here](https://statisticsbyjim.com/regression/how-high-r-squared/). This is a perfectly sensible choice if your model provides you with an easy way to compute prediction intervals. However, if you're using something like scikit-learn you'll usually be creating just a single point estimate (ie, a single fitted model which you can deploy), and it may not be easy to generate prediction models for your model.
+An actual viable method is to look at whether your prediction intervals are both practically precise enough for the task and also cover the data, an approach detailed [here](https://statisticsbyjim.com/regression/how-high-r-squared/). This is a perfectly sensible choice if your model provides you with an easy way to compute prediction intervals. However, if you're using something like scikit-learn you'll usually be creating just a single point estimate (ie, a single fitted model of $\mathbb{E}[y \mid X]$ which you can deploy), and it may not be easy to generate prediction intervals for your model.
 
 Evaluating your regression model with a diagnostic
 
 The regression sequel to the post about the confusion matrix - main diagonal vs off-diagonal
 
-Idea: Tie size of miss to the resulting decision in a more interpretable way than MSE and friends
+Idea: Tie size of miss to the resulting decision in a more interpretable way than MSE and friends. how much percent can your prediction be off by, and still let you make a good decision?
 
 Define a big hit, big miss, small miss, etc
 
-Train a model on housing; what is a big miss
+Let's do a quick example using this [dataset of California House Prices](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_california_housing.html). Imagine that you're planning on using this to figure out what the potential price of your house might be when you sell it; you want to know how much you might get for it so you can figure out how to budget for your other purchases.
+
+In this case it's a gradient booster but that doesn't really matter
 
 ```
 import pandas as pd
@@ -35,12 +37,16 @@ target_variable = 'MedHouseVal'
 
 X = data[input_features]
 y = data[target_variable]
+
+model = HistGradientBoostingRegressor()
 ```
+
+In this context, let's say that you're on a pretty tight budget, and you really need to get this number right in order to figure out what you cut. For your purposes, you decide that a difference of 10% compared to the actual value would be too much additional cost for you to bear.
 
 the seychelles
 
 ```
-model = HistGradientBoostingRegressor()
+
 
 predictions = cross_val_predict(model, X, y, cv=5)  # cv=5 for 5-fold cross-validation
 
@@ -58,6 +64,8 @@ plt.ylabel('Actual')
 plt.legend()
 plt.show()
 ```
+
+In addition to a chart like this, it's also handy to define a numeric score (we coudl even use this for model selection)
 
 Within-band percentage metrics
 
