@@ -72,6 +72,9 @@ plt.legend()
 plt.show()
 ```
 
+![image](https://github.com/lmc2179/lmc2179.github.io/assets/1301965/be70f215-01ab-438e-8afe-da66f01eb958)
+
+
 In addition to a chart like this, it's also handy to define a numeric score - we could even use this for model selection, if we wanted to.
 
 If we define $p$ as the acceptable percent change, we can compute the estimated _percent of predictions within acceptable error as_:
@@ -90,7 +93,7 @@ within_triangle = sum((y*(1-p) < predictions) & (predictions < y*(1+p)))
 print(round(100 * (within_triangle / len(y))), 2)
 ```
 
-That gives us ??? - a strong start, though there's probably room for improvement. It seems unlikely that we'd be willing to deploy this model as-is, and we'd want to improve performance by adding more features, more data, or improving the model design. However, even though this model is not usable currently, it's useful to now have an acceptance threshold for model quality that you can use with your stakeholders.
+That gives us 66% - a strong start, though there's probably room for improvement. It seems unlikely that we'd be willing to deploy this model as-is, and we'd want to improve performance by adding more features, more data, or improving the model design. However, even though this model is not usable currently, it's useful to now have an acceptance threshold for model quality that you can use with your stakeholders.
 
 If we wanted to get a finer idea of how our decisions might play out, we could break the plot into more segments, like introducing regions for "near misses" or "catastrophic misses".
 
