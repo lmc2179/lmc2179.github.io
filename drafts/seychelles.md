@@ -79,7 +79,7 @@ In addition to a chart like this, it's also handy to define a numeric score - we
 
 If we define $p$ as the acceptable percent change, we can compute the estimated _percent of predictions within acceptable error as_:
 
-$$\text{Estimated probability of acceptable error} 
+$$\text{Estimated probability of acceptable error} \\
 = \frac{\text{Count of predictions within band}}{\text{Count of all predictions}}
 = \frac{\sum_i I[y_i \times (1-p) \leq \hat{y}_i \leq y_i \times (1+p)]}{n}$$
 
