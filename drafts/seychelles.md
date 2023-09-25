@@ -81,7 +81,7 @@ If we define $p$ as the acceptable percent change, we can compute the estimated 
 
 $$\text{Estimated probability of acceptable error} 
 = \frac{\text{Count of predictions within band}}{\text{Count of all predictions}}
-= \frac{y_i \times (1-p) \leq \hat{y}_i \leq y_i \times (1+p)}{n}$$
+= \frac{\sum_i I[y_i \times (1-p) \leq \hat{y}_i \leq y_i \times (1+p)]}{n}$$
 
 To think about this from an engineering perspective, our use case defines the "tolerance", similar to the tolerance which is set in machining parts. This quantity tells us how often the product which our model produces (ie its output) is within the tolerance for error that we can handle.
 
