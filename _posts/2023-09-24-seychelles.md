@@ -33,7 +33,7 @@ Let's do a quick example using this [dataset of California House Prices along wi
 
 First, lets get all our favorite toys out of the closet, grabbing our data and desired model:
 
-```
+```python
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import cross_val_predict
@@ -56,7 +56,7 @@ In this context, the acceptable amount of error is probably dictated by how much
 
 For reasons I can't really explain, I find it very amusing that this diagram looks like the [flag of Seychelles](https://en.wikipedia.org/wiki/Flag_of_Seychelles), and would look even more so if we added finer gradations of hit vs missed targets. We'll first come up with out-of-sample predictions using the cross validation function, and then we'll plot the actual vs predicted values along with the "good enough" region we want to hit.
 
-```
+```python
 predictions = cross_val_predict(model, X, y, cv=5)  # cv=5 for 5-fold cross-validation
 
 from matplotlib import pyplot as plt
@@ -86,7 +86,7 @@ $$\text{Estimated probability of acceptable error} \\
 
 To think about this from an engineering perspective, our use case defines the "tolerance", similar to the tolerance which is set in machining parts. This quantity tells us how often the product which our model produces (ie its output) is within the tolerance for error that we can handle.
 
-```
+```python
 # Within target region calculation
 
 within_triangle = sum((y*(1-p) < predictions) & (predictions < y*(1+p)))
