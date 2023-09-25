@@ -7,13 +7,15 @@ tags: [datascience]
 image: Flag_of_Seychelles.svg.png
 ---
 
-We use predictive models as our advisors, helping us make better decisions using their output. A reasonable question, then, is "is my model accurate enough to be useful"? Every practitioner who uses ML methods is used to cross-validation, that beloved Swiss Army Knife of model validation. Anyone doing their due diligence when training a predictive model will try a few out, and select the one with the minimum Mean Squared Error, or perhaps use the [one standard error rule](https://lmc2179.github.io/posts/cvci.html). This doesn't usually answer our question, though. Model selection tells us which choice is the best among the available options, but it's unclear whether even the best one is actually good enough to be useful. I myself have had the frustrating experience of performing an in-depth model selection process, only to realize at the end that all my careful optimizing has given me a model which is better than the baseline, but still unusable for any practical purpose.
+We use predictive models as our advisors, helping us make better decisions using their output. A reasonable question, then, is "is my model accurate enough to be useful"? An already-present part of the process for most ML practitioners is Cross Validation, that beloved Swiss Army Knife of model validation. Anyone doing their due diligence when training a predictive model will try a few out, and select the one with the minimum Mean Squared Error, or perhaps use the [one standard error rule](https://lmc2179.github.io/posts/cvci.html). Either way, you'll look at some out-of-sample errors for different models.
 
-So, back to our questions. What does "accurate enough to be useful" mean, exactly? How do we know if we're they're?
+This doesn't usually answer our question, though. Model selection tells us which choice is the best among the available options, but it's unclear whether even the best one is actually good enough to be useful. I myself have had the frustrating experience of performing an in-depth model selection process, only to realize at the end that all my careful optimizing has given me a model which is better than the baseline, but still so bad at predicting that it is unusable for any practical purpose.
 
-We could try imposing a rule of thumb like "your MSE must be this small", but this seems to require context. Different tasks require different levels of precision in the real world - this is why dentists do not (except in extreme situations) use jackhammers, preferring tools with a diameter measured in millimeters.
+So, back to our questions. What does "accurate enough to be useful" mean, exactly? How do we know if we're there?
 
-Statistical measures of model or coefficient significance don't seem to help either; knowing that a given coefficient (or all of them) are statistically significantly different from zero is handy, but does not tell us that the model is ready for prime time. Even the legendary $R^2$ doesn't really have a clear a priori "threshold of good enough" (though surprisingly, I see to frequently run into people who are willing to do so). If you don't believe me, a perspective I found really helpful is Ch. 10 of Cosma Shalizi's [The Truth About Linear Regression](https://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf).
+We could try imposing a rule of thumb like "your MSE must be this small", but this seems to require context. After all, different tasks require different levels of precision in the real world - this is why dentists do not (except in extreme situations) use jackhammers, preferring tools with a diameter measured in millimeters.
+
+Statistical measures of model or coefficient significance don't seem to help either; knowing that a given coefficient (or all of them) are statistically significantly different from zero is handy, but does not tell us that the model is ready for prime time. Even the legendary $R^2$ doesn't really have a clear a priori "threshold of good enough" (though surprisingly, I see to frequently run into people who are willing to do so, often claiming 80% or 90% as if their model is trying to make the Honor Roll this semester). If you're used to using $R^2$, a perspective I found really helpful is Ch. 10 of Cosma Shalizi's [The Truth About Linear Regression](https://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf).
 
 An actual viable method is to look at whether your prediction intervals are both practically precise enough for the task and also cover the data, an approach detailed [here](https://statisticsbyjim.com/regression/how-high-r-squared/). This is a perfectly sensible choice if your model provides you with an easy way to compute prediction intervals. However, if you're using something like scikit-learn you'll usually be creating just a single point estimate (ie, a single fitted model of $\mathbb{E}[y \mid X]$ which you can deploy), and it may not be easy to generate prediction intervals for your model.
 
@@ -52,7 +54,7 @@ model = HistGradientBoostingRegressor()
 
 In this context, the acceptable amount of error is probably dictated by how much money you have in the bank as a backup in case you get less for the house than you expected. For your purposes, you decide that a difference of 35% compared to the actual value would be too much additional cost for you to bear.
 
-For reasons I can't really explain, I find it very amusing that this diagram looks like the flag of the Seychelles, and would look even more so if we added finer gradations of hit vs missed targets. We'll first come up with out-of-sample predictions using the cross validation function, and then we'll plot the actual vs predicted values along with the "good enough" region we want to hit.
+For reasons I can't really explain, I find it very amusing that this diagram looks like the [flag of Seychelles](https://en.wikipedia.org/wiki/Flag_of_Seychelles), and would look even more so if we added finer gradations of hit vs missed targets. We'll first come up with out-of-sample predictions using the cross validation function, and then we'll plot the actual vs predicted values along with the "good enough" region we want to hit.
 
 ```
 predictions = cross_val_predict(model, X, y, cv=5)  # cv=5 for 5-fold cross-validation
@@ -74,8 +76,7 @@ plt.show()
 
 ![image](https://github.com/lmc2179/lmc2179.github.io/assets/1301965/be70f215-01ab-438e-8afe-da66f01eb958)
 
-
-In addition to a chart like this, it's also handy to define a numeric score - we could even use this for model selection, if we wanted to.
+In addition to a chart like this, it's also handy to define a numeric score - we could even use this for model selection, if we wanted to. One that seems like it would be an easy step to me is the percentage of time our model makes predictions that land in the bound of acceptable error. Hopefully, that number is high, indicating that we can usually expect this model to produce outputs of good enough quality to use for decision-making.
 
 If we define $p$ as the acceptable percent change, we can compute the estimated _percent of predictions within acceptable error as_:
 
@@ -93,8 +94,6 @@ within_triangle = sum((y*(1-p) < predictions) & (predictions < y*(1+p)))
 print(round(100 * (within_triangle / len(y))), 2)
 ```
 
-That gives us 66% - a strong start, though there's probably room for improvement. It seems unlikely that we'd be willing to deploy this model as-is, and we'd want to improve performance by adding more features, more data, or improving the model design. However, even though this model is not usable currently, it's useful to now have an acceptance threshold for model quality that you can use with your stakeholders.
+That gives us 66% for this model on this data set - a strong start, though there's probably room for improvement. It seems unlikely that we'd be willing to deploy this model as-is, and we'd want to improve performance by adding more features, more data, or improving the model design. However, even though this model is not usable currently, it's useful to now have a way of measuring how well the model fits the task at hand..
 
-If we wanted to get a finer idea of how our decisions might play out, we could break the plot into more segments, like introducing regions for "near misses" or "catastrophic misses".
-
-You could also probably analyze this with quantile regression, ie see how bad the 5% and 95% cases are
+This is just one example of doing decision-oriented model validation, but the method could be expanded or taken in different directions. If we wanted to get a finer idea of how our decisions might play out, we could break the plot into more segments, like introducing regions for "near misses" or "catastrophic misses". You could also probably analyze the relationship between predicted and actual with quantile regression, learning what the "usual" lower bound on actual value given the predicted value is.
