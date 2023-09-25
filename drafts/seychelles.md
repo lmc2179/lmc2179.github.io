@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Is my regression model good enough?"
+title: "Is my regression model good enough to make decisions? Evaluating actual vs predicted plots and relative error of regression models"
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
@@ -72,9 +72,15 @@ plt.legend()
 plt.show()
 ```
 
-In addition to a chart like this, it's also handy to define a numeric score (we coudl even use this for model selection)
+In addition to a chart like this, it's also handy to define a numeric score - we could even use this for model selection, if we wanted to.
 
-Within-band percentage metrics
+If we define $p$ as the acceptable percent change, we can compute the estimated _percent of predictions within acceptable error as_:
+
+$$\text{Estimated probability of acceptable error} 
+= \frac{\text{Count of predictions within band}}{\text{Count of all predictions}}
+= \frac{y_i \times (1-p) \leq \hat{y}_i \leq y_i \times (1+p)}{n}$$
+
+To think about this from an engineering perspective, our use case defines the "tolerance", similar to the tolerance which is set in machining parts. This quantity tells us how often the product which our model produces (ie its output) is within the tolerance for error that we can handle.
 
 ```
 # Within target region calculation
@@ -84,8 +90,8 @@ within_triangle = sum((y*(1-p) < predictions) & (predictions < y*(1+p)))
 print(round(100 * (within_triangle / len(y))), 2)
 ```
 
-That gives us ??? - a strong start, though there's probably room for improvement
+That gives us ??? - a strong start, though there's probably room for improvement. It seems unlikely that we'd be willing to deploy this model as-is, and we'd want to improve performance by adding more features, more data, or improving the model design. However, even though this model is not usable currently, it's useful to now have an acceptance threshold for model quality that you can use with your stakeholders.
 
-If we wanted to get a finer idea of how our decisions might play out, we could break the plot into finer pieces, like introducing regions for "near misses" or "catastrophic misses".
+If we wanted to get a finer idea of how our decisions might play out, we could break the plot into more segments, like introducing regions for "near misses" or "catastrophic misses".
 
 You could also probably analyze this with quantile regression, ie see how bad the 5% and 95% cases are
