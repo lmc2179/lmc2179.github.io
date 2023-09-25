@@ -11,7 +11,7 @@ We use predictive models as our advisors, helping us make better decisions using
 
 This doesn't usually answer our question, though. Model selection tells us which choice is the best among the available options, but it's unclear whether even the best one is actually good enough to be useful. I myself have had the frustrating experience of performing an in-depth model selection process, only to realize at the end that all my careful optimizing has given me a model which is better than the baseline, but still so bad at predicting that it is unusable for any practical purpose.
 
-So, back to our questions. What does "accurate enough to be useful" mean, exactly? How do we know if we're there?
+So, back to our question. What does "accurate enough to be useful" mean, exactly? How do we know if we're there?
 
 We could try imposing a rule of thumb like "your MSE must be this small", but this seems to require context. After all, different tasks require different levels of precision in the real world - this is why dentists do not (except in extreme situations) use jackhammers, preferring tools with a diameter measured in millimeters.
 
@@ -94,6 +94,6 @@ within_triangle = sum((y*(1-p) < predictions) & (predictions < y*(1+p)))
 print(round(100 * (within_triangle / len(y))), 2)
 ```
 
-That gives us 66% for this model on this data set - a strong start, though there's probably room for improvement. It seems unlikely that we'd be willing to deploy this model as-is, and we'd want to improve performance by adding more features, more data, or improving the model design. However, even though this model is not usable currently, it's useful to now have a way of measuring how well the model fits the task at hand..
+That gives us 66% for this model on this data set - a strong start, though there's probably room for improvement. It seems unlikely that we'd be willing to deploy this model as-is, and we'd want to improve performance by adding more features, more data, or improving the model design. However, even though this model is not usable currently, it's useful to now have a way of measuring how well the model fits the task at hand.
 
 This is just one example of doing decision-oriented model validation, but the method could be expanded or taken in different directions. If we wanted to get a finer idea of how our decisions might play out, we could break the plot into more segments, like introducing regions for "near misses" or "catastrophic misses". You could also probably analyze the relationship between predicted and actual with quantile regression, learning what the "usual" lower bound on actual value given the predicted value is.
