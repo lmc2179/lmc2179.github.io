@@ -54,7 +54,7 @@ model = HistGradientBoostingRegressor()
 
 In this context, the acceptable amount of error is probably dictated by how much money you have in the bank as a backup in case you get less for the house than you expected. For your purposes, you decide that a difference of 35% compared to the actual value would be too much additional cost for you to bear.
 
-For reasons I can't really explain, I find it very amusing that this diagram looks like the [flag of Seychelles](https://en.wikipedia.org/wiki/Flag_of_Seychelles), and would look even more so if we added finer gradations of hit vs missed targets. We'll first come up with out-of-sample predictions using the cross validation function, and then we'll plot the actual vs predicted values along with the "good enough" region we want to hit.
+We'll first come up with out-of-sample predictions using the cross validation function, and then we'll plot the actual vs predicted values along with the "good enough" region we want to hit.
 
 ```python
 predictions = cross_val_predict(model, X, y, cv=5)  # cv=5 for 5-fold cross-validation
@@ -75,6 +75,8 @@ plt.show()
 ```
 
 ![image](https://github.com/lmc2179/lmc2179.github.io/assets/1301965/be70f215-01ab-438e-8afe-da66f01eb958)
+
+For reasons I can't really explain, I find it very amusing that this diagram looks like the [flag of Seychelles](https://en.wikipedia.org/wiki/Flag_of_Seychelles), and would look even more so if we added finer gradations of hit vs missed targets.
 
 In addition to a chart like this, it's also handy to define a numeric score - we could even use this for model selection, if we wanted to. One that seems like it would be an easy step to me is the percentage of time our model makes predictions that land in the bound of acceptable error. Hopefully, that number is high, indicating that we can usually expect this model to produce outputs of good enough quality to use for decision-making.
 
