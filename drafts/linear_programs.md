@@ -15,3 +15,4 @@ How to set up a linear program: Cost minimization
 * Minimum: Find the minimum-cost way to hit some production target on all the outputs
 * Maximum: Find the maximum-value way to use all the material present (then -c is the value vector)
 
+https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linprog.html
