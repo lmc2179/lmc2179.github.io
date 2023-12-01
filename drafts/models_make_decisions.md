@@ -56,6 +56,9 @@ Compare with baseline somehow
 
 What kinds of pitfalls show up here?s
 
+https://predictive-optimization.cs.princeton.edu/
+
+https://www.researchgate.net/publication/365700127_On_the_Advantages_of_Distinguishing_Between_Predictive_and_Allocative_Fairness_in_Algorithmic_Decision-Making
 
 Appendix: A crash course in defining your Decision process
 
