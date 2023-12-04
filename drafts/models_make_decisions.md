@@ -60,7 +60,17 @@ https://predictive-optimization.cs.princeton.edu/
 
 https://www.researchgate.net/publication/365700127_On_the_Advantages_of_Distinguishing_Between_Predictive_and_Allocative_Fairness_in_Algorithmic_Decision-Making
 
-Appendix: A crash course in defining your Decision process
+# The usefulness and distractions of "AI safety"
+
+In its most bombastic form
+
+However, I find this focus puzzling. There are real systems which affect actual humans
+
+https://en.wikipedia.org/wiki/Existential_risk_from_artificial_general_intelligence
+
+It is important to think about whose goals an agent is furthering
+
+# Appendix: A crash course in defining your Decision process
 
 Define the flowchart
 
