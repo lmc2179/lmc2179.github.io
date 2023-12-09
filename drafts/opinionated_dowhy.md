@@ -18,7 +18,7 @@ Pick an example including both a root cause analysis and an intervention analysi
 Assembling the causal graph
 
 * The DAG (NetworkX)
-* Root distributions and interior models
+* Root distributions and interior functional forms
 * How do we deal with categorical variables? (Look at the docs for this)
 * How to fit the model
 * Root cause analysis howto
