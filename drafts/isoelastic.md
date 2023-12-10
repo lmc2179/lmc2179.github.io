@@ -20,11 +20,16 @@ This relationship has a few key aspects that I notice over and over again:
 * Each input added is less efficient than the last; the slope is decreasing.
 * Inputs and outputs are both positive
 
-If you're an economist, or even if you just took econ 101, you likely recognize . Economists seem to be familiar with a lot of the useful properties of this kind of relationship 
+Lots and lots and _lots_ of measured variables seem to have this relationship. The notion of elasticity is ubiquitous in economics, which seems to be the first usage of this kind of model that I can find. However, in my own career I've seen this shape of input-output relationship show up over and over:
+* Marketing spend and impressions
+* Number of users who see something vs the number who engage with it
+* Number of samples vs model quality
+* Time spent on a project and quality of result
+* Size of an investment vs revenue generated (this one was popularized and explored by [a well known early data scientist](https://en.wikipedia.org/wiki/Tendency_of_the_rate_of_profit_to_fall))
 
-https://en.wikipedia.org/wiki/Isoelastic_function
+If you're an economist, or even if you just took econ 101, you likely recognize this. It's common to model this as $y = ax^b$, a function which has "[constant elasticity](https://en.wikipedia.org/wiki/Isoelastic_function)", meaning an percent change in input produces the same percent change in output regardless of where you are in the input space.  A common example is the [Cobb-Douglas production function](https://en.wikipedia.org/wiki/Cobb%E2%80%93Douglas_production_function).
 
-a common way to formulate this is as $ax^b$
+To get some intuition, lets look at some examples of how different values of $\alpha$ and $\beta$ affect the shape of this function:
 
 ```python
 x = np.linspace(.1, 3)
@@ -42,23 +47,17 @@ plt.plot(x, f(x, 3, 1.0), label='a=2,b=1.0')
 plt.legend()
 plt.show()
 ```
-b affects the curvature (when b<1, diminishing returns; when b>1 increasing returns, when b=1 then it's linear), a affects the vertical scale
 
-Nonetheless, I am not an economist (though I've had the pleasure of working with plenty of brilliant people with economics training). If you're like me, then you might not have these details close to hand. This post is meant to be a small primer for anyone who needs to build models with these kinds of functions
+By and large, we see that $\alpha$ and $\beta$ are the analogues of the intercept and slope, that is
+* $\alpha$ affects the vertical scale, or where the curve is anchored when $x=0$
+* $\beta$ affects the curvature (when $\beta < 1$,  there are diminishing returns; when $\beta > 1$ increasing returns, when $\beta = 0$ then it's linear)
+
+Nonetheless, I am not an economist (though I've had the pleasure of working with plenty of brilliant people with economics training). If you're like me, then you might not have these details close to hand. This post is meant to be a small primer for anyone who needs to build models with these kinds of functions.
 
 We usually want to know this relationship so we can answer some practical questions such as:
 * How much input will we need to add in order to reach our desired level of output?
 * If we have some free capital, material, or time to spend, what will we get for it? Should we use it here or somewhere else?
 * When will it become inefficient to add more input, ie when will the value of the marginal input be less than the marginal output?
-
-Lots and lots and _lots_ of measured variables seem to have this relationship. The notion of elasticity is ubiquitous in economics, which seems to be the first usage of this kind of model that I can find. However, in my own career I've seen this shape of input-output relationship show up over and over:
-* Marketing spend and impressions
-* Number of users who see something vs the number who engage with it
-* Number of samples vs model quality
-* Time spent on a project and quality of result
-* Size of an investment vs revenue generated (this one was popularized and explored by [a well known early data scientist](https://en.wikipedia.org/wiki/Tendency_of_the_rate_of_profit_to_fall))
-
-A common model for all these things which has the  [Cobb-Douglas production function](https://en.wikipedia.org/wiki/Cobb%E2%80%93Douglas_production_function).
 
 # Some useful facts about the $y = \alpha x ^\beta$ model
 
