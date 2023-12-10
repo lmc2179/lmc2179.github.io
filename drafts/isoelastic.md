@@ -7,7 +7,7 @@ tags: [datascience]
 image: important_relationship.png
 ---
 
-_Models of [elasticity](https://en.wikipedia.org/wiki/Elasticity_(economics)) and log-log relationships seem to show up over and over in my work. Since I have only a fuzzy, gin-soaked memory of Econ 101, I always have to remind myself of the properties of these models. The commonly used  $y = \alpha x ^\beta$  version of this model ends up being pretty easy to interpret, and had wide applicabilty across many domains that actual data scientists work. _
+_Models of [elasticity](https://en.wikipedia.org/wiki/Elasticity_(economics)) and log-log relationships seem to show up over and over in my work. Since I have only a fuzzy, gin-soaked memory of Econ 101, I always have to remind myself of the properties of these models. The commonly used  $y = \alpha x ^\beta$  version of this model ends up being pretty easy to interpret, and had wide applicabilty across many domains that actual data scientists work._
 
 # It's everywhere!
 
@@ -168,36 +168,22 @@ Maybe sqrt
 
 https://en.wikipedia.org/wiki/Output_elasticity
 
-Appendix: Interpretation of regression coefficients under the log-log and related models
+# Appendix: Estimating when you have only two data points
 
-**WTF THESE ALL SEEM WRONG**
+Lets imagine we have only two data points, which we'll call $x_1, y_1, x_2, y_2$. We can do a little bit of algebra to come up with the point estimate from just these two:
 
-https://openstax.org/books/introductory-business-statistics/pages/13-5-interpretation-of-regression-coefficients-elasticity-and-logarithmic-transformation
-Make a matrix!!!
-https://stats.stackexchange.com/questions/108274/linear-and-semi-log-regression-model
+$$y_1 = \alpha x_1^\beta$$
+$$y_2 = \alpha x_2^\beta$$
 
-| . | $y$ | $log \ y$ |
-| --- | ----------- |--- |
-| $x$ | $\beta = \frac{dY}{dX} = \frac{\text{Unit} \ \Delta Y}{\text{Unit} \ \Delta X}$ | $100 \ times (e^\beta - 1) = \frac{\% \Delta Y}{\text{Unit} \ \Delta X}$ |
-| $log \ x$ | $\frac{\beta}{100} = \frac{\text{Unit} \ \Delta Y}{\% \Delta X}$ | $\beta = \frac{\% \Delta Y}{\% \Delta X}$ |
-
-idk why some other sources use a different def for log y = x
-
-include an example regression for each of these
 
 ```python
-from matplotlib import pyplot as plt
-import seaborn as sns
 import numpy as np
-from statsmodels.api import formula as smf
-import pandas as pd
-
-df = pd.DataFrame({'t': [0]*10000 + [1]*10000, 
-                   'y': np.concatenate([np.random.normal(100, 1, 10000), 
-                                        np.random.normal(200, 1, 10000)])})
-model = smf.ols('np.log(y) ~ t', df).fit()
-
-print(model.summary())
-
+def solve(x1, x2, y1, y2):
+    # y1 = a*x1**b
+    log_x1, log_x2, log_y1, log_y2 = np.log(x1), np.log(x2), np.log(y1), np.log(y2)
+    b = (log_y1 - log_y2) / (log_x1 - log_x2)
+    log_a = log_y1 + b*log_x1
+    return np.exp(log_a), b
+a, b = solve(1, 1.01, 1, 1.5)
+print(a, b, 1.01**b)
 ```
-
