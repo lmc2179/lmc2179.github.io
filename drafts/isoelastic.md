@@ -77,7 +77,7 @@ Or, if you are percentage afficionado:
 
 > Under this model, changing the input by $p\%$ changes the output output by $(1+p\%)^\beta$.
 
-## It's easy to fit with OLS because $log y = log \alpha + \beta log x$
+## It's easy to fit with OLS because $log \ y = log \ \alpha + \beta \  log \ x$
 
 Another reason that the OLS model is so popular is because it is easy to compute in practice. This is probably the reason that OLS is so popular at all; the OLS model may not always be true, but it is always possible to compute it.
 
