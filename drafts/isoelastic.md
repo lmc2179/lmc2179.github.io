@@ -170,6 +170,8 @@ https://en.wikipedia.org/wiki/Output_elasticity
 
 # Appendix: Estimating when you have only two data points
 
+Occasionally I've gone and computed an elasticity from a single pair of observations
+
 Lets imagine we have only two data points, which we'll call $x_1, y_1, x_2, y_2$. Then, we have two equations and two unknowns, that is:
 
 $$y_1 = \alpha x_1^\beta$$
@@ -180,7 +182,7 @@ If we do some algebra, we can come up with estimates for each variable:
 
 $$\beta = \frac{log \ y_1 - log \ y_2}{log \ x_1 - log \ x_2}$$
 
-$$log \ \alpha = log \ y_1 + \beta log \ x_1$$
+$$\alpha = exp(log \ y_1 + \beta \ log \ x_1)$$
 
 ```python
 import numpy as np
