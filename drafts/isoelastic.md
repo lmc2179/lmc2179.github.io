@@ -173,8 +173,16 @@ https://en.wikipedia.org/wiki/Output_elasticity
 Lets imagine we have only two data points, which we'll call $x_1, y_1, x_2, y_2$. We can do a little bit of algebra to come up with the point estimate from just these two:
 
 $$y_1 = \alpha x_1^\beta$$
+
 $$y_2 = \alpha x_2^\beta$$
 
+$$log y_1 = log \alpha x_1$$
+
+$$log y_2 = \alpha x_2^\beta$$
+
+$$\beta = \frac{log y_1 - log y_2}{log x_1 - log x_2}$$
+
+$$log \alpha = log y_1 + \beta log x_1$$
 
 ```python
 import numpy as np
