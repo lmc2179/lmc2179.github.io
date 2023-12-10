@@ -96,7 +96,7 @@ $\frac{f^{-1}(ym)}{f^{-1}(y)} = m^{\frac{1}{\beta}}$
 
 ?
 
-# code
+# An example: Lotsize vs houes price
 
 ```python
 from matplotlib import pyplot as plt
@@ -152,13 +152,17 @@ The above analysis is, when you get down to it, mostly algebra. It's useful alge
 
 we should not mistake analytical convenience for truth; we need to check both the goodness of fit of the model to the data at hand, and consider the causal assumptions that our counterfactuals rest on
 
-# outro
+# Some other options
+
+As I mentioned above, the log-log model isn't the only game in town. 
 
 Related concepts
 https://en.wikipedia.org/wiki/Arc_elasticity
 https://en.wikipedia.org/wiki/Elasticity_of_a_function
 
 Some other options, esp. w/ zeros:
+
+Isotonic regression
 
 IHS
 https://marcfbellemare.com/wordpress/wp-content/uploads/2019/02/BellemareWichmanIHSFebruary2019.pdf
