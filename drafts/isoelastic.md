@@ -76,7 +76,7 @@ $\frac{f(xm)}{f(x)} = \frac{\alpha (xm)^\beta}{\alpha x ^ \beta} = m^\beta$
 
 Or, if you are percentage afficionado:
 
-> Under this model, changing the input by $p%$ changes the output output by $(1+p%)^\beta$.
+> Under this model, changing the input by $p\%$ changes the output output by $(1+p\%)^\beta$.
 
 ## It's easy to fit with OLS because $log y = log \alpha + \beta log x$
 
