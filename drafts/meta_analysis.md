@@ -17,7 +17,10 @@ def combine_estimates(estimates, standard_errors):
   combined_var = 1./ np.sum(1. / vars)
   combined_se = np.sqrt(combined_var)
   return combined_estimate, combined_se
+```
 
+```python
+# The results are the same as if we had pooled the data
 print(combine_estimates([np.mean(l1), np.mean(l2)],
                         [sem(l1), sem(l2)]))
 print(np.mean(l12), sem(l12))
