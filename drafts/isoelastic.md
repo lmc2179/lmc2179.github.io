@@ -98,6 +98,8 @@ $\frac{f^{-1}(ym)}{f^{-1}(y)} = m^{\frac{1}{\beta}}$
 
 # An example: Lotsize vs houes price
 
+this has the intuitive features we'd expect
+
 ```python
 from matplotlib import pyplot as plt
 import seaborn as sns
@@ -107,31 +109,39 @@ from statsmodels.api import formula as smf
 
 df = pd.read_csv('https://vincentarelbundock.github.io/Rdatasets/csv/AER/HousePrices.csv')
 df = df.sort_values('lotsize')
+```
 
-#%%
+```python
 model = smf.ols('np.log(price) ~ np.log(lotsize)', df).fit()
 
 sns.regplot(df['lotsize'], df['price'], fit_reg=False)
 plt.plot(df['lotsize'], np.exp(model.fittedvalues))
+plt.title('Lot Size vs House Price')
+plt.xlabel('Lot Size')
+plt.ylabel('House Price')
 plt.show()
+```
 
-#%%
+```python
 sns.regplot(df['lotsize'], df['price'], fit_reg=False)
 plt.plot(df['lotsize'], np.exp(model.fittedvalues))
 plt.xscale('log')
 plt.yscale('log')
+plt.title('LogLot Size vs Log House Price')
+plt.xlabel('Log Lot Size')
+plt.ylabel('Log House Price')
 plt.show()
+```
 
-#%%
-
+```python
 b = model.params['np.log(lotsize)']
 a = np.exp(model.params['Intercept'])
 print('1% increase in lotsize -->', round(100*(1.01**b-1), 2), '% increase in price')
 print('2% increase in lotsize -->', round(100*(1.02**b-1), 2), '% increase in price')
 print('10% increase in lotsize -->', round(100*(1.10**b-1), 2), '% increase in price')
+```
 
-#%%
-
+```python
 lotsize_pct_change = .3
 before_lotsize = 4000
 after_lotsize = before_lotsize + before_lotsize*lotsize_pct_change 
@@ -139,9 +149,10 @@ after_lotsize = before_lotsize + before_lotsize*lotsize_pct_change
 before_price_model, after_price_model = np.exp(model.predict(pd.DataFrame({'lotsize': [before_lotsize, after_lotsize]})))
 print(before_price_model, after_price_model, after_price_model/before_price_model-1) # The percent change in the model value
 print((1+lotsize_pct_change) ** b - 1) # Is the same as we get from the closed form
+```
 
+```python
 print(after_lotsize, (after_price_model/a)**(1/b)) # Successful inversion demo
-
 ```
 
 Calculate value of 1% increase, compare with cost; or calculate when marginal output < some value
