@@ -60,7 +60,7 @@ https://predictive-optimization.cs.princeton.edu/
 
 https://www.researchgate.net/publication/365700127_On_the_Advantages_of_Distinguishing_Between_Predictive_and_Allocative_Fairness_in_Algorithmic_Decision-Making
 
-# The occasional usefulness and frequent distractions of "AI safety"
+# The intense importance and regrettable red herrings of "AI safety"
 
 we've talked so far about . occasionally, versions of this show up as "alignment problem".
 
