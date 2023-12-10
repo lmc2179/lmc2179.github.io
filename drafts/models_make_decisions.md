@@ -74,7 +74,7 @@ However, I find this focus puzzling. There are real systems which affect actual 
 
 https://en.wikipedia.org/wiki/Existential_risk_from_artificial_general_intelligence
 
-It is important to think about whose goals an agent is furthering - the answer is always the same, it is the richest and most powerful people in the world
+It is important to think about whose goals an agent is furthering - the answer is always the same, it is the owners of the organizations that build these agents.
 
 # Appendix: A crash course in defining your Decision process
 
