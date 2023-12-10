@@ -170,28 +170,34 @@ https://en.wikipedia.org/wiki/Output_elasticity
 
 # Appendix: Estimating when you have only two data points
 
-Lets imagine we have only two data points, which we'll call $x_1, y_1, x_2, y_2$. We can do a little bit of algebra to come up with the point estimate from just these two:
+Lets imagine we have only two data points, which we'll call $x_1, y_1, x_2, y_2$. Then, we have two equations and two unknowns, that is:
 
 $$y_1 = \alpha x_1^\beta$$
 
 $$y_2 = \alpha x_2^\beta$$
 
-$$log y_1 = log \alpha x_1$$
+If we do some algebra, we can come up with estimates for each variable:
 
-$$log y_2 = \alpha x_2^\beta$$
+$$\beta = \frac{log \ y_1 - log \ y_2}{log \ x_1 - log \ x_2}$$
 
-$$\beta = \frac{log y_1 - log y_2}{log x_1 - log x_2}$$
-
-$$log \alpha = log y_1 + \beta log x_1$$
+$$log \ \alpha = log \ y_1 + \beta log \ x_1$$
 
 ```python
 import numpy as np
 def solve(x1, x2, y1, y2):
     # y1 = a*x1**b
+    # y2 = a*x2**b
     log_x1, log_x2, log_y1, log_y2 = np.log(x1), np.log(x2), np.log(y1), np.log(y2)
     b = (log_y1 - log_y2) / (log_x1 - log_x2)
     log_a = log_y1 + b*log_x1
     return np.exp(log_a), b
+```
+
+Then, we can run an example like this one in which a 1% increase in $x$ leads to a 50% increase in $y$:
+
+```python
 a, b = solve(1, 1.01, 1, 1.5)
 print(a, b, 1.01**b)
 ```
+
+Which shows us `a=1.0, b=40.74890715609402, 1.01^b=1.5`.
