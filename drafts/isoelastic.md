@@ -168,13 +168,18 @@ Calculate value of 1% increase, compare with cost; or calculate when marginal ou
 
 # does this model really describe reality? some causal considerations and notes on modeling
 
-The above analysis is, when you get down to it, mostly algebra. It's useful algebra to be sure, but it is really just repeated manipulation of the functional form $\alpha x ^ \beta$. 
+The above set of tips and tricks is, when you get down to it, mostly algebra. It's useful algebra to be sure, but it is really just repeated manipulation of the functional form $\alpha x ^ \beta$. It turns out that that functional form is both a priori plausible for lots of relationships, and is easy to work with. 
 
-we should not mistake analytical convenience for truth; we need to check both the goodness of fit of the model to the data at hand, and consider the causal assumptions that our counterfactuals rest on
+However, we should not mistake analytical convenience for truth. We should recognize that assuming a particular functional form comes with risks, so we should spend some time:
+* Demonstrating that this functional form is a good fit for the data at hand by doing regression diagnostics like residual plots
+* Understanding how far off our model's predictions and prediction intervals are from the truth by doing cross-validation
+* Making sure we're clear on what causal assumptions we're making, if we're going to consider counterfactuals
+
+This is always good practice, of course - but it's easy to forget about it once you have a particular model that is convenient to work with.
 
 # Some other options
 
-As I mentioned above, the log-log model isn't the only game in town. 
+As I mentioned above, the log-log model isn't the only game in town.
 
 Related concepts
 https://en.wikipedia.org/wiki/Arc_elasticity
