@@ -59,6 +59,8 @@ We usually want to know this relationship so we can answer some practical questi
 * If we have some free capital, material, or time to spend, what will we get for it? Should we use it here or somewhere else?
 * When will it become inefficient to add more input, ie when will the value of the marginal input be less than the marginal output?
 
+Let's look at the $ \alpha x ^\beta$  model in detail.
+
 # Some useful facts about the $y = \alpha x ^\beta$ model
 
 ## It makes it easy to talk about % change in input vs % change in output
@@ -67,9 +69,11 @@ One of the many reasons that the common OLS model $y = \alpha + \beta x$ is so p
 
 $f(x) = y = \alpha x ^ \beta$
 
-The interpretation of this model is a little different
+The interpretation of this model is a little different than the usual OLS model. Instead, we'll ask: how does multiplying the input multiply the output? That is, how do percent changes in $x$ produce percent changes in $y$? For example, we might wonder what happens when we increase the input by 10%, ie multiplying it by 1.1. Lets see how multiplying the input by $m$ creates a multiplier on the output:
 
 $\frac{f(xm)}{f(x)} = \frac{\alpha (xm)^\beta}{\alpha x ^ \beta} = m^\beta$
+
+That means for this model, we can summarize changes between variables as:
 
 > Under this model, multiplying the input by _m_ multiplies the output by $m^\beta$.
 
@@ -77,15 +81,21 @@ Or, if you are percentage afficionado:
 
 > Under this model, changing the input by $p\%$ changes the output output by $(1+p\%)^\beta$.
 
-## It's easy to fit with OLS because $log \ y = log \ \alpha + \beta \  log \ x$
+## It's easy to fit with OLS
 
-Another reason that the OLS model is so popular is because it is easy to compute in practice. This is probably the reason that OLS is so popular at all; the OLS model may not always be true, but it is always possible to compute it.
+Another reason that the OLS model is so popular is because it is easy to estimate in practice. This is probably the reason that OLS is so popular too; the OLS model may not always be true, but it is often easy to estimate it it. Some basic algebra lets us turn our model into one we can fit with OLS:
 
-Compare with usual OLS interpretation (one unit increase --> output change)
+$y = \alpha x^\beta$
+
+Taking the logarithm of both sides:
+
+$log \ y = log \ \alpha + \beta \  log \ x$
+
+This model is linear in $log \ x$, so we can now use OLS to calculate the coefficients! Just don't forget to $exp$ the intercept to get $\alpha$ on the right scale.
 
 ## We can use it to solve for input if we know the desired level of output
 
-In practice, we often start with the desired quantity of output, and then try to understand if the required input is available or feasible. It's handy to have a closed form which inverts our model: 
+In practical settings, we often start with the desired quantity of output, and then try to understand if the required input is available or feasible. It's handy to have a closed form which inverts our model: 
 
 $f^{-1}(y) = (y/\alpha)^{\frac{1}{\beta}}$
 
