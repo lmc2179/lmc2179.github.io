@@ -101,7 +101,7 @@ If we want to know how a change in the output will require change in the input
 
 $\frac{f^{-1}(ym)}{f^{-1}(y)} = m^{\frac{1}{\beta}}$
 
-That means if our goal is to multiply the output by ... we need to multiply the input by ... .
+That means if our goal is to multiply the output by $m$ we need to multiply the input by $m^{\frac{1}{\beta}}$.
 
 # An example: Lotsize vs house price
 
