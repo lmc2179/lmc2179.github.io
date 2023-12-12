@@ -109,6 +109,8 @@ $\frac{f^{-1}(ym)}{f^{-1}(y)} = m^{\frac{1}{\beta}}$
 
 this has the intuitive features we'd expect
 
+grab the data
+
 ```python
 from matplotlib import pyplot as plt
 import seaborn as sns
@@ -120,10 +122,12 @@ df = pd.read_csv('https://vincentarelbundock.github.io/Rdatasets/csv/AER/HousePr
 df = df.sort_values('lotsize')
 ```
 
+Plot the fit
+
 ```python
 model = smf.ols('np.log(price) ~ np.log(lotsize)', df).fit()
 
-sns.regplot(df['lotsize'], df['price'], fit_reg=False)
+plt.scatter(df['lotsize'], df['price'])
 plt.plot(df['lotsize'], np.exp(model.fittedvalues))
 plt.title('Lot Size vs House Price')
 plt.xlabel('Lot Size')
@@ -131,8 +135,10 @@ plt.ylabel('House Price')
 plt.show()
 ```
 
+How about on log-log axes 
+
 ```python
-sns.regplot(df['lotsize'], df['price'], fit_reg=False)
+plt.scatter(df['lotsize'], df['price'])
 plt.plot(df['lotsize'], np.exp(model.fittedvalues))
 plt.xscale('log')
 plt.yscale('log')
@@ -142,6 +148,10 @@ plt.ylabel('Log House Price')
 plt.show()
 ```
 
+nice
+
+lets do some interpretation
+
 ```python
 b = model.params['np.log(lotsize)']
 a = np.exp(model.params['Intercept'])
@@ -149,6 +159,8 @@ print('1% increase in lotsize -->', round(100*(1.01**b-1), 2), '% increase in pr
 print('2% increase in lotsize -->', round(100*(1.02**b-1), 2), '% increase in price')
 print('10% increase in lotsize -->', round(100*(1.10**b-1), 2), '% increase in price')
 ```
+
+Lets say we can expand the lot size 30% by buying the adjacent lot
 
 ```python
 lotsize_pct_change = .3
@@ -166,7 +178,7 @@ print(after_lotsize, (after_price_model/a)**(1/b)) # Successful inversion demo
 
 Calculate value of 1% increase, compare with cost; or calculate when marginal output < some value
 
-# does this model really describe reality? some causal considerations and notes on modeling
+# Does this model really describe reality? A reminder that a convenient model need not be the correct model
 
 The above set of tips and tricks is, when you get down to it, mostly algebra. It's useful algebra to be sure, but it is really just repeated manipulation of the functional form $\alpha x ^ \beta$. It turns out that that functional form is both a priori plausible for lots of relationships, and is easy to work with. 
 
@@ -177,7 +189,7 @@ However, we should not mistake analytical convenience for truth. We should recog
 
 This is always good practice, of course - but it's easy to forget about it once you have a particular model that is convenient to work with.
 
-# Some other options
+# Some alternatives to the model we've been using
 
 As I mentioned above, the log-log model isn't the only game in town.
 
