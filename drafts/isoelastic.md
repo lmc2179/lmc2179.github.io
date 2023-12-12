@@ -105,11 +105,15 @@ $\frac{f^{-1}(ym)}{f^{-1}(y)} = m^{\frac{1}{\beta}}$
 
 ?
 
-# An example: Lotsize vs houes price
+# An example: Lotsize vs house price
 
 this has the intuitive features we'd expect
 
-grab the data
+* The slope is positive - all other things equal, we'd expect bigger lots to sell for more.
+* Each input added is less efficient than the last; adding more to an already large lot probably doesn't change the price much.
+* Lot-size and price are both positive.
+
+Lets grab the data:
 
 ```python
 from matplotlib import pyplot as plt
