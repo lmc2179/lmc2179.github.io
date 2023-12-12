@@ -65,11 +65,9 @@ Let's look at the $ \alpha x ^\beta$  model in detail.
 
 ## It makes it easy to talk about % change in input vs % change in output
 
-One of the many reasons that the common OLS model $y = \alpha + \beta x$ is so popular is that it lets us make a very succinct statement about the relationship between $x$ and $y$: "A one-unit increase in $x$ is associated with an increase of $\beta$ units of $y$." The usual linear model would be a poor fit for the relationship at hand, so we're using a slightly different one:
+One of the many reasons that the common OLS model $y = \alpha + \beta x$ is so popular is that it lets us make a very succinct statement about the relationship between $x$ and $y$: "A one-unit increase in $x$ is associated with an increase of $\beta$ units of $y$." What's the analogue to this for our model $y = \alpha x ^ \beta$?
 
-$f(x) = y = \alpha x ^ \beta$
-
-The interpretation of this model is a little different than the usual OLS model. Instead, we'll ask: how does multiplying the input multiply the output? That is, how do percent changes in $x$ produce percent changes in $y$? For example, we might wonder what happens when we increase the input by 10%, ie multiplying it by 1.1. Lets see how multiplying the input by $m$ creates a multiplier on the output:
+The interpretation of this model is a little different than the usual OLS model. Instead, we'll ask: how does **multiplying** the input **multiply** the output? That is, how do percent changes in $x$ produce percent changes in $y$? For example, we might wonder what happens when we increase the input by 10%, ie multiplying it by 1.1. Lets see how multiplying the input by $m$ creates a multiplier on the output:
 
 $\frac{f(xm)}{f(x)} = \frac{\alpha (xm)^\beta}{\alpha x ^ \beta} = m^\beta$
 
@@ -83,7 +81,7 @@ Or, if you are percentage afficionado:
 
 ## It's easy to fit with OLS
 
-Another reason that the OLS model is so popular is because it is easy to estimate in practice. This is probably the reason that OLS is so popular too; the OLS model may not always be true, but it is often easy to estimate it it. Some basic algebra lets us turn our model into one we can fit with OLS:
+Another reason that the OLS model is so popular is because it is easy to estimate in practice. The OLS model may not always be true, but it is often easy to estimate it, and it might tell us something interesting even if it isn't correct. Some basic algebra lets us turn our model into one we can fit with OLS. Starting with our model:
 
 $y = \alpha x^\beta$
 
@@ -103,12 +101,11 @@ If we want to know how a change in the output will require change in the input
 
 $\frac{f^{-1}(ym)}{f^{-1}(y)} = m^{\frac{1}{\beta}}$
 
-?
+That means if our goal is to multiply the output by ... we need to multiply the input by ... .
 
 # An example: Lotsize vs house price
 
-this has the intuitive features we'd expect
-
+Let's look at how this relationship might be estimated on a real data set. Here, we'll use a data set of house prices along with the size of the lot they sit on. The question of how lot size relates to house price has a bunch of the features we expect, namely:
 * The slope is positive - all other things equal, we'd expect bigger lots to sell for more.
 * Each input added is less efficient than the last; adding more to an already large lot probably doesn't change the price much.
 * Lot-size and price are both positive.
