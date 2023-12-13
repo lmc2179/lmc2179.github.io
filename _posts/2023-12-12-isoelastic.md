@@ -199,7 +199,7 @@ As I mentioned above, the log-log model isn't the only game in town.
 
 For one, we've assumed that the "true" function should have constant elasticity. But that need not be true; we could imagine taking some other function and computing its [point elasticity](https://en.wikipedia.org/wiki/Elasticity_of_a_function) in one spot, or its [arc elasticity](https://en.wikipedia.org/wiki/Arc_elasticity) between two points.
 
-What about alternatives to $y = \alpha x^\Beta$ and the log-log model?
+What about alternatives to $y = \alpha x^\beta$ and the log-log model?
 * If you just want a model that is non-decreasing or non-increasing, you could try [non-parametric isotonic regression](https://scikit-learn.org/stable/modules/generated/sklearn.isotonic.IsotonicRegression.html).
 * You could pick a different transformation other than log, like a square root. This also works when there are zeros, whereas $log(0)$ is undefined.
 * Another possible transformation is [Inverse Hyperbolic Sine](https://worthwhile.typepad.com/worthwhile_canadian_initi/2011/07/a-rant-on-inverse-hyperbolic-sine-transformations.html), which also has an [elasticity interpreation](https://marcfbellemare.com/wordpress/wp-content/uploads/2019/02/BellemareWichmanIHSFebruary2019.pdf).
