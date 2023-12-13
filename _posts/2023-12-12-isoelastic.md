@@ -7,7 +7,7 @@ tags: [datascience]
 image: important_relationship.png
 ---
 
-_Models of [elasticity](https://en.wikipedia.org/wiki/Elasticity_(economics)) and log-log relationships seem to show up over and over in my work. Since I have only a fuzzy, gin-soaked memory of Econ 101, I always have to remind myself of the properties of these models. The commonly used  $y = \alpha x ^\beta$  version of this model ends up being pretty easy to interpret, and had wide applicabilty across many domains that actual data scientists work._
+_Models of [elasticity](https://en.wikipedia.org/wiki/Elasticity_(economics)) and log-log relationships seem to show up over and over in my work. Since I have only a fuzzy, gin-soaked memory of Econ 101, I always have to remind myself of the properties of these models. The commonly used  $y = \alpha x ^\beta$  version of this model ends up being pretty easy to interpret, and has wide applicabilty across many domains that actual data scientists work._
 
 # It's everywhere!
 
