@@ -102,7 +102,7 @@ In practical settings, we often start with the desired quantity of output, and t
 
 $f^{-1}(y) = (y/\alpha)^{\frac{1}{\beta}}$
 
-If we want to know how a change in the output will require change in the input
+If we want to know how a **change** in the output will require **change** in the input, we look at how multiplying the output by $m$ changes the required value of $x$:
 
 $\frac{f^{-1}(ym)}{f^{-1}(y)} = m^{\frac{1}{\beta}}$
 
@@ -128,31 +128,40 @@ df = pd.read_csv('https://vincentarelbundock.github.io/Rdatasets/csv/AER/HousePr
 df = df.sort_values('lotsize')
 ```
 
-Plot the fit
+We'll fit our log-log model and plot it:
 
 ```python
 model = smf.ols('np.log(price) ~ np.log(lotsize)', df).fit()
 
 plt.scatter(df['lotsize'], df['price'])
-plt.plot(df['lotsize'], np.exp(model.fittedvalues))
+plt.plot(df['lotsize'], np.exp(model.fittedvalues), color='orange', label='Log-log model')
 plt.title('Lot Size vs House Price')
 plt.xlabel('Lot Size')
 plt.ylabel('House Price')
+plt.legend()
+plt.tight_layout()
 plt.show()
 ```
 
-How about on log-log axes 
+![image](https://github.com/lmc2179/lmc2179.github.io/assets/1301965/9e1e7e67-7f07-41c6-ad4e-8b0389a84539)
+
+
+That looks plausible.
 
 ```python
 plt.scatter(df['lotsize'], df['price'])
-plt.plot(df['lotsize'], np.exp(model.fittedvalues))
+plt.plot(df['lotsize'], np.exp(model.fittedvalues), label='Log-log model', color='orange')
 plt.xscale('log')
 plt.yscale('log')
 plt.title('LogLot Size vs Log House Price')
 plt.xlabel('Log Lot Size')
 plt.ylabel('Log House Price')
+plt.legend()
+plt.tight_layout()
 plt.show()
 ```
+
+![image](https://github.com/lmc2179/lmc2179.github.io/assets/1301965/fa83fa55-dd2a-4ecd-a9de-a08b0ea815f4)
 
 nice
 
@@ -164,6 +173,12 @@ a = np.exp(model.params['Intercept'])
 print('1% increase in lotsize -->', round(100*(1.01**b-1), 2), '% increase in price')
 print('2% increase in lotsize -->', round(100*(1.02**b-1), 2), '% increase in price')
 print('10% increase in lotsize -->', round(100*(1.10**b-1), 2), '% increase in price')
+```
+
+```
+1% increase in lotsize --> 0.54 % increase in price
+2% increase in lotsize --> 1.08 % increase in price
+10% increase in lotsize --> 5.3 % increase in price
 ```
 
 Lets say we can expand the lot size 30% by buying the adjacent lot
