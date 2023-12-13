@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "A Handy Primer on Elasticity and log-log models for practicing data scientists"
+title: "Elasticity and log-log models for practicing data scientists"
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
