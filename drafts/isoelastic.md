@@ -50,9 +50,12 @@ plt.legend()
 plt.show()
 ```
 
+![image](https://github.com/lmc2179/lmc2179.github.io/assets/1301965/03d1c910-9806-4f9f-b9fe-0d8da56161e9)
+
+
 By and large, we see that $\alpha$ and $\beta$ are the analogues of the intercept and slope, that is
 * $\alpha$ affects the vertical scale, or where the curve is anchored when $x=0$
-* $\beta$ affects the curvature (when $\beta < 1$,  there are diminishing returns; when $\beta > 1$ increasing returns, when $\beta = 0$ then it's linear)
+* $\beta$ affects the curvature (when $\beta < 1$,  there are diminishing returns; when $\beta > 1$ increasing returns, when $\beta = 0$ then it's linear). When it's negative, the slope is downward.
 
 Nonetheless, I am not an economist (though I've had the pleasure of working with plenty of brilliant people with economics training). If you're like me, then you might not have these details close to hand. This post is meant to be a small primer for anyone who needs to build models with these kinds of functions.
 
