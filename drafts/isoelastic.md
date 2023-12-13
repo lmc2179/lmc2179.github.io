@@ -70,7 +70,7 @@ Let's look at the $ \alpha x ^\beta$  model in detail.
 
 ## It makes it easy to talk about % change in input vs % change in output
 
-One of the many reasons that the common OLS model $y = \alpha + \beta x$ is so popular is that it lets us make a very succinct statement about the relationship between $x$ and $y$: "A one-unit increase in $x$ is associated with an increase of $\beta$ units of $y$." What's the analogue to this for our model $y = \alpha x ^ \beta$?
+One of the many reasons that the common OLS model $y = \alpha + \beta x$ is so popular is that it lets us make a very succinct statement about the relationship between $x$ and $y$: "A one-unit increase in $x$ is associated with an increase of $\beta$ units of $y$." What's the equivalent to this for our model $y = \alpha x ^ \beta$?
 
 The interpretation of this model is a little different than the usual OLS model. Instead, we'll ask: how does **multiplying** the input **multiply** the output? That is, how do percent changes in $x$ produce percent changes in $y$? For example, we might wonder what happens when we increase the input by 10%, ie multiplying it by 1.1. Lets see how multiplying the input by $m$ creates a multiplier on the output:
 
@@ -145,8 +145,7 @@ plt.show()
 
 ![image](https://github.com/lmc2179/lmc2179.github.io/assets/1301965/9e1e7e67-7f07-41c6-ad4e-8b0389a84539)
 
-
-That looks plausible.
+Okay, looks good so far. This seems like a plausible model for this case. Let's double check it by looking at it on the log scale:
 
 ```python
 plt.scatter(df['lotsize'], df['price'])
@@ -163,9 +162,9 @@ plt.show()
 
 ![image](https://github.com/lmc2179/lmc2179.github.io/assets/1301965/fa83fa55-dd2a-4ecd-a9de-a08b0ea815f4)
 
-nice
+Nice. When we log-ify everything, it looks like a textbook regression example.
 
-lets do some interpretation
+Okay, let's interpret this model. Lets convert the point estimate of $\beta$ into an estimate of percent change:
 
 ```python
 b = model.params['np.log(lotsize)']
@@ -181,23 +180,7 @@ print('10% increase in lotsize -->', round(100*(1.10**b-1), 2), '% increase in p
 10% increase in lotsize --> 5.3 % increase in price
 ```
 
-Lets say we can expand the lot size 30% by buying the adjacent lot
-
-```python
-lotsize_pct_change = .3
-before_lotsize = 4000
-after_lotsize = before_lotsize + before_lotsize*lotsize_pct_change 
-
-before_price_model, after_price_model = np.exp(model.predict(pd.DataFrame({'lotsize': [before_lotsize, after_lotsize]})))
-print(before_price_model, after_price_model, after_price_model/before_price_model-1) # The percent change in the model value
-print((1+lotsize_pct_change) ** b - 1) # Is the same as we get from the closed form
-```
-
-```python
-print(after_lotsize, (after_price_model/a)**(1/b)) # Successful inversion demo
-```
-
-Calculate value of 1% increase, compare with cost; or calculate when marginal output < some value
+We see that relatively, price increases more slowly than lotsize.
 
 # Does this model really describe reality? A reminder that a convenient model need not be the correct model
 
@@ -214,25 +197,16 @@ This is always good practice, of course - but it's easy to forget about it once 
 
 As I mentioned above, the log-log model isn't the only game in town.
 
-Related concepts
-https://en.wikipedia.org/wiki/Arc_elasticity
-https://en.wikipedia.org/wiki/Elasticity_of_a_function
+For one, we've assumed that the "true" function should have constant elasticity. But that need not be true; we could imagine taking some other function and computing its [point elasticity](https://en.wikipedia.org/wiki/Elasticity_of_a_function) in one spot, or its [arc elasticity](https://en.wikipedia.org/wiki/Arc_elasticity) between two points.
 
-Some other options, esp. w/ zeros:
-
-Isotonic regression
-
-IHS
-https://marcfbellemare.com/wordpress/wp-content/uploads/2019/02/BellemareWichmanIHSFebruary2019.pdf
-https://worthwhile.typepad.com/worthwhile_canadian_initi/2011/07/a-rant-on-inverse-hyperbolic-sine-transformations.html
-
-Maybe sqrt
-
-https://en.wikipedia.org/wiki/Output_elasticity
+What about alternatives to $y = \alpha x^\Beta$ and the log-log model?
+* If you just want a model that is non-decreasing or non-increasing, you could try [non-parametric isotonic regression](https://scikit-learn.org/stable/modules/generated/sklearn.isotonic.IsotonicRegression.html).
+* You could pick a different transformation other than log, like a square root. This also works when there are zeros, whereas $log(0)$ is undefined.
+* Another possible transformation is [Inverse Hyperbolic Sine](https://worthwhile.typepad.com/worthwhile_canadian_initi/2011/07/a-rant-on-inverse-hyperbolic-sine-transformations.html), which also has an [elasticity interpreation](https://marcfbellemare.com/wordpress/wp-content/uploads/2019/02/BellemareWichmanIHSFebruary2019.pdf).
 
 # Appendix: Estimating when you have only two data points
 
-Occasionally I've gone and computed an elasticity from a single pair of observations
+Occasionally I've gone and computed an observed elasticity by fitting the model from a single pair of observations. This isn't often all that useful, but I've included it here in case you find it helpful.
 
 Lets imagine we have only two data points, which we'll call $x_1, y_1, x_2, y_2$. Then, we have two equations and two unknowns, that is:
 
