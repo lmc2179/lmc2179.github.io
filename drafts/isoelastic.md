@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Elasticity and log-log models for practicing data scientists"
+title: "A Handy Primer on Elasticity and log-log models for practicing data scientists"
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
@@ -20,14 +20,16 @@ This relationship has a few key aspects that I notice over and over again:
 * Each input added is less efficient than the last; the slope is decreasing.
 * Inputs and outputs are both positive
 
-Lots and lots and _lots_ of measured variables seem to have this relationship. The notion of elasticity is ubiquitous in economics, which seems to be the first usage of this kind of model that I can find. However, in my own career I've seen this shape of input-output relationship show up over and over:
+There's also a downward-sloping variant, and a lot of the same analysis goes into that as well.
+
+If you're an economist, or even if you just took econ 101, you likely recognize this. It's common to model this kind of relationship as $y = ax^b$, a function which has "[constant elasticity](https://en.wikipedia.org/wiki/Isoelastic_function)", meaning an percent change in input produces the same percent change in output regardless of where you are in the input space. A common example is the [Cobb-Douglas production function](https://en.wikipedia.org/wiki/Cobb%E2%80%93Douglas_production_function). The most common examples all seem to be related to price, such as how changes in price affect the amount demanded or supplied.
+
+Lots and lots and _lots_ of measured variables seem to have this relationship. In my own career I've seen this shape of input-output relationship show up over and over, even outside the price examples:
 * Marketing spend and impressions
 * Number of users who see something vs the number who engage with it
 * Number of samples vs model quality
 * Time spent on a project and quality of result
 * Size of an investment vs revenue generated (this one was popularized and explored by [a well known early data scientist](https://en.wikipedia.org/wiki/Tendency_of_the_rate_of_profit_to_fall))
-
-If you're an economist, or even if you just took econ 101, you likely recognize this. It's common to model this as $y = ax^b$, a function which has "[constant elasticity](https://en.wikipedia.org/wiki/Isoelastic_function)", meaning an percent change in input produces the same percent change in output regardless of where you are in the input space.  A common example is the [Cobb-Douglas production function](https://en.wikipedia.org/wiki/Cobb%E2%80%93Douglas_production_function).
 
 To get some intuition, lets look at some examples of how different values of $\alpha$ and $\beta$ affect the shape of this function:
 
