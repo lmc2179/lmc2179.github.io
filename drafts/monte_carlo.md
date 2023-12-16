@@ -1,5 +1,7 @@
 I've measured some statististic, which I believe gives me useful information about something I want to understand
 
+A quick refresher - sampling process, sample, statistic, sampling distribution
+
 # One-sample analysis
 
 ## Put error bars around it
