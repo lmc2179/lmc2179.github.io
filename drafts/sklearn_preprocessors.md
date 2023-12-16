@@ -4,9 +4,11 @@ _Scikit-learn pipelines let you snap together transformations like Legos to make
 
 # Pipelines make model specification easy
 
+Most of the time, ML models can't just suck in data from the world and spit predictions back out, whaterver overzealous marketers of the latest AI fad might tell you. Usually, you need a bit of careful sculpting of the input matrix in order to make sure it is usable by your favorite model. In Python, this process is eased quite a bit by the usage of [Scikit-learn Pipelines](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html), which let you chain together as many preprocessing steps as you like and then treat them like one big model 
+
 idea: stateful transformations are basically part of your model, so you should fit/transform them the same way
 
-https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html
+
 
 # parts of a preprocessor
 
