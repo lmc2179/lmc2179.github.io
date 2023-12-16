@@ -18,4 +18,6 @@ https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.monte_carlo_tes
 
 https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.permutation_test.html#scipy.stats.permutation_test
 
+Example: Did we move the left tail of the distribution. Statistic is the difference in the 5th percentile (a light version of integration from 0% to 5%)
+
 WARNING: No power analysis
