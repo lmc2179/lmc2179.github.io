@@ -1,6 +1,8 @@
-?
+Building your own sklearn transformer is easy and very useful
 
-# pipelines r good
+_Scikit-learn pipelines let you snap together transformations like Legos to make a Machine Learning model. The transformers included in the box with Sklearn are handy for anyone doing ML in Python, and practicing data scientists use them all the time. Even better, it's very easy to build your own transformer, and doing so unlocks a zillion opportunities to shape your data._
+
+# Pipelines make model specification easy
 
 idea: stateful transformations are basically part of your model, so you should fit/transform them the same way
 
