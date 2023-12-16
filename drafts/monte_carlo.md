@@ -14,7 +14,7 @@ honorable mention to the jackknife
 
 https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.monte_carlo_test.html
 
-# Two-sample analyis: Is it signifiacnt?
+# Two-sample analyis: Is it significant?
 
 https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.permutation_test.html#scipy.stats.permutation_test
 
