@@ -40,6 +40,8 @@ class FormulaTransformer(BaseEstimator, TransformerMixin):
 
 link to formula transformer ^
 
+A simple 2-matrix example with one categorical variable and one numeric variable
+
 # example: Replace a rare token with some value
 
 init: `target_column`, `min_pct`, `min_count`, `replacement_token`
@@ -72,3 +74,5 @@ class RareTokenTransformer(BaseEstimator, TransformerMixin):
         return pd.DataFrame(X_formula, columns=columns)
 
 ```
+
+A simple 2-matrix example with one categorical variable and two rare values
