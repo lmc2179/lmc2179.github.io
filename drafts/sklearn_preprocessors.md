@@ -15,18 +15,23 @@ fit: generate the patsy object
 transform: patsify the design matrix
 
 ```python
+import patsy
+
 class FormulaTransformer(BaseEstimator, TransformerMixin):
     # Adapted from https://juanitorduz.github.io/formula_transformer/
     def __init__(self, formula):
         self.formula = formula
     
     def fit(self, X, y=None):
+        dm = patsy.dmatrix(formula, X)
+        self.design_info = dm.design_info
         return self
     
     def transform(self, X):
         X_formula = patsy.dmatrix(formula_like=self.formula, data=X)
         columns = X_formula.design_info.column_names
-        return pd.DataFrame(X_formula, columns=columns)
+        X_formula = patsy.build_design_matrices([self.design_info], X, return_type='dataframe')
+        return X_formula
 ```
 
 link to formula transformer ^
