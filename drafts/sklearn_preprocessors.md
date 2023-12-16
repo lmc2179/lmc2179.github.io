@@ -2,7 +2,7 @@
 
 # pipelines r good
 
-idea: stateful transformations are basically part of your model writ large
+idea: stateful transformations are basically part of your model, so you should fit/transform them the same way
 
 https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html
 
