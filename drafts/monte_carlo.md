@@ -6,7 +6,7 @@ I've measured some statististic, which I believe gives me useful information abo
 
 https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.bootstrap.html#scipy.stats.bootstrap
 
-why the bootstrap works - is it magic? rubin link. intuitive description of bca and why it is a good idea
+why the bootstrap works - is it magic? rubin link on modeling assumptions. intuitive description of bca and why it is a good idea
 
 honorable mention to the jackknife
 
