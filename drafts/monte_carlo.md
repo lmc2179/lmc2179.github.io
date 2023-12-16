@@ -8,6 +8,8 @@ https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.bootstrap.html#
 
 why the bootstrap works - is it magic? rubin link on modeling assumptions. intuitive description of bca and why it is a good idea
 
+this is about sampling error. so  think carefully about what your sampling process is
+
 honorable mention to the jackknife
 
 ## Calculate a P-value
