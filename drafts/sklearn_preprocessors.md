@@ -2,6 +2,10 @@
 
 # pipelines r good
 
+idea: stateful transformations are basically part of your model writ large
+
+https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html
+
 # parts of a preprocessor
 
 fit: take care of any state you need to track
