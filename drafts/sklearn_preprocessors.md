@@ -48,6 +48,13 @@ class RareTokenTransformer(BaseEstimator, TransformerMixin):
         self.replacement_token = replacement_token
     
     def fit(self, X, y=None):
+        counts = df[target_columns].value_counts()
+        if self.min_count:
+            rare_tokens = set(counts.index[counts >= min_count])
+        if self.min_pct:
+            pcts = df[target_columns].value_counts() / counts.sum()
+            rare_tokens = set(pcts.index[pcts >= min_pct])
+        self.rare_tokens = rare_tokens
         return self
     
     def transform(self, X):
