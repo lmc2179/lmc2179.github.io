@@ -40,7 +40,19 @@ fit: look at examples of `target_column` and find examples of tokens with less t
 transform: look at the `target_column`, and 
 
 ```python
-class FormulaTransformer(BaseEstimator, TransformerMixin):
-    pass
+class RareTokenTransformer(BaseEstimator, TransformerMixin):
+    def __init__(self, target_column, min_pct=None, min_count=None, replacement_token='__RARE__'):
+        self.target_column = target_column
+        if (min_pct and min_count) or (not min_pct and not min_count):
+            raise Exception("Please provide either min_pct or min_count, not both")
+        self.replacement_token = replacement_token
+    
+    def fit(self, X, y=None):
+        return self
+    
+    def transform(self, X):
+        X_formula = patsy.dmatrix(formula_like=self.formula, data=X)
+        columns = X_formula.design_info.column_names
+        return pd.DataFrame(X_formula, columns=columns)
 
 ```
