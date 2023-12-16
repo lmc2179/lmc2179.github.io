@@ -95,7 +95,7 @@ Note about bessel - https://math.stackexchange.com/questions/2971315/how-do-i-co
 
 Extra note about bayesian shit - https://izbicki.me/blog/gausian-distributions-are-monoids.html
 
-# Outro: Serious likelihood function shit, isn't that neat
+# Outro: Going further with this idea means finding sufficient statistics of the likelihood function
 
 # Appendix: How the data was generated
 
