@@ -14,6 +14,8 @@ _Scikit-learn pipelines let you snap together transformations like Legos to make
 Most of the time, ML models can't just suck in data from the world and spit predictions back out, whaterver overzealous marketers of the latest AI fad might tell you. Usually, you need a bit of careful sculpting of the input matrix in order to make sure it is usable by your favorite model. For example, you might do things like:
 
 * Scale variables by [setting them from 0 to 1](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html#sklearn.preprocessing.MinMaxScaler) or [normalizing them](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.Normalizer.html#sklearn.preprocessing.Normalizer)
+* Encoding non-numeric values as [one-hot vectors](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html)
+* Generating [spline features](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.SplineTransformer.html#sklearn.preprocessing.SplineTransformer) for continues numeric values
 
 https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.FunctionTransformer.html
 
