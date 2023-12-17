@@ -70,7 +70,7 @@ an actually good article: https://www.nytimes.com/2023/09/28/opinion/ai-safety-e
 
 In its most bombastic form, this is about the end of the world
 
-However, I find this focus puzzling. There are real systems which affect actual humans
+However, I find this focus puzzling. There are real systems which affect actual humans right now. Speculation about those future risks may be useful, but going further into how automated systems affect people right now has clear returns. Overpopulation on mars
 
 https://en.wikipedia.org/wiki/Existential_risk_from_artificial_general_intelligence
 
