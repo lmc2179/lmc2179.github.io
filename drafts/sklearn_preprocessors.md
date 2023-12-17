@@ -11,9 +11,13 @@ _Scikit-learn pipelines let you snap together transformations like Legos to make
 
 # Pipelines make model specification easy
 
-Most of the time, ML models can't just suck in data from the world and spit predictions back out, whaterver overzealous marketers of the latest AI fad might tell you. Usually, you need a bit of careful sculpting of the input matrix in order to make sure it is usable by your favorite model. In Python, this process is eased quite a bit by the usage of [Scikit-learn Pipelines](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html), which let you chain together as many preprocessing steps as you like and then treat them like one big model 
+Most of the time, ML models can't just suck in data from the world and spit predictions back out, whaterver overzealous marketers of the latest AI fad might tell you. Usually, you need a bit of careful sculpting of the input matrix in order to make sure it is usable by your favorite model. For example, you might do things like:
 
-idea: stateful transformations are basically part of your model, so you should fit/transform them the same way
+* Scale variables by [setting them from 0 to 1](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html#sklearn.preprocessing.MinMaxScaler) or [normalizing them](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.Normalizer.html#sklearn.preprocessing.Normalizer)
+
+https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.FunctionTransformer.html
+
+In Python, this process is eased quite a bit by the usage of [Scikit-learn Pipelines](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html), which let you chain together as many preprocessing steps as you like and then treat them like one big model. The idea here is that stateful transformations are basically part of your model, so you should fit/transform them the same way you do your model.
 
 
 
