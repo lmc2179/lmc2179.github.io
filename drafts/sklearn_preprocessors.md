@@ -1,4 +1,11 @@
-Building your own sklearn transformer is easy and very useful
+---
+layout: post
+title: "Building your own sklearn transformer is easy and very useful"
+author: "Louis Cialdella"
+categories: posts
+tags: [datascience]
+image: bad_day.png
+---
 
 _Scikit-learn pipelines let you snap together transformations like Legos to make a Machine Learning model. The transformers included in the box with Sklearn are handy for anyone doing ML in Python, and practicing data scientists use them all the time. Even better, it's very easy to build your own transformer, and doing so unlocks a zillion opportunities to shape your data._
 
