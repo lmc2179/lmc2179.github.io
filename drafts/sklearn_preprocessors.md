@@ -21,13 +21,21 @@ https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.Function
 
 In Python, this process is eased quite a bit by the usage of [Scikit-learn Pipelines](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html), which let you chain together as many preprocessing steps as you like and then treat them like one big model. The idea here is that stateful transformations are basically part of your model, so you should fit/transform them the same way you do your model.
 
+# Anatomy of an Sklearn Transformer
 
+Creating a subclass is as easy as inheriting from `BaseEstimator` and `TransformerMixin` and writing a couple of methods which might be familiar if you've been using scikit-learn already:
+* fit: take care of any state you need to track
+* transform: apply the change
 
-# parts of a preprocessor
+For example, if you wanted to write a transformer that centered data by subtracting its mean (de-meaning it? that feels too mean), its `fit` and `transform` would do the following:
+* `fit(X, y)`: Calculate the average of each column (ie, take the vector average of `X`).
+* `tranform(X)`: Subtract the stored average from the input vectors in `X`.
 
-fit: take care of any state you need to track
+# example: Statsmodels and sklearn
 
-transform: apply the change
+One of the few flaws of Scikit-learn is that it doesn't include out-of-the-box support for [Patsy](https://patsy.readthedocs.io/en/latest/).
+
+credit to doctor juan
 
 A cool example: Statsmodels and sklearn
 
