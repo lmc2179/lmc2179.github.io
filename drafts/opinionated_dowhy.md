@@ -1,16 +1,14 @@
 # Questing for "the scikit learn of causal inference"
 
-it has a simple workflow
+it has a simple modular workflow
 
-it supports a wide variety of models
+it supports a wide variety of models under a common interface.
 
-it solves a problem people frequently have
+it solves a task people frequently have, ie E[y | X]. There are multiple examples of this in Casual Inference
 
-# An example: DoWhy
+# An example workflow and library: DoWhy
 
 DoWhy close reading - "An opinionated introduction to DoWhy"
-
-
 
 https://www.youtube.com/watch?v=icpHrbDlGaw
 
