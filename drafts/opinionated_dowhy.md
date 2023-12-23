@@ -1,6 +1,16 @@
+# Questing for "the scikit learn of causal inference"
+
+it has a simple workflow
+
+it supports a wide variety of models
+
+it solves a problem people frequently have
+
+# An example: DoWhy
+
 DoWhy close reading - "An opinionated introduction to DoWhy"
 
-Questing for "the scikit learn of causal inference"
+
 
 https://www.youtube.com/watch?v=icpHrbDlGaw
 
