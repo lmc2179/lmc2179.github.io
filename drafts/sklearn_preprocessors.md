@@ -16,20 +16,21 @@ Most of the time, ML models can't just suck in data from the world and spit pred
 * Scale variables by [setting them from 0 to 1](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html#sklearn.preprocessing.MinMaxScaler) or [normalizing them](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.Normalizer.html#sklearn.preprocessing.Normalizer)
 * Encoding non-numeric values as [one-hot vectors](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html)
 * Generating [spline features](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.SplineTransformer.html#sklearn.preprocessing.SplineTransformer) for continues numeric values
+* Running [some function](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.FunctionTransformer.html) on the inputs values, like `sqrt(x)`
 
-https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.FunctionTransformer.html
-
-In Python, this process is eased quite a bit by the usage of [Scikit-learn Pipelines](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html), which let you chain together as many preprocessing steps as you like and then treat them like one big model. The idea here is that stateful transformations are basically part of your model, so you should fit/transform them the same way you do your model.
+In Python, this process is eased quite a bit by the usage of [Scikit-learn Pipelines](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html), which let you chain together as many preprocessing steps as you like and then treat them like one big model. The idea here is that stateful transformations are basically part of your model, so you should fit/transform them the same way you do your model. The [FunctionTransformer](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.FunctionTransformer.html) allows you to perform stateless transformations. In order to create a stateful transformations, you'll need to write your own Transformer class - but luckily, it's pretty easy once you have an idea of how to structure it.
 
 # Anatomy of an Sklearn Transformer
 
 Creating a subclass is as easy as inheriting from `BaseEstimator` and `TransformerMixin` and writing a couple of methods which might be familiar if you've been using scikit-learn already:
-* fit: take care of any state you need to track
-* transform: apply the change
+* `fit(X, y)`: This method takes care of any state you need to track. In the scaling example, this means computing the observed min and max of each feature, so we can scale inputs later.
+* `tranform(X)`: This method applies the change. In the scaling example, this means subtracting the min value and dividing by the max, both of which were stored previously.
 
 For example, if you wanted to write a transformer that centered data by subtracting its mean (de-meaning it? that feels too mean), its `fit` and `transform` would do the following:
 * `fit(X, y)`: Calculate the average of each column (ie, take the vector average of `X`).
 * `tranform(X)`: Subtract the stored average from the input vectors in `X`.
+
+Lets take a look at a couple of examples that I've found useful in my work.
 
 # example: Statsmodels and sklearn
 
