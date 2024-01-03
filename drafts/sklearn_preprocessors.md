@@ -46,26 +46,58 @@ class RareTokenTransformer(BaseEstimator, TransformerMixin):
         self.target_column = target_column
         if (min_pct and min_count) or (not min_pct and not min_count):
             raise Exception("Please provide either min_pct or min_count, not both")
+        self.min_pct = min_pct
+        self.min_count = min_count
         self.replacement_token = replacement_token
     
     def fit(self, X, y=None):
-        counts = df[target_columns].value_counts()
+        counts = X[self.target_column].value_counts()
         if self.min_count:
-            rare_tokens = set(counts.index[counts >= min_count])
+            rare_tokens = set(counts.index[counts <= self.min_count])
         if self.min_pct:
-            pcts = df[target_columns].value_counts() / counts.sum()
-            rare_tokens = set(pcts.index[pcts >= min_pct])
+            pcts = X[self.target_column].value_counts() / counts.sum()
+            rare_tokens = set(pcts.index[pcts <= self.min_pct])
         self.rare_tokens = rare_tokens
         return self
     
     def transform(self, X):
-        X_formula = patsy.dmatrix(formula_like=self.formula, data=X)
-        columns = X_formula.design_info.column_names
-        return pd.DataFrame(X_formula, columns=columns)
+        X_copy = X.copy()
+        X_copy[self.target_column] = X_copy[self.target_column].replace(self.rare_tokens, self.replacement_token)
+        return X_copy
 
 ```
 
-A simple 2-matrix example with one categorical variable and two rare values
+Let's try it on a real dataframe.
+
+```python
+X1 = pd.DataFrame({'numeric_col': [0, 1, 2, 3, 4], 'categorical_col': ['A', 'A', 'A', 'B', 'C']})
+X2 = pd.DataFrame({'numeric_col': [0, 1, 2, 3, 4], 'categorical_col': ['C', 'A', 'B', 'A', 'A']})
+
+t = RareTokenTransformer('categorical_col', min_pct=0.2)
+t.fit(X1)
+print(t.transform(X1).to_markdown())
+print(t.transform(X2).to_markdown())
+```
+
+This gives us the expected X1:
+
+|    |   numeric_col | categorical_col   |
+|---:|--------------:|:------------------|
+|  0 |             0 | A                 |
+|  1 |             1 | A                 |
+|  2 |             2 | A                 |
+|  3 |             3 | __RARE__          |
+|  4 |             4 | __RARE__          |
+
+And X2:
+
+|    |   numeric_col | categorical_col   |
+|---:|--------------:|:------------------|
+|  0 |             0 | __RARE__          |
+|  1 |             1 | A                 |
+|  2 |             2 | __RARE__          |
+|  3 |             3 | A                 |
+|  4 |             4 | A                 |
 
 
 # A borrowed example: Patsy and sklearn
@@ -104,7 +136,6 @@ Lets take a look at how this transforms an actual dataframe. We'll use input mat
 ```python
 import pandas as pd
 import numpy as np
-from tabulate import tabulate
 pd.set_option('display.max_columns', None)
 
 X1 = pd.DataFrame({'numeric_col': [0, 1, 2], 'categorical_col': ['A', 'B', 'C']})
