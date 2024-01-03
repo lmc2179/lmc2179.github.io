@@ -32,43 +32,7 @@ For example, if you wanted to write a transformer that centered data by subtract
 
 Lets take a look at a couple of examples that I've found useful in my work.
 
-# example: Statsmodels and sklearn
-
-One of the few flaws of Scikit-learn is that it doesn't include out-of-the-box support for [Patsy](https://patsy.readthedocs.io/en/latest/).
-
-credit to doctor juan
-
-A cool example: Statsmodels and sklearn
-
-fit: generate the patsy object
-
-transform: patsify the design matrix
-
-```python
-import patsy
-
-class FormulaTransformer(BaseEstimator, TransformerMixin):
-    # Adapted from https://juanitorduz.github.io/formula_transformer/
-    def __init__(self, formula):
-        self.formula = formula
-    
-    def fit(self, X, y=None):
-        dm = patsy.dmatrix(formula, X)
-        self.design_info = dm.design_info
-        return self
-    
-    def transform(self, X):
-        X_formula = patsy.dmatrix(formula_like=self.formula, data=X)
-        columns = X_formula.design_info.column_names
-        X_formula = patsy.build_design_matrices([self.design_info], X, return_type='dataframe')
-        return X_formula
-```
-
-link to formula transformer ^
-
-A simple 2-matrix example with one categorical variable and one numeric variable
-
-# example: Replace a rare token with some value
+# An example: Replace a rare token in a column with some value
 
 init: `target_column`, `min_pct`, `min_count`, `replacement_token`
 
@@ -102,3 +66,68 @@ class RareTokenTransformer(BaseEstimator, TransformerMixin):
 ```
 
 A simple 2-matrix example with one categorical variable and two rare values
+
+
+# A borrowed example: Patsy and sklearn
+
+One of the few flaws of Scikit-learn is that it doesn't include out-of-the-box support for [Patsy](https://patsy.readthedocs.io/en/latest/). Patsy is a library that lets you easily specify design matrices with a single string. [Statsmodels](https://www.statsmodels.org/dev/example_formulas.html) allows you to fit models specified using Patsy strings, but Statsmodels only really covers generalized linear models. 
+
+It would be really handy to be able to use scikit-learn models with Patsy. A [`FormulaTransformer` is implemented by Dr. Juan Camilo Orduz on his blog](https://juanitorduz.github.io/formula_transformer/) that does just that - I've borrowed his idea here and modified it to make it stateful.
+
+This transformer will include the following `fit` and `transform` steps:
+* `fit(X, y)`: Compute the `design_info` based on the specified formula and `X`. For example, Patsy needs to keep track of which columns are categorical and which are numeric.
+* `tranform(X)`: Run `patsy.dmatrix` using the `design_info` to generate the transformed version of `X`.
+
+```python
+import patsy
+from sklearn.base import BaseEstimator, TransformerMixin
+
+class FormulaTransformer(BaseEstimator, TransformerMixin):
+    # Adapted from https://juanitorduz.github.io/formula_transformer/
+    def __init__(self, formula):
+        self.formula = formula
+    
+    def fit(self, X, y=None):
+        dm = patsy.dmatrix(self.formula, X)
+        self.design_info = dm.design_info
+        return self
+    
+    def transform(self, X):
+        X_formula = patsy.dmatrix(formula_like=self.formula, data=X)
+        columns = X_formula.design_info.column_names
+        X_formula = patsy.build_design_matrices([self.design_info], X, return_type='dataframe')[0]
+        return X_formula
+```
+
+Lets take a look at how this transforms an actual dataframe. We'll use input matrices with one numeric and one categorical column. We'll square the numeric column, and one-hot encode the categorical one.
+
+```python
+import pandas as pd
+import numpy as np
+from tabulate import tabulate
+pd.set_option('display.max_columns', None)
+
+X1 = pd.DataFrame({'numeric_col': [0, 1, 2], 'categorical_col': ['A', 'B', 'C']})
+X2 = pd.DataFrame({'numeric_col': [0, 1, 2], 'categorical_col': ['C', 'A', 'B']})
+
+t = FormulaTransformer('np.power(numeric_col, 2) + categorical_col - 1')
+t.fit(X1)
+print(t.transform(X1).to_markdown())
+print(t.transform(X2).to_markdown())
+```
+This shows us what we expect, namely that X1 is
+
+|    |   categorical_col[A] |   categorical_col[B] |   categorical_col[C] |   np.power(numeric_col, 2) |
+|---:|---------------------:|---------------------:|---------------------:|---------------------------:|
+|  0 |                    1 |                    0 |                    0 |                          0 |
+|  1 |                    0 |                    1 |                    0 |                          1 |
+|  2 |                    0 |                    0 |                    1 |                          4 |
+
+And that X2 is:
+
+
+|    |   categorical_col[A] |   categorical_col[B] |   categorical_col[C] |   np.power(numeric_col, 2) |
+|---:|---------------------:|---------------------:|---------------------:|---------------------------:|
+|  0 |                    1 |                    0 |                    0 |                          0 |
+|  1 |                    0 |                    1 |                    0 |                          1 |
+|  2 |                    0 |                    0 |                    1 |                          4 |
