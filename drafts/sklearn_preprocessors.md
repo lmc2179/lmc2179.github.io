@@ -86,7 +86,7 @@ print(t.transform(X1).to_markdown())
 print(t.transform(X2).to_markdown())
 ```
 
-This gives us the expected `X1``:
+This gives us the expected `X1`:
 
 |    |   numeric_col | categorical_col   |
 |---:|--------------:|:------------------|
@@ -96,7 +96,7 @@ This gives us the expected `X1``:
 |  3 |             3 | __RARE__          |
 |  4 |             4 | __RARE__          |
 
-And `X2``:
+And `X2`:
 
 |    |   numeric_col | categorical_col   |
 |---:|--------------:|:------------------|
