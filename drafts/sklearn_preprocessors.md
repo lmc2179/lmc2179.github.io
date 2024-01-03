@@ -24,11 +24,11 @@ In Python, this process is eased quite a bit by the usage of [Scikit-learn Pipel
 
 Creating a subclass is as easy as inheriting from `BaseEstimator` and `TransformerMixin` and writing a couple of methods which might be familiar if you've been using scikit-learn already:
 * `fit(X, y)`: This method takes care of any state you need to track. In the scaling example, this means computing the observed min and max of each feature, so we can scale inputs later.
-* `tranform(X)`: This method applies the change. In the scaling example, this means subtracting the min value and dividing by the max, both of which were stored previously.
+* `transform(X)`: This method applies the change. In the scaling example, this means subtracting the min value and dividing by the max, both of which were stored previously.
 
 For example, if you wanted to write a transformer that centered data by subtracting its mean (de-meaning it? that feels too mean), its `fit` and `transform` would do the following:
 * `fit(X, y)`: Calculate the average of each column (ie, take the vector average of `X`).
-* `tranform(X)`: Subtract the stored average from the input vectors in `X`.
+* `transform(X)`: Subtract the stored average from the input vectors in `X`.
 
 Lets take a look at a couple of examples that I've found useful in my work.
 
@@ -44,7 +44,7 @@ At init time, we'll take in parameters from the user:
 
 We can sketch out the `fit` and `transform` methods:
 * `fit(X, y)`: Look at examples of `target_column` and find examples of tokens with less than `min_pct` or `min_count`. Store them in the object's state.
-* `tranform(X)`: Look at the `target_column`, and replace all the known rare tokens with the replacement token.
+* `transform(X)`: Look at the `target_column`, and replace all the known rare tokens with the replacement token.
 
 Here's what that looks like in code as a transformer subclass:
 
@@ -115,7 +115,7 @@ It would be really handy to be able to use scikit-learn models with Patsy. A [`F
 
 This transformer will include the following `fit` and `transform` steps:
 * `fit(X, y)`: Compute the `design_info` based on the specified formula and `X`. For example, Patsy needs to keep track of which columns are categorical and which are numeric.
-* `tranform(X)`: Run `patsy.dmatrix` using the `design_info` to generate the transformed version of `X`.
+* `transform(X)`: Run `patsy.dmatrix` using the `design_info` to generate the transformed version of `X`.
 
 ```python
 import patsy
