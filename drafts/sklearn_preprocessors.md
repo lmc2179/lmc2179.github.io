@@ -37,7 +37,7 @@ Lets take a look at a couple of examples that I've found useful in my work.
 A common trick in dealing with categorical columns in ML models is to replace rare categories with a unique value that indicates "Other" or "This is a rare value". This kind of prepreocessing would be handy to have available as a transformer, so let's build one.
 
 At init time, we'll take in parameters from the user:
-* `target_column` - The column to scane
+* `target_column` - The column to scan
 * `min_pct` - Values which appear in a smaller percentage of rows than this will be considered rare
 * `min_count` - Values which appear in fewer rows than this will be considered rare. Mutually exclusive with the previous
 * `replacement_token` - The token to convert rare values to.
@@ -107,7 +107,7 @@ And `X2``:
 |  4 |             4 | A                 |
 
 
-# A borrowed example: Patsy and sklearn
+# A borrowed example: Combining patsy and sklearn
 
 One of the few flaws of Scikit-learn is that it doesn't include out-of-the-box support for [Patsy](https://patsy.readthedocs.io/en/latest/). Patsy is a library that lets you easily specify design matrices with a single string. [Statsmodels](https://www.statsmodels.org/dev/example_formulas.html) allows you to fit models specified using Patsy strings, but Statsmodels only really covers generalized linear models. 
 
@@ -153,7 +153,7 @@ t.fit(X1)
 print(t.transform(X1).to_markdown())
 print(t.transform(X2).to_markdown())
 ```
-This shows us what we expect, namely that `X1`` is:
+This shows us what we expect, namely that `X1` is:
 
 |    |   categorical_col[A] |   categorical_col[B] |   categorical_col[C] |   np.power(numeric_col, 2) |
 |---:|---------------------:|---------------------:|---------------------:|---------------------------:|
@@ -161,7 +161,7 @@ This shows us what we expect, namely that `X1`` is:
 |  1 |                    0 |                    1 |                    0 |                          1 |
 |  2 |                    0 |                    0 |                    1 |                          4 |
 
-And that `X2`` is:
+And that `X2` is:
 
 
 |    |   categorical_col[A] |   categorical_col[B] |   categorical_col[C] |   np.power(numeric_col, 2) |
