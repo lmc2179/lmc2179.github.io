@@ -34,11 +34,19 @@ Lets take a look at a couple of examples that I've found useful in my work.
 
 # An example: Replace a rare token in a column with some value
 
-init: `target_column`, `min_pct`, `min_count`, `replacement_token`
+A common trick in dealing with categorical columns in ML models is to replace rare categories with a unique value that indicates "Other" or "This is a rare value". This kind of prepreocessing would be handy to have available as a transformer, so let's build one.
 
-fit: look at examples of `target_column` and find examples of tokens with less than `min_pct` or `min_count`
+At init time, we'll take in parameters from the user:
+* `target_column` - The column to scane
+* `min_pct` - Values which appear in a smaller percentage of rows than this will be considered rare
+* `min_count` - Values which appear in fewer rows than this will be considered rare. Mutually exclusive with the previous
+* `replacement_token` - The token to convert rare values to.
 
-transform: look at the `target_column`, and 
+We can sketch out the `fit` and `transform` methods:
+* `fit(X, y)`: Look at examples of `target_column` and find examples of tokens with less than `min_pct` or `min_count`. Store them in the object's state.
+* `tranform(X)`: Look at the `target_column`, and replace all the known rare tokens with the replacement token.
+
+Here's what that looks like in code as a transformer subclass:
 
 ```python
 class RareTokenTransformer(BaseEstimator, TransformerMixin):
@@ -64,7 +72,6 @@ class RareTokenTransformer(BaseEstimator, TransformerMixin):
         X_copy = X.copy()
         X_copy[self.target_column] = X_copy[self.target_column].replace(self.rare_tokens, self.replacement_token)
         return X_copy
-
 ```
 
 Let's try it on a real dataframe.
@@ -79,7 +86,7 @@ print(t.transform(X1).to_markdown())
 print(t.transform(X2).to_markdown())
 ```
 
-This gives us the expected X1:
+This gives us the expected `X1``:
 
 |    |   numeric_col | categorical_col   |
 |---:|--------------:|:------------------|
@@ -89,7 +96,7 @@ This gives us the expected X1:
 |  3 |             3 | __RARE__          |
 |  4 |             4 | __RARE__          |
 
-And X2:
+And `X2``:
 
 |    |   numeric_col | categorical_col   |
 |---:|--------------:|:------------------|
@@ -146,7 +153,7 @@ t.fit(X1)
 print(t.transform(X1).to_markdown())
 print(t.transform(X2).to_markdown())
 ```
-This shows us what we expect, namely that X1 is
+This shows us what we expect, namely that `X1`` is:
 
 |    |   categorical_col[A] |   categorical_col[B] |   categorical_col[C] |   np.power(numeric_col, 2) |
 |---:|---------------------:|---------------------:|---------------------:|---------------------------:|
@@ -154,7 +161,7 @@ This shows us what we expect, namely that X1 is
 |  1 |                    0 |                    1 |                    0 |                          1 |
 |  2 |                    0 |                    0 |                    1 |                          4 |
 
-And that X2 is:
+And that `X2`` is:
 
 
 |    |   categorical_col[A] |   categorical_col[B] |   categorical_col[C] |   np.power(numeric_col, 2) |
