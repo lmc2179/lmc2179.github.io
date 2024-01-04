@@ -14,7 +14,7 @@ this is about sampling error. so  think carefully about what your sampling proce
 
 honorable mention to the jackknife
 
-## Calculate a P-value
+## Calculate a P-value under some null hypothesis
 
 https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.monte_carlo_test.html
 
