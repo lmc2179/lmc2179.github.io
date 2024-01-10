@@ -9,6 +9,9 @@ Have read/use as reference
 - MHE
 - https://www.itl.nist.gov/div898/handbook/index.htm
 - Pearl Causal Inference Primer
+- Causal Inference the Mixtape
+- The Effect
+- CIftBaT
 
 Have heard about
 - Morgan and winship
