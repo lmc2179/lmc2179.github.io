@@ -4,7 +4,7 @@
 
 ## How data tells us about the causal graph
 
-Simple example of a DAG
+Simple example of a DAG; intuition about how it tells us about the DAG structure
 
 link shalizi here
 
