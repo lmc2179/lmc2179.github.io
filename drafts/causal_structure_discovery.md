@@ -1,10 +1,22 @@
 # What we do and why
 
-# Vars
+## What is a dag and why have one
 
-# Constraints
+## How data tells us about the causal graph
 
-# Inference
+Simple example of a DAG
+
+link shalizi here
+
+## An example: housing prices
+
+# How to do it
+
+## Vars
+
+## Constraints
+
+## Inference
 
 # Then what do you do with the graph
 
