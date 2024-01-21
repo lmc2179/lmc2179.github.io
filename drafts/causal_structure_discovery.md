@@ -1,3 +1,15 @@
+# What we do and why
+
+# Vars
+
+# Constraints
+
+# Inference
+
+# Then what do you do with the graph
+
+# Outline
+
 https://github.com/py-why/causal-learn/blob/main/causallearn/search/ConstraintBased/PC.py
 
 https://github.com/py-why/causal-learn/blob/main/tests/TestBackgroundKnowledge.py
