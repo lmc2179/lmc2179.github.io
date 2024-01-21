@@ -3,3 +3,9 @@ https://github.com/py-why/causal-learn/blob/main/causallearn/search/ConstraintBa
 https://github.com/py-why/causal-learn/blob/main/tests/TestBackgroundKnowledge.py
 
 https://github.com/py-why/causal-learn/blob/main/causallearn/utils/PCUtils/BackgroundKnowledge.py
+
+to read: https://github.com/PacktPublishing/Causal-Inference-and-Discovery-in-Python?tab=readme-ov-file
+
+https://arxiv.org/abs/2307.16405
+
+Big idea: (1) Learn graph from causal-learn, output as nx (2) Input to dowhy to get confounders, do estimates 
