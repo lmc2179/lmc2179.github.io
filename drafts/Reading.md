@@ -5,6 +5,7 @@
 - CI the mixtape, The Effect, CIFTBAT
 - Pearl's Little Book
 - Gelman and Hill regression
+- the puppy book
 
 # Good references
 
