@@ -1,4 +1,4 @@
-Bsplines rock and should be your go-to method for modeling smooth nonlinearities
+# Bsplines rock and should be your go-to method for modeling smooth nonlinearities
 
 How they work - Basis expansion and splines; Degree of spline, number of knots; start with low order and increase
 
