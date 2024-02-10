@@ -1,12 +1,28 @@
 # Good reads
 
-- Shalizi TALR, ADAFAEPOV
-- Wasserman - All of Statistics (Wasserman all of nonparametric statistics)
-- CI the mixtape, The Effect, CIFTBAT
-- Pearl's Little Book
-- Gelman and Hill regression
-- the puppy book
-- casi
+## Big-picture overviews
+
+Wasserman - All of Statistics (Wasserman all of nonparametric statistics)
+
+ADAFAEPOV
+
+the puppy book
+
+casi
+
+## Practical Causal Inference methods
+
+CI the mixtape, The Effect, CIFTBAT
+
+## Causal Inference Theory
+
+Pearl's Little Book
+
+Morgan and Winship
+
+## Regression
+
+Gelman and Hill regression,RAOS, Shalizi TALR
 
 # Good references
 
