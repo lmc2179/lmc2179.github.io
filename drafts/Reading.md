@@ -14,7 +14,7 @@
 - MHE
 - https://www.itl.nist.gov/div898/handbook/index.htm
 
-# Snacktime: Some neat papers
+# Snacktime: Some neat papers accessible to every level
 
 - Shmueli
 - Rubin bayes boot
