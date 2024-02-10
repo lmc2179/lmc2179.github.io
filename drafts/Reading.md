@@ -6,6 +6,7 @@
 - Pearl's Little Book
 - Gelman and Hill regression
 - the puppy book
+- casi
 
 # Good references
 
