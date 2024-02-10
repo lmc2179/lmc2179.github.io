@@ -1,5 +1,9 @@
 # Good reads
 
+People ask me
+
+Not covered: Deep learning
+
 ## Big-picture overviews
 
 Wasserman - All of Statistics (Wasserman all of nonparametric statistics)
