@@ -1,29 +1,31 @@
-Having done some flavor of sciencing data for the last ten years, one of the most common questions I get from those starting out in Data Science is some verison of "what books should I be reading?". It's hard to answer this question directly, since the answer really depends on what you're looking to learn and what else you know. I could just list every book I've read, but as the old pretentious people of the past might say _ars longa, vita brevis_ - which roughly translates as "I don't have time to read all that, dude". Instead, I've done the next best thing, which is to try and list some of my favorite books which cover most of the fields I think about regularly. I've divided it into a few sections:
+So, I've been sciencing data for the last ten years or so. And one of the most common questions I get from those starting out in Data Science is something like "what books should I be reading?". It's hard to answer this question directly, since the answer _really_ depends on what you're looking to learn, and what else you know. I could just list every book I've read, but as the old pretentious people of the past might say _ars longa, vita brevis_ - which is Latin for "I don't have time to read all that, dude". Instead, I've done the next best thing, which is to try and list some of my favorite books which cover most of the fields I think about regularly. I've divided it into a few sections:
 
 * Good reads: These are books that I found basically digestible from beginning to end. They are not all easy, but many of them function as readable overviews of their subject.
 * Good references: These are books that I find more helpful to use as references, rather than as introductions to a topic. They may be good reads for you as well, but that can depend on your taste. They tend to be long and exhaustive.
 * Snacktime: These are short reads which I think are generally accessible and worth reading through. Many of them not as far on the technical side; all of them have been major influences on how I think about data science.
 * Dessert: Books that are not 
 
-Keep in mind that this list is not-exhaustive and highly subjective. It's a guided tour of some resources I've found helpful, and perhaps you will too.
+Keep in mind that this list is not-exhaustive and highly subjective. It's a guided tour of some resources I've found helpful, and perhaps you will too. It focuses more on things I care about (statistics, causal inference) and less on things which I have only a little experience in (Deep Learning, for example).
 
 # Good reads
 
-People ask me
-
-Not covered: Deep learning
-
 ## Big-picture overviews
+
+### Core stats/probability: [Wasserman - _All of Statistics_](https://egrcc.github.io/docs/math/all-of-statistics.pdf)
+
+This book is about the most important definitions and theorems in Statistics.
 
 Wasserman - All of Statistics (Wasserman all of nonparametric statistics)
 
-ADAFAEPOV
+### All of data analysis, more or less: ADAFAEPOV
 
-the puppy book
+### Getting into Bayesian Analysis: the puppy book
 
-casi
+### A computation-based perspective: Computer Age Statistical Inference
 
 ## Practical Causal Inference methods
+
+### Causal Inference, the Mixtape; The EFfect; Causal Inference For the Brave and True
 
 CI the mixtape, The Effect, CIFTBAT
 
