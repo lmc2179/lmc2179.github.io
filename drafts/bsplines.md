@@ -12,6 +12,8 @@ Graphing them with a PDP; [partregress](https://www.statsmodels.org/stable/gener
 
 Looking at CIs of the PDP
 
+Maybe do it using sklearn's [PDP tools](https://scikit-learn.org/stable/modules/partial_dependence.html) and a formula transformer
+
 ```python
 import numpy as np
 from matplotlib import pyplot as plt
