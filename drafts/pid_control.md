@@ -24,7 +24,7 @@ More generally:
 
 $Correction(t+1) = f_P(e(t)) + f_I( \sum_{i=1}^t e(i)) + f_D(e(t) - e(t-1))$
 
-Simulated example where demand is sampled randomly, maybe a random walk with 7-day correlation? Should we add a P-term of e(t-7) as well?
+Simulated example where demand is sampled randomly, maybe a random walk with 7-day correlation? Should we add a P-term of e(t-7) as well? Or maybe just make the values weekly, then there shouldn't be a large correlation
 
 this a simple kind of reinforcement learning - we are learning a very simple policy which responds to conditions and minimized error.
 
