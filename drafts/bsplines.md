@@ -8,7 +8,7 @@ Example: Non-linear relationship of NOX and Price in the Boston housing data
 
 How to use them in Python
 
-Graphing them with a PDP; [partregress](https://www.statsmodels.org/stable/generated/statsmodels.graphics.regressionplots.plot_partregress.html#statsmodels.graphics.regressionplots.plot_partregress) doesn't work for non-linear stuff
+Graphing them with a PDP; or maybe a partial regression? [partregress](https://www.statsmodels.org/stable/generated/statsmodels.graphics.regressionplots.plot_partregress.html#statsmodels.graphics.regressionplots.plot_partregress) doesn't work for non-linear stuff
 
 Looking at CIs of the PDP
 
