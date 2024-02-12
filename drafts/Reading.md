@@ -11,13 +11,17 @@ Keep in mind that this list is not-exhaustive and highly subjective. It's a guid
 
 ## Big-picture overviews
 
-### Core stats/probability: [Wasserman - _All of Statistics_](https://egrcc.github.io/docs/math/all-of-statistics.pdf)
+### Core stats/probability: [_All of Statistics_ by Larry Wasserman](https://egrcc.github.io/docs/math/all-of-statistics.pdf)
 
-This book is about the most important definitions and theorems in Statistics.
+This book is a map of the most important definitions and theorems in Statistics. It basically starts from zero and builds up to rigorous definitions of plenty of recognizable statistical methods. The first ten chapters or so are a good thorough introduction for an undergrad (or perhaps someone who has forgotten all the proofs from undergrad).
 
-Wasserman - All of Statistics (Wasserman all of nonparametric statistics)
+The same author has also written _All of Nonparametric Statistics_, though I haven't 
 
 ### All of data analysis, more or less: ADAFAEPOV
+
+Cosma Shalizi
+
+TALR
 
 ### Getting into Bayesian Analysis: the puppy book
 
