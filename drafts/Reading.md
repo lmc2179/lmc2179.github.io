@@ -58,3 +58,11 @@ Gelman and Hill regression,RAOS, Shalizi TALR
 - [Confessions of a Pragmatic Statistician - Chris Chatfield](https://www2.isye.gatech.edu/isyebayes/bank/chatfield.pdf)
 
 # A bonus - books which are about the usage of data but not necessarily written for data practitioners
+
+Tyranny of metrics
+
+Superforecasting
+
+Seeing like a state
+
+Red Plenty
