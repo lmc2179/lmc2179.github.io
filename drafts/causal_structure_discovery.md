@@ -1,3 +1,7 @@
+https://replit.com/@srs_moonlight/causal-discovery
+
+https://lingam.readthedocs.io/en/stable/reference/ica_lingam.html
+
 # What we do and why
 
 ## What is a dag and why have one
@@ -31,5 +35,7 @@ https://github.com/py-why/causal-learn/blob/main/causallearn/utils/PCUtils/Backg
 to read: https://github.com/PacktPublishing/Causal-Inference-and-Discovery-in-Python?tab=readme-ov-file
 
 https://arxiv.org/abs/2307.16405
+
+https://github.com/py-why/dowhy/blob/main/docs/source/example_notebooks/dowhy_causal_discovery_example.ipynb
 
 Big idea: (1) Learn graph from causal-learn, output as nx (2) Input to dowhy to get confounders, do estimates 
