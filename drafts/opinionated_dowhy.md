@@ -16,6 +16,8 @@ There are many ways to do this
 * Econometric analysis
 * Regression
 
+Then represent it as networkx, maybe also summarize with a single number related to the arrow strength or elasticity or coefficient or interventional_samples
+
 # An example workflow and library: DoWhy
 
 DoWhy close reading - "An opinionated introduction to DoWhy"
