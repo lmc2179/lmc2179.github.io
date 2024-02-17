@@ -6,6 +6,16 @@ it supports a wide variety of models under a common interface.
 
 it solves a task people frequently have, ie E[y | X]. There are multiple examples of this in Casual Inference
 
+# Obtaining the causal graph
+
+There are many ways to do this
+
+* Discovery algorithms
+* Domain knowledge
+* Experiments
+* Econometric analysis
+* Regression
+
 # An example workflow and library: DoWhy
 
 DoWhy close reading - "An opinionated introduction to DoWhy"
@@ -13,6 +23,8 @@ DoWhy close reading - "An opinionated introduction to DoWhy"
 https://www.youtube.com/watch?v=icpHrbDlGaw
 
 I. Model a causal problem
+
+Currently, dowhy doesn't really support discovery. Arrow strength is useful. Maybe include an example from something else here
 
 II. Identify a target estimand under the model
 
