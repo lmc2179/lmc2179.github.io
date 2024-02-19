@@ -1,4 +1,4 @@
-# Bsplines rock and should be your go-to method for modeling smooth nonlinearities
+# Bsplines rock and should be your go-to method for modeling smooth nonlinearities - Bsplines and GAMs in Python
 
 https://replit.com/@srs_moonlight/bsplines#main.py
 
