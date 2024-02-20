@@ -35,7 +35,15 @@ gam_bs = GLMGam.from_formula('MedHouseVal ~ HouseAge + AveRooms + AveBedrms + Po
 result = gam_bs.fit()
 
 result.plot_partial(1, cpr=True, plot_se=True)
+
+selected_alpha = gam_bs.select_penweight_kfold(k_grid=2)
+
+print(selected_alpha)
 ```
+
+GAM degrees of freedom: two (spline size, alpha) per real term. Do a random search and look at AIC
+
+# Appendix
 
 ```python
 import numpy as np
