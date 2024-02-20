@@ -41,7 +41,7 @@ selected_alpha = gam_bs.select_penweight_kfold(k_grid=2)
 print(selected_alpha)
 ```
 
-GAM degrees of freedom: two (spline size, alpha) per real term. Do a random search and look at AIC
+GAM degrees of freedom: two (spline size, alpha) per real term. Do a random search (Bergstrom paper) and look at AIC, then CV. Compare results
 
 # Appendix
 
