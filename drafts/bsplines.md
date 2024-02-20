@@ -16,6 +16,27 @@ Maybe do it using sklearn's [PDP tools](https://scikit-learn.org/stable/modules/
 
 Or, us a GAM! https://www.statsmodels.org/stable/gam.html . Use one standard error rule
 
+
+```python
+from sklearn.datasets import fetch_california_housing
+import pandas as pd
+import numpy as np
+from statsmodels.gam.api import GLMGam, BSplines
+
+df = fetch_california_housing(as_frame=True)['data']
+df['MedHouseVal'] = fetch_california_housing().target
+
+x_spline = df[['MedInc', 'HouseAge', 'AveRooms', 'AveBedrms', 'Population', 'AveOccup']]
+
+bs = BSplines(x_spline, df=[5]*6, degree=[3]*6)
+
+gam_bs = GLMGam.from_formula('MedHouseVal ~ HouseAge + AveRooms + AveBedrms + Population + AveOccup', data=df, smoother=bs)
+
+result = gam_bs.fit()
+
+result.plot_partial(1, cpr=True, plot_se=True)
+```
+
 ```python
 import numpy as np
 from matplotlib import pyplot as plt
