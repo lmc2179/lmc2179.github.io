@@ -44,6 +44,10 @@ print(selected_alpha)
 
 GAM degrees of freedom: two (spline size, alpha) per real term. Do a random search (Bergstrom paper) and look at AIC, then CV. Compare results
 
+Seychelles diagram
+
+Preidciton intervals?
+
 # Appendix
 
 ```python
