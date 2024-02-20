@@ -16,6 +16,8 @@ Maybe do it using sklearn's [PDP tools](https://scikit-learn.org/stable/modules/
 
 Or, us a GAM! https://www.statsmodels.org/stable/gam.html . Use one standard error rule
 
+print(result.test_significance(0))
+
 https://pdodds.w3.uvm.edu/files/papers/others/1986/hastie1986a.pdf
 
 ```python
