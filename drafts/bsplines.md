@@ -16,7 +16,7 @@ My workflow: linear modeling intuition, then black-box
 
 Intepretability of linear model with non-linear relationships
 
-## Quickstart
+## Quickstart/example
 
 # Fit + CV
 
