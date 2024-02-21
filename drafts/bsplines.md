@@ -1,3 +1,45 @@
+# **GAMs**
+
+# Overview
+
+## How
+
+$y \sim \alpha + \sum_{i=1}^{k} f_i (x_i) + \epsilon$
+
+In theory, $f_i$ can be and $f : \mathbb{R} \rightarrow \mathbb{R}$
+
+In practice, splines - show the b-spline basis over the x-axis
+
+## Why
+
+My workflow: linear modeling intuition, then black-box
+
+Intepretability of linear model with non-linear relationships
+
+## Quickstart
+
+# Fit + CV
+
+## Regularized form
+
+## Random hyperparameter search
+
+## AIC-based search
+
+## CV-based search
+
+# Interpretation
+
+## Summary
+
+## Partial plot
+
+## P-value on f_i
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Previous version
+
 # Bsplines rock and should be your go-to method for modeling smooth nonlinearities - Bsplines and GAMs in Python
 
 https://replit.com/@srs_moonlight/bsplines#main.py
