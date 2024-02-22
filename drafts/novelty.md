@@ -1,5 +1,7 @@
 novelty effects in A/B testing are common
 
+https://arxiv.org/pdf/2102.12893.pdf
+
 ```python
 import numpy as np
 from matplotlib import pyplot as plt
