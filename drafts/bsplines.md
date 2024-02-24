@@ -2,6 +2,20 @@
 
 # Overview
 
+## Why
+
+My workflow: linear modeling intuition, then black-box
+
+Intepretability of linear model with non-linear relationships
+
+Linear models have a lot of advantages: Fast, interpretable, statistics
+
+But casual inspection of real life shows that nonlinear relationships are everywhere
+
+You could do black box + PDP, but that's annoying
+
+GAMs are a middle ground, allowing analysis of non-linear functional forms with the easy of linear models
+
 ## How
 
 $y \sim \alpha + \sum_{i=1}^{k} f_i (x_i) + \epsilon$
@@ -9,12 +23,6 @@ $y \sim \alpha + \sum_{i=1}^{k} f_i (x_i) + \epsilon$
 In theory, $f_i$ can be and $f : \mathbb{R} \rightarrow \mathbb{R}$
 
 In practice, splines - show the b-spline basis over the x-axis
-
-## Why
-
-My workflow: linear modeling intuition, then black-box
-
-Intepretability of linear model with non-linear relationships
 
 ## Quickstart/example
 
