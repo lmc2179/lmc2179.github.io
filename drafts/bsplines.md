@@ -24,27 +24,100 @@ $y \sim \alpha + \sum_{i=1}^{k} f_i (x_i) + \epsilon$
 
 In theory, $f_i$ can be and $f : \mathbb{R} \rightarrow \mathbb{R}$
 
+https://pdodds.w3.uvm.edu/files/papers/others/1986/hastie1986a.pdf
+
+Cute idea of backfitting (shalizi)
+
 In practice, splines - show the b-spline basis over the x-axis
 
 ## Quickstart/example
 
-# Fit + CV
+```python
+from sklearn.datasets import fetch_california_housing
+import pandas as pd
+import numpy as np
+from statsmodels.gam.api import GLMGam, BSplines
 
-## Regularized form
+df = fetch_california_housing(as_frame=True)['data']
+df['MedHouseVal'] = fetch_california_housing().target
 
-## Random hyperparameter search
+x_col_list = ['MedInc', 'HouseAge', 'AveRooms', 'AveBedrms', 'Population', 'AveOccup', 'Latitude', 'Longitude']
+x_spline_df_list = [10, 10, 10, 10, 10, 10, 10, 10]
+x_spline_degree_list = [3, 3, 3, 3, 3, 3, 3, 3]
 
-## AIC-based search
+X_train_raw = df[x_col_list]
 
-## CV-based search
+bs = BSplines(X_train_raw, df=x_spline_df_list, degree=x_spline_degree_list)
+
+gam_bs = GLMGam.from_formula('MedHouseVal ~ HouseAge + AveRooms + AveBedrms + Population + AveOccup + Latitude + Longitude', data=df, smoother=bs)
+
+result = gam_bs.fit()
+```
 
 # Interpretation
 
 ## Summary
 
+`result.summary()`
+
 ## Partial plot
 
+`result.plot_partial(0, cpr=True, plot_se=True)`
+
 ## P-value on f_i
+
+`print(result.test_significance(0))`
+
+# Fit + CV
+
+## Regularized form
+
+alpha
+
+## Random hyperparameter search
+
+Hyperparams:
+
+* Spline df
+* Spline degree
+* Alpha
+
+## AIC-based search
+
+```python
+# AIC Search
+
+x_col_list = ['MedInc', 'HouseAge', 'AveRooms', 'AveBedrms', 'Population', 'AveOccup', 'Latitude', 'Longitude']
+
+aic_results = []
+
+n_runs = 200
+
+for i in tqdm(range(n_runs)):
+    x_spline_df_list = list(np.random.randint(4, 12+1, size=len(x_col_list)))
+    x_spline_degree_list = [3, 3, 3, 3, 3, 3, 3, 3]
+    
+    X_train_raw = df[x_col_list]
+    
+    bs = BSplines(X_train_raw, df=x_spline_df_list, degree=x_spline_degree_list)
+    
+    gam_bs = GLMGam.from_formula('MedHouseVal ~ HouseAge + AveRooms + AveBedrms + Population + AveOccup + Latitude + Longitude', data=df, smoother=bs)
+    
+    result = gam_bs.fit()
+    aic_results.append(x_spline_df_list + [result.aic])
+
+summary = pd.DataFrame(aic_results, columns=x_col_list + ['AIC'])
+
+from matplotlib import pyplot as plt
+import seaborn as sns
+from statsmodels import api as sm
+
+sns.regplot(data=summary, x='AveRooms', y='AIC', x_bins=np.arange(4, 12+1)) # Really matters
+
+result.plot_partial(0, cpr=True, plot_se=True)
+```
+
+## CV-based search
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -100,38 +173,7 @@ print(result.test_significance(0))
 
 GAM degrees of freedom: two (spline size, alpha) per real term. Do a random search (Bergstrom paper) and look at AIC, then CV. Compare results
 
-```python
-# AIC Search
 
-x_col_list = ['MedInc', 'HouseAge', 'AveRooms', 'AveBedrms', 'Population', 'AveOccup', 'Latitude', 'Longitude']
-
-aic_results = []
-
-n_runs = 200
-
-for i in tqdm(range(n_runs)):
-    x_spline_df_list = list(np.random.randint(4, 12+1, size=len(x_col_list)))
-    x_spline_degree_list = [3, 3, 3, 3, 3, 3, 3, 3]
-    
-    X_train_raw = df[x_col_list]
-    
-    bs = BSplines(X_train_raw, df=x_spline_df_list, degree=x_spline_degree_list)
-    
-    gam_bs = GLMGam.from_formula('MedHouseVal ~ HouseAge + AveRooms + AveBedrms + Population + AveOccup + Latitude + Longitude', data=df, smoother=bs)
-    
-    result = gam_bs.fit()
-    aic_results.append(x_spline_df_list + [result.aic])
-
-summary = pd.DataFrame(aic_results, columns=x_col_list + ['AIC'])
-
-from matplotlib import pyplot as plt
-import seaborn as sns
-from statsmodels import api as sm
-
-sns.regplot(data=summary, x='AveRooms', y='AIC', x_bins=np.arange(4, 12+1)) # Really matters
-
-result.plot_partial(0, cpr=True, plot_se=True)
-```
 
 https://en.wikipedia.org/wiki/Akaike_information_criterion
 
