@@ -18,6 +18,8 @@ GAMs are a middle ground, allowing analysis of non-linear functional forms with 
 
 ## How
 
+Functional form is
+
 $y \sim \alpha + \sum_{i=1}^{k} f_i (x_i) + \epsilon$
 
 In theory, $f_i$ can be and $f : \mathbb{R} \rightarrow \mathbb{R}$
