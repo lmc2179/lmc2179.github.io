@@ -7,9 +7,9 @@ tags: [datascience]
 image: bad_day.png
 ---
 
-# Overview
+# GAMs offer a lot of the advantages of Linear Models with a more flexible functional form
 
-## GAMs offer a lot of the advantages of Linear Models with a more flexible functional form
+## How I use GAMs
 
 My workflow: linear modeling intuition, then black-box
 
@@ -23,7 +23,7 @@ You could do black box + PDP, but that's annoying
 
 GAMs are a middle ground, allowing analysis of non-linear functional forms with the easy of linear models
 
-## How
+## How GAMs work
 
 Functional form is
 
