@@ -2,7 +2,7 @@
 
 # Overview
 
-## Why
+## GAMs offer a lot of the advantages of Linear Models with a more flexible functional form
 
 My workflow: linear modeling intuition, then black-box
 
