@@ -1,4 +1,11 @@
-# **GAMs**
+---
+layout: post
+title: "Gams"
+author: "Louis Cialdella"
+categories: posts
+tags: [datascience]
+image: bad_day.png
+---
 
 # Overview
 
