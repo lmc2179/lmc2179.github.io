@@ -119,6 +119,10 @@ result.plot_partial(0, cpr=True, plot_se=True)
 
 ## CV-based search
 
+# Appendix: Intuition behind the AIC
+
+Shalizi
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Previous version
