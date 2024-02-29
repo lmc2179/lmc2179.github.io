@@ -14,11 +14,15 @@ The original article is about regression analysis; lets talk about both classica
 
 # Level I: Describing the data
 
+Description answers questions like: How many poll respondents voted for X
+
 Observed distributional facts
 
 What kinds of models of E[y | X] fit
 
 # Level II: Statistical inference about a population
+
+SI answers questions like: What is the political opinion of all the people in the state
 
 Statistical significance of differences (between subgroups, treated/untreated, etc)
 
@@ -27,6 +31,8 @@ Whether we're pretty sure that for a model that fits well, some coefficient shou
 Bootstrapping. Bootstrapping makes you think about whether you're really simulating the sampling process
 
 # Level III: Causal inference about an intervention
+
+CI answers questions like: What things cause people to vote for X, such that we could intervene and affect their willingness to vote for X
 
 Causal Inference requires causal assumptions
 
