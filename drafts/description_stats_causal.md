@@ -18,11 +18,13 @@ Description answers questions like: How many poll respondents voted for X
 
 Observed distributional facts
 
-What kinds of models of E[y | X] fit
+What kinds of models of E[y | X] fit this data well
 
-# Level II: Statistical inference about a population
+# Level II: Statistical inference and prediction about a population
 
-SI answers questions like: What is the political opinion of all the people in the state
+Berk just talks about SI, but Prediction is also inference about a population, ie inferring the number closest to the mean
+
+SI/P answers questions like: What is the political opinion of all the people in the state? Which people will show up on election day?
 
 Statistical significance of differences (between subgroups, treated/untreated, etc)
 
