@@ -10,6 +10,8 @@ https://www.public.asu.edu/~gasweete/crj604/readings/2010-Berk%20(what%20you%20c
 
 > By default, the true enterprise is description. Most everything else is puffery.
 
+The original article is about regression analysis; lets talk about both classical and black box regression models
+
 Level I: Describing the data
 
 Level II: Statistical inference about a population
