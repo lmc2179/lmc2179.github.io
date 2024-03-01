@@ -7,6 +7,8 @@ Why is shap useful?
 
 imagine we actually knew the function f:X -> y, inspecting it would tell us interesting things 
 
+f(X) - E[f(X)] tells us "does the model think this outcome is unusual". shap tells us "what about X makes the model think this outcome will be unusual"
+
 well we have an approximation to it at least. if the CV scores are good it may even be a useful approximation
 
 "why does the approximation to f think that f(X) is different from the average"
