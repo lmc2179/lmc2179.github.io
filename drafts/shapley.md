@@ -28,4 +28,6 @@ shap_values_positive = shap_values[..., 1]
 shap.plots.bar(shap_values_positive)
 
 shap.plots.waterfall(shap_values_positive[0])
+
+shap_values_positive.feature_names
 ```
