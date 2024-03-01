@@ -4,6 +4,12 @@ Why is shap useful?
 * Root cause analysis for an outlier
 * Potential areas for unit-level intervention
 
+imagine we actually knew the function f:X -> y, inspecting it would tell us interesting things 
+
+well we have an approximation to it at least. if the CV scores are good it may even be a useful approximation
+
+"why does the approximation to f think that f(X) is different from the average"
+
 https://arxiv.org/pdf/1705.07874.pdf
 
 https://shap.readthedocs.io/en/latest/example_notebooks/tabular_examples/model_agnostic/Census%20income%20classification%20with%20scikit-learn.html
