@@ -7,13 +7,25 @@ https://shap.readthedocs.io/en/latest/example_notebooks/tabular_examples/model_a
 https://shap.readthedocs.io/en/latest/generated/shap.plots.waterfall.html#shap.plots.waterfall 
 
 ```python
-def f(x):
-    return knn.predict_proba(x)[:, 1]
+import xgboost
 
-med = X_train.median().values.reshape((1, X_train.shape[1]))
+import shap
 
-explainer = shap.Explainer(f, med)
-shap_values = explainer(X_valid.iloc[0:1000, :])
-Permutation explainer: 1001it [00:25, 38.69it/s]
-shap.plots.waterfall(shap_values[0])
+# get a dataset on income prediction
+X, y = shap.datasets.adult()
+
+# train an XGBoost model (but any other model type would also work)
+model = xgboost.XGBClassifier()
+model.fit(X, y);
+
+# build a Permutation explainer and explain the model predictions on the given dataset
+explainer = shap.explainers.Permutation(model.predict_proba, X)
+shap_values = explainer(X[:100])
+
+# get just the explanations for the positive class
+shap_values_positive = shap_values[..., 1]
+
+shap.plots.bar(shap_values_positive)
+
+shap.plots.waterfall(shap_values_positive[0])
 ```
