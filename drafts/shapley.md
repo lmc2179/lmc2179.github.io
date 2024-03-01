@@ -3,6 +3,7 @@
 Why is shap useful?
 * Root cause analysis for an outlier
 * Potential areas for unit-level intervention
+* "Automatic case study"
 
 imagine we actually knew the function f:X -> y, inspecting it would tell us interesting things 
 
