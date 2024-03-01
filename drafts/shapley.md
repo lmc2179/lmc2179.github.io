@@ -24,6 +24,7 @@ Income example
 * Original: https://moodle2.units.it/pluginfile.php/547254/mod_resource/content/1/Velia%20Verbeek%201998.pdf
 * Find an example of someone who unionization helped vs didn't
 * https://vincentarelbundock.github.io/Rdatasets/csv/wooldridge/wagepan.csv
+* This is panel data which is neat
 
 SHAP paper: https://arxiv.org/pdf/1705.07874.pdf
 
