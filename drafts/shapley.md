@@ -2,6 +2,7 @@
 
 Why is shap useful?
 * Root cause analysis for an outlier
+  * First look at the distribution of f(X) - E[f(X)], which is the "unusualness distribution"
 * Potential areas for unit-level intervention
 * "Automatic case study"
 
