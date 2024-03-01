@@ -19,11 +19,13 @@ I think this isn't causal because of the table 2 fallacy - https://dagitty.net/l
 
 description is still handy though
 
-Income data: https://vincentarelbundock.github.io/Rdatasets/doc/wooldridge/wagepan.html
+Income example
+* Income data: https://vincentarelbundock.github.io/Rdatasets/doc/wooldridge/wagepan.html
+* Original: https://moodle2.units.it/pluginfile.php/547254/mod_resource/content/1/Velia%20Verbeek%201998.pdf
+* Find an example of someone who unionization helped vs didn't
+* https://vincentarelbundock.github.io/Rdatasets/csv/wooldridge/wagepan.csv
 
-https://moodle2.units.it/pluginfile.php/547254/mod_resource/content/1/Velia%20Verbeek%201998.pdf
-
-https://arxiv.org/pdf/1705.07874.pdf
+SHAP paper: https://arxiv.org/pdf/1705.07874.pdf
 
 https://shap.readthedocs.io/en/latest/example_notebooks/tabular_examples/model_agnostic/Census%20income%20classification%20with%20scikit-learn.html
 
