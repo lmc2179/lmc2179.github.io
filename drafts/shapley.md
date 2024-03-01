@@ -5,6 +5,7 @@ Why is shap useful?
   * First look at the distribution of f(X) - E[f(X)], which is the "unusualness distribution"
 * Potential areas for unit-level intervention
 * "Automatic case study"
+* Why did this get flagged as fraud (robocop examples)
 
 imagine we actually knew the function f:X -> y, inspecting it would tell us interesting things 
 
