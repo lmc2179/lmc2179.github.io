@@ -10,6 +10,8 @@ well we have an approximation to it at least. if the CV scores are good it may e
 
 "why does the approximation to f think that f(X) is different from the average"
 
+I think this isn't causal because of the table 2 fallacy - https://dagitty.net/learn/graphs/table2-fallacy.html
+
 https://arxiv.org/pdf/1705.07874.pdf
 
 https://shap.readthedocs.io/en/latest/example_notebooks/tabular_examples/model_agnostic/Census%20income%20classification%20with%20scikit-learn.html
