@@ -18,4 +18,6 @@ plt.plot(y_c)
 plt.plot(y_t)
 ```
 
-Turn this into a panel analysis? `Outcome ~ User/Cohort + C(time_from_exposure)`
+Turn this into a panel analysis? `Outcome ~ User/Cohort + C(time_from_exposure) + C(day of week)`
+
+Make sure you do a placebo test to see if your functional form is reasonable
