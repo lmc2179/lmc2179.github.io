@@ -18,4 +18,4 @@ plt.plot(y_c)
 plt.plot(y_t)
 ```
 
-Turn this into a panel analysis with a GAM? `Outcome ~ User/Cohort + bs(time_from_exposure)`
+Turn this into a panel analysis? `Outcome ~ User/Cohort + C(time_from_exposure)`
