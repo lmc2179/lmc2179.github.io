@@ -17,3 +17,5 @@ y_t = y_c * 1.05 + np.random.normal(0, 1, n)
 plt.plot(y_c)
 plt.plot(y_t)
 ```
+
+Turn this into a panel analysis with a GAM? `Outcome ~ User/Cohort + bs(time_from_exposure)`
