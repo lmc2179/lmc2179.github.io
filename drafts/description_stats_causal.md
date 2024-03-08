@@ -25,9 +25,9 @@ Observed distributional facts
 
 What kinds of models of E[y | X] fit this data well
 
-# Level II: Statistical inference and prediction about a population
+# Level II: Statistical inference about a population
 
-Berk just talks about SI, but Prediction is also inference about a population, ie inferring the number closest to the mean
+Berk just talks about SI, but Prediction is also inference about a population, ie inferring the the conditional mean E[y | X]
 
 SI/P answers questions like: What is the political opinion of all the people in the state? Which people will show up on election day?
 
