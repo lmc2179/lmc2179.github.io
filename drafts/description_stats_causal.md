@@ -12,6 +12,11 @@ https://www.public.asu.edu/~gasweete/crj604/readings/2010-Berk%20(what%20you%20c
 
 The original article is about regression analysis; lets talk about both classical and black box regression models
 
+https://psychology.okstate.edu/faculty/jgrice/psyc5314/Freedman_1991A.pdf
+
+> As a piece of statistical technology, Table 1 is by no means remarkable. But the story it tells is very persuasive. The force of the argument results from the clarity of the prior reasoning, the bringing together of many different lines of evidence, and the amount of shoe leather Snow was willing to use to get the data.
+> Snow did some brilliant detective work on nonexperimental data. What is impressive is not the statistical technique but the handling of the scientific issues. He made steady progress from shrewd observation through case studies to analysis of ecological data. In the end, he found and analyzed a natural experiment.
+
 # Level I: Describing the data
 
 Description answers questions like: How many poll respondents voted for X
