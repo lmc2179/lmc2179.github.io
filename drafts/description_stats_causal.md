@@ -48,3 +48,5 @@ CI answers questions like: What things cause people to vote for X, such that we 
 Causal Inference requires causal assumptions
 
 DAGs and unconfoundedness
+
+# Effective data science requires picking the level of analysis that is relevant to the decisions you need to make
