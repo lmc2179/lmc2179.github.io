@@ -6,6 +6,8 @@ It's kind of an agile method: Collect data ↔️ Description ↔️ Statistical
 
 What does each step _require_? Can your knowledge of the data and the DGP really provide it?
 
+Going up a level means paying a higher cost, but sometimes description is all you need. Is the cost worth paying? do you really need tod? is it really worth doing something complicated here?
+
 https://www.public.asu.edu/~gasweete/crj604/readings/2010-Berk%20(what%20you%20can%20and%20can%27t%20do%20with%20regression).pdf
 
 > By default, the true enterprise is description. Most everything else is puffery.
