@@ -1,5 +1,7 @@
 # Doing pre-post comparisons the right-way: Interrupted Time Series analysis in Python
 
+https://replit.com/@srs_moonlight/ITS#main.py
+
 Interrupted time series analysis
 
 https://theeffectbook.net/ch-EventStudies.html - Notes that "Event Studies" is a little broader than "ITS", but they're basically the same
