@@ -12,6 +12,8 @@ _blurb_
 
 # Brainstorm
 
+https://app.milanote.com/1OUMQd1UfS2x5a/decomposing-time-series-and-interrupted-time-series-analysis
+
 https://replit.com/@srs_moonlight/ITS#main.py
 
 Interrupted time series analysis
