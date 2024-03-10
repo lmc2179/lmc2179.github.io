@@ -16,6 +16,10 @@ $y^1_t - y^0_t = g(t - t_D)$
 
 Months after that are 1, before are 0. March is 1/3, because it was only partly treated
 
+$f(t)$ is a seasonal decomposition
+
+$g(t - t_D)$ is a spline, or something
+
 # How else might this work?
 
 # Brainstorm
