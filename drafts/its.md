@@ -1,5 +1,17 @@
 # Doing pre-post comparisons the right-way: Interrupted Time Series analysis in Python
 
+_blurb_
+
+# We do pre-post comparison all the time, so it's worth thinking about how to do it right
+
+# What doing it right means
+
+# Example
+
+# How else might this work?
+
+# Brainstorm
+
 https://replit.com/@srs_moonlight/ITS#main.py
 
 Interrupted time series analysis
