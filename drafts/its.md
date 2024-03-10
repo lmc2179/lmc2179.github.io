@@ -8,6 +8,10 @@ _blurb_
 
 # Example: NY taxis
 
+"treatment" - Lockdown on March 23rd
+
+Months after that are 1, before are 0. March is 1/3, because it was only partly treated
+
 # How else might this work?
 
 # Brainstorm
