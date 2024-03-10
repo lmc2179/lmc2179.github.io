@@ -22,6 +22,11 @@ $g(t - t_D)$ is a spline, or something
 
 # How else might this work?
 
+You could include other inputs to the model, namely:
+
+* An Autoregressive or ARIMA type component
+* Other covariates that you know in the past or the future - controls for known causes of the outcome which varied over time
+
 # Brainstorm
 
 https://app.milanote.com/1OUMQd1UfS2x5a/decomposing-time-series-and-interrupted-time-series-analysis
