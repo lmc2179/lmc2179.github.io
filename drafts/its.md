@@ -6,6 +6,10 @@ _blurb_
 
 # What doing it right means
 
+$y_t = f(t) + D \times g(t - t_D) + \epsilon_t$
+
+$y^1_t - y^0_t = g(t - t_D)$
+
 # Example: NY taxis
 
 "treatment" - Lockdown on March 23rd
