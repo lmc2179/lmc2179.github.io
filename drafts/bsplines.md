@@ -7,6 +7,8 @@ tags: [datascience]
 image: bad_day.png
 ---
 
+https://replit.com/@srs_moonlight/GAM
+
 # GAMs offer a lot of the advantages of Linear Models with a more flexible functional form
 
 ## How I use GAMs
