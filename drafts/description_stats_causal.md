@@ -31,7 +31,7 @@ What kinds of models of E[y | X] fit this data well
 
 Point estimates, confidence intervals, postriors, sampling distributions
 
-Berk just talks about SI, but Prediction is also inference about a population, ie inferring the the conditional mean E[y | X] - a lot of ML activity actually lives here
+Berk just talks about SI, but Prediction is also inference about a population, ie inferring the the conditional mean E[y | X] - a lot of ML activity actually lives here, because even when CV is used you're basically assuming the future population will look like the CV population
 
 SI/P answers questions like: What is the political opinion of all the people in the state? Which people will show up on election day?
 
