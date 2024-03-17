@@ -6,6 +6,8 @@ We often know a distribution analytically, but can't sample from it. Sampling fr
 
 MCMC provides a general (but costly) solution. For simpler, especially lower dimensional distributions, there are some less complex methods we can use. It's useful to have these at your disposal when MCMC is overkill, and can be quick solutions to simple sampling problems.
 
+Also useful for simulations! and predictions
+
 # A running example: an asymmetric, unimodal, unnormalized density function
 
 $f(X) = x (1-x)^3$
@@ -136,6 +138,12 @@ http://gregorygundersen.com/blog/2019/11/28/asymptotic-normality-mle/
 https://stephens999.github.io/fiveMinuteStats/asymptotic_normality_mle.html
 
 https://ocw.mit.edu/courses/mathematics/18-443-statistics-for-applications-fall-2006/lecture-notes/lecture3.pdf
+
+# Other options
+
+MCMC
+
+Rejection sampling
 
 # Comparing these methods
 
