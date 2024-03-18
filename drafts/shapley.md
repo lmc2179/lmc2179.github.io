@@ -1,10 +1,16 @@
+Interpreting unit-level feature importance in Python with SHAP
+
 # Problem - Explaining unit-level feature importance
 
-### Motivating example
+### "Why is this customer so valuable?"
+
+Building a machine learning model is a little bit like setting up a little robot advisor, who helps you figure out what to do next by giving you expert advice. For example, a model which predicts customer LTV based on customer attributes is like having an advisor who knows all about your customer base. The expert is able to answer the question: "How much do you think this customer is worth?". A reasonable follow up question for such an expert would be "Why do you think that?".
 
 We want model transparency = "Why did the model predict this outcome for this unit?"
 
 We want to explain anomalies/do RCA = "Why was this unit's outcome different from the average?"
+
+Lets us my favorite example of a vital product that everyone needs: little tinny sunglasses for cats.
 
 LTV example - Key question is "what makes this customer so valuable?. X = customer attributes measured at signup, y = LTV $.
 
