@@ -28,7 +28,7 @@ well we have an approximation to it at least. if the CV scores are good it may e
 
 "why does the approximation to f think that f(X) is different from the average"
 
-### Desiderata for numbers that give us unit-level explanation - Why linear models are useful
+### What would a useful explanation? The case of linear models
 
 linear models are so popular in part because they give us that nice regression summary at the population level. and we can get unit-level importances by looking at the largest coefficiencts. could we do something like that?
 
@@ -41,6 +41,10 @@ Why is that useful? (1) Linear changes are easy to imagine (2) It tells us about
 SHAP paper: https://arxiv.org/pdf/1705.07874.pdf
 
 ### Annotated key formulas from the paper
+
+Eqn (1)
+
+Eqn (4) 
 
 I think this isn't causal because of the table 2 fallacy - https://dagitty.net/learn/graphs/table2-fallacy.html
 
