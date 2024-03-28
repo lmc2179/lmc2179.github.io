@@ -27,6 +27,51 @@ This is a frustrating conversation for all involved. The PM is trying to play by
 
 # The issue with stopping early
 
+```python
+import numpy as np
+from scipy.stats import ttest_ind, norm
+import pandas as pd
+
+days_in_test = 14
+samples_per_day = 10
+
+
+def simulate_one_experiment():
+    treated_samples, control_samples = np.array([]), np.array([])
+    
+    simulation_results = []
+    
+    for day in range(days_in_test):
+        treated_samples = np.append(treated_samples, np.random.normal(0, 1, samples_per_day))
+        control_samples = np.append(control_samples, np.random.normal(0, 1, samples_per_day))
+        result = ttest_ind(treated_samples, control_samples)
+        simulation_results.append([day, len(treated_samples), result.statistic, result.pvalue])
+        
+    simulation_results = pd.DataFrame(simulation_results, columns=['day', 'n', 't', 'p'])
+    return simulation_results
+
+from matplotlib import pyplot as plt
+import seaborn as sns
+
+plt.plot(simulate_one_experiment().n, simulate_one_experiment().p)
+plt.axhline(.05)
+plt.show()
+
+n_simulations = 100
+false_positives = 0
+early_stop_false_positives = 0
+
+for i in range(n_simulations):
+    result = simulate_one_experiment()
+    if np.any(result['p'] <= .05):
+        early_stop_false_positives += 1
+    if result.iloc[-1]['p'] <= .05:
+        false_positives += 1
+
+print('False positives with full sample:', false_positives / n_simulations)
+print('False positives if early stopping is allowed:', early_stop_false_positives / n_simulations)
+```
+
 # Some quick fixes
 
 bonferroni
