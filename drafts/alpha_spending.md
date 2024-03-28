@@ -19,9 +19,7 @@ Let me tell you a story - perhaps a familiar one.
 >
 >**Product Manager**: But...why not? Your own dashboard says it's statistically significant! Isn't that what it's for?
 >
->**Data Analyst**: Yes, but we said we would collect two weeks of data when we designed the experiment, and the analysis is only valid if we do that. 
->
->I have to respect the arcane mystic powers of ✨`S T A T I S T I C S`✨!!! 
+>**Data Analyst**: Yes, but we said we would collect two weeks of data when we designed the experiment, and the analysis is only valid if we do that. I have to respect the arcane mystic powers of ✨`S T A T I S T I C S`✨!!! 
 
 _**Has this ever happened to you?**_
 
