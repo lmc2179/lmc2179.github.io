@@ -27,6 +27,9 @@ This is a frustrating conversation for all involved. The PM is trying to play by
 
 # The issue with stopping early
 
+<details>
+  <summary>Simulation code</summary>
+
 ```python
 import numpy as np
 from scipy.stats import ttest_ind, norm
@@ -77,6 +80,10 @@ plt.title('Many experiments will cross p < 0.05 even when H0 is true')
 print('False positives with full sample:', false_positives / n_simulations)
 print('False positives if early stopping is allowed:', early_stop_false_positives / n_simulations)
 ```
+
+</details> 
+
+
 
 # Some quick fixes
 
