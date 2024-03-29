@@ -59,7 +59,7 @@ estimating the level of waste for our chosen decision
 
 Where do the scenario parameters come from?
 * elicit from expertise
-* predictive models
+* build a predictive model of the distributions/conditional distributions
 * previous experiment results
 * bayesian analysis
 check them against historical data and how well your assumptions matched with reality
