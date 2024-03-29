@@ -74,9 +74,9 @@ print('False positives if early stopping is allowed:', early_stop_false_positive
 
 # Some quick fixes
 
-bonferroni - but it decreases the power!
+bonferroni - but it decreases the power! Intuition: Correct for multiple comparisons
 
-linear spending
+linear spending - Intuition: Be more skeptical at the beginning, and normally skeptical at the end
 
 # Solving the problem with the OBF Alpha spending function
 
