@@ -53,10 +53,6 @@ def simulate_one_experiment():
 from matplotlib import pyplot as plt
 import seaborn as sns
 
-plt.plot(simulate_one_experiment().n, simulate_one_experiment().p)
-plt.axhline(.05)
-plt.show()
-
 n_simulations = 100
 false_positives = 0
 early_stop_false_positives = 0
@@ -65,9 +61,19 @@ for i in range(n_simulations):
     result = simulate_one_experiment()
     if np.any(result['p'] <= .05):
         early_stop_false_positives += 1
+        color = 'blue'
+        alpha = 0.5
+    else:
+        color = 'grey'
+        alpha = .1
     if result.iloc[-1]['p'] <= .05:
         false_positives += 1
+    plt.plot(result['n'], result['p'], color=color, alpha=alpha)
 
+plt.axhline(.05)
+plt.xlabel('Number of samples')
+plt.ylabel('P-value')
+plt.title('Many experiments will cross p < 0.05 even when H0 is true')
 print('False positives with full sample:', false_positives / n_simulations)
 print('False positives if early stopping is allowed:', early_stop_false_positives / n_simulations)
 ```
