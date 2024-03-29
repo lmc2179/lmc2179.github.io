@@ -74,7 +74,7 @@ print('False positives if early stopping is allowed:', early_stop_false_positive
 
 # Some quick fixes
 
-bonferroni
+bonferroni - but it decreases the power!
 
 linear spending
 
