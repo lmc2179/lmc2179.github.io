@@ -4,7 +4,7 @@ Find the interesting units in your dataset - the extremes
 
 Find out what a "normal" unit looks like
 
-Predictive application: Calibrate level of error vs similarity to training set (???)
+Predictive application: Calibrate level of error vs similarity to training set (???) OR identify when the distribution of X is changing
 
 Anomaly detection application
 
