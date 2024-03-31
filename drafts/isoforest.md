@@ -10,3 +10,4 @@ Anomaly detection application
 
 Causal inference application: How much does the treated group look like the control group?
 
+Can we use Shap with isoforest to understand why a particular unit is abnormal?
