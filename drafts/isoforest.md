@@ -3,3 +3,10 @@ https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationFore
 Find the interesting units in your dataset - the extremes
 
 Find out what a "normal" unit looks like
+
+Predictive application: Calibrate level of error vs similarity to training set (???)
+
+Anomaly detection application
+
+Causal inference application: How much does the treated group look like the control group?
+
