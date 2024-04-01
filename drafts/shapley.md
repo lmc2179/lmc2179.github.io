@@ -52,6 +52,10 @@ Eqn (1)
 
 Eqn (4) 
 
+it's pretty beastly to condense this, but really valuable
+
+https://christophm.github.io/interpretable-ml-book/shapley.html#the-shapley-value-in-detail
+
 I think this isn't causal because of the table 2 fallacy - https://dagitty.net/learn/graphs/table2-fallacy.html
 
 ### The shap library
