@@ -56,6 +56,9 @@ it's pretty beastly to condense this, but really valuable
 
 https://christophm.github.io/interpretable-ml-book/shapley.html#the-shapley-value-in-detail
 
+> The Shapley value can be misinterpreted. The Shapley value of a feature value is not the difference of the predicted value after removing the feature from the model training. The interpretation of the Shapley value is: Given the current set of feature values, the contribution of a feature value to the difference between the actual prediction and the mean prediction is the estimated Shapley value.
+
+
 I think this isn't causal because of the table 2 fallacy - https://dagitty.net/learn/graphs/table2-fallacy.html
 
 ### The shap library
