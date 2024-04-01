@@ -73,6 +73,8 @@ X, y = shap.datasets.adult()
 
 https://shap.readthedocs.io/en/latest/example_notebooks/tabular_examples/model_agnostic/Census%20income%20classification%20with%20scikit-learn.html
 
+Do this one: https://vincentarelbundock.github.io/Rdatasets/doc/openintro/labor_market_discrimination.html
+
 ```python
 # train an XGBoost model (but any other model type would also work)
 model = xgboost.XGBClassifier()
