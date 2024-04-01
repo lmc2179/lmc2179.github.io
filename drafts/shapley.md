@@ -98,6 +98,11 @@ shap.plots.waterfall(shap_values_positive[0])
 shap_values_positive.feature_names
 ```
 
+```python
+# Global summary
+print(pd.DataFrame(shap_values_positive.values, columns=shap_values_positive.feature_names).describe())
+```
+
 # Other options
 
 PDP?
