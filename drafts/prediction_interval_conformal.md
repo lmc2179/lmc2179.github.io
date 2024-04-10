@@ -29,6 +29,12 @@ time series/enbPI
 
 # Evaluating PI models
 
+hit rate/coverage
+
+https://stats.stackexchange.com/questions/465799/testing-for-clairvoyance-or-performance-of-a-model-where-the-predictions-are-i/465808#465808
+
+which is introduced in section 6.2 of https://sites.stat.washington.edu/raftery/Research/PDF/Gneiting2007jasa.pdf
+
 # Other methods of generating PIs (Parametric, quant reg)
 
 # Appendix - relevant papers
