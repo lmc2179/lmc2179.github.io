@@ -1,8 +1,14 @@
 # Why are PIs useful? Real-life applications
 
-# Naive regression PIs
+It's useful to make predictions about the range of plausible outcomes
 
-# What is conformal inference? key steps
+# Some ways of getting PIs
+
+https://lmc2179.github.io/posts/confidence_prediction.html
+
+https://lmc2179.github.io/posts/quantreg_pi.html
+
+# Black box PIs with conformal inference
 
 user choices (after MAPIE paper s2.1)
 
@@ -35,7 +41,6 @@ https://stats.stackexchange.com/questions/465799/testing-for-clairvoyance-or-per
 
 which is introduced in section 6.2 of https://sites.stat.washington.edu/raftery/Research/PDF/Gneiting2007jasa.pdf
 
-# Other methods of generating PIs (Parametric, quant reg)
 
 # Appendix - relevant papers
 
