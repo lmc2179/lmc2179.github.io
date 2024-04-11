@@ -1,12 +1,16 @@
 # Why are PIs useful? Real-life applications
 
-It's useful to make predictions about the range of plausible outcomes
+It's useful to make predictions about the range of plausible outcomes, since the average alone hides a lot of information [as we've seen previously](https://lmc2179.github.io/posts/distributional-effects.html)
 
-# Some ways of getting PIs
+prepare for the best or worst case
 
-https://lmc2179.github.io/posts/confidence_prediction.html
+Some ways of getting PIs
 
-https://lmc2179.github.io/posts/quantreg_pi.html
+Linear models, but they make strong assumptions: https://lmc2179.github.io/posts/confidence_prediction.html
+
+Quantile regression, though that's also a linear model: https://lmc2179.github.io/posts/quantreg_pi.html
+
+what if we have a black box model? we often do, all the cool ones are. we have tools like [PDPs](https://lmc2179.github.io/posts/pdp.html) for analyzing black box models, even computing CIs, why not for making PIs from them
 
 # Black box PIs with conformal inference
 
