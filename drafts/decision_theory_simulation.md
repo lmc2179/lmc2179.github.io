@@ -7,6 +7,57 @@ tags: [datascience]
 image: gin_recipe.png
 ---
 
+# Motivating example: spaghetti plots
+
+spaghetti plots visualize many trajectories and helps us make decisions
+
+what decision (or decision rule) is going to be the most effective given what we know?
+
+# simulation structure and python code
+
+a decision-observation sequence is an ordered set of decision steps (collect user input) and observation steps (update variable values based on model assumptions). plus an END, which computes the score given the state and decisions
+
+observe node: can come from forecasts, predicitons, conf ints from causal inference or experiments
+
+list of functions which map state, decisions -> state, decisions. observe nodes only change state, decison nodes only change decisions
+
+```python
+def simulate(starting_state, starting decisions, steps, score_fxn):
+"""
+add docstring here
+"""
+  state = starting_state
+  decisions = starting_decisions
+  for current_step in steps:
+    state_decisions = current_step(state, decisions)
+  score = score_fxn(state, decisions)
+  return score, state, decisions
+```
+
+# a simple example: umbrella
+
+* decision step: take an umbrella? update the `umbrella` variable
+* observation step: update the `rain` variable
+
+# the gin example
+
+* observe the prices of items
+* make decision: how much to purchase given prices
+* observe: consumption
+* END: compute score as dollars of wasted material if demand is met, else -inf
+
+# simulation retrospective: did it match reality? 
+
+compare sampled states to actual
+
+# appendix: what if we wanted to add branching?
+
+move from an ordered list to a directed graph
+
+add a BRANCH step type, which changes the next node
+
+# Original draft -------------------------------------------------------------------------------
+
 The reason we look at data is so we can make better decisions. However, even after consulting the data, there is still usually some uncertainty what will happen. We want to make choices that will be effect in not just the average situation, but whatever range of outcomes are plausible. In this post, we'll cover some basic Decision Theory and use it to show how simulations can help us plan for situations when uncertainty is present.
 
 _**Note from the Editors**: The Editorial team here at `Casual Inference: Data Analysis and Other Apocrypha™` remind you to be responsible when drinking and calculating expected values. Alcohol may impair your ability to operate a Monte Carlo Simulation or pronounce the word "heteroskedasticity". The Editorial Board does not endorse any of the views, recipes, or probability calculations present in this article, which are solely those of the author._
