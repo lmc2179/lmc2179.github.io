@@ -9,9 +9,15 @@ image: gin_recipe.png
 
 # Motivating example: spaghetti plots
 
+how would you plan for a complex situation like an unfolding hurricane? it's hard because there are many unknowns, and we are not just worried about one or two facts (where will it make landfall), we are worrried about many facts - trajectories of facts
+
 spaghetti plots visualize many trajectories and helps us make decisions
 
 what decision (or decision rule) is going to be the most effective given what we know?
+
+in an ideal world, we'd know the exact trajectories under each decision rule. then we'd use these counterfactuals to generate a score for each choice
+
+but we're not clairvoyant; we only know (or can use ML to get, or can guess about) probabilities that describe what will happen at each step
 
 # simulation structure and python code
 
