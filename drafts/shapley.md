@@ -54,6 +54,14 @@ $\underbrace{r_t^{Other} - r_{t-1}^{Other}}_\textrm{Other country revenue growth
 
 Eqn (4) 
 
+$$
+
+\underbrace{\phi_i}_\textrm{Importance of feature i} =  
+\underbrace{\sum_{S \subseteq F \backslash \{i\}}}_\textrm{Sum over subsets of F without i}
+\underbrace{ \frac{\mid S \mid ! (\mid F \mid - \mid S \mid - 1)!}{\mid F \mid!} (f_{S \cup \{i\}}(x_{S \cup \{i\}}) - f_S(X_S))}_\textrm{Average change due to excluding feature i}
+
+$$
+
 it's pretty beastly to condense this, but really valuable
 
 https://christophm.github.io/interpretable-ml-book/shapley.html#the-shapley-value-in-detail
