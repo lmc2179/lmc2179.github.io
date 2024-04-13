@@ -50,7 +50,11 @@ SHAP paper: https://arxiv.org/pdf/1705.07874.pdf
 
 Eqn (1)
 
-$\underbrace{r_t^{Other} - r_{t-1}^{Other}}_\textrm{Other country revenue growth}$
+$$
+\underbrace{g(z')}_\textrm{Predicted value at z'} =
+\underbrace{\phi_0}_\textrm{Baseline prediction} +  
+\underbrace{\sum_{i=1}^{M} \phi_i z'_i}_\textrm{Effect of feature i at point \ $z'_i$} 
+$$
 
 Eqn (4) 
 
