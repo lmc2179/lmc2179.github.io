@@ -50,6 +50,8 @@ SHAP paper: https://arxiv.org/pdf/1705.07874.pdf
 
 Eqn (1)
 
+$\underbrace{r_t^{Other} - r_{t-1}^{Other}}_\textrm{Other country revenue growth}$
+
 Eqn (4) 
 
 it's pretty beastly to condense this, but really valuable
