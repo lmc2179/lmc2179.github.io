@@ -66,7 +66,7 @@ print('Average interval width:', regression_mean_width_score(y_pi_05[:,0], y_pi_
 # Pick the model with acceptable coverage + lowest width
 ```
 
-CQR for heteroskedasticity
+CQR for heteroskedasticity; replace "plus" with "cqr"
 
 https://proceedings.neurips.cc/paper_files/paper/2019/file/5103c3584b063c431bd1268e9b5e76fb-Paper.pdf
 
