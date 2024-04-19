@@ -1,3 +1,5 @@
+Prediction intervals and their generalizations: Conformal inference in Python with MAPIE
+
 # Why are PIs useful? Real-life applications
 
 It's useful to make predictions about the range of plausible outcomes, since the average alone hides a lot of information [as we've seen previously](https://lmc2179.github.io/posts/distributional-effects.html)
@@ -30,6 +32,39 @@ Distance framing of conformal inference
 4. Make a prediction; points which are the "usual" distance from the prediction are included in the PI
 
 # MAPIE example for regression: Training and prediction
+
+```python
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.datasets import make_regression
+from sklearn.model_selection import train_test_split
+from matplotlib import pyplot as plt
+from mapie.regression import MapieRegressor
+from mapie.metrics import regression_mean_width_score, regression_coverage_score
+
+
+X, y = make_regression(n_samples=50, n_features=1, noise=10)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5)
+
+regressor = LinearRegression()
+
+mapie_regressor = MapieRegressor(estimator=regressor, method='plus', cv=5)
+
+mapie_regressor = mapie_regressor.fit(X_train, y_train)
+y_pred, y_pi = mapie_regressor.predict(X_test, alpha=[0.05, 0.32]) 
+
+# Shape of y_pis is n_rows x {low, high} x alphas
+y_pi_05 = y_pi[:,:,0]
+
+plt.scatter(y_test, y_pred)
+plt.vlines(y_test, y_pi_05[:,0], y_pi_05[:,1])
+
+plt.plot([np.min(y_test), np.max(y_test)], [np.min(y_test), np.max(y_test)], linestyle='dotted')
+
+print('Coverage:', regression_coverage_score(y_test, y_pi_05[:,0], y_pi_05[:,1]))
+print('Average interval width:', regression_mean_width_score(y_pi_05[:,0], y_pi_05[:,1]))
+# Pick the model with acceptable coverage + lowest width
+```
 
 # how it works for stuff other than regression
 
