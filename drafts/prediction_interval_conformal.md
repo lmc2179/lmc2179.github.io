@@ -13,7 +13,7 @@ Usually, using one number is false precision
 It's useful to make predictions about the range of plausible outcomes, since the average alone hides a lot of information [as we've seen previously](https://lmc2179.github.io/posts/distributional-effects.html)
 
 Some examples:
-* regression example: forecasting a range of revenues for next month's sales lets you prepare for both the best and worst cases
+* regression example: forecasting a range of revenues for next month's sales lets you prepare for both the best and worst cases.
 * classification example: predicting a range of plausible diagnoses based on patient data lets you assess a range of treatment options and risks
 
 There are a few ways to generate prediction intervals that have already been covered here:
