@@ -4,7 +4,7 @@ Take off your point prediction blinders: Conformal inference in Python with MAPI
 
 Bertrand Russell
 
-# Point prediction tunnel vision
+# You may be suffering from point prediction tunnel vision
 
 E[y | X] or P(y | X) isn't the end of the story
 
