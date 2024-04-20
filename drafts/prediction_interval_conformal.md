@@ -14,14 +14,6 @@ Quantile regression, though that's also a linear model: https://lmc2179.github.i
 
 what if we have a black box model? we often do, all the cool ones are. we have tools like [PDPs](https://lmc2179.github.io/posts/pdp.html) for analyzing black box models, even computing CIs, why not for making PIs from them
 
-# Black box PIs with conformal inference
-
-user choices (after MAPIE paper s2.1)
-
-1. pick conformity score
-2. How to generate the out-of-sample predictions (jackknife, CV, etc)
-3. Risk level \alpha
-
 # The key idea in conformal inference: PIs in arbitrary spaces based where conformity=distance
 
 Distance framing of conformal inference
@@ -30,6 +22,16 @@ Distance framing of conformal inference
 2. Generate OOS predictions
 3. Look at how close predictions "usually" are to the actual values
 4. Make a prediction; points which are the "usual" distance from the prediction are included in the PI
+
+# Black box PIs with conformal inference
+
+user choices (after MAPIE paper s2.1)
+
+1. pick conformity score
+2. How to generate the out-of-sample predictions (jackknife, CV, etc)
+3. Risk level \alpha
+
+
 
 # MAPIE example for regression: Training and prediction
 
