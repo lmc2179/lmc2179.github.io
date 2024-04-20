@@ -74,9 +74,9 @@ https://mapie.readthedocs.io/en/stable/examples_regression/4-tutorials/plot_cqr_
 
 # how it works for stuff other than regression
 
-classification intuition
+classification intuition - prediction set
 
-time series/enbPI
+time series/enbPI - prediction band
 
 # Evaluating PI models
 
