@@ -4,7 +4,7 @@ Black-box prediction intervals: Conformal inference in Python with MAPIE
 
 Bertrand Russell
 
-# Take off your point estimate blinders
+# Take off your point prediction blinders
 
 E[y | X] or P(y | X) isn't the end of the story
 
@@ -22,7 +22,9 @@ There are a few ways to generate prediction intervals that have already been cov
 
 what if we have a black box model? we often do, all the cool ones are. we have tools like [PDPs](https://lmc2179.github.io/posts/pdp.html) for analyzing black box models, even computing CIs with bootstrapping, why not for making PIs from them
 
-# The key idea in conformal inference: PIs in arbitrary spaces based where conformity=distance
+# The key idea in conformal inference: the prediction interval contains all the points within "error distance" of the point prediction
+
+PIs in arbitrary spaces based where conformity=distance
 
 Distance framing of conformal inference
 
