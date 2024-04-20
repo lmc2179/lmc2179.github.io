@@ -6,7 +6,7 @@ Bertrand Russell
 
 # You may be suffering from point prediction tunnel vision
 
-E[y | X] or P(y | X) isn't the end of the story
+E[y \mid X] or P(y \mid X) isn't the end of the story
 
 Usually, using one number is false precision
 
