@@ -1,18 +1,26 @@
 Black-box prediction intervals: Conformal inference in Python with MAPIE
 
-# Why are PIs useful? Real-life applications
+> All exact science is dominated by the idea of approximation. When a man tells you that he knows the exact truth about anything, you are safe in inferring that he is an inexact man.
+
+Bertrand Russell
+
+# Take off your point estimate blinders
+
+E[y | X] or P(y | X) isn't the end of the story
+
+Usually, using one number is false precision
 
 It's useful to make predictions about the range of plausible outcomes, since the average alone hides a lot of information [as we've seen previously](https://lmc2179.github.io/posts/distributional-effects.html)
 
-prepare for the best or worst case
+Some examples:
+* regression example: forecasting a range of revenues for next month's sales lets you prepare for both the best and worst cases
+* classification example: predicting a range of plausible diagnoses based on patient data lets you assess a range of treatment options and risks
 
-Some ways of getting PIs
+There are a few ways to generate prediction intervals that have already been covered here:
+* Linear models, but they make strong assumptions: https://lmc2179.github.io/posts/confidence_prediction.html
+* Quantile regression, though that's also a linear model: https://lmc2179.github.io/posts/quantreg_pi.html
 
-Linear models, but they make strong assumptions: https://lmc2179.github.io/posts/confidence_prediction.html
-
-Quantile regression, though that's also a linear model: https://lmc2179.github.io/posts/quantreg_pi.html
-
-what if we have a black box model? we often do, all the cool ones are. we have tools like [PDPs](https://lmc2179.github.io/posts/pdp.html) for analyzing black box models, even computing CIs, why not for making PIs from them
+what if we have a black box model? we often do, all the cool ones are. we have tools like [PDPs](https://lmc2179.github.io/posts/pdp.html) for analyzing black box models, even computing CIs with bootstrapping, why not for making PIs from them
 
 # The key idea in conformal inference: PIs in arbitrary spaces based where conformity=distance
 
@@ -73,12 +81,6 @@ CQR for heteroskedasticity
 https://proceedings.neurips.cc/paper_files/paper/2019/file/5103c3584b063c431bd1268e9b5e76fb-Paper.pdf
 
 https://mapie.readthedocs.io/en/stable/examples_regression/4-tutorials/plot_cqr_tutorial.html
-
-# how it works for stuff other than regression
-
-classification intuition - prediction set
-
-time series/enbPI - prediction band
 
 # Evaluating PI models
 
