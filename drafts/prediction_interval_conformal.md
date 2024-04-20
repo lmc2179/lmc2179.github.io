@@ -1,10 +1,10 @@
-Black-box prediction intervals: Conformal inference in Python with MAPIE
+Take off your point prediction blinders: Conformal inference in Python with MAPIE
 
 > All exact science is dominated by the idea of approximation. When a man tells you that he knows the exact truth about anything, you are safe in inferring that he is an inexact man.
 
 Bertrand Russell
 
-# Take off your point prediction blinders
+# Point prediction tunnel vision
 
 E[y | X] or P(y | X) isn't the end of the story
 
