@@ -1,4 +1,4 @@
-Prediction intervals and their generalizations: Conformal inference in Python with MAPIE
+Black-box prediction intervals: Conformal inference in Python with MAPIE
 
 # Why are PIs useful? Real-life applications
 
