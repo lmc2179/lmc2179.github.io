@@ -10,7 +10,7 @@ E[y | X] or P(y | X) isn't the end of the story
 
 Usually, using one number is false precision
 
-It's useful to make predictions about the range of plausible outcomes, since the average alone hides a lot of information [as we've seen previously](https://lmc2179.github.io/posts/distributional-effects.html)
+It's useful to make predictions about the range of plausible outcomes, since the average alone hides a lot of information about the spread around it
 
 Some examples:
 * regression example: forecasting a range of revenues for next month's sales lets you prepare for both the best and worst cases.
