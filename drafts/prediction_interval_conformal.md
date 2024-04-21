@@ -16,11 +16,15 @@ So what is a house seller to do? This is the familiar problem of producing a _pr
 * If your model is a linear regression, and your data follows the linear regression assumptions (homoskedasticity, gaussian noise, etc etc), then you can get a prediction interval by computing the size of the noise term $\hat{\sigma}$, [as we've seen before](https://lmc2179.github.io/posts/confidence_prediction.html).
 * Alternatively, you could just dump your existing model and instead build a [quantile regression model](https://lmc2179.github.io/posts/quantreg_pi.html). 
 
-Both of those are a little unsatisfying. Plenty of models are not linear models, and after all we went through all this work to build a model of `E[y \mid X]`.
+Both of those are a little unsatisfying. Plenty of models are not linear models, and after all we went through all this work to build a model of $\mathbb{E}[y \mid X]$. Can't we use that somehow?
 
-what if we have a black box model? we often do, all the cool ones are. we have tools like [PDPs](https://lmc2179.github.io/posts/pdp.html) for analyzing black box models, even computing CIs with bootstrapping, why not for making PIs from them
+One tempting option is to try and build multiple models by bootstrapping, and looking at the distribution of predictions. However, that's not quite what we want, because the variation in the bootstrap samples isn't telling us what range of actual values this particular house might sell for. Rather, bootstrapping tells us about how uncertain we should be about the model's prediction of the expected value - it tells us how much uncertainty we should have around $\mathbb{E}[y \mid X]$. Bootstrapping gives us a _confidence interval_ of the conditional mean, not a _prediction interval_ of actual values we might observe.
+
+Intuitively, lets think about what properties a good solution should have. 
 
 # The key idea in conformal inference: the prediction interval contains all the points within "error distance" of the point prediction
+
+Linear model intuition: if we knew the true model, the prediction interval would be about +- 2 \times \hat{\sigma}, which is the "usual" size of error, most errors are smaller than that
 
 PIs in arbitrary spaces based where conformity=distance
 
@@ -30,6 +34,8 @@ Distance framing of conformal inference
 2. Generate OOS predictions
 3. Look at how close predictions "usually" are to the actual values
 4. Make a prediction; points which are the "usual" distance from the prediction are included in the PI
+
+this actually _generalizes_ the PI
 
 # Black box PIs with conformal inference
 
@@ -66,15 +72,19 @@ y_pred, y_pi = mapie_regressor.predict(X_test, alpha=[0.05, 0.32])
 # Shape of y_pis is n_rows x {low, high} x alphas
 y_pi_05 = y_pi[:,:,0]
 
+low_05, high_05 = y_pi_05[:,0], y_pi_05[:,1]
+
 plt.scatter(y_test, y_pred)
-plt.vlines(y_test, y_pi_05[:,0], y_pi_05[:,1])
+plt.vlines(y_test, low_05, high_05)
 
 plt.plot([np.min(y_test), np.max(y_test)], [np.min(y_test), np.max(y_test)], linestyle='dotted')
 
-print('Coverage:', regression_coverage_score(y_test, y_pi_05[:,0], y_pi_05[:,1]))
-print('Average interval width:', regression_mean_width_score(y_pi_05[:,0], y_pi_05[:,1]))
+print('Coverage:', regression_coverage_score(y_test, low_05, high_05))
+print('Average interval width:', regression_mean_width_score(low_05, high_05))
 # Pick the model with acceptable coverage + lowest width
 ```
+
+explain the input kwargs to MapieRegressor
 
 CQR for heteroskedasticity
 
@@ -84,12 +94,21 @@ https://mapie.readthedocs.io/en/stable/examples_regression/4-tutorials/plot_cqr_
 
 # Evaluating PI models
 
-hit rate/coverage
+hit rate/coverage plot - we want coverage better than (1-\alpha) and width as low as possible. heuristic: plot coverage and width, pick model with lowest width that has coverage better than target
 
 https://stats.stackexchange.com/questions/465799/testing-for-clairvoyance-or-performance-of-a-model-where-the-predictions-are-i/465808#465808
 
 which is introduced in section 6.2 of https://sites.stat.washington.edu/raftery/Research/PDF/Gneiting2007jasa.pdf
 
+# What does a non-regression version look like?
+
+Classification: Prediction set. Method = ???. Doc link = ???.
+
+Times series: Prediction band. Method = EnbPI. Doc link = ???.
+
+# Outro
+
+Simulation and decision for conformal models
 
 # Appendix - relevant papers
 
