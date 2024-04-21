@@ -12,7 +12,7 @@ Of course, you know enough about models to realize that your house won't sell fo
 
 Quantifying the range of possible outcomes around the prediction is _really_ important. Despite that, lots of folks frequently take the point prediction made by a model as the gospel. I sometimes think of this as _point prediction tunnel vision_ - if we only consider the point prediction, we miss all the other possible cases we should also factor into our decision.
 
-So what is a house seller to do? This is the familiar problem of producing a _prediction inteval_. A couple of options present themselves:
+So what is a house seller to do? This is the familiar problem of producing a _prediction interval_. A couple of options present themselves:
 * If your model is a linear regression, and your data follows the linear regression assumptions (homoskedasticity, gaussian noise, etc etc), then you can get a prediction interval by computing the size of the noise term $\hat{\sigma}$, [as we've seen before](https://lmc2179.github.io/posts/confidence_prediction.html).
 * Alternatively, you could just dump your existing model and instead build a [quantile regression model](https://lmc2179.github.io/posts/quantreg_pi.html). 
 
