@@ -6,19 +6,17 @@ Bertrand Russell
 
 # You may be suffering from point prediction tunnel vision
 
-E[y \mid X] or P(y \mid X) isn't the end of the story
+Let's say you want to sell your house (also you own a house, congratulations), and you decide to build a model to predict what kind of price you might get for it. You do all the usual steps - you collect historical data, try a wide range of features, and perform model selection without a holdout set. Armed with a model that can tell you the expected value of your house, you run `model.predict(my_house_features)` and find out that your model predicts a value of...drum roll please...one _million_ dollars! Nice, you're going to be a millionaire! Well, maybe a sub-millionaire after all applicable taxes and legal fees, but still not bad.
 
-Usually, using one number is false precision
+Of course, you know enough about models to realize that your house won't sell for _exactly_ one million dollars and zero cents. It'll be a little more or a little less. How much more or less, though? If the answer is "a few dollars" more or less, great. If the answer is "a million dollars" more or less, then your forecast isn't actually saying much. Reviewing our basic machine learning, our model is really giving us the _expected house price given all the house's features_. That is, the model is a model of $\mathbb{E}[y \mid X]$, where $y$ is the house price and $X$ are the house features.
 
-It's useful to make predictions about the range of plausible outcomes, since the average alone hides a lot of information about the spread around it
+Quantifying the range of possible outcomes around the prediction is _really_ important. Despite that, lots of folks frequently take the point prediction made by a model as the gospel. I sometimes think of this as _point prediction tunnel vision_ - if we only consider the point prediction, we miss all the other possible cases we should also factor into our decision.
 
-Some examples:
-* regression example: forecasting a range of revenues for next month's sales lets you prepare for both the best and worst cases.
-* classification example: predicting a range of plausible diagnoses based on patient data lets you assess a range of treatment options and risks
+So what is a house seller to do? This is the familiar problem of producing a _prediction inteval_. A couple of options present themselves:
+* If your model is a linear regression, and your data follows the linear regression assumptions (homoskedasticity, gaussian noise, etc etc), then you can get a prediction interval by computing the size of the noise term $\hat{\sigma}$, [as we've seen before](https://lmc2179.github.io/posts/confidence_prediction.html).
+* Alternatively, you could just dump your existing model and instead build a [quantile regression model](https://lmc2179.github.io/posts/quantreg_pi.html). 
 
-There are a few ways to generate prediction intervals that have already been covered here:
-* Linear models, but they make strong assumptions: https://lmc2179.github.io/posts/confidence_prediction.html
-* Quantile regression, though that's also a linear model: https://lmc2179.github.io/posts/quantreg_pi.html
+Both of those are a little unsatisfying. Plenty of models are not linear models, and after all we went through all this work to build a model of `E[y \mid X]`.
 
 what if we have a black box model? we often do, all the cool ones are. we have tools like [PDPs](https://lmc2179.github.io/posts/pdp.html) for analyzing black box models, even computing CIs with bootstrapping, why not for making PIs from them
 
