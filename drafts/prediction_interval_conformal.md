@@ -20,11 +20,23 @@ Both of those are a little unsatisfying. Plenty of models are not linear models,
 
 One tempting option is to try and build multiple models by bootstrapping, and looking at the distribution of predictions. However, that's not quite what we want, because the variation in the bootstrap samples isn't telling us what range of actual values this particular house might sell for. Rather, bootstrapping tells us about how uncertain we should be about the model's prediction of the expected value - it tells us how much uncertainty we should have around $\mathbb{E}[y \mid X]$. Bootstrapping gives us a _confidence interval_ of the conditional mean, not a _prediction interval_ of actual values we might observe.
 
-Intuitively, lets think about what properties a good solution should have. 
+Lets got back to the way we construct prediction intervals for linear models. In a linear regression, we assume that the observations are distributed according to:
+
+$$y \sim Normal(\alpha + \beta X, \sigma)$$
+
+We can make a point prediction by computing the expected value of $y$, ie:
+
+$$\mathbb{E}[y \mid X] = \alpha + \beta X$$
+
+If we actually knew the parameter values $\alpha$ and $\beta$, then the observed value of $y$ should be within $2 \sigma$ of the point prediction 95% of the time. If we didn't know $\sigma$, we could estimate it from the data by looking at the standard deviation of the residuals, and use that to generate prediction intervals (technically it's only proportional to $\sigma$, but lets ignore that for the moment).
+
+The key intuition from the linear model is that we can look at the shape of the residual distribution, ie at how distant predictions usually are from the real values, and use that to calibrate our prediction interval. There is a generalization of this idea to non-linear regression models and beyond, and it is called _conformal inference_.
 
 # The key idea in conformal inference: the prediction interval contains all the points within "error distance" of the point prediction
 
-Linear model intuition: if we knew the true model, the prediction interval would be about +- 2 \times \hat{\sigma}, which is the "usual" size of error, most errors are smaller than that
+As far as I can tell, the idea
+
+If we can define a distance in the output space, we can do conformal prediction
 
 PIs in arbitrary spaces based where conformity=distance
 
