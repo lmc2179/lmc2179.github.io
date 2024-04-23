@@ -65,6 +65,7 @@ user choices (after MAPIE paper s2.1)
 import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor, HistGradientBoostingRegressor
 from matplotlib import pyplot as plt
 from mapie.regression import MapieRegressor
 from mapie.metrics import regression_mean_width_score, regression_coverage_score
@@ -80,7 +81,7 @@ X = data[input_features]
 y = data[target_variable]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.005)
 
-regressor = LinearRegression()
+regressor = HistGradientBoostingRegressor()
 
 mapie_regressor = MapieRegressor(estimator=regressor, method='plus', cv=5)
 
