@@ -1,4 +1,11 @@
-Interpreting unit-level feature importance in Python with SHAP
+---
+layout: post
+title: "Interpreting unit-level feature explanations in Python with SHAP"
+author: "Louis Cialdella"
+categories: posts
+tags: [datascience]
+image: ?.png
+---
 
 # Problem - Explaining unit-level feature importance
 
