@@ -11,15 +11,14 @@ image: ?.png
 
 ### "Why is this customer so valuable?"
 
-Building a machine learning model is a little bit like setting up a little robot advisor, who helps you figure out what to do next by giving you expert advice. For example, a model which predicts customer LTV based on customer attributes is like having an advisor who knows all about your customer base. For example, if you build an LTV prediction model, the expert is able to answer the question: "How much do you think this customer is worth?". A reasonable follow up question for such an expert would be "Why do you think that?".
+Building a machine learning model is a little bit like setting up a little robot advisor, who helps you figure out what to do next by giving you expert advice. For example, a model which predicts customer LTV based on customer attributes is like having an advisor who knows all about your customer base. For example, if you build an LTV prediction model, the expert is able to answer the question: "How much do you think this customer is worth?". A reasonable follow up question for such an expert would be "Why do you think that?". The same way we want our colleagues and advisors to be transparent, we want our model to be transparent. We want to be able to ask a question like: "Why did the model predict this outcome for this unit?".
 
-We want model transparency = "Why did the model predict this outcome for this unit?"
+There are lots of reasons we might ask this question:
+* It gives us a quick check on whether the model is doing something surprising - if it's relying heavily on a feature we weren't expecting to be important, 
+* We want to explain anomalously high predictions to see what's driving them. Similarly, we might use this to do root cause analysis - if the model predicts a surprisingly large value, we can get some intuition about what potential root cause is relevant.
+* We can start to understand what the largest potential causal drivers of the outcome are.
 
-We want to explain anomalies/do RCA = "Why was this unit's predicted outcome different from the average?"
-
-Lets us my favorite example of a vital product that everyone needs: little tiny sunglasses for cats.
-
-LTV example - Key question is "what makes this customer so valuable?. X = customer attributes measured at signup, y = LTV $.
+House price example!! again sorry
 
 ### Population-level feature importance vs unit-level feature explanations
 
