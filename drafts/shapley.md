@@ -18,7 +18,7 @@ There are lots of reasons we might ask this question:
 * We want to explain anomalously high predictions to see what's driving them. Similarly, we might use this to do root cause analysis - if the model predicts a surprisingly large value, we can get some intuition about what potential root cause is relevant.
 * We can start to understand what the largest potential causal drivers of the outcome are.
 
-House price example!! again sorry
+Let's return to a familiar example. Imagine you've decided you want to go buy a house, and so you do the most normal thing for a prospective homebuyer to do an create a machine learning model that predicts sale price based on house attributes. You now have a model that gives you $\mathbb{E}[Price \mid Attributes]$, the expected price given what we know about the house. You also have a specific house you're looking at, but _wow_ is it expensive. Why, what specifically about it makes the model think it is expensive? We can answer this question by getting a _unit-level feature explanation_.
 
 ### Population-level feature importance vs unit-level feature explanations
 
