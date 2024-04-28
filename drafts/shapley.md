@@ -15,7 +15,7 @@ Building a machine learning model is a little bit like setting up a little robot
 
 We want model transparency = "Why did the model predict this outcome for this unit?"
 
-We want to explain anomalies/do RCA = "Why was this unit's outcome different from the average?"
+We want to explain anomalies/do RCA = "Why was this unit's predicted outcome different from the average?"
 
 Lets us my favorite example of a vital product that everyone needs: little tiny sunglasses for cats.
 
