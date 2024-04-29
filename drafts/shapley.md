@@ -22,6 +22,8 @@ Let's return to a familiar example. Imagine you've decided you want to go buy a 
 
 ### Population-level feature importance vs unit-level feature explanations
 
+Feature importance vs explanations of a single prediction
+
 Interpreting model-level parameters like regression coefficients gives us a population-level explanation. Population explanation = "What columns are important in $f(X) = \mathbb{E}[y \mid X]$?" "What columns of $X$ are associated with changes in $f(X)$?" What in general is correlated with house price?
 
 In order to ask why any _particular_ house is so expensive is ...
