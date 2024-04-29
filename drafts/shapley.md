@@ -22,7 +22,9 @@ Let's return to a familiar example. Imagine you've decided you want to go buy a 
 
 ### Population-level feature importance vs unit-level feature explanations
 
-Population explanation = "What columns are important in $f(X) = \mathbb{E}[y \mid X]$?" "What columns of $X$ are associated with changes in $f(X)$?"
+Interpreting model-level parameters like regression coefficients gives us a population-level explanation. Population explanation = "What columns are important in $f(X) = \mathbb{E}[y \mid X]$?" "What columns of $X$ are associated with changes in $f(X)$?" What in general is correlated with house price?
+
+In order to ask why any _particular_ house is so expensive is ...
 
 Unit explanation = "Which of the observed values of X_i explains why f(X_i) is far from $\mathbb{E}[f(X)]$? What makes this unit's predicted outcome different from the average unit's outcome?"
 
