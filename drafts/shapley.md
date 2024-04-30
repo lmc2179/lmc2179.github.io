@@ -16,33 +16,18 @@ Building a machine learning model is a little bit like setting up a little robot
 There are lots of reasons we might ask this question:
 * It gives us a quick check on whether the model is doing something surprising - if it's relying heavily on a feature we weren't expecting to be important, 
 * We want to explain anomalously high predictions to see what's driving them. Similarly, we might use this to do root cause analysis - if the model predicts a surprisingly large value, we can get some intuition about what potential root cause is relevant.
-* We can start to understand what the largest potential causal drivers of the outcome are.
+* We can think about unit-level interventions
+* "Automatic case study"
 
 Let's return to a familiar example. Imagine you've decided you want to go buy a house, and so you do the most normal thing for a prospective homebuyer to do an create a machine learning model that predicts sale price based on house attributes. You now have a model that gives you $\mathbb{E}[Price \mid Attributes]$, the expected price given what we know about the house. You also have a specific house you're looking at, but _wow_ is it expensive. Why, what specifically about it makes the model think it is expensive? We can answer this question by getting a _unit-level feature explanation_.
 
 ### Population-level feature importance vs unit-level feature explanations
 
-Feature importance vs explanations of a single prediction
+imagine we actually knew the function f:X -> y, inspecting it would tell us interesting things. well we have an approximation to it at least. if the CV scores are good it may even be a useful approximation. "why does the approximation to f think that f(X) is different from the average". Said another way, f(X) - E[f(X)] tells us "does the model think this outcome is unusual"
 
-Interpreting model-level parameters like regression coefficients gives us a population-level explanation. Population explanation = "What columns are important in $f(X) = \mathbb{E}[y \mid X]$?" "What columns of $X$ are associated with changes in $f(X)$?" What in general is correlated with house price?
-
-In order to ask why any _particular_ house is so expensive is ...
-
-Unit explanation = "Which of the observed values of X_i explains why f(X_i) is far from $\mathbb{E}[f(X)]$? What makes this unit's predicted outcome different from the average unit's outcome?"
-
-Why is are unit-level explanations useful?
-* Root cause analysis for an outlier
-* Potential areas for unit-level intervention
-* "Automatic case study"
-* Why did this get flagged as fraud (robocop examples)
-
-imagine we actually knew the function f:X -> y, inspecting it would tell us interesting things 
-
-f(X) - E[f(X)] tells us "does the model think this outcome is unusual". shap tells us "what about X makes the model think this outcome will be unusual"
-
-well we have an approximation to it at least. if the CV scores are good it may even be a useful approximation
-
-"why does the approximation to f think that f(X) is different from the average"
+It's important not to confuse two similar but not identical concepts:
+* Feature importance tells us something about which features the model uses in general. RF importance, regression coefficients, permutation, etc. "What columns are important in $f(X) = \mathbb{E}[y \mid X]$?" "What columns of $X$ are associated with changes in $f(X)$?" What in general is correlated with house price?
+* Prediction explanations, which tell us which features are most useful in predicting this unit's outcome. SHAP, LIME. why is this house so much more expensive than average? "Which of the observed values of X_i explains why f(X_i) is far from $\mathbb{E}[f(X)]$? What makes this unit's predicted outcome different from the average unit's outcome?"
 
 ### What would a useful explanation? The case of linear models
 
