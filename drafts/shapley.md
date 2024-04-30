@@ -35,40 +35,12 @@ linear models are so popular in part because they give us that nice regression s
 
 Why is that useful? (1) Linear changes are easy to imagine (2) It tells us about the unique importance of features, "all else held equal" (3) It's easy to compare the magnitude _and_ the sign of different ones
 
-# Solution - Shap
+We can do this in python with **shap**, using the **permutation**
 
 ### Intuition behind solution, its interpretation
 
 SHAP paper: https://arxiv.org/pdf/1705.07874.pdf
 
-### Annotated key formulas from the paper
-
-Eqn (1)
-
-$$
-\underbrace{g(z')}_\textrm{Predicted value at z'} =
-\underbrace{\phi_0}_\textrm{Baseline prediction} +  
-\underbrace{\sum_{i=1}^{M} \phi_i z'_i}_\textrm{Effect of feature i at point \ $z'_i$} 
-$$
-
-Eqn (4) 
-
-$$
-
-\underbrace{\phi_i}_\textrm{Importance of feature i} =  
-\underbrace{\sum_{S \subseteq F \backslash \{i\}}}_\textrm{Sum over subsets of F without i}
-\underbrace{ \frac{\mid S \mid ! (\mid F \mid - \mid S \mid - 1)!}{\mid F \mid!} (f_{S \cup \{i\}}(x_{S \cup \{i\}}) - f_S(X_S))}_\textrm{Average change due to excluding feature i}
-
-$$
-
-it's pretty beastly to condense this, but really valuable
-
-https://christophm.github.io/interpretable-ml-book/shapley.html#the-shapley-value-in-detail
-
-> The Shapley value can be misinterpreted. The Shapley value of a feature value is not the difference of the predicted value after removing the feature from the model training. The interpretation of the Shapley value is: Given the current set of feature values, the contribution of a feature value to the difference between the actual prediction and the mean prediction is the estimated Shapley value.
-
-
-I think this isn't causal because of the table 2 fallacy - https://dagitty.net/learn/graphs/table2-fallacy.html
 
 ### The shap library
 
@@ -77,12 +49,27 @@ I think this isn't causal because of the table 2 fallacy - https://dagitty.net/l
 ### Get the data, check shape. Fit model, do CV
 
 ```python
-import xgboost
-
+import pandas as pd
+import numpy as np
 import shap
+from sklearn.model_selection import cross_val_predict
+from sklearn.ensemble import HistGradientBoostingRegressor
+from sklearn.datasets import fetch_california_housing
 
-# get a dataset on income prediction
-X, y = shap.datasets.adult()
+california_housing = fetch_california_housing(as_frame=True)
+data = california_housing.frame
+
+input_features = ['MedInc', 'HouseAge', 'AveRooms', 'AveBedrms', 'Population', 'AveOccup', 'Latitude', 'Longitude']
+target_variable = 'MedHouseVal'
+
+X = data[input_features]
+y = data[target_variable]
+
+model = HistGradientBoostingRegressor()
+# train an XGBoost model (but any other model type would also work)
+model.fit(X, y);
+
+# TODO: CV, or maybe just link to seychelles
 ```
 
 ### Call the shap library
@@ -92,12 +79,8 @@ https://shap.readthedocs.io/en/latest/example_notebooks/tabular_examples/model_a
 Do this one: https://vincentarelbundock.github.io/Rdatasets/doc/openintro/labor_market_discrimination.html
 
 ```python
-# train an XGBoost model (but any other model type would also work)
-model = xgboost.XGBClassifier()
-model.fit(X, y);
-
 # build a Permutation explainer and explain the model predictions on the given dataset
-explainer = shap.explainers.Permutation(model.predict_proba, X)
+explainer = shap.explainers.Permutation(model.predict, X)
 shap_values = explainer(X[:100])
 ```
 
@@ -106,14 +89,11 @@ shap_values = explainer(X[:100])
 https://shap.readthedocs.io/en/latest/generated/shap.plots.waterfall.html#shap.plots.waterfall 
 
 ```python
-# get just the explanations for the positive class
-shap_values_positive = shap_values[..., 1]
+shap.plots.bar(shap_values)
 
-shap.plots.bar(shap_values_positive)
+shap.plots.waterfall(shap_values[0])
 
-shap.plots.waterfall(shap_values_positive[0])
-
-shap_values_positive.feature_names
+shap_values.feature_names
 ```
 
 ```python
@@ -125,4 +105,78 @@ print(pd.DataFrame(shap_values_positive.values, columns=shap_values_positive.fea
 
 PDP?
 
+# Appendix: ### Annotated key formulas from the paper
+
+A linear explanation would be nice, ie
+
+Eqn (1)
+
+$$
+\underbrace{g(z')}_\textrm{Predicted value at z'} =
+\underbrace{\phi_0}_\textrm{Baseline prediction} +  
+\underbrace{\sum_{i=1}^{M} \phi_i z'_i}_\textrm{Effect of feature i at point \ $z'_i$} 
+$$
+
+We expect $\phi_i to be large when including feature i causes \hat{y} to change
+
+Eqn (4) 
+
+$$
+
+\underbrace{\phi_i}_\textrm{Effect of feature i} =  
+\underbrace{\sum_{S \subseteq F \backslash \{i\}}}_\textrm{Sum over subsets of F without i}
+\underbrace{ \frac{\mid S \mid ! (\mid F \mid - \mid S \mid - 1)!}{\mid F \mid!} (f_{S \cup \{i\}}(x_{S \cup \{i\}}) - f_S(x_S))}_\textrm{Average change due to excluding feature i}
+
+$$
+
+it's pretty beastly to condense this, but really valuable
+
+https://christophm.github.io/interpretable-ml-book/shapley.html#the-shapley-value-in-detail
+
+| Symbol  | Meaning |
+| ------------- | ------------- |
+| $x$  | The unit to explain  |
+| $F \backslash {i}$  | F without $i$  |
+|S|Does not include $i$!!|
+|$S 	\subseteq F \backslack {i}$ | All subsets of $F$ without $i$ |
+|$f_{S \cup {i}$ | Model with $S$ and feature $i$ included |
+|$x_{S \cup {i}$ | Unit with $S$ and feature $i$ included |
+
+> The Shapley value can be misinterpreted. The Shapley value of a feature value is not the difference of the predicted value after removing the feature from the model training. The interpretation of the Shapley value is: Given the current set of feature values, the contribution of a feature value to the difference between the actual prediction and the mean prediction is the estimated Shapley value.
+
+I think this isn't causal because of the table 2 fallacy - https://dagitty.net/learn/graphs/table2-fallacy.html
+
+Coalitional intuition
+
+# Appendix: Shap for classifiers
+
+```python
+import xgboost
+
+import shap
+
+# get a dataset on income prediction
+X, y = shap.datasets.adult()
+
+
+# train an XGBoost model (but any other model type would also work)
+model = xgboost.XGBClassifier()
+model.fit(X, y);
+
+# build a Permutation explainer and explain the model predictions on the given dataset
+explainer = shap.explainers.Permutation(model.predict_proba, X)
+shap_values = explainer(X[:100])
+
+# get just the explanations for the positive class
+shap_values_positive = shap_values[..., 1]
+
+shap.plots.bar(shap_values_positive)
+
+shap.plots.waterfall(shap_values_positive[0])
+
+shap_values_positive.feature_names
+
+# Global summary
+print(pd.DataFrame(shap_values_positive.values, columns=shap_values_positive.feature_names).describe())
+```
 
