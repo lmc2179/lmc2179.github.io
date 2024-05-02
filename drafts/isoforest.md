@@ -39,4 +39,8 @@ iso_score_cv = cross_val_predict(IsolationForest(n_estimators=100), X, y, method
 errors = y - y_cv
 
 sns.regplot(x=iso_score_cv, y=errors, lowess=True) # Surprising - the two are uncorrelated
+
+sns.distplot(iso_score_cv) # Which units are in the "tail" of the scores
+
+print(np.quantile(iso_score_cv, .2))
 ```
