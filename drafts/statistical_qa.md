@@ -11,6 +11,8 @@ Often, we can only measure the quality of a subset of outputs due to the cost, s
 
 luckily its easy
 
+Definitions: What is a unit, what is a good enough unit
+
 # A touch of statistics makes QA much easier
 
 QA questions related to estimating the number of defective units pop up all the time, even outside the manufacturing context
