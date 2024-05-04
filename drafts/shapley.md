@@ -130,7 +130,9 @@ $$
 \underbrace{\sum_{i=1}^{M} \phi_i z'_i}_\textrm{Effect of feature i at point \ $z'_i$} 
 $$
 
-We expect $\phi_i to be large when including feature i causes \hat{y} to change
+$\phi_0$ is basically $f_{{}}({})$
+
+We expect $\phi_i$ to be large when including feature i causes \hat{y} to change
 
 Eqn (4) 
 
@@ -149,17 +151,21 @@ https://christophm.github.io/interpretable-ml-book/shapley.html#the-shapley-valu
 | Symbol  | Meaning |
 | ------------- | ------------- |
 | $x$  | The unit to explain  |
+|$F$| Feature set|
+| $x_S$ | X with only the columns in the set S|
 | $F \backslash {i}$  | F without $i$  |
 |S|Does not include $i$!!|
 |$S 	\subseteq F \backslack {i}$ | All subsets of $F$ without $i$ |
 |$f_{S \cup {i}$ | Model with $S$ and feature $i$ included |
 |$x_{S \cup {i}$ | Unit with $S$ and feature $i$ included |
+|$\frac{\mid S \mid ! (\mid F \mid - \mid S \mid - 1)!}{\mid F \mid!}$| ${\mid F \mid \choose \mid S \mid} ^{-1} $ |
+
 
 > The Shapley value can be misinterpreted. The Shapley value of a feature value is not the difference of the predicted value after removing the feature from the model training. The interpretation of the Shapley value is: Given the current set of feature values, the contribution of a feature value to the difference between the actual prediction and the mean prediction is the estimated Shapley value.
 
 I think this isn't causal because of the table 2 fallacy - https://dagitty.net/learn/graphs/table2-fallacy.html
 
-Coalitional intuition
+Coalitional intuition, from molnar, ie shapley is the value added to the payout by including i in the coalition
 
 # Appendix: Shap for classifiers
 
