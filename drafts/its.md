@@ -2,6 +2,15 @@
 
 _blurb_
 
+
+# Sources
+
+(The Effect)[https://theeffectbook.net/ch-EventStudies.html]
+
+(Inferring causal impact using Bayesian structural time-series)[https://storage.googleapis.com/gweb-research2023-media/pubtools/pdf/41854.pdf]
+
+--------------------------------------------------------------------------------
+
 # We do pre-post comparison all the time, so it's worth thinking about how to do it right
 
 # What doing it right means
