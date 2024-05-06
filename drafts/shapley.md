@@ -100,6 +100,13 @@ what is the shape of shap_values?
 https://shap.readthedocs.io/en/latest/generated/shap.plots.waterfall.html#shap.plots.waterfall 
 
 ```python
+sns.distplot(y)
+plt.axvline(y[0], linestyle='dotted', label='House of interest')
+plt.title('House of interest within distribution of all prices')
+plt.legend()
+```
+
+```python
 shap.plots.bar(shap_values)
 ```
 
