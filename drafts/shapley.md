@@ -88,7 +88,7 @@ Do this one: https://vincentarelbundock.github.io/Rdatasets/doc/openintro/labor_
 ```python
 # build a Permutation explainer and explain the model predictions on the given dataset
 explainer = shap.explainers.Permutation(model.predict, X)
-shap_values = explainer(X[:100])
+shap_values = explainer(X)
 ```
 
 `shap_values.feature_names`
