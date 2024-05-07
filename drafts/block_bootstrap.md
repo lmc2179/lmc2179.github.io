@@ -52,3 +52,5 @@ plt.title('Simulated sampling distribution of mean')
 sns.distplot([np.mean(p) for p in block_sampled_paths])
 sns.distplot([np.mean(p) for p in iid_sampled_paths])
 ```
+
+https://arch.readthedocs.io/en/latest/bootstrap/generated/arch.bootstrap.CircularBlockBootstrap.html#arch.bootstrap.CircularBlockBootstrap
