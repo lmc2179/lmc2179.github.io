@@ -1,3 +1,7 @@
+# Intro
+
+How I ramp up
+
 # Talk: Get to know the team
 
 The goal
