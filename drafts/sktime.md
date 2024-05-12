@@ -4,7 +4,7 @@ sktime
 import pandas as pd
 import numpy as np
 from sktime.forecasting.naive import NaiveForecaster
-from sktime.forecasting.arima import AutoARIMA
+from sktime.forecasting.arima import ARIMA
 from sktime.forecasting.model_evaluation import evaluate
 from sktime.split import CutoffSplitter
 from matplotlib import pyplot as plt
