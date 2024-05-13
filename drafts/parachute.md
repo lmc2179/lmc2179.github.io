@@ -1,8 +1,24 @@
-# Intro
+> “The best thing about being a statistician is that you get to play in everyone’s backyard.”
 
-How I ramp up
+John Tukey
 
-maybe you: got a new job got a new team are a consultant
+# Professional life as a data scientist often means changing domains
+
+As a data scientist, your skill set is powerful because it is very generally applicable. ML models and statistics give us ways to use data to understand the world and make decisions a little better, regardless of the domain
+
+Despite this generality, YOU NEED TO UNDERSTAND THE DOMAIN TO DO A GOOD JOB. I've developed a method that I use to do this
+
+Over the last ten years, I've had a lot of jobs, and a lot of teams. I've been lucky! I've been able to work with so many interesting people, solving lots of interesting problems . even if you don't yet have my ~level of jaded frustration~ wealth of experience, maybe you:
+* got a new job. congratulations!
+* changed to a new team
+* are a consultant
+
+this post is meant to help you X. it is idiosyncratic, and reflects what has worked for me (it's what I used most recently to onboard at google)
+
+it has three major components, performed roughly in order:
+* talk
+* actually access the data and do case studies, then see if your case intuition pans out
+* look at metrics
 
 # Talk: Get to know the team
 
@@ -69,3 +85,9 @@ The goal
 3
 
 Wrap up exercise
+
+# Other sources
+
+https://bpb-us-w2.wpmucdn.com/sites.umassd.edu/dist/8/754/files/2019/01/Deconstructing-Statistical-Questions.pdf
+
+chris chatfield
