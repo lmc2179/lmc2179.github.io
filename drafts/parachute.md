@@ -18,7 +18,7 @@ sentence
 * biggest oppties, past+future?
 * what are the key entities? key interactions? main dashes?
 
-###DS/Data team
+### DS/Data team
 
 sentence. profiling too
 
@@ -28,7 +28,7 @@ sentence. profiling too
 * how are definitions codified? how is code shared? which metrics are well-covered by data? freshness? docs?
 * repo? model/system observability?
 
-###Engineering/ops
+### Engineering/ops
 
 sentence
 
@@ -40,7 +40,7 @@ sentence
 * your metric goals? automation oppties?
 * how do you support DS? ML Eng?
 
-###Wrap up exercise
+### Wrap up exercise
 
 You should have some examples of: entities interactions value etc
 
