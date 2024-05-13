@@ -8,7 +8,7 @@ maybe you: got a new job got a new team are a consultant
 
 ### The goal: Meet everyone. understand what they do, and how they concieve of success for themselves/for the group, how you can help.
 
-### stakeholders/partners
+### stakeholders/partners/pms
 
 sentence
 
