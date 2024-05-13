@@ -27,6 +27,7 @@ sentence. profiling too
 * are data analysts central or embedded?
 * how are definitions codified? how is code shared? which metrics are well-covered by data? freshness? docs?
 * repo? model/system observability?
+* how do you track project progress? sprints?
 
 ### Engineering/ops
 
