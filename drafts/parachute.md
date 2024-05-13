@@ -17,6 +17,7 @@ sentence
 * Main metrics? key subgroups? trends?
 * biggest oppties, past+future?
 * what are the key entities? key interactions? main dashes?
+* roadmap? where is it, where does it come from, who owns what?
 
 ### DS/Data team
 
