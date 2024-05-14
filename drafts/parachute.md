@@ -28,8 +28,8 @@ it has three major components, performed roughly in order:
 
 sentence
 
-* is there a north star? what is it? how well do we measure it?
-* what levers do we have? what key decisions?
+* is there a north star? what is it? how well do we measure it? how do you know when we're impacting it? what goals do we have?
+* what levers do we have? what key decisions do we need to make?
 * Main metrics? key subgroups? trends?
 * biggest oppties, past+future?
 * what are the key entities? key interactions? main dashes?
