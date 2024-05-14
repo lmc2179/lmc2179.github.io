@@ -1,3 +1,7 @@
+How to learn about a new domain as a data scientist
+
+parachute.png
+
 > “The best thing about being a statistician is that you get to play in everyone’s backyard.”
 
 John Tukey
@@ -23,6 +27,10 @@ it has three major components, performed roughly in order:
 # Talk: Get to know the team
 
 ### The goal: Meet everyone. understand what they do, and how they concieve of success for themselves/for the group, how you can help.
+
+Talk talk talk talk talk!! you can't overdo this
+
+Each of these includes themes that I try and piece together, which are included in **bold**. Each theme includes some specific questions you might ask. I try to cover all the themes, but I don't necessarily ask each question (and I may ask others besides).
 
 ### stakeholders/partners/pms
 
