@@ -41,6 +41,8 @@ I've written this for organizations which use the PM-Analyst-Eng structure. your
 
 ## DS/Data team
 
+Titles like: DS, Analyst, AE, Product Analyst
+
 ### Org
 * **How is the org structured?** Are DS centralized or embedded?
 * **How do you work with stakeholders/biz owners?**
@@ -58,6 +60,8 @@ I've written this for organizations which use the PM-Analyst-Eng structure. your
 
 ### stakeholders/partners/pms
 
+Titles like: Product Manager, Marketer, Designer
+
 sentence
 
 * is there a north star? what is it? how well do we measure it? how do you know when we're impacting it? what goals do we have?
@@ -70,6 +74,8 @@ sentence
 
 
 ### Engineering/ops
+
+Titles like: Software Engineer, Release Engineer, Eng manager
 
 sentence
 
