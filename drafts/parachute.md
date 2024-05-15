@@ -32,6 +32,30 @@ Talk talk talk talk talk!! you can't overdo this
 
 Each of these includes themes that I try and piece together, which are included in **bold**. Each theme includes some specific questions you might ask. I try to cover all the themes, but I don't necessarily ask each question (and I may ask others besides).
 
+There are three big things:
+* The Org
+* The Data
+* The Projects
+
+I've written this for organizations which use the PM-Analyst-Eng structure. your org may have only a subset, or other ones besides, or something else
+
+### DS/Data team
+
+Org
+* **How is the org structured?** Are DS centralized or embedded?
+* **How do you work with stakeholders/biz owners?**
+* **How do you work with tech teams (non-biz)**
+* **What are the goals and north star?**
+
+Data
+* **How is the data generated, and how do you access it?** What are the data sources? Do analysts access a DW, or prod data, or...?
+* **What metrics are implemented?**
+
+Projects
+* **How do you plan and track projects?** Roadmap? Sprints?
+* **How do you track deployed solutions?**  repo? model/system observability?
+* **How do you understand key levers?** exp, ci, etc
+
 ### stakeholders/partners/pms
 
 sentence
@@ -43,16 +67,7 @@ sentence
 * what are the key entities? key interactions? main dashes?
 * roadmap? where is it, where does it come from, how are priorities set?
 
-### DS/Data team
 
-sentence. profiling too
-
-* what are the data sources?
-* are they prod, dw?
-* are data analysts central or embedded?
-* how are definitions codified? how is code shared? which metrics are well-covered by data? freshness? docs?
-* repo? model/system observability?
-* how do you track project progress? sprints?
 
 ### Engineering/ops
 
