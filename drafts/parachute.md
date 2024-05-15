@@ -39,19 +39,19 @@ There are three big things:
 
 I've written this for organizations which use the PM-Analyst-Eng structure. your org may have only a subset, or other ones besides, or something else
 
-### DS/Data team
+## DS/Data team
 
-Org
+### Org
 * **How is the org structured?** Are DS centralized or embedded?
 * **How do you work with stakeholders/biz owners?**
 * **How do you work with tech teams (non-biz)**
 * **What are the goals and north star?**
 
-Data
+### Data
 * **How is the data generated, and how do you access it?** What are the data sources? Do analysts access a DW, or prod data, or...?
 * **What metrics are implemented?**
 
-Projects
+### Projects
 * **How do you plan and track projects?** Roadmap? Sprints?
 * **How do you track deployed solutions?**  repo? model/system observability?
 * **How do you understand key levers?** exp, ci, etc
