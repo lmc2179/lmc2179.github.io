@@ -64,7 +64,7 @@ Titles like: Product Manager, Marketer, Designer
 
 sentence
 
-* is there a north star? what is it? how well do we measure it? how do you know when we're impacting it? what goals do we have?
+* how do you keep an eye on the north star? do you take actions that move it directly, or a proxy metric? do you have goals for it?
 * what levers do we have? what key decisions do we need to make?
 * Main metrics? key subgroups? trends?
 * biggest oppties, past+future?
