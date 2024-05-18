@@ -57,6 +57,7 @@ Titles like: DS, Analyst, AE, Product Analyst
 * **How do you plan and track projects?** Roadmap? Sprints?
 * **How do you track deployed solutions?**  repo? model/system observability?
 * **How do you understand key levers?** exp, ci, etc
+* **Do you run experiments? How?** how many, how often, how long do they take? how do you think about power? how are decisions made? who owns the exp engine?
 
 ### stakeholders/partners/pms
 
