@@ -74,4 +74,8 @@ print(smf.ols('rating_score ~ beer_type', df).fit().summary())
 # Compare 1|beer_type[Brown Ale - English]  -0.012  0.294 in bambi
 # beer_type[T.Brown Ale - English]  -1.51e-14  0.940 in smf ols
 
+posterior_predictive = az.summary(partial_pooling_results.posterior_predictive)
+
+plt.scatter(posterior_predictive['mean'], df[RATING_SCORE])
+
 ```
