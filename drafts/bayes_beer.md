@@ -1,11 +1,4 @@
 ```python
-# -*- coding: utf-8 -*-
-"""
-Created on Sat May 18 22:30:45 2024
-
-@author: louis
-"""
-
 import pandas as pd
 
 df = pd.read_csv(r'C:\Users\louis\Downloads\louis_beer_data.csv')
@@ -74,7 +67,11 @@ print(az.summary(partial_pooling_results).sort_values('mean'))
 print(partial_pooling_results.posterior['Intercept'].shape)
 print(partial_pooling_results.posterior['1|beer_type'].shape) # Chain x sample x Level
 
-# Probably should run and pickle it or something it takes forever
+from statsmodels.api import formula as smf
 
+print(smf.ols('rating_score ~ beer_type', df).fit().summary())
+
+# Compare 1|beer_type[Brown Ale - English]  -0.012  0.294 in bambi
+# beer_type[T.Brown Ale - English]  -1.51e-14  0.940 in smf ols
 
 ```
