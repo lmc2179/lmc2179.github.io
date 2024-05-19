@@ -1,4 +1,11 @@
 ```python
+# -*- coding: utf-8 -*-
+"""
+Created on Sat May 18 22:30:45 2024
+
+@author: louis
+"""
+
 import pandas as pd
 
 df = pd.read_csv(r'C:\Users\louis\Downloads\louis_beer_data.csv')
@@ -47,23 +54,27 @@ import bambi as bmb
 
 partial_pooling_priors = {
     "Intercept": bmb.Prior("Normal", mu=0, sigma=10),
-    # "1|county": bmb.Prior("Normal", mu=0, sigma=bmb.Prior("Exponential", lam=1)),
+    "1|beer_type": bmb.Prior("Normal", mu=0, sigma=bmb.Prior("Exponential", lam=1)),
     "sigma": bmb.Prior("Exponential", lam=1),
 }
 
 partial_pooling_model = bmb.Model(
-    formula="rating_score ~ 1", 
+    formula="rating_score ~ 1 + (1|beer_type)", 
     data=df, 
     priors=partial_pooling_priors, 
     noncentered=False
 )
 
-partial_pooling_results = partial_pooling_model.fit(cores=1, chains=1) # Windows issue with multiprocessing
+partial_pooling_results = partial_pooling_model.fit(cores=1, chains=2, draws=1000) # Windows issue with multiprocessing
 
 import arviz as az
 az.plot_trace(partial_pooling_results)
 print(az.summary(partial_pooling_results))
+print(az.summary(partial_pooling_results).sort_values('mean'))
 print(partial_pooling_results.posterior['Intercept'].shape)
+print(partial_pooling_results.posterior['1|beer_type'].shape) # Chain x sample x Level
+
+# Probably should run and pickle it or something it takes forever
 
 
 ```
