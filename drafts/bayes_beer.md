@@ -1,3 +1,43 @@
+
+```python
+import pandas as pd
+
+df = pd.read_csv(r'C:\Users\louis\Downloads\louis_beer_data.csv')
+df = df[~df['rating_score'].isna()] # Some accidental no-rates
+
+# Generate mean estimates using OLS
+from statsmodels.api import formula as smf
+
+ols_model = smf.ols('rating_score ~ beer_type - 1', df)
+ols_model_fitted = ols_model.fit()
+
+mean_estimates = ols_model_fitted.params
+low_95_estimates = ols_model_fitted.conf_int(alpha=.05)[0]
+high_95_estimates = ols_model_fitted.conf_int(alpha=.05)[1]
+se = ols_model_fitted.bse
+
+ols_param_summary = pd.DataFrame({'Point': mean_estimates, 'Low': low_95_estimates, 'High': high_95_estimates, 'SE': se}).reset_index().rename({'index': 'Style'}, axis=1)
+
+# Bayesian version
+import bambi as bmb
+
+partial_pooling_priors = {
+    "Intercept": bmb.Prior("Normal", mu=0, sigma=10),
+    "1|beer_type": bmb.Prior("Normal", mu=0, sigma=bmb.Prior("Exponential", lam=1)),
+    "sigma": bmb.Prior("Exponential", lam=1),
+}
+
+partial_pooling_model = bmb.Model(
+    formula="rating_score ~ 1 + (1|beer_type)", 
+    data=df, 
+    priors=partial_pooling_priors, 
+    noncentered=False
+)
+
+partial_pooling_results = partial_pooling_model.fit(cores=1, chains=4, draws=1000) # Windows issue with multiprocessing
+```
+
+
 ```python
 import pandas as pd
 
