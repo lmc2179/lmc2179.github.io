@@ -22,19 +22,25 @@ ols_param_summary = pd.DataFrame({'Point': mean_estimates, 'Low': low_95_estimat
 import bambi as bmb
 
 partial_pooling_priors = {
-    "Intercept": bmb.Prior("Normal", mu=0, sigma=10),
+    # "Intercept": bmb.Prior("Normal", mu=0, sigma=10),
     "1|beer_type": bmb.Prior("Normal", mu=0, sigma=bmb.Prior("Exponential", lam=1)),
     "sigma": bmb.Prior("Exponential", lam=1),
 }
 
 partial_pooling_model = bmb.Model(
-    formula="rating_score ~ 1 + (1|beer_type)", 
+    formula="rating_score ~ 0 + (1|beer_type)", 
     data=df, 
     priors=partial_pooling_priors, 
     noncentered=False
 )
 
-partial_pooling_results = partial_pooling_model.fit(cores=1, chains=4, draws=1000) # Windows issue with multiprocessing
+partial_pooling_results = partial_pooling_model.fit(cores=1, chains=1) # Windows issue with multiprocessing
+
+import arviz as az
+
+az.plot_trace(partial_pooling_results) # Make sure it worked
+
+bayes_model_param_summary = az.summary(partial_pooling_results, hdi_prob=0.95)
 ```
 
 
