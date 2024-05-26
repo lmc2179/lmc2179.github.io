@@ -69,6 +69,10 @@ Analysis --> Choice --> Evaluation --> Improvement
 
 which accept feedback and scale with the organization
 
+# Full stack data ownership
+
+[Eng] Prod -> F/D -> Agg/Metrics -> Model/Exp -> Decision [PM]
+
 # Sidebar: What about other, similar job titles? Data analysts? Statisticians? ML engineers? Business analysts?
 
 It's all the same
