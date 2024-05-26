@@ -67,7 +67,7 @@ industrial beekeeping
 Decision process
 Analysis --> Choice --> Evaluation --> Improvement
 
-which accept feedback and scale with the organization
+which accept feedback and scale with the organization - the goal is not to create the one true playbook, but to deal effectively with 80% and create flexible frameworks for the rest
 
 # Full stack data ownership
 
