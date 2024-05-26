@@ -7,6 +7,13 @@ $\delta_y = \frac{\hat{y_1}}{\hat{y_0}} - 1$
 $Elasticity = \frac{\delta_y}{\delta_x}$
 
 ```python
+# -*- coding: utf-8 -*-
+"""
+Created on Sat May 25 23:31:46 2024
+
+@author: louis
+"""
+
 import patsy
 from sklearn.base import BaseEstimator, TransformerMixin
 
@@ -58,5 +65,20 @@ plt.plot(lotsize_range, pdp_values)
 plt.ylabel('Predicted house price')
 plt.xlabel('Lotsize')
 plt.title('Partial dependence plot for Lotsize vs Price for Random Forest')
+plt.show()
+
+# Draw the PDP
+aircon_range = ['no', 'yes']
+
+pdp_values = []
+for aircon in aircon_range:
+  X_pdp = X.copy()
+  X_pdp['aircon'] = aircon
+  pdp_values.append(np.mean(model.predict(X_pdp)))
+
+plt.plot(aircon_range, pdp_values)
+plt.ylabel('Predicted house price')
+plt.xlabel('Aircon')
+plt.title('Partial dependence plot for aircon vs Price for Random Forest')
 plt.show()
 ```
