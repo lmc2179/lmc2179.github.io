@@ -1,3 +1,11 @@
+Key idea: Use the model + PDP + bootstrap to understand how changing some input column from x_0 to x_1, by looking at how $\hat{y_0} and \hat{y_1}$ are affected
+
+$\Delta = \hat{y_1} - \hat{y_0}$
+
+$\delta = \frac{\hat{y_1}}{\hat{y_0}} - 1$
+
+$Elasticity = \frac{\delta_y}{\delta_x}$
+
 ```python
 import patsy
 from sklearn.base import BaseEstimator, TransformerMixin
