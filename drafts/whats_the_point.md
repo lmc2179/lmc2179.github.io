@@ -56,13 +56,13 @@ Good DS think about decisions, Great DS think about decision processes - the ent
 
 --Herbert Simon, _Administrative Behavior_, Ch. IV, describing an idealized decision-making process
 
+when do I need higher fidelity data? if knowing it would help my decision
 
 
 
+# Great data scientists: How do I design better repeatable decision processes?
 
-# Great data scientists: How do I design better decision processes?
-
-
+industrial beekeeping
 
 Decision process
 Analysis --> Choice --> Evaluation --> Improvement
