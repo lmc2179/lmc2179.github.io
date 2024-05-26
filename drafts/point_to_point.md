@@ -2,7 +2,7 @@ Key idea: Use the model + PDP + bootstrap to understand how changing some input 
 
 $\Delta = \hat{y_1} - \hat{y_0}$
 
-$\delta = \frac{\hat{y_1}}{\hat{y_0}} - 1$
+$\delta_y = \frac{\hat{y_1}}{\hat{y_0}} - 1$
 
 $Elasticity = \frac{\delta_y}{\delta_x}$
 
