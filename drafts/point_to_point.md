@@ -6,6 +6,12 @@ $\delta_y = \frac{\hat{y_1}}{\hat{y_0}} - 1$
 
 $Elasticity = \frac{\delta_y}{\delta_x}$
 
+https://en.wikipedia.org/wiki/Arc_elasticity
+
+https://matheusfacure.github.io/python-causality-handbook/21-Meta-Learners.html
+
+"Causal dependence plot" https://arxiv.org/pdf/2303.04209
+
 ```python
 # -*- coding: utf-8 -*-
 """
