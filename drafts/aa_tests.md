@@ -25,17 +25,19 @@ So, why do it? You can use an A/A test to...
 
 # Demonstrate the effectiveness of your treatment assignment system
 
-SRM
+Point of assignment check
 
-Point of assignment
+SRM check - Binomial distribution comparison - https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.monte_carlo_test.html with `scipy.stats.binom(n, expected_rate)`
 
-Check for covariate imbalance between treatment and control
+Check for covariate imbalance between treatment and control - Fit propensity model
 
-Check for assigned vs unassigned users. is it actually x%? does unassigned look any different than assigned?
+Check for assigned vs unassigned users. is it actually x%? does unassigned look any different than assigned? are assignments unique?
 
 Measurement lines up across multiple sources
 
 # Confirm the assumptions of your statistical analysis method
+
+Are samples arriving on time
 
 H0
 
@@ -67,9 +69,17 @@ The above plots aren't from real experiments. But in case you're curious how I g
 ```python
 from matplotlib import pyplot as plt
 import seaborn as sns
-from scipy.stats import norm
+from scipy.stats import norm, binom
 
 plt.xkcd()
 
-sns.distplot(norm(0, 1).rvs(10000), bins=10)
+n = 1000
+p = 0.1
+OBSERVED_SAMPLES = 108
+
+simulations = binom(n, p).rvs(10000)
+
+
+plt.axvline(OBSERVED_SAMPLES, linestyle='dotted')
+sns.distplot(simulations, bins=20)
 ```
