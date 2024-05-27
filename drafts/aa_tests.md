@@ -18,9 +18,10 @@ Common objection: Running an A/A test is expensive! it's not nearly as expensive
 What does a test include, exactly?
 
 * An assignment (or exposure) procedure
-* ?
+* At least one metric you're going to measure
+* Confounding variables you want to randomize away
 
-You can use an A/A test to...
+So, why do it? You can use an A/A test to...
 
 # Demonstrate the effectiveness of your treatment assignment system
 
@@ -30,7 +31,7 @@ Point of assignment
 
 Check for covariate imbalance between treatment and control
 
-Check for assigned vs unassigned users
+Check for assigned vs unassigned users. is it actually x%? does unassigned look any different than assigned?
 
 Measurement lines up across multiple sources
 
@@ -39,8 +40,9 @@ Measurement lines up across multiple sources
 H0
 
 Precision calibration
-* Seychelles diagram of control metric vs treatment metric)
+* Seychelles diagram of control metric vs treatment metric), if paired
 * Sample some number of units, graph variance decrease over time
+* Does the variance line up with your power analysis
 
 Any SUTVA assumptions
 
