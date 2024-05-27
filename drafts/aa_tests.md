@@ -7,19 +7,19 @@ tags: [datascience]
 image: calibration.png
 ---
 
-# A/A testing is an easy win
+# A/A testing is an easy win that helps align everyone
 
 Experimentation is a part of just about any Data Science team I've been a part
 
-A/A test
+A/A tests are useful to make sure you're experimenting correctly
 
 Common objection: Running an A/A test is expensive! it's not nearly as expensive as running invalid experiments without realizing it. and IMO you should have a strong prior that something weird will happen because I've never seen it go smoothly the first time. you can't afford not to imo
 
 What does a test include, exactly?
 
 * An assignment (or exposure) procedure
-* At least one metric you're going to measure
 * Confounding variables you want to randomize away
+* At least one metric you're going to measure
 
 So, why do it? You can use an A/A test to...
 
