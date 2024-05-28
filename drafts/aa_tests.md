@@ -61,17 +61,11 @@ helps them understand what exactly will happen in your experiments
 
 establishes a baseline
 
-gives a preview of how they like to see result
-
-# Fine-tune your tools
-
-?
+gives a preview of how they like to see result - do your tools support it?
 
 # Turn those confirmations into automatic checks
 
 ?
-
-# Consider an "always on" A/A test
 
 # Appendix: Code to generate the plots
 
