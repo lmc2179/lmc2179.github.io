@@ -57,7 +57,11 @@ Any SUTVA assumptions
 
 # Create trust with your stakeholders by showing them the results
 
-?
+helps them understand what exactly will happen in your experiments
+
+establishes a baseline
+
+gives a preview of how they like to see result
 
 # Fine-tune your tools
 
