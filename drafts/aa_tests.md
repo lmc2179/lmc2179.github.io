@@ -9,9 +9,16 @@ image: calibration.png
 
 # A/A testing is an easy win that helps align everyone
 
-Experimentation is a part of just about any Data Science team I've been a part
+If your organization is collecting data, there's a good chance that you are also doing (or planning on doing) experimentation (or if you prefer, A/B testing). Experimentation is hard! A lot can go wrong, and it requires close coordination between Engineering, Data Science, and Product teams.
 
-A/A tests are useful to make sure you're experimenting correctly
+Just about every organization I've ever worked for that does A/B tests has also benefitted from an A/A test. A/A tests are useful to make sure you're experimenting correctly, and my view is that if you're doing experimentation, you need to do one. It may even make sense to do it on some regular cadence!
+
+There are a few clear benefits of A/A testing
+* Demonstrate the effectiveness of your treatment assignment system
+* Confirm the assumptions of your statistical analysis method
+* Create trust with your stakeholders
+
+And more besides!
 
 Common objection: Running an A/A test is expensive! it's not nearly as expensive as running invalid experiments without realizing it. and IMO you should have a strong prior that something weird will happen because I've never seen it go smoothly the first time. you can't afford not to imo
 
