@@ -27,9 +27,9 @@ So, why do it? You can use an A/A test to...
 
 Point of assignment check
 
-SRM check - Binomial distribution comparison - https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.monte_carlo_test.html with `scipy.stats.binom(n, expected_rate)`
+SRM check - Binomial distribution comparison - `scipy.stats.binomtest`
 
-Check for covariate imbalance between treatment and control - Fit propensity model
+Check for covariate imbalance between treatment and control - Fit propensity model with regression
 
 Check for assigned vs unassigned users. is it actually x%? does unassigned look any different than assigned? are assignments unique?
 
@@ -69,7 +69,7 @@ The above plots aren't from real experiments. But in case you're curious how I g
 ```python
 from matplotlib import pyplot as plt
 import seaborn as sns
-from scipy.stats import norm, binom, monte_carlo_test
+from scipy.stats import norm, binom, monte_carlo_test, binomtest
 import numpy as np
 
 plt.xkcd()
@@ -78,22 +78,13 @@ total_samples = 1000
 treatment_rate = 0.1
 observed_treated_samples = 108
 
+test_result = binomtest(observed_treated_samples, total_samples, treatment_rate).pvalue
+
 hypothetical_sampling_distribution = binom(total_samples, treatment_rate).rvs
 
 simulations = hypothetical_sampling_distribution(10000)
 
 plt.axvline(observed_treated_samples, linestyle='dotted')
 sns.distplot(simulations, bins=20)
-
-def test_for_srm(total_samples, treatment_rate, observed_treated_samples):
-    n_simulations = 1000
-    expected_treated_samples = treatment_rate * total_samples
-    difference_from_expected = np.abs(observed_treated_samples - expected_treated_samples)
-    hypothetical_sampling_distribution = binom(total_samples, treatment_rate).rvs
-    simulations = hypothetical_sampling_distribution(n_simulations)
-    count_at_least_as_extreme = np.sum((simulations <= (expected_treated_samples + difference_from_expected )) & (simulations >= (expected_treated_samples - difference_from_expected ))) 
-    p_value = count_at_least_as_extreme / n_simulations
-    return p_value
-
-test_result = test_for_srm(total_samples, treatment_rate, observed_treated_samples)
+plt.title('p={}'.format(round(test_result, 3)))
 ```
