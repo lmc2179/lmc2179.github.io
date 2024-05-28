@@ -29,7 +29,7 @@ Point of assignment check
 
 SRM check - Binomial distribution comparison - `scipy.stats.binomtest`
 
-Check for covariate imbalance between treatment and control - Fit propensity model with regression
+Check for covariate imbalance between treatment and control - Fit propensity model with `smf.logit`
 
 Check for assigned vs unassigned users. is it actually x%? does unassigned look any different than assigned? are assignments unique?
 
