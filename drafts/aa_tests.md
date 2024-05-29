@@ -24,9 +24,9 @@ Common objection: Running an A/A test is expensive! it's not nearly as expensive
 
 What does a test include, exactly?
 
-* An assignment (or exposure) procedure
-* Confounding variables you want to randomize away
-* At least one metric you're going to measure
+* **An assignment (or exposure) procedure.** This is the process that randomly assigns treatment status to the units you're experimenting on. You should have a clear idea of under what conditions a unit is assigned, and what percentage of units should be assigned.
+* **Confounding variables you want to randomize away.** This is why we do randomization in the first place! The treatment and control groups should look the same. Randomizing should ensure they should have the same mix of user segments, the same average age, all that.
+* **At least one metric you're going to measure.** This is the outcome you care about learning about by experimenting. Your revenue, clickthrough rate, throughput, whatever. 
 
 So, why do it? You can use an A/A test to...
 
