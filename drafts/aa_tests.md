@@ -46,6 +46,8 @@ Measurement lines up across multiple sources
 
 Are samples arriving on time
 
+Did you make any parametric assumptions, for example about the distribution of the outcome variable? Are they true?
+
 H0
 
 Precision calibration
@@ -62,6 +64,8 @@ helps them understand what exactly will happen in your experiments
 establishes a baseline
 
 gives a preview of how they like to see result - do your tools support it?
+
+show that you can't reject H0/that you measure a result which is at most ...
 
 # Turn those confirmations into automatic checks
 
