@@ -13,7 +13,7 @@ import patsy
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.pipeline import make_pipeline
 from sklearn.model_selection import GridSearchCV, train_test_split
-from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import roc_auc_score
 import pandas as pd
 import numpy as np
@@ -45,18 +45,20 @@ X = df.drop(output_var_name, axis=1).fillna(0)  # Features
 y = df[output_var_name]  # Output variable
 
 # Step 2: Define the model
-logistic_regression = make_pipeline(FormulaTransformer('job_city+job_industry+job_type+job_fed_contractor+job_equal_opp_employer+job_req_communication+race+gender+years_college+college_degree'), 
-                                    LogisticRegression())
+decision_tree = make_pipeline(
+    FormulaTransformer('job_city+job_industry+job_type+job_fed_contractor+job_equal_opp_employer+job_req_communication+race+gender+years_college+college_degree'), 
+    DecisionTreeClassifier()
+)
 
 # Step 3: Set up the grid search
 param_grid = {
-    'logisticregression__C': [0.1, 1, 10, 100],  # Inverse of regularization strength
-    'logisticregression__penalty': ['l1', 'l2'],  # Regularization penalty
-    'logisticregression__solver': ['liblinear']  # Solver to use in the optimization problem
+    'decisiontreeclassifier__max_depth': [3, 5, 7, 10],
+    'decisiontreeclassifier__min_samples_split': [2, 5, 10],
+    'decisiontreeclassifier__min_samples_leaf': [1, 2, 4]
 }
 
 # Step 4: Cross-validation with grid search
-grid_search = GridSearchCV(estimator=logistic_regression, param_grid=param_grid, cv=5, scoring='roc_auc', verbose=2)
+grid_search = GridSearchCV(estimator=decision_tree, param_grid=param_grid, cv=5, scoring='roc_auc', verbose=2)
 
 # Step 5: Fit the model
 grid_search.fit(X, y)
@@ -80,4 +82,6 @@ print(f"ROC-AUC of the best model: {roc_auc}")
 searched_params = pd.DataFrame(grid_search.cv_results_['params'])
 avg_roc_auc = grid_search.cv_results_['mean_test_score']
 se_roc_auc = grid_search.cv_results_['std_test_score'] / np.sqrt(grid_search.cv)
+print("Grid search parameters and their mean ROC-AUC scores:")
+print(pd.concat([searched_params, pd.Series(avg_roc_auc, name='mean_roc_auc'), pd.Series(se_roc_auc, name='se_roc_auc')], axis=1))
 ```
