@@ -8,6 +8,8 @@ do CV on some data with a decision tree
 
 show that more predictive, less complex (# tree nodes) models result from random search over grid search, and that it happens faster
 
+Experiment: Compute one expensive grid search. How many iterations are needed before random search finds something with as good or better performance over a bunch of simulations?
+
 ```python
 import patsy
 from sklearn.base import BaseEstimator, TransformerMixin
