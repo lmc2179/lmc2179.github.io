@@ -2,15 +2,19 @@ A sprinkle of time series analysis to make your next metric review easier
 
 # Metric reviews
 
-If you're a working data scientist, at some point a very nervous, very tired product manager will contact you and ask you a question along the lines of this one: `okay I looked at the dashboard, our favorite metric just moved, does that mean something? should we do something?? WHAT DOES IT MEAN WHAT DO WE DO OH GOD OUR VP JUST PINGED ME ABOUT THE QUARTERLY MEETING WHAT DO I TELL`
+Certain experiences seem to show up in data science jobs regardless of company size or industry. If you're a working data scientist, at some point a very nervous, very tired product manager will contact you and ask you a question along the lines of this one: `okay I looked at the dashboard, our favorite metric just moved, does that mean something? should we do something?? WHAT DOES IT MEAN WHAT DO WE DO OH GOD OUR VP JUST PINGED ME ABOUT THE QUARTERLY MEETING WHAT DO I TELL`
 
 Okay, okay, relax. You and your friend are going to be alright, even if the VP's chat window is showing an ominous little `hey` and some dots. You have a couple of goals right now, once you've calmed down and run a query to look at the metric:
 1. First, look at the recent trajectory of the metric. Has it been changing in the direction we want it to move? Is it really volatile?
 2. Given that perspective, is the most recent observation actually all that interesting? Is it far out of the ordinary compared to its historical values?
 
-Let's see how we might answer these questions on some real data. Imagine, for example, that you're responsible for keeping an eye on how many trips drivers are doing on a ride-sharing app. (I don't actually have a ride-share app, but we'll use some daily numbers from the NYC Data tracker of number of trips, which should be sufficiently realistic). Your strategy involves this number going up, since it will mean you're able to increase your ROI on each driver.
+Let's see how we might answer these questions on some real data. 
 
-Imagine that you're looking at this plot:
+# An example: Trips per day on a ride-sharing app
+
+Imagine, for example, that you're responsible for keeping an eye on how many trips drivers are performing on a ride-sharing app<sup>[1](#foot1)</sup>. If your goal is to monetize driver time, you want this number going up, since it will mean you're able to increase your ROI on each driver. (In real life you might worry about other parts of the trip funnel, but we'll put that aside for now.)
+
+Lets take a look at our data, which is a monthly time series measuring trips per day of drivers. 
 
 trips_per_day.png
 
@@ -26,7 +30,7 @@ how about the most recent month's observation - is that surprising? sometimes yo
 
 Let's get a deeper look by going further into this YoY data set.
 
-# What's the average recent growth? Is it positive, is it negative?
+# What's the recent growth of the metric? Is it positive, is it negative?
 
 Lets start by getting the context. Before this month, what was growth like?
 
@@ -68,7 +72,9 @@ is $y_{k+1}$ unusual compared to the set of similar points (ie, 12m)
 
 simulate forecasted PI dist, look at pctile
 
-# Some other things to consider
+# What should I do next?
+
+These methods are a handy first pass at understanding whether something interesting is happening.
 
 Are you on track to hit your goals for the month/quarter/half/year?
 
@@ -95,29 +101,52 @@ df['date'] = df['Month/Year'].apply(lambda s: datetime.strptime(s + '-01', '%Y-%
 
 monthly_trip_series = df.groupby('date').sum()['trips_per_day']
 
-monthly_trip_series = monthly_trip_series.loc['2016-09-01':'2018-10-01']
+THIS_MONTH = '2018-10-01'
+LAST_MONTH = '2018-09-01'
 
-#TODO: Detach the last one
+monthly_trip_series = monthly_trip_series.loc[:THIS_MONTH]
 
-sns.lineplot(x=monthly_trip_series.index, y=monthly_trip_series)
-
-plt.show()
-
+# Calculate YoY growth
 monthly_trip_yoy_growth = monthly_trip_series / monthly_trip_series.diff(12)
 
-sns.lineplot(x=monthly_trip_series.index, y=monthly_trip_yoy_growth, marker='o')
-plt.xticks(rotation=90)
+monthly_trip_series = monthly_trip_series[-13:]
+monthly_trip_yoy_growth = monthly_trip_yoy_growth[-13:]
 
+# Plot the monthly value of the metric
+sns.lineplot(monthly_trip_series)
 plt.show()
 
-ar_model = AutoReg(endog=monthly_trip_yoy_growth.dropna()[:'2018-10-01'], lags=1, trend='n')
-ar_fit = ar_model.fit()
-print(ar_fit.summary())
+# Calculate and plot the YoY growth in the metric
+sns.lineplot(x=monthly_trip_series.index, y=monthly_trip_yoy_growth, marker='o')
+plt.xticks(rotation=90)
+plt.show()
 
-residual_variance = np.var(ar_fit.resid)
-simulation_gen = norm(ar_fit.forecast(1), residual_variance)
+# Fit an AR(0) model, ie the "constant growth plus noise" model
+ar0_model_last_13 = AutoReg(endog=monthly_trip_yoy_growth[:THIS_MONTH], lags=0, trend='c')
+ar0_model_last_13_fit = ar0_model_last_13.fit()
+print(ar0_model_last_13_fit.summary())
+
+# Fit an AR(1) model, ie the "constant acceleration plus noise" model
+ar1_model_last_13 = AutoReg(endog=monthly_trip_yoy_growth[:THIS_MONTH], lags=1, trend='n')
+ar1_model_last_13_fit = ar1_model_last_13.fit()
+print(ar1_model_last_13_fit.summary())
+
+# Fit the model on all data through last month, 
+# then compare this month with its predicted value
+ar1_model_last_month = AutoReg(endog=monthly_trip_yoy_growth[:LAST_MONTH], 
+                               lags=1, trend='n')
+ar1_model_last_month_fit = ar1_model_last_month.fit()
+residual_variance = np.var(ar1_model_last_month_fit.resid)
+simulation_gen = norm(ar1_model_last_month_fit.forecast(1), residual_variance)
 
 sns.distplot(simulation_gen.rvs(10000))
-plt.axvline(monthly_trip_yoy_growth['2018-10-01'])
-plt.title('q={}'.format(simulation_gen.cdf(monthly_trip_yoy_growth['2018-10-01'])))
+plt.axvline(monthly_trip_yoy_growth[THIS_MONTH])
+quantile_of_prediction_interval = simulation_gen.cdf(monthly_trip_yoy_growth[THIS_MONTH])
+plt.title('q={}'.format(quantile_of_prediction_interval))
 ```
+
+
+
+<a name="foot1">1.</a> I don't actually have a ride-share app whose data I can show you, but we'll use some monthly numbers of NYC Taxi Usage, which should be sufficiently realistic. I pulled the time series we're going to examine using
+
+`code`
