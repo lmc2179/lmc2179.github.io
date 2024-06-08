@@ -2,19 +2,19 @@ A sprinkle of time series analysis to make your next metric review easier
 
 # Metric reviews
 
-If you're a working data scientist, at some point a very nervous, very tired product manager will contact you and ask you a question along the lines of this one: `okay I looked at the dashboard, our favorite metric just moved, does that mean something? should we do something?? WHAT DOES IT MEAN WHAT DO WE DO OH GOD OUR VP JUST PINGED ME WHAT DO I TELL`
+If you're a working data scientist, at some point a very nervous, very tired product manager will contact you and ask you a question along the lines of this one: `okay I looked at the dashboard, our favorite metric just moved, does that mean something? should we do something?? WHAT DOES IT MEAN WHAT DO WE DO OH GOD OUR VP JUST PINGED ME ABOUT THE QUARTERLY MEETING WHAT DO I TELL`
 
-Okay, okay, relax. You and your friend are going to be alright, even if the VP's chat window is showing an ominous little `hey` and some dots. You have a couple of goals right now:
+Okay, okay, relax. You and your friend are going to be alright, even if the VP's chat window is showing an ominous little `hey` and some dots. You have a couple of goals right now, once you've calmed down and run a query to look at the metric:
 1. First, look at the recent trajectory of the metric. Has it been changing in the direction we want it to move? Is it really volatile?
 2. Given that perspective, is the most recent observation actually all that interesting? Is it far out of the ordinary compared to its historical values?
 
-Let's see how we might answer these questions on some real data. Imagine, for example, that you're responsible for keeping an eye on how many trips drivers are doing on a ride-sharing app. (I don't actually have a ride-share app, but we'll use some daily numbers from the NYC Data tracker of number of trips). You want this number to go up (why?)
+Let's see how we might answer these questions on some real data. Imagine, for example, that you're responsible for keeping an eye on how many trips drivers are doing on a ride-sharing app. (I don't actually have a ride-share app, but we'll use some daily numbers from the NYC Data tracker of number of trips, which should be sufficiently realistic). Your strategy involves this number going up, since it will mean you're able to increase your ROI on each driver.
 
 Imagine that you're looking at this plot:
 
 trips_per_day.png
 
-Okay, looks like things have been going well - the metric looks like it has been growing on average, so that's good.
+Okay, looks like things have been going well - the metric looks like it has been growing on average, so that's probably good.
 
 We're pretty sure that in our business, there is yearly cycle. So we'll take YoY change
 
