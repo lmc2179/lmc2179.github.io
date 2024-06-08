@@ -145,6 +145,12 @@ sns.distplot(simulation_gen.rvs(10000))
 plt.axvline(monthly_trip_yoy_growth[THIS_MONTH])
 quantile_of_prediction_interval = simulation_gen.cdf(monthly_trip_yoy_growth[THIS_MONTH])
 plt.title('q={}'.format(quantile_of_prediction_interval))
+plt.show()
+
+low, high = simulation_gen.interval(.95)
+sns.lineplot(monthly_trip_yoy_growth)
+plt.scatter([THIS_MONTH, THIS_MONTH], [low, high])
+plt.show()
 ```
 
 
