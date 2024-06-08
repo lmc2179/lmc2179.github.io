@@ -10,9 +10,9 @@ Okay, okay, relax. You and your friend are going to be alright, even if the VP's
 
 Let's see how we might answer these questions on some real data. 
 
-# An example: Trips per day on a ride-sharing app
+# An example: Trips per day KPI on a ride-sharing app
 
-Imagine, for example, that you're responsible for keeping an eye on how many trips drivers are performing on a ride-sharing app<sup>[1](#foot1)</sup>. If your goal is to monetize driver time, you want this number going up, since it will mean you're able to increase your ROI on each driver. (In real life you might worry about other parts of the trip funnel, but we'll put that aside for now.)
+Imagine, for example, that you're responsible for keeping an eye on how many trips drivers are performing on a ride-sharing app<sup>[1](#foot1)</sup>. If your goal is to monetize driver time, you want this number going up, since it will mean you're able to increase your ROI on each driver. (In real life you might worry about other parts of the trip funnel like total active drivers, but we'll put that aside for now.)
 
 Lets take a look at our data, which is a monthly time series measuring trips per day of drivers. 
 
