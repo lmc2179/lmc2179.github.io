@@ -74,6 +74,8 @@ Are you on track to hit your goals for the month/quarter/half/year?
 
 What group is causing the change? (link to decomposition post)
 
+Plug in a forecsat model instead of the AR(1) or constant model
+
 ```python
 import pandas as pd
 from tqdm import tqdm
