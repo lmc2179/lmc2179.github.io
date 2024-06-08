@@ -68,6 +68,8 @@ hm, alright. on average, it looks like we saw some deceleration - the average mo
 
 So we know that recently growth has been positive, and hasn't really been accelerating or decelerating. given that context, how do this month's numbers look? we'll answer
 
+H0 is that the most recent observation is from the same model that produced the last k
+
 is $y_{k+1}$ unusual compared to the set of similar points (ie, 12m)
 
 simulate forecasted PI dist, look at pctile
