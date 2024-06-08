@@ -109,7 +109,7 @@ LAST_MONTH = '2018-09-01'
 monthly_trip_series = monthly_trip_series.loc[:THIS_MONTH]
 
 # Calculate YoY growth
-monthly_trip_yoy_growth = monthly_trip_series / monthly_trip_series.diff(12)
+monthly_trip_yoy_growth = monthly_trip_series / monthly_trip_series.diff(12) - 1
 
 monthly_trip_series = monthly_trip_series[-13:]
 monthly_trip_yoy_growth = monthly_trip_yoy_growth[-13:]
