@@ -18,7 +18,7 @@ Lets take a look at our data, which is a monthly time series measuring trips per
 
 trips_per_day.png
 
-Okay, looks like things have been going well - the metric looks like it has been growing on average, so that's probably good.
+Hm, that's not a totally unambiguous picture. It went down, it went up, it's up in October...is that what we expected?
 
 We're pretty sure that in our business, there is yearly cycle. So we'll take YoY change
 
@@ -68,7 +68,7 @@ hm, alright. on average, it looks like we saw some deceleration - the average mo
 
 So we know that recently growth has been positive, and hasn't really been accelerating or decelerating. given that context, how do this month's numbers look? we'll answer
 
-H0 is that the most recent observation is from the same model that produced the last k
+H0 is that we'll see the same acceleration as the pervious X months
 
 is $y_{k+1}$ unusual compared to the set of similar points (ie, 12m)
 
@@ -78,7 +78,7 @@ simulate forecasted PI dist, look at pctile
 
 These methods are a handy first pass at understanding whether something interesting is happening.
 
-Are you on track to hit your goals for the month/quarter/half/year?
+Are you on track to hit your goals for the month/quarter/half/year? If growth remains in line with the X month average? If acceleration remains in line with the X month average?
 
 What group is causing the change? (link to decomposition post)
 
