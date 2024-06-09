@@ -139,7 +139,7 @@ ar1_model_last_month = AutoReg(endog=monthly_trip_yoy_growth[:LAST_MONTH],
                                lags=1, trend='n')
 ar1_model_last_month_fit = ar1_model_last_month.fit()
 residual_variance = np.var(ar1_model_last_month_fit.resid)
-simulation_gen = norm(ar1_model_last_month_fit.forecast(1), residual_variance)
+simulation_gen = norm(ar1_model_last_month_fit.forecast(1), np.sqrt(residual_variance))
 
 sns.distplot(simulation_gen.rvs(10000))
 plt.axvline(monthly_trip_yoy_growth[THIS_MONTH])
