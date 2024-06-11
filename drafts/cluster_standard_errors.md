@@ -1,4 +1,6 @@
-Happens all the time. cluster a/b tests for example
+Happens all the time. cluster a/b tests for example. or maybe you do random sampling of units from the database, but those units are from clusters that are correlated intra-cluster
+
+https://en.wikipedia.org/wiki/Intraclass_correlation
 
 ```python
 import numpy as np
