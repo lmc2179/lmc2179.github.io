@@ -8,11 +8,11 @@ $\hat{\mu} = \frac{1}{n} \sum_i y_i$
 
 by the CLT assuming n is "big"
 
-$\hat{\mu} \sim N(\mu, SE(\mu))$
+$\hat{\mu} \sim N(\mu, SE(\mu)^2)$
 
 then
 
-$g(\hat{\mu}) \sim \approx N(g(\mu), g'(\mu)^2 \times SE(\mu))$
+$g(\hat{\mu}) \sim \approx N(g(\mu), g'(\mu)^2 \times SE(\mu)^2)$
 
 check this against the wasserman version. write out what the confidence interval is (like wasserman does)
 
