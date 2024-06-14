@@ -8,7 +8,7 @@ Plan
 * Sympy usage
 * Numerical differentiation usage??
 
-Desiderata
+Output
 * When to use it
 * How to use it
 * A minimum of theory needed to understand it
