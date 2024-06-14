@@ -1,5 +1,7 @@
 I need the standard error of something and it's not a "standard" statistic
 
+so you need the variance of the sampling distribution of some statistic
+
 Plan
 * Understand the theory - what is the relevant theorem? where does it originate?
 * What is the proof? Something about a Taylor Series
