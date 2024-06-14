@@ -3,11 +3,15 @@ I need the standard error of something and it's not a "standard" statistic
 Plan
 * Understand the theory - what is the relevant theorem? where does it originate?
 * What is the proof? Something about a Taylor Series
-* Find a good real-life univariate example
+* Find a good real-life univariate example. How 
 * Do the math
 * Sympy usage
 * Numerical differentiation usage??
 * What about the multivariate version? Maybe a simple example there too
+* Write section 1: The common problem that the delta method solves, incl an example
+* Write section 2: How to use it, in theory and with sympy/numerical analysis
+* Write section 3: What about the multivariate case?
+*  Other ways
 
 Output
 * When to use it
