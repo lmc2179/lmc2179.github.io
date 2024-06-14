@@ -25,7 +25,7 @@ Plan
 * Numerical differentiation usage??
 * What about the multivariate version? Maybe a simple example there too
 * Write section 1: The common problem that the delta method solves, incl an example
-* Write section 2: How to use it, in theory and with sympy/numerical analysis
+* Write section 2: How to use it, in theory and with sympy/numerical analysis. Do simulation and/or compare with bootstrap
 * Write section 3: What about the multivariate case?
 *  Other ways
 
