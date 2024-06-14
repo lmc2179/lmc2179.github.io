@@ -2,6 +2,20 @@ I need the standard error of something and it's not a "standard" statistic
 
 so you need the variance of the sampling distribution of some statistic
 
+from https://bookdown.org/ts_robinson1994/10EconometricTheorems/dm.html
+
+$\hat{\mu} = \frac{1}{n} \sum_i y_i$
+
+by the CLT assuming n is "big"
+
+$\hat{\mu} \sim N(\mu, SE(\mu))$
+
+then
+
+$g(\hat{\mu}) \sim \approx N(g(\mu), g'(\mu)^2 \times SE(\mu))$
+
+check this against the wasserman version. write out what the confidence interval is (like wasserman does)
+
 Plan
 * Understand the theory - what is the relevant theorem? where does it originate?
 * What is the proof? Something about a Taylor Series
