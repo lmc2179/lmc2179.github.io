@@ -1,7 +1,7 @@
 I need the standard error of something and it's not a "standard" statistic
 
 Plan
-* Understand the theory - what is the theorem?
+* Understand the theory - what is the relevant theorem? where does it originate?
 * What is the proof? Something about a Taylor Series
 * Find a good real-life example
 * Do the math
