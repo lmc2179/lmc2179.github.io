@@ -2,9 +2,15 @@ I need the standard error of something and it's not a "standard" statistic
 
 so you need the variance of the sampling distribution of some statistic
 
+
+
+Plan
+
+✅ Understand the theory - what is the relevant theorem? where does it originate?
+
 From wikipedia - https://en.wikipedia.org/wiki/Variance#Arbitrary_functions
 
-If X is a rnaomd variable, then:
+If X is a random  variable, then:
 
 $Var[f(X)] \approx (f'(\mathbb{E}[X]))^2 Var[X]$
 
@@ -12,12 +18,9 @@ $Var[f(X)] \approx (f'(\mathbb{E}[X]))^2 Var[X]$
 
 multivariate version - https://en.wikipedia.org/wiki/Delta_method#Multivariate_delta_method
 
-use this to do a multivariate example
+since it's a pretty elementary application of the taylor series, it was known sometime in the early 20th century
 
-Plan
-* Understand the theory - what is the relevant theorem? where does it originate?
-* What is the proof? Something about a Taylor Series
-* Find a good real-life univariate example. How 
+* Find a good real-life univariate example. maybe estimates of raw product and then production curve of finished product
 * Do the math
 * Sympy usage
 * Numerical differentiation usage??
