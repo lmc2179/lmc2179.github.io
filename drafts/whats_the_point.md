@@ -27,6 +27,34 @@ https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century
 2. The data scientist logs in, and performs a series of mystic incantations. They ✨deep learn the big data✨. They Hadoop the random forests. They write a bunch of unreadable equations on your office whiteboard, nod knowingly as they look out at the horizon, and smile as the immutable truths of the universe wash over them.
 3. Revenue doubles overnight. Costs go to zero. Your company has an IPO for a bazillion dollars, and you end up on the cover of _Extremely Rich Tech Executive Magazine_, right next to the story about personal jets powered by bitcoin.
 
+
+# Step 1: Measure
+
+James C Scott - Use what is to hand, be as exact as is needed. Make the system legible
+> Rainfall may be said to be abundant or inadequate if the context of the query implies an interest in a particular crop. (...) Local measures were also relational or "commensurable.
+
+Connect to your north star
+
+Collect data. Define outcomes, levers, background variables. Create monitoring systems. Propose DAGs. Set priors. Ensure data quality.
+
+# Step 2: Learn
+
+Tukey - Make a model of the world you can commit to. Draw conclusions
+
+Key levers? Do experiments
+
+Come to scientific conclusions. Estimate. Quantify uncertainty. Qualitatively describe. Rule out/falsify DAGs. Fit models. Simulate parameter space. Locate insights.
+
+# Step 3: Decide
+
+Parmigiani/Savage
+
+Pick the actions : facts -> outcomes
+
+Consider cost + uncertainty. Simulate. Pick a course of action with the best info you have. Simulate outcome space.
+
+# APPENDIX: Original draft
+
 # So what is it that data scientists do?
 
 Googling give us some almost-right answers. Various articles, blog posts, and other sources, tell us that data scientists are important because they...
