@@ -20,6 +20,8 @@ multivariate version - https://en.wikipedia.org/wiki/Delta_method#Multivariate_d
 
 $Var[f(X)] \approx\nabla f(X)^T Cov(X) \nabla f (X)$
 
+$(1 \times k) (k \times k) (k \times 1)$
+
 since it's a pretty elementary application of the taylor series, it was known sometime in the early 20th century
 
 * Find a good real-life univariate example. maybe estimates of raw product and then production curve of finished product
