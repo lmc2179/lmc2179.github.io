@@ -6,6 +6,8 @@ difference in difference! https://www.theeffectbook.net/ch-DifferenceinDifferenc
 
 https://theeffectbook.net/ch-StatisticalAdjustment.html#your-standard-errors-are-probably-wrong
 
+"The use of clustered standard errors can account for any sort of correlation between errors within each grouping." The Effect
+
 https://en.wikipedia.org/wiki/Intraclass_correlation
 
 ```python
