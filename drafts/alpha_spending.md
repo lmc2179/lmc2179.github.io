@@ -25,6 +25,8 @@ _**Has this ever happened to you?**_
 
 This is a frustrating conversation for all involved. The PM is trying to play by the rules by looking at the significance of the test
 
+there are good reasons to stop early!
+
 # The issue with stopping early
 
 ```python
