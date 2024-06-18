@@ -2,6 +2,11 @@ most of the time, we assume that our data is an IID sample from the population.
 
 Why should we believe your sampling process is IID? Often it isn't. Happens all the time that sampling wasn't done on individual units, but on clusters. for example, if you want to poll students in a school district, it might be easier to first pick schools, and then poll all the students within the selected school. cluster a/b tests for example. or maybe you do random sampling of units from the database, but those units are from clusters that are correlated intra-cluster.
 
+Some examples I've seen:
+* Treatment assignment to groups rather than individuals
+* Students within schools
+* Emails within users
+
 difference in difference! https://www.theeffectbook.net/ch-DifferenceinDifference.html#how-is-it-performed-2
 
 https://theeffectbook.net/ch-StatisticalAdjustment.html#your-standard-errors-are-probably-wrong
@@ -9,6 +14,10 @@ https://theeffectbook.net/ch-StatisticalAdjustment.html#your-standard-errors-are
 "The use of clustered standard errors can account for any sort of correlation between errors within each grouping." The Effect
 
 https://en.wikipedia.org/wiki/Intraclass_correlation
+
+adding a term removes bias; clustering gets you correct variance
+
+when in doubt, think about the sampling process
 
 ```python
 import numpy as np
