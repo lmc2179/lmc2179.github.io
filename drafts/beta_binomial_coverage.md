@@ -1,8 +1,14 @@
 # Getting started with Bayesian inference: The beta-binomial model
 
+The bayesian update process is intuitively appealing
+
 * What do we think about the rate before seeing the data?
 * What do we think about the rate after seeing the data?
 * What might the next observation look like?
+
+A qualitative example: an experiment
+
+Bayes rule gives us the mechanics of the update
 
 ### Prior
 
