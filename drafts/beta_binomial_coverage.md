@@ -37,7 +37,7 @@ Why does this work? Basically the algebra works out to look like another beta
 
 https://projecteuclid.org/journals/electronic-journal-of-statistics/volume-5/issue-none/Neutral-noninformative-and-informative-conjugate-beta-and-gamma-prior-distributions/10.1214/11-EJS648.full
 
-# An example experiment analysis
+# Posterior analysis of an experiment
 
 formulate prior
 
