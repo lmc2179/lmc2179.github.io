@@ -26,7 +26,14 @@ Why does this work? Basically the algebra works out to look like another beta
 
 ### Option 1: From experts or from your data
 
-### Option 2: Flat prior
+### Option 2: Flat priors
+
+|Prior         |Name    |Notes|
+|--------------|--------|-|
+|Beta(1, 1)    |Uniform |-|
+|Beta(1/2, 1/2)|Jeffreys|-|
+|Beta(1/3, 1/3)|Neutral |-|
+|Beta(0, 0)    |Haldane |-|
 
 https://projecteuclid.org/journals/electronic-journal-of-statistics/volume-5/issue-none/Neutral-noninformative-and-informative-conjugate-beta-and-gamma-prior-distributions/10.1214/11-EJS648.full
 
