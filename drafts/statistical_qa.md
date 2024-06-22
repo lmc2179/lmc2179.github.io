@@ -19,6 +19,10 @@ QA questions related to estimating the number of defective units pop up all the 
 
 QA is expensive, so we should be careful about how much of it we do
 
+examples:
+* factory
+* data quality checks in a data warehouse
+
 # basics: normal interval
 
 sometimes assume the worst case of p=0.5
