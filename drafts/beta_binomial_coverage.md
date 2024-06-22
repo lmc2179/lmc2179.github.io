@@ -1,6 +1,23 @@
-Getting started with Bayesian inference: The beta-binomial model
+# Getting started with Bayesian inference: The beta-binomial model
+
+* What do we think about the rate before seeing the data?
+* What do we think about the rate after seeing the data?
+* What might the next observation look like?
+
+
+### Prior
+### Posterior
+### Posterior-predictive
+
+# What prior should you pick?
+
+### Option 1: From experts or from your data
+
+### Option 2: Flat prior
 
 https://projecteuclid.org/journals/electronic-journal-of-statistics/volume-5/issue-none/Neutral-noninformative-and-informative-conjugate-beta-and-gamma-prior-distributions/10.1214/11-EJS648.full
+
+# Appendix: Comparing coverage
 
 ```python
 import numpy as np
