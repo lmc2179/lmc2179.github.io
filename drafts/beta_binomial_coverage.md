@@ -4,9 +4,16 @@
 * What do we think about the rate after seeing the data?
 * What might the next observation look like?
 
-
 ### Prior
-### Posterior
+
+Examples of the beta distribution - it's a handy way of summarizing our prior knowledge because it's flexible. plus other reasons
+
+### Posterior and calculating an update
+
+Conjugate prior - wiki
+
+Why does this work? Basically the algebra works out to look like another beta
+
 ### Posterior-predictive
 
 # What prior should you pick?
@@ -16,6 +23,12 @@
 ### Option 2: Flat prior
 
 https://projecteuclid.org/journals/electronic-journal-of-statistics/volume-5/issue-none/Neutral-noninformative-and-informative-conjugate-beta-and-gamma-prior-distributions/10.1214/11-EJS648.full
+
+# An example experiment analysis
+
+formulate prior
+
+Observe data
 
 # Appendix: Comparing coverage
 
