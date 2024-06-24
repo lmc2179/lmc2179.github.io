@@ -23,6 +23,7 @@ QA is expensive, so we should be careful about how much of it we do
 examples:
 * factory
 * data quality checks in a data warehouse
+* checking the quality of your ml model vs human judgement
 
 # basics: normal interval
 
