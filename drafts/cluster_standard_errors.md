@@ -1,4 +1,4 @@
-most of the time, we assume that our data is an IID sample from the population.
+most of the time, we assume that our data is an IID sample from the population. this is a big deal for regression tools, and lots of causal inference is regression-y
 
 Why should we believe your sampling process is IID? Often it isn't. Happens all the time that sampling wasn't done on individual units, but on clusters. for example, if you want to poll students in a school district, it might be easier to first pick schools, and then poll all the students within the selected school. cluster a/b tests for example. or maybe you do random sampling of units from the database, but those units are from clusters that are correlated intra-cluster.
 
