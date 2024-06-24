@@ -18,6 +18,8 @@ $Var[f(X)] \approx (f'(\mathbb{E}[X]))^2 Var[X]$
 
 multivariate version - https://en.wikipedia.org/wiki/Delta_method#Multivariate_delta_method
 
+Double check but I think this _should_ work for X is multivariate, which becomes some scalar. like the ratio
+
 $Var[f(X)] \approx\nabla f(X)^T Cov(X) \nabla f (X)$
 
 $(1 \times k) (k \times k) (k \times 1)$
