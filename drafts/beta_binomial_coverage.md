@@ -26,6 +26,12 @@ Why does this work? Basically the algebra works out to look like another beta
 
 ### Option 1: From experts or from your data
 
+what kind of rates have you seen previously? are any excluded by the "laws of physics"? subjective elicitation
+
+link to MATCH here
+
+http://optics.eee.nottingham.ac.uk/match/uncertainty.php
+
 ### Option 2: Flat priors
 
 |Prior         |Name    |Notes|
@@ -106,4 +112,39 @@ plt.show()
 
 sns.regplot(k_plot, coverages, lowess=True)
 plt.show()
+```
+
+# Appendix: Fit your own prior to quantiles
+
+```python
+import numpy as np
+from scipy.optimize import minimize
+from scipy.stats import beta
+
+# Step 1: Specify your desired quantiles and their corresponding probabilities
+desired_quantiles = [0.025, 0.05, .3]  # Example: 25th and 75th percentiles
+probabilities = [.25, 0.5, .75]        # Example: probabilities for those quantiles
+
+# Step 2: Define the objective function
+def objective(params):
+    a, b = params
+    quantiles = beta.ppf(probabilities, a, b)
+    return np.sum((quantiles - desired_quantiles)**2)
+
+# Step 3: Use an optimization algorithm to find the best alpha and beta
+initial_guess = [1, 1]
+result = minimize(objective, initial_guess, bounds=[(0.01, None), (0.01, None)])
+
+# Extract the optimized parameters
+alpha, beta_ = result.x
+
+# Print the optimized parameters
+print(f"Optimized alpha: {alpha}")
+print(f"Optimized beta: {beta_}")
+
+# Verify the quantiles
+quantiles = beta.ppf(probabilities, alpha, beta_)
+print(f"Quantiles at specified probabilities: {quantiles}")
+print(f"Desired quantiles: {desired_quantiles}")
+
 ```
