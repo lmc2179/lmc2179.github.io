@@ -26,13 +26,17 @@ Why does this work? Basically the algebra works out to look like another beta
 
 What is the prior, exactly?
 
-### Option 1: From experts or from your data
+### Option 1: Informative prior
+
+From experts or from your data
 
 what kind of rates have you seen previously? are any excluded by the "laws of physics"? subjective elicitation
 
 link to MATCH here
 
 http://optics.eee.nottingham.ac.uk/match/uncertainty.php
+
+you should err on the side of being more open-minded, ie a flatter prior
 
 appendix if you want to roll your own
 
@@ -46,6 +50,10 @@ appendix if you want to roll your own
 |Beta(0, 0)    |Haldane |-|
 
 https://projecteuclid.org/journals/electronic-journal-of-statistics/volume-5/issue-none/Neutral-noninformative-and-informative-conjugate-beta-and-gamma-prior-distributions/10.1214/11-EJS648.full
+
+### Which one should I pick?
+
+imo, the right choice is a prior which is very weakly informative. the prior is a constraint on the inference; some constraints are justified from first principles. for example, the minimum and maximum values are often known beforehand
 
 # An example analysis: Statistical quality control
 
