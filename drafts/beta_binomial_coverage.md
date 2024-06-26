@@ -24,6 +24,8 @@ Why does this work? Basically the algebra works out to look like another beta
 
 # What prior should you pick?
 
+What is the prior, exactly?
+
 ### Option 1: From experts or from your data
 
 what kind of rates have you seen previously? are any excluded by the "laws of physics"? subjective elicitation
@@ -31,6 +33,8 @@ what kind of rates have you seen previously? are any excluded by the "laws of ph
 link to MATCH here
 
 http://optics.eee.nottingham.ac.uk/match/uncertainty.php
+
+appendix if you want to roll your own
 
 ### Option 2: Flat priors
 
@@ -43,7 +47,9 @@ http://optics.eee.nottingham.ac.uk/match/uncertainty.php
 
 https://projecteuclid.org/journals/electronic-journal-of-statistics/volume-5/issue-none/Neutral-noninformative-and-informative-conjugate-beta-and-gamma-prior-distributions/10.1214/11-EJS648.full
 
-# Posterior analysis of an experiment
+# An example analysis: Statistical quality control
+
+The usual examples here are coin flipping and a standard RCT or A/B test; they have been done very thoroughly elsewhere and so I'll skip them. See the puppy book if you want a good account of those.
 
 formulate prior
 
