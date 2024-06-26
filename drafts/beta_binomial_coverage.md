@@ -28,6 +28,8 @@ What is the prior, exactly?
 
 ### Option 1: Informative prior
 
+are all the values _really_ equally likely? probably not.
+
 From experts or from your data
 
 what kind of rates have you seen previously? are any excluded by the "laws of physics"? subjective elicitation
@@ -41,6 +43,10 @@ you should err on the side of being more open-minded, ie a flatter prior
 appendix if you want to roll your own
 
 ### Option 2: Flat priors
+
+"I don't know anything" is actually sort of ambiguous
+
+
 
 |Prior         |Name    |Notes|
 |--------------|--------|-|
