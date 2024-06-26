@@ -57,7 +57,7 @@ https://projecteuclid.org/journals/electronic-journal-of-statistics/volume-5/iss
 
 ~[Andrew Gelman, _Bayes, Jeffreys, Prior Distributions and the Philosophy of Statistics_](http://www.stat.columbia.edu/~gelman/research/published/jeffreys.pdf)
 
-imo, the right choice is a prior which is very weakly informative. the prior is a constraint on the inference; some constraints are justified from first principles. for example, the minimum and maximum values are often known beforehand
+imo, the right choice is a prior which is very weakly informative. the prior is a constraint on the inference; some constraints are justified from first principles. for example, the minimum and maximum values are often known beforehand. and uninformative priors have weird properties when the sample size is small, ie 50/50 median
 
 # An example analysis: Statistical quality control
 
