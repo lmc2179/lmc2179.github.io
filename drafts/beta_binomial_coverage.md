@@ -53,6 +53,10 @@ https://projecteuclid.org/journals/electronic-journal-of-statistics/volume-5/iss
 
 ### Which one should I pick?
 
+> it can notoriously difficult to choose among noninformative priors; and, even more importantly, seemingly noninformative distributions can sometimes have strong and undesirable implications, as I have found in my own experience (Gelman, 1996, 2006). As a result I have become a convert to the cause of weakly informative priors, which attempt to let the data speak while being strong enough to exclude various “unphysical” possibilities which, if not blocked, can take over a posterior distribution in settings with sparse data—a situation which is increasingly present as we continue to develop the techniques of working with complex hierarchical and nonparametric models.
+
+~[Andrew Gelman, _Bayes, Jeffreys, Prior Distributions and the Philosophy of Statistics_](http://www.stat.columbia.edu/~gelman/research/published/jeffreys.pdf)
+
 imo, the right choice is a prior which is very weakly informative. the prior is a constraint on the inference; some constraints are justified from first principles. for example, the minimum and maximum values are often known beforehand
 
 # An example analysis: Statistical quality control
