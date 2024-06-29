@@ -1,10 +1,15 @@
-_Fitting a customer parametric model and getting its standard errors in Python with scipy_
+_Fitting a customer parametric model MLE and getting its standard errors in Python with scipy_
 
 Examples
 * Growth curves
 * Multiplicative treatment effect
 * Fitting a custom univariate density
-* Fitting a binary multivariate pmf 
+* Fitting a binary multivariate pmf
+* Causal models - because function composition messes with linearity, and causal models are about function composition
+
+Other usages:
+* Method of moments
+* Fitting a prior based on quantiles
 
 Derive
 
