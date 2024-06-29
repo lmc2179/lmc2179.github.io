@@ -6,6 +6,7 @@ Examples
 * Fitting a custom univariate density
 * Fitting a binary multivariate pmf
 * Causal models - because function composition messes with linearity, and causal models are about function composition
+* Nested production functions (another function composition)
 
 Other usages:
 * Method of moments
