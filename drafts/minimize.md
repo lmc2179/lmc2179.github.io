@@ -1,5 +1,16 @@
 _?_
 
+Examples
+* Growth curves
+* Multiplicative treatment effect
+* ?
+
+Derive
+
+Fit
+
+Compare bootstrap
+
 ```python
 # Imports and data
 from pydataset import data
