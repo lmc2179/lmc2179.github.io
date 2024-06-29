@@ -20,7 +20,7 @@ trees['time_scaled'] /= trees['time_scaled'].max() # And goes until t = 1
 ```python
 # Let's see what the data looks like
 plt.title('Growth of Sitka Spruce Trees')
-sns.regplot(trees['time_scaled'], trees['size'], fit_reg=False, x_jitter=.03)
+sns.regplot(x=trees['time_scaled'], y=trees['size'], fit_reg=False, x_jitter=.03)
 plt.xlabel('Time')
 plt.ylabel('Tree size')
 plt.show()
@@ -29,7 +29,7 @@ plt.show()
 ```python
 # Let's see what the data looks like
 plt.title('Growth of Sitka Spruce Trees')
-sns.regplot(trees['time_scaled'], trees['size'], x_estimator=np.mean, fit_reg=False)
+sns.regplot(x=trees['time_scaled'], y=trees['size'], x_estimator=np.mean, fit_reg=False)
 plt.xlabel('Time')
 plt.ylabel('Tree size')
 plt.show()
