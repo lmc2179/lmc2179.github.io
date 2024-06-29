@@ -3,7 +3,7 @@ _?_
 Examples
 * Growth curves
 * Multiplicative treatment effect
-* ?
+* Fitting a custom density
 
 Derive
 
