@@ -1,10 +1,10 @@
-_?_
+_Fitting a customer parametric model and getting its standard errors in Python with scipy_
 
 Examples
 * Growth curves
 * Multiplicative treatment effect
 * Fitting a custom univariate density
-* Fitting a binary multivariate pmf
+* Fitting a binary multivariate pmf 
 
 Derive
 
