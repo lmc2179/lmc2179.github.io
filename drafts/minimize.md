@@ -3,7 +3,8 @@ _?_
 Examples
 * Growth curves
 * Multiplicative treatment effect
-* Fitting a custom density
+* Fitting a custom univariate density
+* Fitting a binary multivariate pmf
 
 Derive
 
