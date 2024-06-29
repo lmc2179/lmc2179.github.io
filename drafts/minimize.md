@@ -2,10 +2,11 @@ _Fitting a customer parametric model MLE and getting its standard errors in Pyth
 
 Examples
 * Growth curves
+* Dose response
 * Multiplicative treatment effect
 * Fitting a custom univariate density
 * Fitting a binary multivariate pmf
-* Causal models - because function composition messes with linearity, and causal models are about function composition
+* Causal models - because function composition messes with linearity, and causal models are about function composition. Mediation for example
 * Nested production functions (another function composition)
 
 Other usages:
