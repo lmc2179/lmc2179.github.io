@@ -72,6 +72,9 @@ $$\underbrace{y_t}_\textrm{Size at time t} \sim N(\underbrace{ae^{-be^{-ct}}}_\t
 
 $\text{ln } \mathcal{L}(a, b, c, \sigma) = \sum_t \text{ln } f_{N}(y_t \mid G(t, a, b, c), \sigma)$
 
+Todo: Should the size of sigma change based on t?
+Todo: Add multiplicative treatment effect based on 'treatment'
+
 ```python
 def fit(t, y):
   def neg_log_likelihood(v):
@@ -80,15 +83,13 @@ def fit(t, y):
     l = norm(expected_y, np.exp(log_s)).logpdf(y)
     return -np.sum(l)
   return minimize(neg_log_likelihood, [1, 1, 1, 1])
-```
 
-```python
-result = fit(trees['time_scaled'], trees['size'])
+result = fit(trees['time_scaled'], trees['size_scaled'])
 
 a_mle, b_mle, c_mle, log_s_mle = result.x
 s_mle = np.exp(log_s_mle)
 
-plt.scatter(trees['time_scaled'], trees['size'])
+plt.scatter(trees['time_scaled'], trees['size_scaled'])
 t_plot = np.linspace(trees['time_scaled'].min(), trees['time_scaled'].max())
 y_plot = gompertz(a_mle, b_mle, c_mle, t_plot)
 low_pred = y_plot - 2 * s_mle
