@@ -13,6 +13,8 @@ Other usages:
 * Method of moments
 * Fitting a prior based on quantiles
 
+there are good reasons to use the mle and build CIs from it: https://ocw.mit.edu/courses/18-443-statistics-for-applications-fall-2006/03b407da8a94b3fe22d987453807ca46_lecture3.pdf
+
 Derive
 
 Fit
