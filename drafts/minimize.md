@@ -20,7 +20,6 @@ Fit
 Compare bootstrap
 
 ```python
-# Imports and data
 from pydataset import data
 from matplotlib import pyplot as plt
 import seaborn as sns
@@ -36,21 +35,23 @@ trees = trees[trees['tree'].apply(lambda t: t not in {2, 15})] # DQ issues
 trees['time_scaled'] = trees['Time']
 trees['time_scaled'] -= trees['time_scaled'].min() # Time starts at t=0
 trees['time_scaled'] /= trees['time_scaled'].max() # And goes until t = 1
-```
+tree_starting_sizes = trees.groupby('tree').min()['size']
+trees['size_scaled'] = [s / tree_starting_sizes[t] - 1 for t,s in trees[['tree', 'size']].values]
 
-```python
 # Let's see what the data looks like
 plt.title('Growth of Sitka Spruce Trees')
-sns.regplot(x=trees['time_scaled'], y=trees['size'], fit_reg=False, x_jitter=.03)
+for group_name, tree_group_df in trees.groupby('treat'):
+    sns.regplot(x=tree_group_df['time_scaled'], y=tree_group_df['size_scaled'], fit_reg=False, x_jitter=.03, label=group_name)
+plt.legend()
 plt.xlabel('Time')
 plt.ylabel('Tree size')
 plt.show()
-```
 
-```python
 # Let's see what the data looks like
 plt.title('Growth of Sitka Spruce Trees')
-sns.regplot(x=trees['time_scaled'], y=trees['size'], x_estimator=np.mean, fit_reg=False)
+for group_name, tree_group_df in trees.groupby('treat'):
+    sns.regplot(x=tree_group_df['time_scaled'], y=tree_group_df['size_scaled'], x_estimator=np.mean, fit_reg=False, label=group_name)
+plt.legend()
 plt.xlabel('Time')
 plt.ylabel('Tree size')
 plt.show()
