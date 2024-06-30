@@ -1,4 +1,4 @@
-_Fitting a customer parametric model MLE and getting its standard errors in Python with scipy_
+_Fitting a custom parametric model MLE and getting its standard errors in Python with scipy_
 
 Examples
 * Growth curves
