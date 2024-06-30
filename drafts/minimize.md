@@ -31,6 +31,8 @@ import pandas as pd
 
 trees = data('Sitka')
 
+trees = trees[trees['tree'].apply(lambda t: t not in {2, 15})] # DQ issues
+
 trees['time_scaled'] = trees['Time']
 trees['time_scaled'] -= trees['time_scaled'].min() # Time starts at t=0
 trees['time_scaled'] /= trees['time_scaled'].max() # And goes until t = 1
