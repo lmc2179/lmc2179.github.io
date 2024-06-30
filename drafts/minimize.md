@@ -220,3 +220,5 @@ print('Standard errors', np.sqrt(np.diag(result.hess_inv)))
 ```
 
 $y_t \sim N(ae^{-be^{-ct}}, \sigma)$
+
+outro - likelihood ratio test? MAP shit? laplace?
