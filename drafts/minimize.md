@@ -1,5 +1,31 @@
 _Fitting a custom parametric model MLE and getting its standard errors in Python with scipy_
 
+```python
+import pandas as pd
+from tqdm import tqdm
+from sklearn.feature_extraction.text import CountVectorizer
+
+df = pd.read_csv(r'C:\Users\louis\Downloads\archive\online_retail_II.csv') # https://www.kaggle.com/datasets/mashlyn/online-retail-ii-uci?resource=download
+
+top_n = 100
+top_items = df.groupby('Description').count().sort_values('Invoice', ascending=False).iloc[:top_n].index
+
+filtered_df = df[df['Description'].isin(top_items)]
+
+
+invoices = []
+for _, invoice_df in tqdm(filtered_df.groupby('Invoice')):
+    invoices.append(list(invoice_df['Description'].apply(str)))
+
+# Initialize the CountVectorizer
+vectorizer = CountVectorizer(tokenizer=lambda x: x, lowercase=False)
+
+# Fit and transform the documents
+X = vectorizer.fit_transform(invoices)
+
+bitstring_df = pd.DataFrame(X.todense(), columns=[item for i, item in sorted([(i, item) for item, i in vectorizer.vocabulary_.items()])])
+```
+
 Examples
 * Growth curves
 * Dose response
