@@ -57,7 +57,7 @@ Okay, sure, "Type I" and "Type II" is a little opaque. What does this do for us 
 This procedure is a test run "by the book", in which we collected one big sample and ran a single T-test to see what happened. It guarantees that we get the usual magic protections of P-value testing, namely that:
 
 * We'll only come to a false conclusion $\alpha\%$ of the time. That is, it will only rarely happen that the above procedure will cause us to pop the champagne when in fact $\Delta = 0$. This is protection from Type I errors, or "false detection" errors.
-* We'll detect effects that actually exist and are larger than the MDE about $\beta \%$ of the time. That is, if $\Delta$ is large enough, we'll pop the champage most of the time. This is protection from Type II errors, or "failure to detect" errors.
+* We'll detect effects that actually exist (and are larger than the MDE) about $\beta \%$ of the time. That is, if $\Delta$ is large enough, we'll pop the champage most of the time. This is protection from Type II errors, or "failure to detect" errors.
 
 What happens to these guarantees if we introduce the possibility of early stopping? **The short version is that the more often we check to see if the result is significant, the more chances we are giving ourselves to detect a false positive, or commit a Type I error. As a result, just checking more often can cause our actual Type I error rate to be much higher than $\alpha$**.
 
