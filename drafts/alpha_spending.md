@@ -71,7 +71,7 @@ We can try and compromise by saying that we should be skeptical of apparent stro
 
 Of course, the devil is in the details, and so this opens us up to the next question. How strong does the effect need to be early on in the experiment for us to be willing to stop early? How should we change our testing procedure to accommodate early stopping?
 
-# The $alpha spending approach: set the standard evidence higher early on in the experiment
+# The $\alpha$ spending approach: set the standard evidence higher early on in the experiment
 
 
 
