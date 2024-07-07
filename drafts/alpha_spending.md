@@ -65,7 +65,9 @@ Simulation goes here
 
 This is a cut from the "risk" side of the double-edged speed-risk sword. Adding more checks without changing anything else will expose us to more risks. But we talked above about the idea that sometimes, stopping early seems like a good idea.
 
-We can try and compromise by saying that we should be skeptical of apparent strong effects early in the experiment, but that effects that are really large should still prompt us to stop early. That leaves us a little wiggle room - we should not stop early unless the effect looks like it is _really_ strong.
+On first glance, this looks similar to the problem of multiple testing that might be addressed by methods like the [Bonferroni correction](https://lmc2179.github.io/posts/fwer.html) or and [FDR correcting method](https://lmc2179.github.io/posts/fdr.html). Those methods would cause us to set our $alpha$ lower based on the number of checks we're planning to run - by lowering $alpha$ we are "raising the bar" and demanding more evidence before we accept a result. This is a good start, but it has a serious flaw - it will meaningfully decrease the power ($\beta$) of our experiment, and we'll need to run it longer than expected. Can we do better?
+
+We can try and compromise by saying that we should be skeptical of apparent strong effects early in the experiment, but that effects that are really large should still prompt us to stop early. That leaves us a little wiggle room - we should not stop early unless the effect looks like it is _really_ strong. What if we set $\alpha$ lower at the beginning of the experiment, but used the original value of $\alpha$ (5%, or whatever) after all the data is collected? That sort of "early skepticism" approach might get us a procedure that works.
 
 Of course, the devil is in the details, and so this opens us up to the next question. How strong does the effect need to be early on in the experiment for us to be willing to stop early? How should we change our testing procedure to accommodate early stopping?
 
