@@ -61,7 +61,11 @@ This procedure is a test run "by the book", in which we collected one big sample
 
 What happens to these guarantees if we introduce the possibility of early stopping? **The short version is that the more often we check to see if the result is significant, the more chances we are giving ourselves to detect a false positive, or commit a Type I error. As a result, just checking more often can cause our actual Type I error rate to be much higher than $\alpha$**.
 
-Simulation goes here
+Lets augment our test by not just calculating the p-value on the last day, of the experiments but on the ... days before. We're going to simulate this example in a world where the null hypothesis really is true, and there is no treatment effect. This will tell us whether stopping as soon as we see a significant results would have caused us to commit a Type I error. If we run this many times, and track the P-value of each run, we see that the trajectory of many P-values crosses the `.05` threshold at some point early on  in the test, but as time goes on most of the P-values "settle down" to the expected range:
+
+Picture of simulation results goes here.
+
+In this simulation, we should have see X false positives if we only checked at the end, compared with Y false positives if we check every day. That's a big difference, and it means that early stopping would make us Z% more likely to see a false positive in this test!!
 
 This is a cut from the "risk" side of the double-edged speed-risk sword. Adding more checks without changing anything else will expose us to more risks. But we talked above about the idea that sometimes, stopping early seems like a good idea.
 
