@@ -83,15 +83,23 @@ The idea here is that when $p$ is small, $\alpha$ will be small, and we'll be ve
 
 What form might $adjust(p, \alpha)$ have? A reasonable starting point is something like
 
-$$adjust(p, \alpha) = p \alpha$$
+$$adjust_{linear}(p, \alpha) = p \alpha$$
 
-We might called this a **linear alpha spending function**. Lan and Demets above mention 
+We might called this a **linear alpha spending function**. Lan and Demets above mention an alternative called the **O'Brien-Fleming alpha spending function**, which is:
+
+$$adjust_{OBF}(p, \alpha) = 2 - 2 \Phi (\frac{Z_{\alpha / 2}}{\sqrt{p}})$$
 
 OBF
+
+Lets compare them
+
+Simulation
 
 # Other perspectives
 
 https://statmodeling.stat.columbia.edu/2014/02/13/stopping-rules-bayesian-analysis/
+
+# Appendix: Code for the simulations
 
 ----------------------------
 
