@@ -180,6 +180,18 @@ print('False positives if early stopping is allowed:', early_stop_false_positive
 ```
 
 ```python
+p = np.linspace(0, 1, 100)
+alpha = .05
+plt.plot(p, [constant_alpha(alpha, pi) for pi in p], label='Constant')
+plt.plot(p, [linear_alpha_spending(alpha, pi) for pi in p], label='Linear')
+plt.plot(p, [obf_alpha_spending(alpha, pi) for pi in p], label='OBF')
+plt.legend()
+plt.xlabel('Proportion of sample collected')
+plt.ylabel('Adjusted alpha value')
+plt.title('Comparison of alpha spending strategies')
+```
+
+```python
 import pandas as pd
 import numpy as np
 from scipy.stats import ttest_ind, norm
