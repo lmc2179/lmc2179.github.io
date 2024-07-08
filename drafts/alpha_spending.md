@@ -67,21 +67,27 @@ Picture of simulation results goes here.
 
 In this simulation, we should have see X false positives if we only checked at the end, compared with Y false positives if we check every day. That's a big difference, and it means that early stopping would make us Z% more likely to see a false positive in this test!!
 
-This is a cut from the "risk" side of the double-edged speed-risk sword. Adding more checks without changing anything else will expose us to more risks. But we talked above about the idea that sometimes, stopping early seems like a good idea.
+This is a cut from the "risk" side of the double-edged speed-risk sword. Adding more checks without changing anything else will expose us to more risks. How should we insulate ourselves from this risk?
 
-On first glance, this looks similar to the problem of multiple testing that might be addressed by methods like the [Bonferroni correction](https://lmc2179.github.io/posts/fwer.html) or and [FDR correcting method](https://lmc2179.github.io/posts/fdr.html). Those methods would cause us to set our $\alpha$ lower based on the number of checks we're planning to run - by lowering $\alpha$ we are "raising the bar" and demanding more evidence before we accept a result. This is a good start, but it has a serious flaw - it will meaningfully decrease the power ($\beta$) of our experiment, and we'll need to run it longer than expected. Can we do better?
+On first glance, this looks similar to the problem of multiple testing that might be addressed by methods like the [Bonferroni correction](https://lmc2179.github.io/posts/fwer.html) or an [FDR correcting method](https://lmc2179.github.io/posts/fdr.html). Those methods would cause us to set our $\alpha$ lower based on the number of checks we're planning to run - by lowering $\alpha$ we are "raising the bar" and demanding more evidence before we accept a result. This is a good start, but it has a serious flaw - it will meaningfully decrease the power ($\beta$) of our experiment, and we'll need to run it longer than expected. Can we do better?
 
-We can try and compromise by saying that we should be skeptical of apparent strong effects early in the experiment, but that effects that are really large should still prompt us to stop early. That leaves us a little wiggle room - we should not stop early unless the effect looks like it is _really_ strong. What if we set $\alpha$ lower at the beginning of the experiment, but used the original value of $\alpha$ (5%, or whatever) after all the data is collected? That sort of "early skepticism" approach might get us a procedure that works.
+We can try and compromise by saying that we should be skeptical of apparent  effects early in the experiment, but that effects that are really large should still prompt us to stop early. That leaves us a little wiggle room - we should not stop early most of the time, unless the effect looks like it is _really_ strong. What if we set $\alpha$ lower at the beginning of the experiment, but used the original value of $\alpha$ (5%, or whatever) after all the data is collected? That sort of "early skepticism" approach might get us a procedure that works.
 
-Of course, the devil is in the details, and so this opens us up to the next question. How strong does the effect need to be early on in the experiment for us to be willing to stop early? How should we change our testing procedure to accommodate early stopping?
+Of course, the devil is in the details, and so this opens us up to the next question. **How strong does the effect need to be early on in the experiment for us to be willing to stop early? How should we change our testing procedure to accommodate early stopping?**
 
-# The $\alpha$ spending approach: set the standard evidence higher early on in the experiment
+# The $\alpha$ spending function approach: set the standard evidence higher early on in the experiment
 
+The idea we've come across here is called the **alpha spending function approach**. The idea is to turn our fixed significance level $\alpha$ into a function $adjust(p, \alpha)$, which takes in the proportion of the sample we've collected so far and tells us how to adjust the significance level. The proportion $p$ is given by $p = \frac{n}{N}$, the fraction of the total sample collected.
 
+The idea here is that when $p$ is small, $\alpha$ will be small, and we'll be very skeptical of observed effects. When we've collected the entire sample then $p = 1$ and we'll apply no adjustment, meaning $adjust(p, \alpha) = \alpha$. A detailed reference here is [Lan and DeMets 1994](https://eclass.uoa.gr/modules/document/file.php/MATH301/PracticalSession3/LanDeMets.pdf), which focuses on the clinical trial setting.
 
-# OBF is a good balance
+What form might $adjust(p, \alpha)$ have? A reasonable starting point is something like
 
+$$adjust(p, \alpha) = p \alpha$$
 
+We might called this a **linear alpha spending function**. Lan and Demets above mention 
+
+OBF
 
 # Other perspectives
 
