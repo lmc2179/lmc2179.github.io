@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Don't stop as soon as you hit stat sig! How to safely stop an experiment early with alpha spending"
+title: "Don't stop as soon as you hit stat sig! How to safely stop an experiment early with alpha spending in Python"
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
@@ -89,11 +89,17 @@ We might called this a **linear alpha spending function**. Lan and Demets above 
 
 $$adjust_{OBF}(p, \alpha) = 2 - 2 \Phi (\frac{Z_{\alpha / 2}}{\sqrt{p}})$$
 
-OBF
+Where $\Phi$ is the CDF of a standard normal distribution, $Z_{\alpha/2}$ is the Z-value associated with $\alpha/2$, and $p$ is the fraction of the sample we've collected so far.
 
-Lets compare them
+Lets plot the OBF function with a linear function for reference.
+
+We see that the OBF function is more conservative everywhere than the linear function, but that it is extra conservative at the beginning.
+
+How well does it work?
 
 Simulation
+
+Nice we did it
 
 # Other perspectives
 
