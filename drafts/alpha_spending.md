@@ -45,7 +45,7 @@ As is often the case, there is a chance to get the both of worlds by picking a s
 
 # What risk do we take on by stopping as soon as the result is significant?
 
-Let's remind ourselves why we do statistical significant calculations in the first place. The reason we use P-values, confidence intervals, and all of those kinds of other frequentist devices is because they control uncertainty. The result of designing an experiment, picking a sample size based on 80% power and doing your calculations with $\alpha = 5\%$ is that the arcane mystic powers of statistics will prevent you from making a Type I error 95% of the time and a Type II error 80% of the time.
+Let's remind ourselves why we do statistical significance calculations in the first place. The reason we use P-values, confidence intervals, and all of those kinds of other frequentist devices is because they control uncertainty. The result of designing an experiment, picking a sample size based on 80% power and doing your calculations with $\alpha = 5\%$ is that the arcane mystic powers of statistics will prevent you from making a Type I error 95% of the time and a Type II error 80% of the time.
 
 Okay, sure, "Type I" and "Type II" is a little opaque. What does this do for us here in real life? We can make it concrete by talking about a more specific analysis which is very common in practice - comparing the means of two samples with a T-test. A T-test based experiment usually looks something like this:
 
@@ -61,13 +61,21 @@ This procedure is a test run "by the book", in which we collected one big sample
 
 What happens to these guarantees if we introduce the possibility of early stopping? **The short version is that the more often we check to see if the result is significant, the more chances we are giving ourselves to detect a false positive, or commit a Type I error. As a result, just checking more often can cause our actual Type I error rate to be much higher than $\alpha$**.
 
-Lets augment our test by not just calculating the p-value on the last day, of the experiments but on the ... days before. We're going to simulate this example in a world where the null hypothesis really is true, and there is no treatment effect. This will tell us whether stopping as soon as we see a significant results would have caused us to commit a Type I error. If we run this many times, and track the P-value of each run, we see that the trajectory of many P-values crosses the `.05` threshold at some point early on  in the test, but as time goes on most of the P-values "settle down" to the expected range:
+Lets augment our test by not just calculating the p-value on the last day, of the experiments but on the 29 days before. We're going to simulate this example in a world where the null hypothesis really is true, and there is no treatment effect. 
 
-Picture of simulation results goes here.
+At each step of a simulation, we'll:
+* Simulate 100 samples from the $Exponential(5)$ distribution and append them to the control data set. Do te same for treatment. Since we're drawing treated and control samples from the same distribution, the null hypothesis that they have the same population mean is literally true!
+* Run a T-test on the accumulated treatment/control data so far. If $p < .05$, then we would have stopped early using the "end the experiment when it's significant" stopping rule.
 
-In this simulation, we should have see X false positives if we only checked at the end, compared with Y false positives if we check every day. That's a big difference, and it means that early stopping would make us Z% more likely to see a false positive in this test!!
+If we do this many times, this will tell us whether stopping as soon as we see a significant result would have caused us to commit a Type I error. If we run this many times, and track the P-value of each run, we see that the trajectory of many P-values crosses the `.05` threshold at some point early on  in the test, but as time goes on most of the P-values "settle down" to the expected range:
 
-This is a cut from the "risk" side of the double-edged speed-risk sword. Adding more checks without changing anything else will expose us to more risks. How should we insulate ourselves from this risk?
+![alt text](image.png)
+
+In this picture, each simulation run is a path which runs from zero samples to the total sample size. Paths which cross the $\alpha = .05$ line at any time would have been false positives under early stopping, and are colored blue. Paths which are never significant are shown in grey. You'll notice that while few paths end below the dotted line, many of them cross the line of significance at some point as they bob up and down.
+
+During these simulations, the T-test conducted at the very end had a false positive rate of 5%, as expected. **But the procedure which allowed stopping every day (ie, every 100 samples) had a false positive rate of 27%, more than 5x worse!** (I ran 1000 simulations, though I'm only showing 40 of them so the graph isn't so busy - you can find the code in the appendix, if you're curious.)
+
+This is a cut from the "risk" side of the double-edged speed-risk sword. Adding more checks without changing anything else will expose us to more risks. **How should we insulate ourselves from the risk of a false positive if we want to stop early?**
 
 On first glance, this looks similar to the problem of multiple testing that might be addressed by methods like the [Bonferroni correction](https://lmc2179.github.io/posts/fwer.html) or an [FDR correcting method](https://lmc2179.github.io/posts/fdr.html). Those methods would cause us to set our $\alpha$ lower based on the number of checks we're planning to run - by lowering $\alpha$ we are "raising the bar" and demanding more evidence before we accept a result. This is a good start, but it has a serious flaw - it will meaningfully decrease the power ($\beta$) of our experiment, and we'll need to run it longer than expected. Can we do better?
 
@@ -91,56 +99,47 @@ $$adjust_{OBF}(p, \alpha) = 2 - 2 \Phi (\frac{Z_{\alpha / 2}}{\sqrt{p}})$$
 
 Where $\Phi$ is the CDF of a standard normal distribution, $Z_{\alpha/2}$ is the Z-value associated with $\alpha/2$, and $p$ is the fraction of the sample we've collected so far.
 
-Lets plot the OBF function with a linear function for reference.
+In Python, a little bit of assembly is required. It looks something like this:
 
-We see that the OBF function is more conservative everywhere than the linear function, but that it is extra conservative at the beginning.
+```python
+def obf_alpha_spending(desired_final_alpha, proportion_sample_collected):
+    z_alpha_over_2 = norm.ppf(1-desired_final_alpha/2)
+    return 2 - 2*(norm.cdf(z_alpha_over_2/np.sqrt(proportion_sample_collected)))
+```
 
-How well does it work?
+Unless you spend a lot of time the normal CDF, it's probably not obvious what this function looks like. Lets see how going from $p=0$ (none of the sample collected) to $p=1$ (full sample collected) looks:
 
-Simulation
+![alt text](image-1.png)
 
-Nice we did it
+We see that the OBF function is more conservative everywhere than the linear function, but that it is extra conservative at the beginning. Why might this be? The rough idea, I think, has to do with the fact that the relationship between sample size and precision is non-linear (the formula for the standard error of the mean, for example, includes a $\sqrt{n}$).
 
-# Other perspectives
+Lets put it to the test. We'll rerun the simulation above, with the following conditions. This time, we'll compare the false positive rates from the different strategies we've discussed: constant alpha (same as above), the linear spending function, and the O'Brien Fleming spending function. The results look like this:
+
+|Method|Number of False positives (of 10k simulations)|False positive rate (Type I error rate) |
+|-|-|-|
+|Constant $\alpha = .05$|$2776$|$27.76\%$|
+|Linear|$1285$|$12.85\%$|
+|OBF|$799$|$7.99\%$|
+
+In the first row, we see what we already know - early stopping without using an alpha spending rule has a False positive rate much larger than the expected 5%. Linear alpha spending is an improvement (about 2.6x more errors than desired), but OBF is the winner, with a Type I error rate closest to 5% (1.6x more errors than desired). OBF will have less power, but power analysis subject to early stopping rules is a subject for another time.
+
+The alpha spending approach is an easy thing to add to your next test, and it's worth doing - it lets you have the best of both worlds, letting you stop early if the result is large at only a small cost to your false positive rate. And given that you can write it as a 2-line Python function, it's not too hard to add to your A/B test analysis tool. And best of all, having a strategy for early stopping means no more awkward conversations about the _arcane mystic powers of_ ✨`S T A T I S T I C S`✨ with your cross-functional partners!
+
+# Coda: Other perspectives
 
 https://statmodeling.stat.columbia.edu/2014/02/13/stopping-rules-bayesian-analysis/
 
 # Appendix: Code for the simulations
 
-----------------------------
-
-# Previous work
-
-Let me tell you a story - perhaps a familiar one.
-
-> **Product Manager**: Hey `$data_analyst`, I looked at your dashboard! We only kicked off `$AB_test_name` a few days ago, the results look amazing! It looks like the result is already statistically significant, even though we were going to run it for another week.
->
->**Data Analyst**: Absolutely, they're very promising!
->
->**Product Manager**: Well, that settles it, we can turn off the test, it looks like a winner.
->
->**Data Analyst**: Woah, hold on now - we can't do that! 
->
->**Product Manager**: But...why not? Your own dashboard says it's statistically significant! Isn't that what it's for?
->
->**Data Analyst**: Yes, but we said we would collect two weeks of data when we designed the experiment, and the analysis is only valid if we do that. I have to respect the arcane mystic powers of ✨`S T A T I S T I C S`✨!!! 
-
-_**Has this ever happened to you?**_
-
-This is a frustrating conversation for all involved. The PM is trying to play by the rules by looking at the significance of the test
-
-there are good reasons to stop early!
-
-# The issue with stopping early
-
+### P-value paths
 
 ```python
 import numpy as np
 from scipy.stats import ttest_ind, norm
 import pandas as pd
 
-days_in_test = 14
-samples_per_day = 10
+days_in_test = 30
+samples_per_day = 100
 
 
 def simulate_one_experiment():
@@ -149,8 +148,8 @@ def simulate_one_experiment():
     simulation_results = []
     
     for day in range(days_in_test):
-        treated_samples = np.append(treated_samples, np.random.normal(0, 1, samples_per_day))
-        control_samples = np.append(control_samples, np.random.normal(0, 1, samples_per_day))
+        treated_samples = np.append(treated_samples, np.random.exponential(5, size=samples_per_day))
+        control_samples = np.append(control_samples, np.random.normal(5, size=samples_per_day))
         result = ttest_ind(treated_samples, control_samples)
         simulation_results.append([day, len(treated_samples), result.statistic, result.pvalue])
         
@@ -160,7 +159,7 @@ def simulate_one_experiment():
 from matplotlib import pyplot as plt
 import seaborn as sns
 
-n_simulations = 100
+n_simulations = 40
 false_positives = 0
 early_stop_false_positives = 0
 
@@ -172,12 +171,12 @@ for i in range(n_simulations):
         alpha = 0.5
     else:
         color = 'grey'
-        alpha = .1
+        alpha = .3
     if result.iloc[-1]['p'] <= .05:
         false_positives += 1
     plt.plot(result['n'], result['p'], color=color, alpha=alpha)
 
-plt.axhline(.05)
+plt.axhline(.05, linestyle='dashed', color='black')
 plt.xlabel('Number of samples')
 plt.ylabel('P-value')
 plt.title('Many experiments will cross p < 0.05 even when H0 is true')
@@ -185,7 +184,23 @@ print('False positives with full sample:', false_positives / n_simulations)
 print('False positives if early stopping is allowed:', early_stop_false_positives / n_simulations)
 ```
 
+### Plotting the OBF function
+
 ```python
+from scipy.stats import norm
+import numpy as np
+from matplotlib import pyplot as plt
+
+def constant_alpha(desired_final_alpha, proportion_sample_collected):
+    return desired_final_alpha
+
+def linear_alpha_spending(desired_final_alpha, proportion_sample_collected):
+    return proportion_sample_collected * desired_final_alpha
+
+def obf_alpha_spending(desired_final_alpha, proportion_sample_collected):
+    z_alpha_over_2 = norm.ppf(1-desired_final_alpha/2)
+    return 2 - 2*(norm.cdf(z_alpha_over_2/np.sqrt(proportion_sample_collected)))
+
 p = np.linspace(0, 1, 100)
 alpha = .05
 plt.plot(p, [constant_alpha(alpha, pi) for pi in p], label='Constant')
@@ -196,6 +211,8 @@ plt.xlabel('Proportion of sample collected')
 plt.ylabel('Adjusted alpha value')
 plt.title('Comparison of alpha spending strategies')
 ```
+
+### Type I error comparison of different alpha spending functions
 
 ```python
 import pandas as pd
@@ -229,24 +246,10 @@ def simulate_one(control_average, alpha_strategies, samples_per_day, number_of_d
 simulation_results = pd.DataFrame([simulate_one(control_average=5, 
                                                 alpha_strategies=[constant_alpha, linear_alpha_spending, obf_alpha_spending], 
                                                 samples_per_day=100, 
-                                                number_of_days=28, 
-                                                desired_final_alpha=.05) for _ in tqdm(range(1000))])
+                                                number_of_days=30, 
+                                                desired_final_alpha=.05) for _ in tqdm(range(10000))])
 
 print(simulation_results.mean())
+print(simulation_results.sum())
 ```
 
-# Some quick fixes
-
-bonferroni - but it decreases the power! Intuition: Correct for multiple comparisons
-
-linear spending - Intuition: Be more skeptical at the beginning, and normally skeptical at the end
-
-# Solving the problem with the OBF Alpha spending function
-
-https://eclass.uoa.gr/modules/document/file.php/MATH301/PracticalSession3/LanDeMets.pdf
-
-```
-def obf_alpha(t_prop): return 2 - 2*(norm.cdf(1.96/np.sqrt(t_prop)))
-```
-
-# A note on coverage rates
