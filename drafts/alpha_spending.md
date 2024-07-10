@@ -127,9 +127,16 @@ The alpha spending approach is an easy thing to add to your next test, and it's 
 
 # Coda: Other perspectives
 
+Bayesian philosophical move 1: Type I error rates don't matter
+
 https://statmodeling.stat.columbia.edu/2014/02/13/stopping-rules-bayesian-analysis/
 
+Move 2: Create a Bayesian notion of "good early stopping", but this idea is still being developed, as far as I can tell
+
+this paper talks about how to model the posterior evolving over time
 https://alexdeng.github.io/public/files/continuousMonitoring.pdf
+
+https://arxiv.org/pdf/1708.08278
 
 # Appendix: Code for the simulations
 
