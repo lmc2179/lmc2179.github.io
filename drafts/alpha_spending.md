@@ -129,6 +129,8 @@ The alpha spending approach is an easy thing to add to your next test, and it's 
 
 https://statmodeling.stat.columbia.edu/2014/02/13/stopping-rules-bayesian-analysis/
 
+https://alexdeng.github.io/public/files/continuousMonitoring.pdf
+
 # Appendix: Code for the simulations
 
 ### P-value paths
