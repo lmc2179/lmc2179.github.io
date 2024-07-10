@@ -4,7 +4,7 @@ title: "Don't stop as soon as you hit stat sig! How to safely stop an experiment
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
-image: alpha_spending.png
+image: statsig.png
 ---
 
 # The urge to stop early
