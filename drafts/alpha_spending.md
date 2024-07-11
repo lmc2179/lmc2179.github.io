@@ -7,13 +7,13 @@ tags: [datascience]
 image: statsig.png
 ---
 
-# The urge to stop early
+# Where it begins: The (understandable) urge to stop early
 
 Let me tell you a story - perhaps a familiar one.
 
-> **Product Manager**: Hey `$data_analyst`, I looked at your dashboard! We only kicked off `$AB_test_name` a few days ago, the results look amazing! It looks like the result is already statistically significant, even though we were going to run it for another week.
+> **Product Manager**: Hey `$data_analyst`, I looked at your dashboard! We only kicked off `$AB_test_name` a few days ago, but the results look amazing! It looks like the result is already statistically significant, even though we were going to run it for another week.
 >
->**Data Analyst**: Absolutely, they're very promising!
+>**Data Analyst**: Absolutely, it's very promising!
 >
 >**Product Manager**: Well, that settles it, we can turn off the test, it looks like a winner.
 >
@@ -23,48 +23,47 @@ Let me tell you a story - perhaps a familiar one.
 >
 >**Data Analyst**: Yes, but we said we would collect two weeks of data when we designed the experiment, and the analysis is only valid if we do that. I have to respect the arcane mystic powers of ✨`S T A T I S T I C S`✨!!! 
 
-_**Has this ever happened to you?**_
+### _**Has this ever happened to you?**_
 
+If you're a working data scientist (or PM), it probably has. This is an example of **early stopping**, or **optional stopping**, or **data peeking** - and we are often cautioned to avoid it. The most frustrating part about this conversation is that it happens even when both parties are trying to be collaborative and play by the rules. 
 
-If you're a working data scientist (or PM), it probably has. The most frustrating part here is that it happens even when both parties are trying to be collaborative and play by the rules. 
-
-**From the data scientist's point of view**, they did a power analysis and figured out how to make sure the experiment taught them the most possible. Can't we just stick to the plan? 
+**From the data scientist's point of view**, they did a power analysis and figured out how to make sure the experiment is as informative as possible. Can't we just stick to the plan?
 
 **From the PM's point of view**, the dashboard is telling them that statistical analysis sanctions the result they see. We gave each experiment arm a chance, and one of them was the winner using their usual statistical process. Why should we wait for the full sample if an easy win is right in front of us?
 
-A couple of more detailed arguments in favor of stopping early might look like this:
+The PM's argument, frankly, makes a lot of sense. A couple more detailed arguments in favor of stopping early might look like this:
 
 * **If we think that one of the treatment groups really is better, then collecting more data is an unnecessary waste**. Collecting data isn't usually free - so it's best to stop as soon as you can.
-* **If we think that one of the treatment groups really is better, than we should make it available to a larger population as soon as we can**. This is not always just a question of a small gain, or a few more dollars. In clinical trials, the stakes can be very literally life or death - the trials of the HIV drug AZT were stopped short for this reason, as the results were so overwhelmingly positive that it seemed unethical to continue depriving the control group and other patients of the chance at an effective therapy. The trial was ended early and the FDA voted to approve its use shortly after.
+* **If we think that one of the treatment groups really is better, than we should make it available to a larger population as soon as we can**. This is not always just a question of a small gain, or a few more dollars. In clinical trials, the stakes can be very literally life or death - the trials of the HIV drug AZT were stopped short for this reason, as the results were so overwhelmingly positive that it seemed unethical to continue depriving the control group and other patients of the chance at an effective therapy. The trial was ended early and the FDA voted to approve its use shortly after (there are also more complicated factors involved in that RCT, but that's another conversation).
 
 The core issue here comes from the fact that good experimentation needs to balance **speed vs risk**. On the one hand, we want to learn and act as quick as we can. On the other, we want to avoid unnecessary risk - every experiment includes the possibility of a downside, but we want to be careful and not take on more risk than we need to. 
 
-Experimentation procedures sit somewhere on this high speed-low risk spectrum. The "highest speed" solution would be to avoid experimentation at all - just act as quick as you can. The "lowest risk" solution would be to run the experiment as planned, and always run it by the book, no matter what happens. 
+All the possible experimentation procedures sit somewhere on this high speed-low risk tradeoff spectrum. The "highest speed" solution would be to avoid experimentation at all - just act as quick as you can. The "lowest risk" solution would be to run the experiment as planned, and always run it by the book, no matter what happens. 
 
-As is often the case, there is a chance to get the both of worlds by picking a solution between the extremes. There are good reasons to stop a test early, but in order to do so safely, we need to be more careful about our process. Lets start by looking at the risks of stopping early without changing our process, and then we'll talk about how to mitigate those risks.
+As is so often the case, there is a chance to get the both of worlds by picking a solution between the extremes. **There are good reasons to stop a test early, but in order to do so safely, we need to be more careful about our process.** Lets start by looking at the risks of stopping early without changing our process, and then we'll talk about how to mitigate those risks.
 
-# What risk do we take on by stopping as soon as the result is significant?
+# What risk do we take by stopping as soon as the result is significant?
 
-Let's remind ourselves why we do statistical significance calculations in the first place. The reason we use P-values, confidence intervals, and all of those kinds of other frequentist devices is because they control uncertainty. The result of designing an experiment, picking a sample size based on 80% power and doing your calculations with $\alpha = 5\%$ is that the arcane mystic powers of statistics will prevent you from making a Type I error 95% of the time and a Type II error 80% of the time.
+Let's remind ourselves why we do statistical significance calculations in the first place. We use P-values, confidence intervals, and all of those kinds of other frequentist devices is because they control uncertainty. The result of designing an experiment, picking a sample size based on 80% power and doing your calculations with $\alpha = 5\%$ is that the arcane mystic powers of statistics will prevent you from making a Type I error 95% of the time and a Type II error 80% of the time.
 
-Okay, sure, "Type I" and "Type II" is a little opaque. What does this do for us here in real life? We can make it concrete by talking about a more specific analysis which is very common in practice - comparing the means of two samples with a T-test. A T-test based experiment usually looks something like this:
+Talking about the benefits in terms of "Type I" and "Type II"  errors is a little opaque. What does this do for us here in real life? **We can make it concrete by talking about a more specific analysis**. Let's talk about an analysis which is very common in practice - comparing the means of two samples experimentally with a T-test. A T-test based experiment usually looks something like this:
 
 * Pick your desired power and significant levels, usually denoted by the magic symbols $\beta$ and $\alpha$. We often use $\beta = 80\%$ and $\alpha = 5\%$, though you may pick other values based on the context.
 * Use your favorite power calculator to pick a sample size, which we'll call $n$.
 * Collect $n$ samples from the control and treatment arms, and compute the difference in means $\hat{\Delta} = \overline{y^T} - \overline{y^C}$. That's just the mean of the treated units, minus the mean of the control units.
-* Use your favorite implementation of the T-test (like the one in [scipy](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html)) to compute a P-value. If $p \leq \alpha$, then you can conclude that $\Delta \neq 0$, and so the treatment and control groups had different outcomes. Assuming the differences goes in the direction of better outcomes, you officially pop the champage and conclude that your treatment had some non-zero effect compared to control. Nice!
+* Use your favorite implementation of the T-test (like the one in [scipy](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html)) to compute a P-value. If $p \leq \alpha$, then you can conclude that $\Delta \neq 0$, and so the treatment and control groups have different population means. Assuming the differences goes in the direction of better outcomes, you officially pop the champage and conclude that your treatment had some non-zero effect compared to control. Nice!
 
-This procedure is a test run "by the book", in which we collected one big sample and ran a single T-test to see what happened. It guarantees that we get the usual magic protections of P-value testing, namely that:
+This procedure is a test run "by the book", in which we collected all our data and ran a single T-test to see what happened. It guarantees that we get the usual magic protections of P-value testing, namely that:
 
 * We'll only come to a false conclusion $\alpha\%$ of the time. That is, it will only rarely happen that the above procedure will cause us to pop the champagne when in fact $\Delta = 0$. This is protection from Type I errors, or "false detection" errors.
 * We'll detect effects that actually exist (and are larger than the MDE) about $\beta \%$ of the time. That is, if $\Delta$ is large enough, we'll pop the champage most of the time. This is protection from Type II errors, or "failure to detect" errors.
 
 What happens to these guarantees if we introduce the possibility of early stopping? **The short version is that the more often we check to see if the result is significant, the more chances we are giving ourselves to detect a false positive, or commit a Type I error. As a result, just checking more often can cause our actual Type I error rate to be much higher than $\alpha$**.
 
-Lets augment our test by not just calculating the p-value on the last day, of the experiments but on the 29 days before. We're going to simulate this example in a world where the null hypothesis really is true, and there is no treatment effect. 
+Let's look at the actual size of the impact of early stopping. Let's augment our T-test based experiment by not just calculating the p-value on the last day, of the experiments but on the 29 days before. We're going to **simulate** this example in a world where the null hypothesis really is true, and there is no treatment effect. 
 
-At each step of a simulation, we'll:
-* Simulate 100 samples from the $Exponential(5)$ distribution and append them to the control data set. Do te same for treatment. Since we're drawing treated and control samples from the same distribution, the null hypothesis that they have the same population mean is literally true!
+So at each step of a simulation run (whre one step is one day, and one simulation run is one experiment), we'll:
+* Simulate 100 samples from the $Exponential(5)$ distribution and append them to the control data set. Do the same for treatment. Since we're drawing treated and control samples from the same distribution, the null hypothesis that they have the same population mean is literally true.
 * Run a T-test on the accumulated treatment/control data so far. If $p < .05$, then we would have stopped early using the "end the experiment when it's significant" stopping rule.
 
 If we do this many times, this will tell us whether stopping as soon as we see a significant result would have caused us to commit a Type I error. If we run this many times, and track the P-value of each run, we see that the trajectory of many P-values crosses the `.05` threshold at some point early on  in the test, but as time goes on most of the P-values "settle down" to the expected range:
@@ -75,9 +74,9 @@ In this picture, each simulation run is a path which runs from zero samples to t
 
 During these simulations, the T-test conducted at the very end had a false positive rate of 5%, as expected. **But the procedure which allowed stopping every day (ie, every 100 samples) had a false positive rate of 27%, more than 5x worse!** (I ran 1000 simulations, though I'm only showing 40 of them so the graph isn't so busy - you can find the code in the appendix, if you're curious.)
 
-This is a cut from the "risk" side of the double-edged speed-risk sword. Adding more checks without changing anything else will expose us to more risks. **How should we insulate ourselves from the risk of a false positive if we want to stop early?**
+We talked about the speed-risk tradeoff before - adding more checks without changing anything else will expose us to more risks, and make our test results much less safe. **How should we insulate ourselves from the risk of a false positive if we want to stop early?**
 
-On first glance, this looks similar to the problem of multiple testing that might be addressed by methods like the [Bonferroni correction](https://lmc2179.github.io/posts/fwer.html) or an [FDR correcting method](https://lmc2179.github.io/posts/fdr.html). Those methods would cause us to set our $\alpha$ lower based on the number of checks we're planning to run - by lowering $\alpha$ we are "raising the bar" and demanding more evidence before we accept a result. This is a good start, but it has a serious flaw - it will meaningfully decrease the power ($\beta$) of our experiment, and we'll need to run it longer than expected. Can we do better?
+On first glance, this looks similar to the problem of multiple testing that might be addressed by methods like the [Bonferroni correction](https://lmc2179.github.io/posts/fwer.html) or an [FDR correcting method](https://lmc2179.github.io/posts/fdr.html). Those methods also help us out in situations where more checks inflate the false positive rate. Those methods would cause us to set our $\alpha$ lower based on the number of checks we're planning to run. By lowering $\alpha$ we are "raising the bar" and demanding more evidence before we accept a result. This is a good start, but it has a serious flaw - it will meaningfully decrease the power ($\beta$) of our experiment, and we'll need to run it longer than expected. Can we do better?
 
 We can try and compromise by saying that we should be skeptical of apparent  effects early in the experiment, but that effects that are really large should still prompt us to stop early. That leaves us a little wiggle room - we should not stop early most of the time, unless the effect looks like it is _really_ strong. What if we set $\alpha$ lower at the beginning of the experiment, but used the original value of $\alpha$ (5%, or whatever) after all the data is collected? That sort of "early skepticism" approach might get us a procedure that works.
 
@@ -85,21 +84,21 @@ Of course, the devil is in the details, and so this opens us up to the next ques
 
 # The $\alpha$ spending function approach: set the standard evidence higher early on in the experiment
 
-The idea we've come across here is called the **alpha spending function approach**. The idea is to turn our fixed significance level $\alpha$ into a function $adjust(p, \alpha)$, which takes in the proportion of the sample we've collected so far and tells us how to adjust the significance level. The proportion $p$ is given by $p = \frac{n}{N}$, the fraction of the total sample collected.
+The idea we've come across here is called the **alpha spending function approach**. It works by turning our fixed significance level $\alpha$ into a function $adjust(p, \alpha)$, which takes in the proportion of the sample we've collected so far and tells us how to adjust the significance level based on how far along we are. The proportion $p$ is given by $p = \frac{n}{N}$, the fraction of the total sample collected.
 
 The idea here is that when $p$ is small, $\alpha$ will be small, and we'll be very skeptical of observed effects. When we've collected the entire sample then $p = 1$ and we'll apply no adjustment, meaning $adjust(p, \alpha) = \alpha$. A detailed reference here is [Lan and DeMets 1994](https://eclass.uoa.gr/modules/document/file.php/MATH301/PracticalSession3/LanDeMets.pdf), which focuses on the clinical trial setting.
 
-What form might $adjust(p, \alpha)$ have? A reasonable starting point is something like
+What form might $adjust(p, \alpha)$ have? Since we want it to scale between 0 and $\alpha$ as $p$ increases, a reasonable starting point is something like:
 
 $$adjust_{linear}(p, \alpha) = p \alpha$$
 
-We might called this a **linear alpha spending function**. Lan and Demets above mention an alternative called the **O'Brien-Fleming alpha spending function**, which is:
+We might called this a **linear alpha spending function**. Lan and Demets above mention an alternative called the **O'Brien-Fleming (OBF) alpha spending function**, which is:
 
 $$adjust_{OBF}(p, \alpha) = 2 - 2 \Phi (\frac{Z_{\alpha / 2}}{\sqrt{p}})$$
 
 Where $\Phi$ is the CDF of a standard normal distribution, $Z_{\alpha/2}$ is the Z-value associated with $\alpha/2$, and $p$ is the fraction of the sample we've collected so far.
 
-In Python, a little bit of assembly is required. It looks something like this:
+In Python, a little bit of assembly is required to calculate this function. It looks something like this:
 
 ```python
 def obf_alpha_spending(desired_final_alpha, proportion_sample_collected):
@@ -107,13 +106,13 @@ def obf_alpha_spending(desired_final_alpha, proportion_sample_collected):
     return 2 - 2*(norm.cdf(z_alpha_over_2/np.sqrt(proportion_sample_collected)))
 ```
 
-Unless you spend a lot of time the normal CDF, it's probably not obvious what this function looks like. Lets see how going from $p=0$ (none of the sample collected) to $p=1$ (full sample collected) looks:
+Unless you spend a lot of time thinking about the normal CDF, it's probably not obvious what this function looks like. Lets see how going from $p=0$ (none of the sample collected) to $p=1$ (full sample collected) looks:
 
 ![alt text](image-1.png)
 
-We see that the OBF function is more conservative everywhere than the linear function, but that it is extra conservative at the beginning. Why might this be? The rough idea, I think, has to do with the fact that the relationship between sample size and precision is non-linear (the formula for the standard error of the mean, for example, includes a $\sqrt{n}$).
+We see that the OBF function is more conservative everywhere than the linear function, but that it is extra conservative at the beginning. Why might this be? Some intuition (I think) has to do with the fact that the relationship between sample size and precision is non-linear (the formula for the standard error of the mean, for example, includes a $\sqrt{n}$).
 
-Lets put it to the test. We'll rerun the simulation above, with the following conditions. This time, we'll compare the false positive rates from the different strategies we've discussed: constant alpha (same as above), the linear spending function, and the O'Brien Fleming spending function. The results look like this:
+Okay, so we have a way of adjusting $\alpha$ dependign on how much data has arrived. Lets put it to the test. We'll rerun the simulation above, with the following conditions. This time, we'll compare the false positive rates from the different strategies we've discussed: constant alpha (same as above), the linear spending function, and the O'Brien Fleming spending function. The results of 10,000 simulated experiments look like this:
 
 |Method|Number of False positives (of 10k simulations)|False positive rate (Type I error rate) |
 |-|-|-|
@@ -124,19 +123,6 @@ Lets put it to the test. We'll rerun the simulation above, with the following co
 In the first row, we see what we already know - early stopping without using an alpha spending rule has a False positive rate much larger than the expected 5%. Linear alpha spending is an improvement (about 2.6x more errors than desired), but OBF is the winner, with a Type I error rate closest to 5% (1.6x more errors than desired). OBF will have less power, but power analysis subject to early stopping rules is a subject for another time.
 
 The alpha spending approach is an easy thing to add to your next test, and it's worth doing - it lets you have the best of both worlds, letting you stop early if the result is large at only a small cost to your false positive rate. And given that you can write it as a 2-line Python function, it's not too hard to add to your A/B test analysis tool. And best of all, having a strategy for early stopping means no more awkward conversations about the _arcane mystic powers of_ ✨`S T A T I S T I C S`✨ with your cross-functional partners!
-
-# Coda: Other perspectives
-
-Bayesian philosophical move 1: Type I error rates don't matter
-
-https://statmodeling.stat.columbia.edu/2014/02/13/stopping-rules-bayesian-analysis/
-
-Move 2: Create a Bayesian notion of "good early stopping", but this idea is still being developed, as far as I can tell
-
-this paper talks about how to model the posterior evolving over time
-https://alexdeng.github.io/public/files/continuousMonitoring.pdf
-
-https://arxiv.org/pdf/1708.08278
 
 # Appendix: Code for the simulations
 
