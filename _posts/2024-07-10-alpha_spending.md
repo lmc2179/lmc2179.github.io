@@ -68,7 +68,7 @@ So at each step of a simulation run (whre one step is one day, and one simulatio
 
 If we do this many times, this will tell us whether stopping as soon as we see a significant result would have caused us to commit a Type I error. If we run this many times, and track the P-value of each run, we see that the trajectory of many P-values crosses the `.05` threshold at some point early on  in the test, but as time goes on most of the P-values "settle down" to the expected range:
 
-![alt text](image.png)
+![alt text](https://lmc2179.github.io/drafts/image.png)
 
 In this picture, each simulation run is a path which runs from zero samples to the total sample size. Paths which cross the $\alpha = .05$ line at any time would have been false positives under early stopping, and are colored blue. Paths which are never significant are shown in grey. You'll notice that while few paths end below the dotted line, many of them cross the line of significance at some point as they bob up and down.
 
@@ -108,7 +108,7 @@ def obf_alpha_spending(desired_final_alpha, proportion_sample_collected):
 
 Unless you spend a lot of time thinking about the normal CDF, it's probably not obvious what this function looks like. Lets see how going from $p=0$ (none of the sample collected) to $p=1$ (full sample collected) looks:
 
-![alt text](image-1.png)
+![alt text](https://lmc2179.github.io/drafts/image-1.png)
 
 We see that the OBF function is more conservative everywhere than the linear function, but that it is extra conservative at the beginning. Why might this be? Some intuition (I think) has to do with the fact that the relationship between sample size and precision is non-linear (the formula for the standard error of the mean, for example, includes a $\sqrt{n}$).
 
