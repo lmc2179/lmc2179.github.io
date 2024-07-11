@@ -11,7 +11,7 @@ image: statsig.png
 
 Let me tell you a story - perhaps a familiar one.
 
-> **Product Manager**: Hey `$data_analyst`, I looked at your dashboard! We only kicked off `$AB_test_name` a few days ago, but the results look amazing! It looks like the result is already statistically significant, even though we were going to run it for another week.
+> **Product Manager**: Hey `{data_analyst}`, I looked at your dashboard! We only kicked off `{AB_test_name}` a few days ago, but the results look amazing! It looks like the result is already statistically significant, even though we were going to run it for another week.
 >
 >**Data Analyst**: Absolutely, it's very promising!
 >
