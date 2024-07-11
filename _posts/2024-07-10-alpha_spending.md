@@ -40,7 +40,7 @@ The core issue here comes from the fact that good experimentation needs to balan
 
 All the possible experimentation procedures sit somewhere on this high speed-low risk tradeoff spectrum. The "highest speed" solution would be to avoid experimentation at all - just act as quick as you can. The "lowest risk" solution would be to run the experiment as planned, and always run it by the book, no matter what happens. 
 
-As is so often the case, there is a chance to get the both of worlds by picking a solution between the extremes. **There are good reasons to stop a test early, but in order to do so safely, we need to be more careful about our process.** Lets start by looking at the risks of stopping early without changing our process, and then we'll talk about how to mitigate those risks.
+As is so often the case, there is a chance to get the both of worlds by picking a solution between the extremes. **There are good reasons to stop a test early, but in order to do so safely, we need to be more careful about our process.** Let's start by looking at the risks of stopping early without changing our process, and then we'll talk about how to mitigate those risks.
 
 # What risk do we take by stopping as soon as the result is significant?
 
@@ -62,7 +62,7 @@ What happens to these guarantees if we introduce the possibility of early stoppi
 
 Let's look at the actual size of the impact of early stopping. Let's augment our T-test based experiment by not just calculating the p-value on the last day, of the experiments but on the 29 days before. We're going to **simulate** this example in a world where the null hypothesis really is true, and there is no treatment effect. 
 
-So at each step of a simulation run (whre one step is one day, and one simulation run is one experiment), we'll:
+So at each step of a simulation run (where one step is one day, and one simulation run is one experiment), we'll:
 * Simulate 100 samples from the $Exponential(5)$ distribution and append them to the control data set. Do the same for treatment. Since we're drawing treated and control samples from the same distribution, the null hypothesis that they have the same population mean is literally true.
 * Run a T-test on the accumulated treatment/control data so far. If $p < .05$, then we would have stopped early using the "end the experiment when it's significant" stopping rule.
 
