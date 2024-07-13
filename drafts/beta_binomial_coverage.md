@@ -1,4 +1,37 @@
-# Getting started with Bayesian inference: The beta-binomial model
+
+# Despite all the fancy math, the process of Bayesian Inference is really intuitive
+
+As a little baby Bayesian, one of the things I found frustrating about getting started with Bayesian statistics is that there is just so. much. jargon. Priors, Posteriors, Posterior-Predictives, conjugate priors...and for some reason you can't call them confidence intervals, you have to call them credible intervals? Jesus, what are all these integrals doing here? Why can't I just do, like, the Bayesian version of my favorite technique?
+
+Part of the trouble here was the new words and notation, but I don't think that's _really_ what was tripping me up. I had successfully learned a lot about weird words and greek letters in the past, so I don't think that was the root cause. 
+
+The root cause is that it only makes sense to think about Bayesian data analysis as a process, and one with a pretty large scope. It's a roadmap for every part of your data analysis, from framing the question to stating your assumptions to making your decision. That means that it's often not easy to simply drop in a Bayesian replacement for your favorite non-Bayesian technique; pieces will be missing unless you do some extra thinking (many of them _do_ have replacements, it just takes a bit of a walk to get there).
+
+Okay, that was a little philosophical. What does this look like in real life? Let me be a little more specific, and talk about the familiar A/B testing scenario, and how the Bayesian analysis of an A/B test might be carried out. I'll talk through it without any notation first. Imagine you are a data scientist at a company that makes (for example) little tiny sunglasses for cats, and you want to A/B test a new email subject line to see if it prompts more purchases per email send. Your process goes like this:
+* The key quantities you care about are the _purchase rate_ in each control vs treatment, and the _change in the purchase rate_ due to treatment. Your plan is to count the number of customers who make a purchase after being sent an email from control or treatment, so you can see if the purchase rate has increased.
+* Before the experiment starts, you don't know for sure what the purchase rates for the treatment and control conditions are. However, you can be pretty sure that they are less than 50%, because if you had that many purchases you would run out of inventory. You would guess they'll be much smaller though, since the current rate is more like 8%. 
+  * The special Bayesian magic word for this pre-experiment knowledge is your **Prior** knowledge. In this case, our prior knowledge is pretty sparse; we basically think any purchase rate less than 50% is fair game, and lower ones are more likely than higher ones.
+
+Sketch
+
+* You run an experiment, sending the treatment and control groups 10000 emails each, and measure the number of opens in each group. You see that control and treatment have a purchase rate of 9% and 14% respectively. 
+  * Now that you've seen and analyzed the experiment data, your prior has been **updated**, and 
+
+Sketch
+
+* You look at the posterior, and conclude that the data supports the hypothesis that the purchase rate has been shifted. Yay!
+
+.
+
+# The key ideas in the Bayesian process: Prior, Posterior and friends
+
+Dramatis Personae
+
+# An example from the world of A/B testing
+
+# PREVIOUS PREVIOUS PREVIOUS PREVIOUS PREVIOUS 
+
+# Getting started with Bayesian inference
 
 The bayesian update process is intuitively appealing
 
@@ -10,7 +43,7 @@ A qualitative example: an experiment
 
 Bayes rule gives us the mechanics of the update
 
-### Prior
+### Prior distribution
 
 Examples of the beta distribution - it's a handy way of summarizing our prior knowledge because it's flexible. plus other reasons
 
@@ -20,7 +53,13 @@ Conjugate prior - wiki
 
 Why does this work? Basically the algebra works out to look like another beta
 
+What do you actually do with the posterior?
+
 ### Posterior-predictive
+
+What do you actually do with the posterior-predictive?
+
+# The beta-binomial model
 
 # What prior should you pick?
 
