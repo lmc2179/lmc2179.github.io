@@ -27,9 +27,15 @@ Sketch
 
 Dramatis Personae
 
+Parameters
+
+Data
+
+Data generating process, $\mathbb{P}(y \mid \theta)$
+
 $\mathbb{P}(\theta)$
 
-$\mathbb{P}(y \mid \theta)$
+$\mathbb{P}(\theta \mid y)$
 
 $\mathbb{P}(y_{new} \mid y)$
 
@@ -40,6 +46,10 @@ https://statmodeling.stat.columbia.edu/2021/09/15/the-bayesian-cringe/
 Conjugate prior
 
 beta-binomial model
+
+# How to learn more
+
+??
 
 # PREVIOUS PREVIOUS PREVIOUS PREVIOUS PREVIOUS 
 
