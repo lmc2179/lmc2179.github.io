@@ -27,6 +27,8 @@ Sketch
 
 Dramatis Personae
 
+https://statmodeling.stat.columbia.edu/2021/09/15/the-bayesian-cringe/
+
 # An example from the world of A/B testing
 
 # PREVIOUS PREVIOUS PREVIOUS PREVIOUS PREVIOUS 
