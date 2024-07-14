@@ -27,9 +27,19 @@ Sketch
 
 Dramatis Personae
 
+$\mathbb{P}(\theta)$
+
+$\mathbb{P}(y \mid \theta)$
+
+$\mathbb{P}(y_{new} \mid y)$
+
 https://statmodeling.stat.columbia.edu/2021/09/15/the-bayesian-cringe/
 
-# An example from the world of A/B testing
+# An example from the world of A/B testing: comparing conversion rates
+
+Conjugate prior
+
+beta-binomial model
 
 # PREVIOUS PREVIOUS PREVIOUS PREVIOUS PREVIOUS 
 
