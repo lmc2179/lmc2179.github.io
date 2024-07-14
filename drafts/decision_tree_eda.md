@@ -41,6 +41,8 @@ tree.fit(X, df['price'])
 
 df['group'] = tree.apply(X)
 
+print(export_text(tree, feature_names=list(X.columns)))
+
 from matplotlib import pyplot as plt
 import seaborn as sns
 
