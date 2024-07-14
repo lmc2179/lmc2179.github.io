@@ -8,12 +8,13 @@ is this EDA? Arguably, eda is really broad. look at tukey's doc? I _think_ this 
 
 is this clustering? well we are creating clusters, but it doesn not meet the textbook definition of clustering
 
-idea from tukey:
+ideas from tukey:
 * his idea, that data = fit+residual, can be checked by looking at how much overlap there is in the resulting segments
 * emphasis on visualization/numerical summaries
-* 
 
-the idea of "key subgroups" is familiar but comes only indirectly from regression
+the idea of "key subgroups" is familiar but comes only indirectly from regression; regression is concerned with additive linear relationships
+
+what if we make a marimekko diagram from the results??
 
 how many subgroups? do cross-validation and look for the elbow
 
