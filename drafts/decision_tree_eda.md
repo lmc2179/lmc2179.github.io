@@ -1,5 +1,22 @@
 idea: use a decision tree to reveal groups with similar X variables _and_ a similar average _y_ value. get the leaf ID
 
+decision trees are useful analysis tools in their own right, not just an implementation detail of random forests
+
+what is the regression.summary() for trees?
+
+is this EDA? Arguably, eda is really broad. look at tukey's doc? I _think_ this is the right category, because we are looking to explore key subgroups without making any ironclad claims that this is the one true grouping 
+
+is this clustering? well we are creating clusters, but it doesn not meet the textbook definition of clustering
+
+idea from tukey:
+* his idea, that data = fit+residual, can be checked by looking at how much overlap there is in the resulting segments
+* emphasis on visualization/numerical summaries
+* 
+
+the idea of "key subgroups" is familiar but comes only indirectly from regression
+
+how many subgroups? do cross-validation and look for the elbow
+
 https://chatgpt.com/c/eba61cce-fc31-4cc3-8648-7fe95daa76b9
 
 https://vincentarelbundock.github.io/Rdatasets/doc/AER/HousePrices.html
