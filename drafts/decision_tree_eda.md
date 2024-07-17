@@ -61,6 +61,9 @@ df['group'] = tree.apply(X)
 
 print(export_text(tree, feature_names=list(X.columns)))
 
+plt.figure(figsize=(12,12))
+plot_tree(tree, feature_names=list(X.columns), node_ids=True, filled=True)
+
 from matplotlib import pyplot as plt
 import seaborn as sns
 
