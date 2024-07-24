@@ -61,6 +61,14 @@ Gelman and Hill regression,RAOS, Shalizi TALR
 - [Philosophy and the practice of Bayesian Statistics - Andrew Gelman, Cosma Rohilla Shalizi](http://www.stat.columbia.edu/~gelman/research/published/philosophy.pdf)
 - [Confessions of a Pragmatic Statistician - Chris Chatfield](https://www2.isye.gatech.edu/isyebayes/bank/chatfield.pdf)
 
+blogs?
+
+shalizi
+
+gelman
+
+rina artstain
+
 # A bonus - books which are about the usage of data but not necessarily written for data practitioners
 
 Tyranny of metrics
