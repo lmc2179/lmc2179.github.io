@@ -1,3 +1,26 @@
+---
+layout: post
+title: "Causal Inference"
+author: "Louis Cialdella"
+categories: posts
+tags: [datascience]
+image: causalimpact.png
+---
+
+# Causal inference is everywhere you look
+
+Children frequently 
+
+# How would we know if the IRA decreased inflation?
+
+# Computing a counterfactual with `CausalImpact`
+
+# Stress testing our counterfactual model: Placebo trials and assumption robustness
+
+# Causal inference is everywhere you look, and now you get to do it too
+
+# Draft ideas
+
 CausalImpact - https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/41854.pdf
 
 TFP version in Python - https://github.com/google/tfp-causalimpact/blob/main/docs/quickstart.ipynb
