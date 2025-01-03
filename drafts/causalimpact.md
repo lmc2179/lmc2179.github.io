@@ -14,6 +14,8 @@ Pearl perspective: We are controlling for cyclic effects, the same things that a
 
 # Intro: What and why in causal inference
 
+An example we'll return to again and again: Did the inflation reduction act reduce inflation? (I am not an economist, but please see https://apnews.com/article/biden-inflation-reduction-climate-anniversary-9950f7e814ac71e89eee3f452ab17f71, who cite the price of oil and gas on the world market, interest rate, and supply chain challenges as causes)
+
 Potential outcomes
 
 DAG
@@ -27,3 +29,7 @@ Break down the model - functional form, dag
 # Doing it right: Placebo, Sensitivity
 
 # Outro
+
+Some last thoughts
+
+Are your counterfactual states well defined? Is it really clear whether "more jobs" is an unalloyed good?
