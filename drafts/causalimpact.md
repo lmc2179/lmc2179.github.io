@@ -11,3 +11,17 @@ Local level is something like AR(1) plus lagged terms for seasonal components
 Rubin perspective: We are filling in the other half of the potential outcome equation
 
 Pearl perspective: We are controlling for cyclic effects, the same things that affect parallel time series, and any other factors we include as covariates
+
+# Intro: What is Causal Inference, exactly
+
+Potential outcomes
+
+DAG
+
+# Problem setup
+
+# Using CausalImpact to estimate the effect
+
+# Doing it right: Placebo, Sensitivity
+
+# Outro
