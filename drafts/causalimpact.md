@@ -20,6 +20,8 @@ DAG
 
 # Problem setup
 
+Break down the model - functional form, dag
+
 # Using CausalImpact to estimate the effect
 
 # Doing it right: Placebo, Sensitivity
