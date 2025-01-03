@@ -12,7 +12,7 @@ Rubin perspective: We are filling in the other half of the potential outcome equ
 
 Pearl perspective: We are controlling for cyclic effects, the same things that affect parallel time series, and any other factors we include as covariates
 
-# Intro: What is Causal Inference, exactly
+# Intro: What and why in causal inference
 
 Potential outcomes
 
