@@ -72,6 +72,14 @@ Link paper here; you could probably do a plausible version of it on your own wit
 
 # Stress testing our counterfactual model: Placebo trials and assumption robustness
 
+Important assumptions:
+* DAG is correct
+* More specifically none of the things we control for are downstream of the treatment variable in the DAG
+
+Placebo
+
+Sensitivity
+
 # Causal inference is everywhere you look, and now you get to do it too
 
 # Draft ideas
