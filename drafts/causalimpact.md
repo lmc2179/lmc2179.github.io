@@ -9,19 +9,35 @@ image: causalimpact.png
 
 # Causal inference is everywhere you look
 
-Children are constantly trying things out - with no prompting to do so, you'll find them messing around with stuff, pets, toys, pots, pans, sounds, etc. In addition to the pleasure of causing chaos, they are often learning along the way, finding that by throwing things about that some objects bounce and some things shatter. When Data Scientists engage in similar activity, we usually call it "causal inference", if only for the benefit of our own dignity. Even creatures more intelligent than data scientists (dolphins, cats, etc) are known to engage in similar behavior, learning how things work by trying them out. This behavior comes so easily to use because understanding cause and effect is core to how we make decisions and navigate the world. 
+Despite its lofty and technical name, causal inference seems to come naturally to us. Children are constantly trying things out - with no prompting to do so, you'll find them messing everything in grabbing range - pets, toys, pots, pans, sounds, etc. In addition to the pleasure of causing chaos, they are often learning along the way, discovering by throwing things about that some objects bounce and other objects shatter. When data scientists engage in similar activity, we usually call it "causal inference", if only for the benefit of our own dignity. Even creatures more intelligent than data scientists (dolphins, cats, etc) are known to engage in similar behavior, learning how things work by trying them out and observing the consequences. This behavior comes so easily to us because understanding cause and effect is core to how we make decisions and navigate the world. 
 
 More sophisticated examples of inferring cause and effect show up in our lives all the time. Americans recently had to evaluate the actions of the late Biden administration, and we spent a lot of time talking about whether the Biden team's decisions produced good effects or bad ones. For example, most Americans were concerned about inflation; had the administration taken the right steps to deal with it? For example, had the very clearly named [Inflation Reduction Act](https://en.wikipedia.org/wiki/Inflation_Reduction_Act) actually done what it claimed to do? Looking at a graph of inflation over time, it seems plausible at first glance:
 
 [Add a plot of inflation over time, with a dotted line for the IRA]
 
-Well, I'm not an economist, so frankly I'm not the ideal person to answer that question. But here in the United States we have a grand old tradition of non-experts trying their hand at something new and getting embarrassingly out of their depth, so it is my civic duty to try and answer it. Googling for about a second indicates that a [handful of economists](https://apnews.com/article/biden-inflation-reduction-climate-anniversary-9950f7e814ac71e89eee3f452ab17f71) asked said that it did not affect inflation, citing some of the factors like the price of foreign energy as the real drivers.
+The election is over, so it is of course the perfect time to consider this question. Unfortunately, I'm not an economist, so frankly I'm not the ideal person to answer it. But here in the United States we have a grand old tradition of non-experts trying their hand at something new and getting embarrassingly out of their depth, so it is my civic duty to try and answer it. Googling for about a second indicates that a [handful of economists](https://apnews.com/article/biden-inflation-reduction-climate-anniversary-9950f7e814ac71e89eee3f452ab17f71) asked said that it did not affect inflation, citing some of the factors like the price of foreign energy as the real drivers.
 
-Despite my lack of economics training, I have done some causal inferencing in my time. Let's see whether we can look at some of the recent data and apply it
+Despite my lack of economics training, I have done some causal inferencing in my time. Let's see whether we can look at some of the recent data and apply it. 
 
 # How would we know if the IRA decreased inflation?
 
+This is ultimately a counterfactual question
+
+Potential outcomes
+
+DAG 
+
+data 
+
+[Data sheet](https://docs.google.com/spreadsheets/d/1qZFvY9ZGbEC3nX3LvTgdTOtbOdXdrKb8y0_R8Fs-Ufc/edit?usp=sharing)
+
 # Computing a counterfactual with `CausalImpact`
+
+https://github.com/WillianFuks/tfcausalimpact
+
+https://www.youtube.com/watch?v=GTgZfCltMm8
+
+Link paper here
 
 # Stress testing our counterfactual model: Placebo trials and assumption robustness
 
