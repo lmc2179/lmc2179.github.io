@@ -50,23 +50,25 @@ df = pd.read_csv(r'C:\Users\louis\Downloads\CausalImpact Demo - Inflation Reduct
 
 import causalimpact
 
-clean_df = df.rename({'Inflation': 'y', 
-                      'Gas Price YoY': 'x1',
+clean_df = df.rename({'US Inflation rate': 'y', 
+                      'Gasoline Spot price': 'x1',
                       'Fed Interest rate': 'x2',
-                      'GSCPI': 'x3'}, axis=1)
-clean_df = clean_df[['y', 'x1', 'x2', 'x3']].dropna().reset_index(drop=True)
+                      'GSCPI': 'x3',
+                      'Canada inflation rate': 'x4',
+                      'UK inflation rate': 'x5'}, axis=1)
+clean_df = clean_df[['y', 'x1', 'x2', 'x3', 'x4', 'x5']].dropna().reset_index(drop=True)
 
 impact = causalimpact.CausalImpact(
     data=clean_df,
-    pre_period=[0, 201],
-    post_period=[202, 228])
+    pre_period=[0, 213],
+    post_period=[214, 240])
 
 print(impact.summary())
 
 impact.plot()
 ```
 
-Link paper here
+Link paper here; you could probably do a plausible version of it on your own with an AR-X model
 
 # Stress testing our counterfactual model: Placebo trials and assumption robustness
 
