@@ -37,6 +37,35 @@ https://github.com/WillianFuks/tfcausalimpact
 
 https://www.youtube.com/watch?v=GTgZfCltMm8
 
+The following code shows no effect; what's missing? Canada's inflation rate, maybe
+
+https://www.bankofcanada.ca/rates/price-indexes/cpi/
+
+https://www.weforum.org/stories/2022/06/inflation-stats-usa-and-world/
+
+```python
+import pandas as pd
+
+df = pd.read_csv(r'C:\Users\louis\Downloads\CausalImpact Demo - Inflation Reduction Act - Joined dataframe.csv')
+
+import causalimpact
+
+clean_df = df.rename({'Inflation': 'y', 
+                      'Gas Price YoY': 'x1',
+                      'Fed Interest rate': 'x2',
+                      'GSCPI': 'x3'}, axis=1)
+clean_df = clean_df[['y', 'x1', 'x2', 'x3']].dropna().reset_index(drop=True)
+
+impact = causalimpact.CausalImpact(
+    data=clean_df,
+    pre_period=[0, 201],
+    post_period=[202, 228])
+
+print(impact.summary())
+
+impact.plot()
+```
+
 Link paper here
 
 # Stress testing our counterfactual model: Placebo trials and assumption robustness
