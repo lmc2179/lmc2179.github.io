@@ -17,9 +17,11 @@ More sophisticated examples of inferring cause and effect show up in our lives a
 
 Looking at this chart, we see that between A and B, the inflation rate came down from X to Y. Does that mean that the IRA caused inflation to drop by Y - X points?? If so, that would be pretty remarkable.
 
-The election is over, so it is of course the perfect time to consider this question. Unfortunately, I'm not an economist, so frankly I'm not the ideal person to answer it. But here in the United States we have a grand old tradition of non-experts trying their hand at something new and getting embarrassingly out of their depth, so it is my civic duty to try and answer it. Googling for about a second indicates that a [handful of economists](https://apnews.com/article/biden-inflation-reduction-climate-anniversary-9950f7e814ac71e89eee3f452ab17f71) asked said that it did not affect inflation, citing some of the factors like the price of energy as the real drivers. 
+The election is over, so it is of course the perfect time to consider this question. Unfortunately, I'm not an economist, so frankly I'm not the ideal person to answer it. But here in the United States we have a grand old tradition of non-experts trying their hand at something new and getting embarrassingly out of their depth, so it is my civic duty to try and answer it.
 
-An educated citizen is an important part of a 
+There's another reason I picked this question. In theory, at least, the country in which I reside is a democracy (the precise status of said democracy is currently a subject of lively debate, but we'll save that for another day). 
+
+Googling for about a second indicates that a [handful of economists](https://apnews.com/article/biden-inflation-reduction-climate-anniversary-9950f7e814ac71e89eee3f452ab17f71) asked said that it did not affect inflation, citing some of the factors like the price of energy as the real drivers. 
 
 # How would we know if the IRA decreased inflation?
 
