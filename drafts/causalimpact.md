@@ -75,6 +75,7 @@ Link paper here; you could probably do a plausible version of it on your own wit
 Important assumptions:
 * DAG is correct
 * More specifically none of the things we control for are downstream of the treatment variable in the DAG
+* No confounding, ie the IRA was the only thing that acted on inflation which is clearly incorrect; what else?
 
 Placebo
 
