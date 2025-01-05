@@ -15,9 +15,11 @@ More sophisticated examples of inferring cause and effect show up in our lives a
 
 [Add a plot of inflation over time, with a dotted line for the IRA]
 
-The election is over, so it is of course the perfect time to consider this question. Unfortunately, I'm not an economist, so frankly I'm not the ideal person to answer it. But here in the United States we have a grand old tradition of non-experts trying their hand at something new and getting embarrassingly out of their depth, so it is my civic duty to try and answer it. Googling for about a second indicates that a [handful of economists](https://apnews.com/article/biden-inflation-reduction-climate-anniversary-9950f7e814ac71e89eee3f452ab17f71) asked said that it did not affect inflation, citing some of the factors like the price of foreign energy as the real drivers.
+Looking at this chart, we see that between A and B, the inflation rate came down from X to Y. Does that mean that the IRA caused inflation to drop by Y - X points?? If so, that would be pretty remarkable.
 
-Despite my lack of economics training, I have done some causal inferencing in my time. Let's see whether we can look at some of the recent data and apply it. 
+The election is over, so it is of course the perfect time to consider this question. Unfortunately, I'm not an economist, so frankly I'm not the ideal person to answer it. But here in the United States we have a grand old tradition of non-experts trying their hand at something new and getting embarrassingly out of their depth, so it is my civic duty to try and answer it. Googling for about a second indicates that a [handful of economists](https://apnews.com/article/biden-inflation-reduction-climate-anniversary-9950f7e814ac71e89eee3f452ab17f71) asked said that it did not affect inflation, citing some of the factors like the price of energy as the real drivers. 
+
+An educated citizen is an important part of a 
 
 # How would we know if the IRA decreased inflation?
 
@@ -43,6 +45,8 @@ https://www.bankofcanada.ca/rates/price-indexes/cpi/
 
 https://www.weforum.org/stories/2022/06/inflation-stats-usa-and-world/
 
+Link paper here; you could probably do a plausible version of it on your own with an AR-X model
+
 ```python
 import pandas as pd
 
@@ -56,7 +60,7 @@ clean_df = df.rename({'US Inflation rate': 'y',
                       'GSCPI': 'x3',
                       'Canada inflation rate': 'x4',
                       'UK inflation rate': 'x5'}, axis=1)
-clean_df = clean_df[['y', 'x1', 'x2', 'x3', 'x4', 'x5']].dropna().reset_index(drop=True)
+clean_df = clean_df[['y', 'x1', 'x2', 'x3', 'x4', 'x5']]
 
 impact = causalimpact.CausalImpact(
     data=clean_df,
@@ -68,7 +72,7 @@ print(impact.summary())
 impact.plot()
 ```
 
-Link paper here; you could probably do a plausible version of it on your own with an AR-X model
+This tells a very different story from our initial estimate; the effect is not statistically significant, and even the point estimate is ... instead of ... points
 
 # Stress testing our counterfactual model: Placebo trials and assumption robustness
 
