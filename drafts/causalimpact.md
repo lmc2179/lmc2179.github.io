@@ -69,7 +69,7 @@ impact = causalimpact.CausalImpact(
     pre_period=[0, 213],
     post_period=[214, 240])
 
-print(impact.summary())
+print(impact.inferences['post_preds_means'].dropna())
 
 impact.plot()
 ```
