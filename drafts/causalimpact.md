@@ -9,7 +9,7 @@ image: causalimpact.png
 
 # Causal inference is everywhere you look
 
-Despite its lofty and technical name, causal inference seems to come naturally to us. Children are constantly trying things out - with no prompting to do so, you'll find them messing everything in grabbing range - pets, toys, pots, pans, sounds, etc. In addition to the pleasure of causing chaos, they are often learning along the way, discovering by throwing things about that some objects bounce and other objects shatter. When data scientists engage in similar activity, we usually call it "causal inference", if only for the benefit of our own dignity. Even creatures more intelligent than data scientists (dolphins, cats, etc) are known to engage in similar behavior, learning how things work by trying them out and observing the consequences. This behavior comes so easily to us because understanding cause and effect is core to how we make decisions and navigate the world. 
+Despite its lofty and technical name, causal inference seems to come naturally to us. Children are constantly trying things out - with no prompting to do so, you'll find them messing with everything in grabbing range - pets, toys, pots, pans, sounds, etc. In addition to the pleasure of causing chaos, they are often learning along the way, discovering by throwing things about that some objects bounce and other objects shatter. When data scientists engage in similar activity, we usually call it "causal inference", if only for the benefit of our own dignity. Even creatures more intelligent than data scientists (dolphins, cats, etc) are known to engage in similar behavior, learning how things work by trying them out and observing the consequences. This behavior comes so easily to us because understanding cause and effect is core to how we make decisions and navigate the world. 
 
 More sophisticated examples of inferring cause and effect show up in our lives all the time. Americans recently had to evaluate the actions of the late Biden administration, and we spent a lot of time talking about whether the Biden team's decisions produced good effects or bad ones. For example, most Americans were concerned about inflation; had the administration taken the right steps to deal with it? For example, had the very clearly named [Inflation Reduction Act](https://en.wikipedia.org/wiki/Inflation_Reduction_Act) actually done what it claimed to do? Looking at a graph of inflation over time, it seems plausible at first glance:
 
@@ -17,15 +17,19 @@ More sophisticated examples of inferring cause and effect show up in our lives a
 
 Looking at this chart, we see that between A and B, the inflation rate came down from X to Y. Does that mean that the IRA caused inflation to drop by Y - X points?? If so, that would be pretty remarkable.
 
-The election is over, so it is of course the perfect time to consider this question. Unfortunately, I'm not an economist, so frankly I'm not the ideal person to answer it. But here in the United States we have a grand old tradition of non-experts trying their hand at something new and getting embarrassingly out of their depth, so it is my civic duty to try and answer it.
+The election is over, so it is of course the perfect time to consider this question. Unfortunately, I'm not an economist, so frankly I'm not the ideal person to answer it. But here in the United States we have a grand old tradition of non-experts trying their hand at something new and getting embarrassingly out of their depth, so it is my civic duty to try.
 
 There's another reason I picked this question. In theory, at least, the country in which I reside is a democracy (the precise status of said democracy is currently a subject of lively debate, but we'll save that for another day). 
 
 Googling for about a second indicates that a [handful of economists](https://apnews.com/article/biden-inflation-reduction-climate-anniversary-9950f7e814ac71e89eee3f452ab17f71) asked said that it did not affect inflation, citing some of the factors like the price of energy as the real drivers. 
 
-# How would we know if the IRA decreased inflation?
+# How would we know if the Inflation Reduction Act decreased inflation?
 
-This is ultimately a counterfactual question
+"Did the IRA decrease inflation?" is actually a pretty complex question, though it looks simple at first glance. How would we know whether the IRA caused deflation to decrease? One way to try and make sense is to think of it as a counterfactual scenario - what would have happened to inflation if the IRA had **not** been enacted and nothing else changed? If we knew how this counterfactual scenario would have played out, we can compare it to the factual scenario - ie, our universe - and see how big the difference is. 
+
+In causal inference-speak, we call these two scenarios (the inflation rate in each of the two scenarios) the potential outcomes. If we want to think about the IRA's effect on interest rate on day $t$, then
+
+$$\underbrace{\Delta_t}_{Effect} = \underbrace{y_t^1}_{Observed} - \underbrace{y_t^0}_{Not \ Observed}$$
 
 Potential outcomes
 
