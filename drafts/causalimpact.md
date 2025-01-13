@@ -31,9 +31,11 @@ In causal inference-speak, we call these two scenarios (the inflation rate in ea
 
 $$\underbrace{\Delta_t}_{Effect} = \underbrace{y_t^1}_{Observed} - \underbrace{y_t^0}_{Not \ Observed}$$
 
-Potential outcomes
+The fundamental problem of causal inference
 
 DAG 
+
+Ignorability
 
 data 
 
