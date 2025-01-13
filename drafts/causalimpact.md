@@ -33,7 +33,7 @@ $$\underbrace{\Delta_t}_{Effect} = \underbrace{y_t^1}_{Observed} - \underbrace{y
 
 If we had the power to step into an alternate universe we could observe the effect directly. Or if we could run an experiment since randomized experiments basically are alternate universes
 
-The fundamental problem of causal inference but we don't
+The fundamental problem of causal inference is that we don't. so we need to find some way of controlling for all the other relevant things
 
 DAG 
 
