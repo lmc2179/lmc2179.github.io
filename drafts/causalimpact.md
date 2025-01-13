@@ -31,7 +31,7 @@ In causal inference-speak, we call these two scenarios (the inflation rate in ea
 
 $$\underbrace{\Delta_t}_{Effect} = \underbrace{y_t^1}_{Observed} - \underbrace{y_t^0}_{Not \ Observed}$$
 
-If we had the power to step into an alternate universe we could observe the effect directly
+If we had the power to step into an alternate universe we could observe the effect directly. Or if we could run an experiment since randomized experiments basically are alternate universes
 
 The fundamental problem of causal inference but we don't
 
