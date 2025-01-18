@@ -89,7 +89,7 @@ This tells a very different story from our initial estimate; the effect is not s
 Important assumptions:
 * DAG is correct
 * More specifically none of the things we control for are downstream of the treatment variable in the DAG
-* No confounding, ie the IRA was the only thing that acted on inflation which is clearly incorrect; what else?
+* No confounding, ie the IRA was the only thing that acted on inflation which is clearly incorrect. Is it possible some other cause would close that gap between the counterfactual and factual scenarios? Probably yes because it's like 2 points and inflation is nuts
 
 Placebo
 
