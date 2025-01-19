@@ -19,28 +19,30 @@ Looking at this chart, we see that between A and B, the inflation rate came down
 
 The election is over, so it is of course the perfect time to consider this question. Unfortunately, I'm not an economist, so frankly I'm not the ideal person to answer it. But here in the United States we have a grand old tradition of non-experts trying their hand at something new and getting embarrassingly out of their depth, so it is my civic duty to try.
 
-There's another reason I picked this question. In theory, at least, the country in which I reside is a democracy (the precise status of said democracy is currently a subject of lively debate, but we'll save that for another day). 
+There's another reason I picked this question. In theory, at least, the country in which I reside is a democracy (the precise status of said democracy is currently a subject of lively debate, but we'll save that for another day). It seems to me that a democracy will function better if the people in it can both delegate some tasks to experts (like economists) while also still having the ability to verify them.
 
-Googling for about a second indicates that a [handful of economists](https://apnews.com/article/biden-inflation-reduction-climate-anniversary-9950f7e814ac71e89eee3f452ab17f71) asked said that it did not affect inflation, citing some of the factors like the price of energy as the real drivers. From first principles, it's not hard to see why given what was actually in the bill, but it's worth seeing whether this shows up in the data
+Okay, so what _do_ the experts say about the Inflation Reduction Act? Googling for about a second indicates that a [handful of economists](https://apnews.com/article/biden-inflation-reduction-climate-anniversary-9950f7e814ac71e89eee3f452ab17f71) asked said that it did not affect inflation, citing some of the factors like the price of energy as the real drivers. From first principles, it's not hard to see why given what was actually in the bill. Well, that's strange - inflation actually did come down, right? Doesn't that suggest it had some role? Let's look at some data that will help us answer this question.
 
-# How would we know if the Inflation Reduction Act decreased inflation?
+# How would we know if the Inflation Reduction Act decreased inflation? Counterfactuals and causal assumptions
 
-"Did the IRA decrease inflation?" is actually a pretty complex question, though it looks simple at first glance. How would we know whether the IRA caused deflation to decrease? One way to try and make sense is to think of it as a counterfactual scenario - what would have happened to inflation if the IRA had **not** been enacted and nothing else changed? If we knew how this counterfactual scenario would have played out, we can compare it to the factual scenario - ie, our universe - and see how big the difference is. 
+"Did the IRA decrease inflation?" is actually a pretty complex question, though it looks simple at first glance. How would we beging to answer it? One way to try and make sense of it is to think of it as a counterfactual scenario - what would have happened to inflation if the IRA had **not** been enacted, all else being equal? If we knew how this counterfactual scenario **would have** played out, we can compare it to the factual scenario - ie, our universe - and see how big the difference is. 
 
 In causal inference-speak, we call these two scenarios (the inflation rate in each of the two scenarios) the potential outcomes. If we want to think about the IRA's effect on interest rate on day $t$, then
 
 $$\underbrace{\Delta_t}_{Effect} = \underbrace{y_t^1}_{Observed} - \underbrace{y_t^0}_{Not \ Observed}$$
 
 If we had the power to step into an alternate universe we could observe the effect directly. 
- The [fundamental problem of causal inference](https://en.wikipedia.org/wiki/Rubin_causal_model#The_fundamental_problem_of_causal_inference) is that we don't. so we need to find some way of controlling for all the other relevant things
+ The [fundamental problem of causal inference](https://en.wikipedia.org/wiki/Rubin_causal_model#The_fundamental_problem_of_causal_inference) is that we don't. The most common approach to solving this problem is to run a randomized experiment, and then attempt to estimate the average value of the effect. The randomization helps us by making sure that all other variables are [ignorable](https://en.wikipedia.org/wiki/Ignorability#:~:text=Ignorability%20means%20we%20can%20ignore,(observable)%20treated%20or%20not.), ie that do not confound our estimate.
 
- 
+ What else could have affected our inflation
+ * Supply chain challenges in the US
+ * Energy price
+ * Interest rate
+ * Other global factors, which also affected similar countries
 
-[Ignorability](https://en.wikipedia.org/wiki/Ignorability#:~:text=Ignorability%20means%20we%20can%20ignore,(observable)%20treated%20or%20not.)
+ We can put these together in a DAG with dagitty
 
-DAG - dagitty
-
-data 
+data comes from
 
 [Data sheet](https://docs.google.com/spreadsheets/d/1qZFvY9ZGbEC3nX3LvTgdTOtbOdXdrKb8y0_R8Fs-Ufc/edit?usp=sharing)
 
@@ -113,25 +115,3 @@ Local level is something like AR(1) plus lagged terms for seasonal components
 Rubin perspective: We are filling in the other half of the potential outcome equation
 
 Pearl perspective: We are controlling for cyclic effects, the same things that affect parallel time series, and any other factors we include as covariates
-
-# Intro: What and why in causal inference
-
-An example we'll return to again and again: Did the inflation reduction act reduce inflation? (I am not an economist, but please see https://apnews.com/article/biden-inflation-reduction-climate-anniversary-9950f7e814ac71e89eee3f452ab17f71, who cite the price of oil and gas on the world market, interest rate, and supply chain challenges as causes)
-
-Potential outcomes
-
-DAG
-
-# Problem setup
-
-Break down the model - functional form, dag
-
-# Using CausalImpact to estimate the effect
-
-# Doing it right: Placebo, Sensitivity
-
-# Outro
-
-Some last thoughts
-
-Are your counterfactual states well defined? Is it really clear whether "more jobs" is an unalloyed good?
