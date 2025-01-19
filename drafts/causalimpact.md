@@ -21,7 +21,7 @@ The election is over, so it is of course the perfect time to consider this quest
 
 There's another reason I picked this question. In theory, at least, the country in which I reside is a democracy (the precise status of said democracy is currently a subject of lively debate, but we'll save that for another day). 
 
-Googling for about a second indicates that a [handful of economists](https://apnews.com/article/biden-inflation-reduction-climate-anniversary-9950f7e814ac71e89eee3f452ab17f71) asked said that it did not affect inflation, citing some of the factors like the price of energy as the real drivers. 
+Googling for about a second indicates that a [handful of economists](https://apnews.com/article/biden-inflation-reduction-climate-anniversary-9950f7e814ac71e89eee3f452ab17f71) asked said that it did not affect inflation, citing some of the factors like the price of energy as the real drivers. From first principles, it's not hard to see why given what was actually in the bill, but it's worth seeing whether this shows up in the data
 
 # How would we know if the Inflation Reduction Act decreased inflation?
 
