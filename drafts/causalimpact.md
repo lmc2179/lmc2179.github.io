@@ -36,9 +36,9 @@ If we had the power to step into an alternate universe we could observe the effe
 
  
 
-Ignorability
+[Ignorability](https://en.wikipedia.org/wiki/Ignorability#:~:text=Ignorability%20means%20we%20can%20ignore,(observable)%20treated%20or%20not.)
 
-DAG
+DAG - dagitty
 
 data 
 
