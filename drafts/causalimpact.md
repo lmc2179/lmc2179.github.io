@@ -29,7 +29,7 @@ Okay, so what _do_ the experts say about the Inflation Reduction Act? Googling f
 
 In causal inference-speak, we call the outcomes of these two scenarios the **potential outcomes**. We obesrved one of the potential outcomes when the IRA was enacted. If we want to think about the IRA's effect on interest rate on day $t$, then we can calculate the treatment effect:
 
-$$\underbrace{\Delta_t}_{Effect} = \underbrace{y_t^1}_{IRA, \ Observed} - \underbrace{y_t^0}_{No \ IRA, \ Not \ Observed}$$
+$$\underbrace{\Delta_t}_{Effect} = \underbrace{y_t^1}_{Inflation \mid IRA} - \underbrace{y_t^0}_{Inflation \mid No \ IRA}$$
 
 If we had the power to step into an alternate universe to observe the other potential outcome (where the IRA was not enacted), we could calculate the effect. 
  The [fundamental problem of causal inference](https://en.wikipedia.org/wiki/Rubin_causal_model#The_fundamental_problem_of_causal_inference) is that we don't - we only have the information from our universe. The most common approach to solving this problem is to run a randomized experiment, and then attempt to estimate the average value of the effect. The randomization helps us by making sure that all other variables are [ignorable](https://en.wikipedia.org/wiki/Ignorability#:~:text=Ignorability%20means%20we%20can%20ignore,(observable)%20treated%20or%20not.), ie that do not confound our estimate. An experiment is an attempt to "simulate" multiple universes where we control the conditions. 
@@ -40,7 +40,7 @@ If we had the power to step into an alternate universe to observe the other pote
  * Interest rate
  * Other global factors, which also affected similar countries
 
- We can put these together in a DAG with dagitty
+ We can double check out logic by putting these together in a DAG with dagitty
 
 We're going to create an predicted counterfactual
 
