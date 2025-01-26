@@ -29,9 +29,9 @@ Okay, so what _do_ the experts say about the Inflation Reduction Act? Googling f
 
 In causal inference-speak, we call the outcomes of these two scenarios the **potential outcomes**. We obesrved one of the potential outcomes when the IRA was enacted. If we want to think about the IRA's effect on interest rate on day $t$, then we can calculate the treatment effect:
 
-$$\underbrace{\Delta_t}_{Effect} = \underbrace{y_t^1}_{Observed} - \underbrace{y_t^0}_{Not \ Observed}$$
+$$\underbrace{\Delta_t}_{Effect} = \underbrace{y_t^1}_{IRA, \ Observed} - \underbrace{y_t^0}_{No \ IRA, \ Not \ Observed}$$
 
-If we had the power to step into an alternate universe to observe the other potential outcome (qhere the IRA was not enacted), we could calculate the effect. 
+If we had the power to step into an alternate universe to observe the other potential outcome (where the IRA was not enacted), we could calculate the effect. 
  The [fundamental problem of causal inference](https://en.wikipedia.org/wiki/Rubin_causal_model#The_fundamental_problem_of_causal_inference) is that we don't - we only have the information from our universe. The most common approach to solving this problem is to run a randomized experiment, and then attempt to estimate the average value of the effect. The randomization helps us by making sure that all other variables are [ignorable](https://en.wikipedia.org/wiki/Ignorability#:~:text=Ignorability%20means%20we%20can%20ignore,(observable)%20treated%20or%20not.), ie that do not confound our estimate. An experiment is an attempt to "simulate" multiple universes where we control the conditions. 
 
  We can't run such an experiment, as we only have one US economy and zero time machines. So we need to control in our analysis for all the things an experiment would have controlled for. What else could have affected our inflation?
