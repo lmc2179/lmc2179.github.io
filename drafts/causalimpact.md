@@ -25,16 +25,16 @@ Okay, so what _do_ the experts say about the Inflation Reduction Act? Googling f
 
 # How would we know if the Inflation Reduction Act decreased inflation? Counterfactuals and causal assumptions
 
-"Did the IRA decrease inflation?" is actually a pretty complex question, though it looks simple at first glance. How would we beging to answer it? One way to try and make sense of it is to think of it as a counterfactual scenario - what would have happened to inflation if the IRA had **not** been enacted, all else being equal? If we knew how this counterfactual scenario **would have** played out, we can compare it to the factual scenario - ie, our universe - and see how big the difference is. 
+"Did the IRA decrease inflation?" is actually a pretty complex question, though it looks simple at first glance. How would we begin to answer it? One way to try and make sense of it is to think of it as a counterfactual scenario - what would have happened to inflation if the IRA had **not** been enacted, all else being equal? If we knew how this counterfactual scenario **would have** played out, we can compare it to the factual scenario - ie, our universe - and see how big the difference is. 
 
-In causal inference-speak, we call these two scenarios (the inflation rate in each of the two scenarios) the potential outcomes. If we want to think about the IRA's effect on interest rate on day $t$, then
+In causal inference-speak, we call the outcomes of these two scenarios the **potential outcomes**. We obesrved one of the potential outcomes when the IRA was enacted. If we want to think about the IRA's effect on interest rate on day $t$, then we can calculate the treatment effect:
 
 $$\underbrace{\Delta_t}_{Effect} = \underbrace{y_t^1}_{Observed} - \underbrace{y_t^0}_{Not \ Observed}$$
 
-If we had the power to step into an alternate universe we could observe the effect directly. 
- The [fundamental problem of causal inference](https://en.wikipedia.org/wiki/Rubin_causal_model#The_fundamental_problem_of_causal_inference) is that we don't. The most common approach to solving this problem is to run a randomized experiment, and then attempt to estimate the average value of the effect. The randomization helps us by making sure that all other variables are [ignorable](https://en.wikipedia.org/wiki/Ignorability#:~:text=Ignorability%20means%20we%20can%20ignore,(observable)%20treated%20or%20not.), ie that do not confound our estimate.
+If we had the power to step into an alternate universe to observe the other potential outcome (qhere the IRA was not enacted), we could calculate the effect. 
+ The [fundamental problem of causal inference](https://en.wikipedia.org/wiki/Rubin_causal_model#The_fundamental_problem_of_causal_inference) is that we don't - we only have the information from our universe. The most common approach to solving this problem is to run a randomized experiment, and then attempt to estimate the average value of the effect. The randomization helps us by making sure that all other variables are [ignorable](https://en.wikipedia.org/wiki/Ignorability#:~:text=Ignorability%20means%20we%20can%20ignore,(observable)%20treated%20or%20not.), ie that do not confound our estimate. An experiment is an attempt to "simulate" multiple universes where we control the conditions. 
 
- What else could have affected our inflation
+ We can't run such an experiment, as we only have one US economy and zero time machines. So we need to control in our analysis for all the things an experiment would have controlled for. What else could have affected our inflation?
  * Supply chain challenges in the US
  * Energy price
  * Interest rate
@@ -42,7 +42,7 @@ If we had the power to step into an alternate universe we could observe the effe
 
  We can put these together in a DAG with dagitty
 
-data comes from
+I've collected the relevant time series data in:
 
 [Data sheet](https://docs.google.com/spreadsheets/d/1qZFvY9ZGbEC3nX3LvTgdTOtbOdXdrKb8y0_R8Fs-Ufc/edit?usp=sharing)
 
