@@ -42,7 +42,9 @@ If we had the power to step into an alternate universe to observe the other pote
 
  We can put these together in a DAG with dagitty
 
-I've collected the relevant time series data in:
+We're going to create an predicted counterfactual
+
+I've collected the relevant time series data in this sheet:
 
 [Data sheet](https://docs.google.com/spreadsheets/d/1qZFvY9ZGbEC3nX3LvTgdTOtbOdXdrKb8y0_R8Fs-Ufc/edit?usp=sharing)
 
