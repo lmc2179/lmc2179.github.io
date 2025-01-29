@@ -92,6 +92,8 @@ impact.plot()
 
 This tells a very different story from our initial estimate; the effect is not statistically significant, and even the point estimate is ... instead of ... points
 
+Different types of effect: Point effects (esp at end), total effects, relative effects
+
 # Stress testing our counterfactual model: Placebo trials and assumption robustness
 
 Important assumptions:
