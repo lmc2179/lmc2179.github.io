@@ -42,6 +42,9 @@ If we had the power to step into an alternate universe to observe the other pote
 
  We can double check out logic by putting these together in a DAG with dagitty
 
+![image](https://github.com/user-attachments/assets/12ac2e1c-788e-4c58-b16a-6f4e613e5018)
+
+
 We're going to create an predicted counterfactual
 
 I've collected the relevant time series data in this sheet:
