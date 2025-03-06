@@ -45,7 +45,8 @@ class FormulaTransformer(BaseEstimator, TransformerMixin):
 
 import pandas as pd
 from sklearn.pipeline import make_pipeline
-from sklearn.tree import DecisionTreeRegressor, export_text
+from sklearn.tree import DecisionTreeRegressor, export_text, plot_tree
+from matplotlib import pyplot as plt
 
 df = pd.read_csv('https://vincentarelbundock.github.io/Rdatasets/csv/AER/HousePrices.csv')
 
