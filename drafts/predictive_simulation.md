@@ -2,10 +2,12 @@
 
 # We build forecast models so we can make plans and decisions about the future
 
-**Caesar:** Who is it in the press that calls on me?
+>**Caesar:** Who is it in the press that calls on me?
 I hear a tongue, shriller than all the music,
 Cry 'Caesar!' Speak; Caesar is turn'd to hear.
-**Soothsayer:** Beware the ides of March.
+>
+>**Soothsayer:** Beware the ides of March.
+
 ~A well-known time series forecast from _Julius Caesar_, Act I, Scene 2
 
 Every person and organization needs to have a plan, but planning is hard because we're not sure what will happen. How much demand will there be for our product this quarter? How many people will come to our coffee shop? If we could answer these questions, we could figure out how many people to hire, how many products we'll need to make, how much coffee we should buy, etc.
