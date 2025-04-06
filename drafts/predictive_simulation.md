@@ -212,7 +212,7 @@ What do we find out? Upper and lower limits
 
 When can we interpret this causally? When we have closed all the backdoors
 
-# Monte Carlo analysis of the simulated paths
+# Monte Carlo analysis of the functions of the simulated paths
 
 Often a quantity of interest is a function of the future time series
 
