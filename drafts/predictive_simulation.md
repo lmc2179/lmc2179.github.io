@@ -210,3 +210,7 @@ Code - Path samples, 99% quantiles
 What do we find out? Upper and lower limits
 
 When can we interpret this causally? When we have closed all the backdoors
+
+# Monte Carlo analysis of the simulated paths
+
+For example: Revenue assuming x% market share
