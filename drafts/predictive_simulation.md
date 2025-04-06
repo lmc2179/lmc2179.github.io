@@ -1,4 +1,11 @@
-# Predictive Simulation of Time Series with ARIMA in Python
+---
+layout: post
+title: "Predictive Simulation of Time Series with ARIMA in Python"
+author: "Louis Cialdella"
+categories: posts
+tags: [datascience]
+image: ???.jpg
+---
 
 # We build forecast models so we can make plans and decisions about the future
 
@@ -8,15 +15,22 @@ Cry 'Caesar!' Speak; Caesar is turn'd to hear.
 >
 >**Soothsayer:** Beware the ides of March.
 
-~A well-known time series forecast from _Julius Caesar_, Act I, Scene 2
+~_Julius Caesar_ receives a times series forecast from his data scientist in Act I, Scene 2
 
 Every person and organization needs to have a plan, but planning is hard because we're not sure what will happen. How much demand will there be for our product this quarter? How many people will come to our coffee shop? If we could answer these questions, we could figure out how many people to hire, how many products we'll need to make, how much coffee we should buy, etc.
 
-We make plans despite our uncertainty about the future. We make a model which helps us narrow it down but lots of things are still possible
+Of course, people still find ways to muddle through. Generally, we make think about the likely scenarios, and plan for those. If you possess some data about the past, you can use it to make a model, and the model can tell you what scenarios you should plan for.
 
-Spaghetti plot shows us what the model (or a set of models) tells us might happen; FEMA wants to plan for the hurricane based on where it might be
+If you've ever lived in our near a hurricane zone (or for that matter, seen a hurricane on the news), then you've probably seen a [spaghetti plot](https://en.wikipedia.org/wiki/Spaghetti_plot). It shows all the paths that the hurricane might take, based on meterological analysis:
 
-Example - Airlines need to plan based on expected consumption
+![Hurricane dorian spaghetti plot](image-2.png)    
+_Spaghetti plot of Hurricane Dorian. Each strand is a path that a simulated hurricane took in one of many runs of the simulation._
+
+This is a tool for planning about an uncertain future. If a hurricane is coming to your town, you had best be ready. Organizations like FEMA need to figure out how to deploy personnel, supplies, potential evacuation orders, and other high-stakes decisions. Residents of those places need to understand how likely it is that the hurricane will appear near them. 
+
+The spaghetti plot is a very rich diagram! First, it shows us what sort of overall path the hurricane is likely to take. Secondly, it lets us look up a specific spot on the map, and see how likely it is that a hurricane will pass through, by looking at how densely packed the paths are.
+
+There are plenty of decisions in my life (professional and personal) where a spaghetti plot would have come in handy. 
 
 ```python
 import pandas as pd
