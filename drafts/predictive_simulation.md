@@ -215,10 +215,12 @@ When can we interpret this causally? When we have closed all the backdoors
 
 Often a quantity of interest is a function of the future time series
 
+$\theta = f(x_1, ..., x_n)$
+
 For example: Revenue assuming x% market share
 
 Now that we've simulated the paths, this is easy
 
-We can come up with an estimate of $\mathbb{E}[f(x_1, ...)]$ by averaging the simulated pads. We can even estimate quantiles
+We can come up with an estimate of $\mathbb{E}[\theta]$ by averaging the simulated pads. We can even estimate quantiles
 
 Other ideas: Counterfactuals/Effects of interventions
