@@ -30,7 +30,9 @@ This is a tool for planning about an uncertain future. If a hurricane is coming 
 
 The spaghetti plot is a very rich diagram! First, it shows us what sort of overall path the hurricane is likely to take. Secondly, it lets us look up a specific spot on the map, and see how likely it is that a hurricane will pass through, by looking at how densely packed the paths are.
 
-There are plenty of decisions in my life (professional and personal) where a spaghetti plot would have come in handy. In every data science job I've ever had, I've had to help stakeholders
+There are plenty of decisions in my life (professional and personal) where a spaghetti plot would have come in handy. In every data science job I've ever had, I've had to help stakeholders set targets and forecast future performance based on some historical data and a lot of guessing. 
+
+In a [previous post](https://lmc2179.github.io/posts/autoreg.html), we put ourselves in the shoes of airline industry executives, trying to use historical travel data to plan for this year's capacity
 
 ```python
 import pandas as pd
@@ -40,21 +42,16 @@ df = pd.read_csv('https://raw.githubusercontent.com/jbrownlee/Datasets/master/ai
 y = df.Passengers
 n_obs = len(y)
 
-train_cutoff = 96
-validate_cutoff = 120
-
-from matplotlib import pyplot as plt
-
 plt.plot(y)
-plt.axvline(train_cutoff, color='orange', linestyle='dashed')
-plt.axvline(validate_cutoff, color='green', linestyle='dashed')
-plt.legend()
 plt.title('Airline passengers by month')
 plt.ylabel('Total passengers')
 plt.xlabel('Month')
 plt.show()
-
 ```
+
+![alt text](image-4.png)
+
+look at the time series; what happens next?
 
 What happens next? If we know, we could plan: Supplies, personnel, cost, rev, etc
 
@@ -103,6 +100,30 @@ X - Not used, link to post and note relevant kwarg
 We want to select a model and demonstrate prediction quality
 
 Three-way CV split: (1) Train (2) Param. select (3) Sim quality
+
+```python
+import pandas as pd
+
+df = pd.read_csv('https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv')
+
+y = df.Passengers
+n_obs = len(y)
+
+train_cutoff = 96
+validate_cutoff = 120
+
+from matplotlib import pyplot as plt
+
+plt.plot(y)
+plt.axvline(train_cutoff, color='orange', linestyle='dashed')
+plt.axvline(validate_cutoff, color='green', linestyle='dashed')
+plt.legend()
+plt.title('Airline passengers by month')
+plt.ylabel('Total passengers')
+plt.xlabel('Month')
+plt.show()
+
+```
 
 (1) Code for training
 
