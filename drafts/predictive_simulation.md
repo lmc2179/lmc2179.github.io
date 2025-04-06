@@ -32,7 +32,7 @@ The spaghetti plot is a very rich diagram! First, it shows us what sort of overa
 
 There are plenty of decisions in my life (professional and personal) where a spaghetti plot would have come in handy. In every data science job I've ever had, I've had to help stakeholders set targets and forecast future performance based on some historical data and a lot of guessing. 
 
-In a [previous post](https://lmc2179.github.io/posts/autoreg.html), we put ourselves in the shoes of airline industry leaders, trying to use historical travel data to plan for this year's capacity by building an autoregressive (AR) model. We'll revisit that example 
+In a [previous post](https://lmc2179.github.io/posts/autoreg.html), we put ourselves in the shoes of airline industry leaders, trying to use historical travel data to plan for this year's capacity by building an autoregressive (AR) model. In this post, we'll revisit that example using an expanded model (ARIMA), and generate simulations that will help in decision-making. Lets look at the time series of historical passenger totals:
 
 ```python
 import pandas as pd
@@ -51,9 +51,9 @@ plt.show()
 
 ![alt text](image-4.png)
 
-What happens next? If we know, we could plan: Supplies, personnel, cost, rev, etc
+What happens next? If we knew, we could plan - airlines need things to support all those passengers, like planes, pilots, flight attendants, fuel, etc. Figuring out how much of those things we need depends on how much demand there is.
 
-Predicting where a time series will go next can be done with a model like the AR model we discussed last time. that model gave us E[y_t] and error bands, which can be used
+One approach is predicting where a time series will go next with an AR model, as we did last time. that model gave us E[y_t] and error bands, which can be used
 
 We'd ideally like to see a sample of all the future paths the time series could take - _predictive simulation_, which shows us the possible futures we might need to plan for. when we do this for hurricanes we call them spaghetti plots (wiki page)
 
