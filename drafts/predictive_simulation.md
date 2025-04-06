@@ -53,15 +53,20 @@ plt.show()
 
 What happens next? If we knew, we could plan - airlines need things to support all those passengers, like planes, pilots, flight attendants, fuel, etc. Figuring out how much of those things we need depends on how much demand there is.
 
-One approach is predicting where a time series will go next with an AR model, as we did last time. that model gave us E[y_t] and error bands, which can be used
+One approach is predicting where a time series will go next with an AR model, as we did last time. That model gave us $\mathbb{E}[y_t]$ and prediction bands, which can be used to identify the best case and worst case scenarios at each time point.
 
-We'd ideally like to see a sample of all the future paths the time series could take - _predictive simulation_, which shows us the possible futures we might need to plan for. when we do this for hurricanes we call them spaghetti plots (wiki page)
+We'd ideally like to see a sample of all the future paths the time series could take - _predictive simulation_, which shows us the possible futures we might need to plan for. That way, we can answer questions about the entire path. Questions like:
 
-Big picture, what we'll do is:
+* Over the next X months, how many passengers will fly in total?
+* If we have Y% market share and $Z of revenue per passenger, what total revenue might we expect over the next X months?
+* When will the total number of passengers reach X for the first time? 
 
-1. Collect time series data
-2. Fit a time series model, and demonstrate goodness of fit
-3. Simulate future paths to see what might happen.
+Here's the game plan. We're going to:
+
+1. Collect time series data (like the one above)
+2. Fit a time series model, and demonstrate goodness of fit of that model
+3. Simulate future paths to see what might happen
+4. Make inferences about the simulated paths to answer questions like those above
 
 We'll use statsmodels SARIMAX (link to it) and just the ARIMA part
 
