@@ -32,7 +32,7 @@ The spaghetti plot is a very rich diagram! First, it shows us what sort of overa
 
 There are plenty of decisions in my life (professional and personal) where a spaghetti plot would have come in handy. In every data science job I've ever had, I've had to help stakeholders set targets and forecast future performance based on some historical data and a lot of guessing. 
 
-In a [previous post](https://lmc2179.github.io/posts/autoreg.html), we put ourselves in the shoes of airline industry executives, trying to use historical travel data to plan for this year's capacity.
+In a [previous post](https://lmc2179.github.io/posts/autoreg.html), we put ourselves in the shoes of airline industry leaders, trying to use historical travel data to plan for this year's capacity by building an autoregressive (AR) model. We'll revisit that example 
 
 ```python
 import pandas as pd
@@ -50,8 +50,6 @@ plt.show()
 ```
 
 ![alt text](image-4.png)
-
-look at the time series; what happens next?
 
 What happens next? If we know, we could plan: Supplies, personnel, cost, rev, etc
 
