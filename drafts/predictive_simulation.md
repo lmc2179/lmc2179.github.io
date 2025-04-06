@@ -218,7 +218,7 @@ Often a quantity of interest is a function of the future time series
 
 $\theta = f(x_1, ..., x_n)$
 
-For example: Revenue assuming x% market share; Month with peak flights; amount of peak flights
+For example: Revenue assuming x% market share; Month with peak flights; amount of peak flights; when the total will reach some value
 
 Now that we've simulated the paths, this is easy
 
