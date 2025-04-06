@@ -213,4 +213,12 @@ When can we interpret this causally? When we have closed all the backdoors
 
 # Monte Carlo analysis of the simulated paths
 
+Often a quantity of interest is a function of the future time series
+
 For example: Revenue assuming x% market share
+
+Now that we've simulated the paths, this is easy
+
+We can come up with an estimate of $\mathbb{E}[f(x_1, ...)]$
+
+Other ideas: Counterfactuals/Effects of interventions
