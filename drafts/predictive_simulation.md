@@ -32,7 +32,7 @@ The spaghetti plot is a very rich diagram! First, it shows us what sort of overa
 
 There are plenty of decisions in my life (professional and personal) where a spaghetti plot would have come in handy. In every data science job I've ever had, I've had to help stakeholders set targets and forecast future performance based on some historical data and a lot of guessing. 
 
-In a [previous post](https://lmc2179.github.io/posts/autoreg.html), we put ourselves in the shoes of airline industry executives, trying to use historical travel data to plan for this year's capacity
+In a [previous post](https://lmc2179.github.io/posts/autoreg.html), we put ourselves in the shoes of airline industry executives, trying to use historical travel data to plan for this year's capacity.
 
 ```python
 import pandas as pd
@@ -239,7 +239,7 @@ Often a quantity of interest is a function of the future time series
 
 $\theta = f(x_1, ..., x_n)$
 
-For example: Revenue assuming x% market share; Month with peak flights; amount of peak flights; when the total will reach some value
+For example: Revenue assuming x% market share; Month with peak flights; amount of peak flights; when the total will reach some value; percent growth
 
 Now that we've simulated the paths, this is easy
 
