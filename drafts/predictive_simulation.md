@@ -1,8 +1,6 @@
 # Predictive Simulation of Time Series with ARIMA in Python
 
-## Draft 2
-
-### We build forecast models so we can make plans and decisions about the future
+# We build forecast models so we can make plans and decisions about the future
 
 **Caesar:** Who is it in the press that calls on me?
 I hear a tongue, shriller than all the music,
@@ -56,7 +54,7 @@ Big picture, what we'll do is:
 
 We'll use statsmodels SARIMAX (link to it) and just the ARIMA part
 
-### What is all this alphabet soup? Breaking down the ARIMA and SARIMAX models
+# What is all this alphabet soup? Breaking down the ARIMA and SARIMAX models
 
 Today, we're going to use an ARIMA model, so we'll start with that. An ARIMA model is the sum of the two ARMA components
 
@@ -84,7 +82,7 @@ SARIMAX = S + ARIMA + X
 
 X - Not used, link to post and note relevant kwarg
 
-### Model selection and cross-validation
+# Model selection and cross-validation
 
 We want to select a model and demonstrate prediction quality
 
@@ -179,7 +177,7 @@ Code - Path coverage
 
 Pct coverage? Narrow enough to be useful?
 
-### Training the final model and generating predicted paths
+# Training the final model and generating predicted paths
 
 Okay, so we've selected the model (., ., .). Let's train it on the whole data set:
 
