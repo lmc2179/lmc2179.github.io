@@ -109,6 +109,9 @@ Three-way CV split: (1) Train (2) Param. select (3) Sim quality
 (2) Random search - Bergstrom
 
 ```python
+import statsmodels.api as sm
+import numpy as np
+
 # Random search for hyperparameters
 n_hyperparams_to_test = 300
 max_hyperparam_val = 12
