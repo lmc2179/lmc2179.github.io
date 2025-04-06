@@ -30,7 +30,7 @@ This is a tool for planning about an uncertain future. If a hurricane is coming 
 
 The spaghetti plot is a very rich diagram! First, it shows us what sort of overall path the hurricane is likely to take. Secondly, it lets us look up a specific spot on the map, and see how likely it is that a hurricane will pass through, by looking at how densely packed the paths are.
 
-There are plenty of decisions in my life (professional and personal) where a spaghetti plot would have come in handy. 
+There are plenty of decisions in my life (professional and personal) where a spaghetti plot would have come in handy. In every data science job I've ever had, I've had to help stakeholders
 
 ```python
 import pandas as pd
@@ -201,8 +201,6 @@ Code - Fitting the combined model
 
 Code/Summary - Interpreting the combined model
 
-
-
 Now we can make predictions. Generating simulated paths for future flight counts
 
 Code - Path samples, 99% quantiles
@@ -223,4 +221,4 @@ Now that we've simulated the paths, this is easy
 
 We can come up with an estimate of $\mathbb{E}[\theta]$ by averaging the simulated pads. We can even estimate quantiles
 
-Other ideas: Counterfactuals/Effects of interventions
+Other ideas: Counterfactuals/Effects of interventions/Results of decisions
