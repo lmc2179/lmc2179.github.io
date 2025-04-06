@@ -219,6 +219,6 @@ For example: Revenue assuming x% market share
 
 Now that we've simulated the paths, this is easy
 
-We can come up with an estimate of $\mathbb{E}[f(x_1, ...)]$
+We can come up with an estimate of $\mathbb{E}[f(x_1, ...)]$ by averaging the simulated pads. We can even estimate quantiles
 
 Other ideas: Counterfactuals/Effects of interventions
