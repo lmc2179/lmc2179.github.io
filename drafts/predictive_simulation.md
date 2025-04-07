@@ -78,6 +78,12 @@ Autoregerssige (AR) component: y_t is a function of previous observations. link 
 
 The AR model is
 
+$$
+\underbrace{y_t}_\textrm{Outcome at time t} \sim 
+\underbrace{(\sum_{i=1}^{p} \phi_i y_{t-i})}_\textrm{Lag terms} 
++ \underbrace{\epsilon_t}_\textrm{White Noise} 
+$$
+
 MA - $y_t$ is a function of previous innovations (?) Link to AR/MA comparison link
 
 The MA model is
@@ -97,6 +103,8 @@ S - Cyclic version of ARIMA
 SARIMAX = S + ARIMA + X
 
 X - Not used, link to post and note relevant kwarg
+
+$+ \underbrace{\beta X_t}_\textrm{Extra factors}$
 
 # Model selection and cross-validation
 
