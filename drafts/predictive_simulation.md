@@ -36,6 +36,7 @@ In a [previous post](https://lmc2179.github.io/posts/autoreg.html), we put ourse
 
 ```python
 import pandas as pd
+from matplotlib import pyplot as plt
 
 df = pd.read_csv('https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv')
 
@@ -127,28 +128,23 @@ We want to select a model and demonstrate prediction quality
 Three-way CV split: (1) Train (2) Param. select (3) Sim quality
 
 ```python
-import pandas as pd
-
-df = pd.read_csv('https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv')
-
 y = df.Passengers
 n_obs = len(y)
 
 train_cutoff = 96
 validate_cutoff = 120
 
-from matplotlib import pyplot as plt
-
 plt.plot(y)
-plt.axvline(train_cutoff, color='orange', linestyle='dashed')
-plt.axvline(validate_cutoff, color='green', linestyle='dashed')
+plt.axvline(train_cutoff, color='orange', linestyle='dashed', label='Train cutoff')
+plt.axvline(validate_cutoff, color='green', linestyle='dashed', label='Validate cutoff')
 plt.legend()
 plt.title('Airline passengers by month')
 plt.ylabel('Total passengers')
 plt.xlabel('Month')
 plt.show()
-
 ```
+
+![alt text](image-5.png)
 
 (1) Code for training
 
@@ -157,10 +153,11 @@ plt.show()
 ```python
 import statsmodels.api as sm
 import numpy as np
+from tqdm import tqdm
 
 # Random search for hyperparameters
-n_hyperparams_to_test = 300
-max_hyperparam_val = 12
+n_hyperparams_to_test = 1000
+max_hyperparam_val = 24
 
 results = []
 for i in tqdm(range(n_hyperparams_to_test)):
@@ -181,13 +178,15 @@ cv_df = pd.DataFrame(results, columns=['MSE', 'Parameters']).sort_values('MSE')
 best_params = cv_df['Parameters'].iloc[0]
 ```
 
-The best params are
+That took about 60 minutes on my machine; you can create less complex models (decrease `max_hyperparam_val`) or try fewer of them (decrease `n_hyperparams_to_test`) to reduce the size of the search space (or the opposite, if you've got more compute to spend than I do).
+
+The best params that my run found were $(16, 2, 15)$
 
 Okay, lets show the train and test fit
 
 ```python
 # Check: Plot best model against train and test region
-p, d, q = best_params
+p, d, q = (16, 2, 15)
 model = sm.tsa.statespace.SARIMAX(y[:train_cutoff], order=(p, d, q), trend='ct')
 model_fit = model.fit(disp=False)
 
@@ -204,15 +203,17 @@ plt.show()
 
 (3) Demonstration of sim quality, ie coverage of real path of validation set
 
+TODO: Code below should just do validation part
+
 ```python
 # Fit a SARIMAX model as an AR(2) model (order=(2, 0, 0))
-model = sm.tsa.statespace.SARIMAX(y, order=(10, 1, 5))
+model = sm.tsa.statespace.SARIMAX(y, order=(16, 2, 15))
 model_fit = model.fit(disp=False)
 print(model_fit.summary())
 
 # Set simulation parameters
 n_forecast = 50
-n_simulations = 100
+n_simulations = 1000
 
 # Container for simulated paths
 simulations = np.empty((n_simulations, n_forecast))
@@ -228,11 +229,11 @@ plt.plot(np.arange(n_obs), y, label='Observed Data', color='black')
 # Plot each simulated path
 for i in range(n_simulations):
     plt.plot(np.arange(n_obs, n_obs+n_forecast), simulations[i, :],
-              label=f'Simulation {i+1}', alpha=0.1, color='blue')
+              label=f'Simulation {i+1}', alpha=0.01, color='blue')
 
 plt.xlabel('Time')
 plt.ylabel('Value')
-plt.title('SARIMAX Model: Observed Data and Multiple Simulated Future Paths')
+plt.title('ARIMA(16, 2, 15) Model: Observed Data and Multiple Simulated Future Paths')
 #plt.legend(loc='upper left', bbox_to_anchor=(1.05, 1))
 plt.tight_layout()
 plt.show()
@@ -251,6 +252,40 @@ Code - Fitting the combined model
 Code/Summary - Interpreting the combined model
 
 Now we can make predictions. Generating simulated paths for future flight counts
+
+```python
+# Fit a SARIMAX model as an AR(2) model (order=(2, 0, 0))
+model = sm.tsa.statespace.SARIMAX(y, order=(16, 2, 15))
+model_fit = model.fit(disp=False)
+print(model_fit.summary())
+
+# Set simulation parameters
+n_forecast = 50
+n_simulations = 1000
+
+# Container for simulated paths
+simulations = np.empty((n_simulations, n_forecast))
+
+# Simulate multiple paths. We use a loop to generate each simulation.
+for i in range(n_simulations):
+    simulations[i, :] = model_fit.simulate(nsimulations=n_forecast, anchor='end')
+
+# Plot observed data
+plt.figure(figsize=(12, 6))
+plt.plot(np.arange(n_obs), y, label='Observed Data', color='black')
+
+# Plot each simulated path
+for i in range(n_simulations):
+    plt.plot(np.arange(n_obs, n_obs+n_forecast), simulations[i, :],
+              label=f'Simulation {i+1}', alpha=0.01, color='blue')
+
+plt.xlabel('Time')
+plt.ylabel('Value')
+plt.title('ARIMA(16, 2, 15) Model: Observed Data and Multiple Simulated Future Paths')
+#plt.legend(loc='upper left', bbox_to_anchor=(1.05, 1))
+plt.tight_layout()
+plt.show()
+```
 
 Code - Path samples, 99% quantiles
 
