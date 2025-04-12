@@ -72,6 +72,8 @@ We'll use statsmodels SARIMAX (link to it) and just the ARIMA part
 
 # What is all this alphabet soup? Breaking down the ARIMA and SARIMAX models
 
+_This section tries to get at some of the intuition around the models. If yo're more interested in seeing the model in action, you can skip this section and come back later._
+
 Today, we're going to use an ARIMA model, so we'll start with that. An ARIMA model is the sum of the two ARMA components
 
 Autoregerssige (AR) component: y_t is a function of previous observations. link post
@@ -79,8 +81,9 @@ Autoregerssige (AR) component: y_t is a function of previous observations. link 
 The AR model is
 
 $$
-\underbrace{y_t}_\textrm{Outcome at time t} \sim 
-\underbrace{(\sum_{i=1}^{p} \phi_i y_{t-i})}_\textrm{Lag terms} 
+\underbrace{y_t^{AR}}_\textrm{Outcome at time t} \sim 
+\underbrace{\alpha}_\textrm{Intercept}
++ \underbrace{(\sum_{i=1}^{p} \phi_i y_{t-i})}_\textrm{Lag terms} 
 + \underbrace{\epsilon_t}_\textrm{White Noise} 
 $$
 
@@ -88,15 +91,26 @@ MA - $y_t$ is a function of previous innovations (?) Link to AR/MA comparison li
 
 The MA model is
 
+$$
+\underbrace{y_t^{MA}}_\textrm{Outcome at time t} \sim 
+\underbrace{\alpha}_\textrm{Intercept}
++ \underbrace{(\sum_{i=1}^{p} \phi_i \epsilon_{t-i})}_\textrm{Lag terms} 
++ \underbrace{\epsilon_t}_\textrm{White Noise} 
+$$
+
 Sometimes, it makes  more sense to predict the difference from one y to the next in which case
 
 I - Predict $\Delta y_t$ instead; differencing
+
+$\Delta y_t = y_t - y_{t-1}$
 
 See https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average#Examples for some intuition on how this relates to other stuff like random walks
 
 That means that an ARIMA model has 3 free parameters
 
 The same class also supports SARIMAX, which has the ARIMA components plus some more of them.
+
+[SARIMA](https://online.stat.psu.edu/stat510/lesson/4/4.1)
 
 S - Cyclic version of ARIMA
 
@@ -257,3 +271,8 @@ Now that we've simulated the paths, this is easy
 We can come up with an estimate of $\mathbb{E}[\theta]$ by averaging the simulated pads. We can even estimate quantiles
 
 Other ideas: Counterfactuals/Effects of interventions/Results of decisions
+
+# Sources and Links
+
+https://online.stat.psu.edu/stat510/lesson/1 - Good course on time series modeling
+Otext?
