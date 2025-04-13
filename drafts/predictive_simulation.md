@@ -325,7 +325,7 @@ $\theta = f(x_1, ..., x_n)$
 
 For example: Revenue assuming x% market share; Month with peak flights; amount of peak flights; when the total will reach some value; percent growth
 
-Now that we've simulated the paths, this is easy
+Now that we've simulated the paths, this is easy. Code: Applying a function that takes a path and tells us something
 
 We can come up with an estimate of $\mathbb{E}[\theta]$ by averaging the simulated pads. We can even estimate quantiles
 
