@@ -182,13 +182,13 @@ best_params = cv_df['Parameters'].iloc[0]
 
 That took about 60 minutes on my machine; you can create less complex models (decrease `max_hyperparam_val`) or try fewer of them (decrease `n_hyperparams_to_test`) to reduce the size of the search space (or the opposite, if you've got more compute to spend than I do).
 
-The best params that my run found were $(16, 2, 15)$
+The best params that my run found were $(15, 0, 14)$
 
 Okay, lets show the train and test fit
 
 ```python
 # Check: Plot best model against train and test region
-p, d, q = (16, 2, 15)
+p, d, q = (15, 0, 14)
 model = sm.tsa.statespace.SARIMAX(y[:train_cutoff], order=(p, d, q), trend='ct')
 model_fit = model.fit(disp=False)
 
@@ -208,12 +208,12 @@ plt.show()
 TODO: Code below should just do validation part
 
 ```python
-p, d, q = (16, 0, 15)
+p, d, q = (15, 0, 14)
 model = sm.tsa.statespace.SARIMAX(y[:validate_cutoff], order=(p, d, q), trend='ct')
 model_fit = model.fit(disp=False)
 
 n_forecast = len(y) - validate_cutoff
-n_simulations = 100
+n_simulations = 1000
 
 # Container for simulated paths
 simulations = np.empty((n_simulations, n_forecast))
@@ -225,11 +225,11 @@ for i in range(n_simulations):
  # Plot each simulated path
 for i in range(n_simulations):
     plt.plot(np.arange(validate_cutoff, validate_cutoff + n_forecast), simulations[i, :],
-              label=f'Simulation {i+1}', alpha=0.01, color='blue')
+              label=f'Simulation {i+1}', alpha=0.01, color='grey')
 
 # Plot observed data
-plt.plot(y)
-plt.plot(model_fit.predict(end=len(y)))
+plt.plot(y, color='purple')
+plt.plot(model_fit.predict(end=len(y)), color='orange', linestyle='dashed')
 plt.axvline(train_cutoff, color='orange', linestyle='dashed')
 plt.axvline(validate_cutoff, color='green', linestyle='dashed')
 plt.title('Airline passengers by month')
@@ -239,6 +239,31 @@ plt.show()
 ```
 
 Code - Path coverage
+
+```python
+for i in range(n_simulations):
+    plt.plot(np.arange(validate_cutoff, validate_cutoff + n_forecast), simulations[i, :], alpha=0.01, color='grey')
+
+prediction_interval_alpha = .05
+predicted_lower = np.array([np.quantile(sim, (prediction_interval_alpha / 2)) for sim in simulations.T])
+predicted_upper = np.array([np.quantile(sim, 1.-(prediction_interval_alpha / 2)) for sim in simulations.T])
+
+plt.plot(np.arange(validate_cutoff, validate_cutoff + n_forecast), predicted_lower, linestyle='dotted')
+plt.plot(np.arange(validate_cutoff, validate_cutoff + n_forecast), predicted_upper, linestyle='dotted')
+
+# Plot observed data
+plt.plot(y, color='purple')
+plt.plot(model_fit.predict(end=len(y)), color='orange', linestyle='dashed')
+plt.axvline(train_cutoff, color='orange', linestyle='dashed')
+plt.axvline(validate_cutoff, color='green', linestyle='dashed')
+plt.title('Airline passengers by month')
+plt.ylabel('Total passengers')
+plt.xlabel('Month')
+plt.xlim(validate_cutoff)
+plt.xlim(120, 145)
+plt.ylim(300)
+plt.show()
+```
 
 Pct coverage? Narrow enough to be useful?
 
