@@ -157,11 +157,13 @@ from tqdm import tqdm
 
 # Random search for hyperparameters
 n_hyperparams_to_test = 1000
-max_hyperparam_val = 24
+max_p_val = 24
+max_d_val = 1
+max_q_val = 24
 
 results = []
 for i in tqdm(range(n_hyperparams_to_test)):
-    params = np.random.randint(0, max_hyperparam_val+1, size=3)
+    params = np.random.randint(0, [max_p_val, max_d_val, max_q_val])
     p, d, q = params
     model = sm.tsa.statespace.SARIMAX(y[:train_cutoff], order=(p, d, q), trend='ct')
     try:
@@ -206,14 +208,12 @@ plt.show()
 TODO: Code below should just do validation part
 
 ```python
-# Fit a SARIMAX model as an AR(2) model (order=(2, 0, 0))
-model = sm.tsa.statespace.SARIMAX(y, order=(16, 2, 15))
+p, d, q = (16, 0, 15)
+model = sm.tsa.statespace.SARIMAX(y[:validate_cutoff], order=(p, d, q), trend='ct')
 model_fit = model.fit(disp=False)
-print(model_fit.summary())
 
-# Set simulation parameters
-n_forecast = 50
-n_simulations = 1000
+n_forecast = len(y) - validate_cutoff
+n_simulations = 100
 
 # Container for simulated paths
 simulations = np.empty((n_simulations, n_forecast))
@@ -222,20 +222,19 @@ simulations = np.empty((n_simulations, n_forecast))
 for i in range(n_simulations):
     simulations[i, :] = model_fit.simulate(nsimulations=n_forecast, anchor='end')
 
-# Plot observed data
-plt.figure(figsize=(12, 6))
-plt.plot(np.arange(n_obs), y, label='Observed Data', color='black')
-
-# Plot each simulated path
+ # Plot each simulated path
 for i in range(n_simulations):
-    plt.plot(np.arange(n_obs, n_obs+n_forecast), simulations[i, :],
+    plt.plot(np.arange(validate_cutoff, validate_cutoff + n_forecast), simulations[i, :],
               label=f'Simulation {i+1}', alpha=0.01, color='blue')
 
-plt.xlabel('Time')
-plt.ylabel('Value')
-plt.title('ARIMA(16, 2, 15) Model: Observed Data and Multiple Simulated Future Paths')
-#plt.legend(loc='upper left', bbox_to_anchor=(1.05, 1))
-plt.tight_layout()
+# Plot observed data
+plt.plot(y)
+plt.plot(model_fit.predict(end=len(y)))
+plt.axvline(train_cutoff, color='orange', linestyle='dashed')
+plt.axvline(validate_cutoff, color='green', linestyle='dashed')
+plt.title('Airline passengers by month')
+plt.ylabel('Total passengers')
+plt.xlabel('Month')
 plt.show()
 ```
 
