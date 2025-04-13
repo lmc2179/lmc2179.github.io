@@ -284,7 +284,7 @@ model_fit = model.fit(disp=False)
 print(model_fit.summary())
 
 # Set simulation parameters
-n_forecast = 50
+n_forecast = 12
 n_simulations = 1000
 
 # Container for simulated paths
