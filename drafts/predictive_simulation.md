@@ -279,7 +279,7 @@ Now we can make predictions. Generating simulated paths for future flight counts
 
 ```python
 # Fit a SARIMAX model as an AR(2) model (order=(2, 0, 0))
-model = sm.tsa.statespace.SARIMAX(y, order=(16, 2, 15))
+model = sm.tsa.statespace.SARIMAX(y, order=(15, 0, 14))
 model_fit = model.fit(disp=False)
 print(model_fit.summary())
 
@@ -305,7 +305,7 @@ for i in range(n_simulations):
 
 plt.xlabel('Time')
 plt.ylabel('Value')
-plt.title('ARIMA(16, 2, 15) Model: Observed Data and Multiple Simulated Future Paths')
+plt.title('ARIMA(15, 0, 14) Model: Observed Data and Multiple Simulated Future Paths')
 #plt.legend(loc='upper left', bbox_to_anchor=(1.05, 1))
 plt.tight_layout()
 plt.show()
