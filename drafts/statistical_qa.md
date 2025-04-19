@@ -1,5 +1,10 @@
 # Do better QA with just a little bit of statistics
 
+General methods for QA of a product:
+* Direct inspection - the most common, and the one we talk about here. Have a person look at it, and evaluate whether it is good enough
+* Study the effects of the products - A/B tests, clinical trials, measure whether it does what you want
+* 
+
 # Quantity ☯ Quality
 
 if set our sights on quality alone we become perfectionists; if we aim for pure quantity we will produce a large volume of low-value output
