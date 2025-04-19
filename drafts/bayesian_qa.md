@@ -1,9 +1,9 @@
-# Do better QA with just a little bit of statistics
+# Do better QA with just a little bit of Bayesian statistics
 
 Whatever product you're making - software, drugs, lightbulbs, AI chat experiences, croissants, pulse oximeters, you name it - you eventually will need to figure out whether your product is good enough. This takes many forms:
 * Software
 * Lightbulbs
-* ?
+* AI Chat
 * ?
 
 This process of measuring the good-enough-ness of the product is commonly called Quality Assurance (QA) or perhaps Quality Control (QC). But quality is a famously tricky thing to understand. <sup>[1](#foot1)</sup>
@@ -12,6 +12,16 @@ General methods for QA of a product:
 * Direct inspection - the most common, and the one we talk about here. Have a person or automated system look at it, and evaluate whether it is good enough
 * Study the effects of the products - A/B tests, clinical trials, measure whether it does what you want
 * Simulated environment - Cross-validation, physical device testing, unit testing
+
+Okay so you've got the basics down: you know your unit, you have your evaluation measure (binary or real), you have a batch, you have a target failure rate
+
+# Bayesics: Beta Binomial analysis of the failure rate
+
+# What's the smallest sample I could collect
+
+# Predictive simulation
+
+# Where to learn more
 
 ## Endnotes
 
