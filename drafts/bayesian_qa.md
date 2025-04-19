@@ -17,7 +17,11 @@ Okay so you've got the basics down: you know your unit, you have your evaluation
 
 # Bayesics: Beta Binomial analysis of the failure rate
 
+
+
 # What's the smallest sample I could collect
+
+
 
 # Predictive simulation
 
