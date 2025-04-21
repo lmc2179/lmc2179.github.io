@@ -1,3 +1,12 @@
+---
+layout: post
+title: "Do better QA with just a little bit of Bayesian statistics: Beta-Binomial analysis in Python"
+author: "Louis Cialdella"
+categories: posts
+tags: [datascience]
+image: bayes_neon.jpg
+---
+
 # Do better QA with just a little bit of Bayesian statistics
 
 Whatever product you're making - software, drugs, lightbulbs, AI chat experiences, croissants, pulse oximeters, you name it - you eventually will need to figure out whether your product is good enough. This takes many forms:
@@ -23,7 +32,7 @@ At this point, you've decided on:
 * The size of the sample you're going to collect, $n$
 * The highest acceptable failure rate, $\mu^{*}$
 
-You collect $y = 40ll$ out of $n = 1000?$ failures. is that okay? It seems pretty close, how sure are we that the rest of the batch is safe?
+You collect $y = 40$ out of $n = 1000?$ failures. is that okay? It seems pretty close, how sure are we that the rest of the batch is safe?
 
 # Bayesics: Beta Binomial analysis of the failure rate
 
