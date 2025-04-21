@@ -40,15 +40,15 @@ You can interpret the prior parameters as "hypothetical data" that summarizes yo
 
 Posterior:
 
-$\mu| \sim Beta(\alpha_0 + y, \beta_0 + N - y)\$
+$\underbrace{\mu \mid y, n}_{\text{The posterior of the rate given the data}} \sim \underbrace{Beta(\alpha_0 + y, \beta_0 + N - y)}_{\text{is given by this beta distribution}}$
 
 That was kind of a lot, so here's a handy little table, which each step of the process
 
 ## Sidebar: Picking a prior
 
-> If you're just getting started, the recommended prior of 1/3, 1/3 is probably good enough. But using statistics responsibly does mean thinking through all the details of your method, so pinky promise me you'll come back and read this sometime, okay?
+_If you're just getting started, the recommended prior of 1/3, 1/3 is probably good enough. But using statistics responsibly does mean thinking through all the details of your method, so pinky promise me you'll come back and read this sometime, okay?_
 
-A commonly used prior is ... . If you think more than one prior
+A commonly used prior is ... . If you think more than one prior, applies, the safest thing is to try all of them and see how much they change your result.
 
 Kerman paragraph 
 
