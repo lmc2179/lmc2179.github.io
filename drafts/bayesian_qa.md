@@ -23,7 +23,7 @@ At this point, you've decided on:
 * The size of the sample you're going to collect, $n$
 * The highest acceptable failure rate, $\mu^{*}$
 
-You collect $y = 10$ out of $n = ?$ failures. is that okay?
+You collect $y = 40ll$ out of $n = 1000?$ failures. is that okay? It seems pretty close, how sure are we that the rest of the batch is safe?
 
 # Bayesics: Beta Binomial analysis of the failure rate
 
@@ -36,7 +36,7 @@ The beta distribution is a relatively flexible distribution over the interval $[
 
 Conjugate prior:
 
-$\mu \sim Beta(\alpha_0, \beta_0)$
+$\underbrace{\mu}_{\text{Our prior on the rate}} \sim \underbrace{Beta(\alpha_0, \beta_0)}_{\text{is a Beta distribution with params } \alpha_0, \beta_0}$
 
 You can interpret the prior parameters as "hypothetical data" that summarizes your beliefs about the rate. 
 
