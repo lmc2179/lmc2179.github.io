@@ -13,15 +13,52 @@ General methods for QA of a product:
 * Study the effects of the products - A/B tests, clinical trials, measure whether it does what you want
 * Simulated environment - Cross-validation, physical device testing, unit testing
 
+Direct inspection is usually the first thing you try, especially if you're not sure what you're looking for yet. The problem is that this this is usually expensive, and so we usually can't inspect every outgoing item; we can only inspect a sample. We need to use the sample to decide whether this batch is okay to ship or not; we will base this decision on whether the failure rate for the whole batch is greater than the highest acceptable failure rate
+
 Okay so you've got the basics down: you know your unit, you have your evaluation measure (binary or real), you have a batch, you have a target failure rate
+
+At this point, you've decided on:
+* What the unit of evaluation is (one lightbulb, one chat session, etc)
+* How you will measure whether it is meets your standards (manual inspection, automated measurement, etc)
+* The size of the sample you're going to collect, $n$
+* The highest acceptable failure rate, $\mu^{*}$
 
 # Bayesics: Beta Binomial analysis of the failure rate
 
-# What's the smallest sample I could collect
+Bayesian analysis is a little three-step dance that goes like this:
+* Pick a prior
+* Observe the data
+* Update the prior to get the posterior
 
-# Predictive simulation
+The beta distribution is a relatively flexible distribution over the interval $[0, 1]$. 
+
+Conjugate prior:
+
+$\mu \sim Beta(\alpha_0, \beta_0)$
+
+You can interpret the prior parameters as "hypothetical data" that summarizes your beliefs about the rate. 
+
+Posterior:
+
+$\mu| \sim Beta(\alpha_0 + y, \beta_0 + N - y)\$
+
+That was kind of a lot, so here's a handy little table, which each step of the process
+
+## Sidebar: Picking a prior
+
+> If you're just getting started, the recommended prior of 1/3, 1/3 is probably good enough. But using statistics responsibly does mean thinking through all the details of your method, so pinky promise me you'll come back and read this sometime, okay?
+
+A commonly used prior is ... . If you think more than one prior
+
+Kerman paragraph 
+
+# Extrapolating to the whole batch: Predictive simulation with the Beta-Binomial model
+
+# What's the smallest sample I could collect?
 
 # Where to learn more
+
+Gelman
 
 ## Endnotes
 
