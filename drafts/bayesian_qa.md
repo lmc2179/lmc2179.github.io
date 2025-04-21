@@ -44,6 +44,8 @@ Posterior:
 
 $\underbrace{\mu \mid y, n}_{\text{The posterior of the rate given the data}} \sim \underbrace{Beta(\alpha_0 + y, \beta_0 + N - y)}_{\text{is given by this beta distribution}}$
 
+So now, we have the posterior. We want to know the probability that the batch failure rate is less than ???
+
 That was kind of a lot, so here's a handy little table, which each step of the process
 
 ## Doing the analysis for our sample
