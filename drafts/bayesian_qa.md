@@ -23,6 +23,8 @@ At this point, you've decided on:
 * The size of the sample you're going to collect, $n$
 * The highest acceptable failure rate, $\mu^{*}$
 
+You collect $y = 10$ out of $n = ?$ failures. is that okay?
+
 # Bayesics: Beta Binomial analysis of the failure rate
 
 Bayesian analysis is a little three-step dance that goes like this:
@@ -43,6 +45,10 @@ Posterior:
 $\underbrace{\mu \mid y, n}_{\text{The posterior of the rate given the data}} \sim \underbrace{Beta(\alpha_0 + y, \beta_0 + N - y)}_{\text{is given by this beta distribution}}$
 
 That was kind of a lot, so here's a handy little table, which each step of the process
+
+## Doing the analysis for our sample
+
+https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.beta.html
 
 ## Sidebar: Picking a prior
 
