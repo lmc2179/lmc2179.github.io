@@ -60,6 +60,8 @@ A commonly used prior is ... . If you think more than one prior, applies, the sa
 
 Kerman paragraph 
 
+https://projecteuclid.org/journals/electronic-journal-of-statistics/volume-5/issue-none/Neutral-noninformative-and-informative-conjugate-beta-and-gamma-prior-distributions/10.1214/11-EJS648.full
+
 # Extrapolating to the whole batch: Predictive simulation with the Beta-Binomial model
 
 We often want to know how many defective are in the whole batch for planning (maybe we make a warantee for customers, or have support centers which need to be staffed, or expect other adverse effects for each one shipped)
@@ -77,6 +79,12 @@ Gelman
 ## Endnotes
 
 <a name="foot1">1</a>: _Zen and the Art of Motorcycle Maintenance_ explores this in a way which I found to be amusing, if not exactly sound philosophical material.
+
+-----------------------------------
+-------------------------
+------------------------------
+------------------------------------
+--------------------------------
 
 # Draft
 
