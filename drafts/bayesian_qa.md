@@ -60,7 +60,11 @@ Kerman paragraph
 
 # Extrapolating to the whole batch: Predictive simulation with the Beta-Binomial model
 
+https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.betabinom.html
+
 # What's the smallest sample I could collect?
+
+
 
 # Where to learn more
 
