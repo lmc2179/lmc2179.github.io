@@ -30,7 +30,7 @@ You collect $y = 40ll$ out of $n = 1000?$ failures. is that okay? It seems prett
 Bayesian analysis is a little three-step dance that goes like this:
 * Pick a prior
 * Observe the data
-* Update the prior to get the posterior
+* Update the prior to get the posterior. Use the posterior to calculate the probability  $\mu < 5\%$.
 
 The beta distribution is a relatively flexible distribution over the interval $[0, 1]$. 
 
@@ -43,8 +43,6 @@ You can interpret the prior parameters as "hypothetical data" that summarizes yo
 Posterior:
 
 $\underbrace{\mu \mid y, n}_{\text{The posterior of the rate given the data}} \sim \underbrace{Beta(\alpha_0 + y, \beta_0 + N - y)}_{\text{is given by this beta distribution}}$
-
-So now, we have the posterior. We want to know the probability that the batch failure rate is less than ???
 
 That was kind of a lot, so here's a handy little table, which each step of the process
 
