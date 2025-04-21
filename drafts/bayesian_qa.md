@@ -62,11 +62,13 @@ Kerman paragraph
 
 # Extrapolating to the whole batch: Predictive simulation with the Beta-Binomial model
 
+We often want to know how many defective are in the whole batch for planning (maybe we make a warantee for customers, or have support centers which need to be staffed, or expect other adverse effects for each one shipped)
+
 https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.betabinom.html
 
 # What's the smallest sample I could collect?
 
-
+Sample size -> Precision is the real thing. Simulation?
 
 # Where to learn more
 
