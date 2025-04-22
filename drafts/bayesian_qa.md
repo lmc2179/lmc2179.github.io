@@ -78,7 +78,9 @@ print('Monte carlo estimate of P(Rate) < 5%: ', sum(posterior_samples < .05) / l
 print('CDF(5%) = ', posterior.cdf(.05))
 ````
 
-## Sidebar: Picking a prior
+## Digression: Picking a prior
+
+### "Flat" or "uninformative" priors
 
 _If you're just getting started, the recommended prior of 1/3, 1/3 is probably good enough. But using statistics responsibly does mean thinking through all the details of your method, so pinky promise me you'll come back and read this sometime, okay?_
 
@@ -94,6 +96,10 @@ A commonly used prior is ... . If you think more than one prior, applies, the sa
 Kerman paragraph 
 
 See [Kerman 2011](https://projecteuclid.org/journals/electronic-journal-of-statistics/volume-5/issue-none/Neutral-noninformative-and-informative-conjugate-beta-and-gamma-prior-distributions/10.1214/11-EJS648.full).
+
+### Informative priors based on expert knowledge
+
+Certain posteriors are just not possible, and we should represent this fact in our prior
 
 # Extrapolating to the whole batch: Predictive simulation with the Beta-Binomial model
 
