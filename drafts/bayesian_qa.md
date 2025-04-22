@@ -53,11 +53,16 @@ Posterior:
 
 $\underbrace{\mu \mid y, n}_{\text{The posterior of the rate given the data}} \sim \underbrace{Beta(\alpha_0 + y, \beta_0 + N - y)}_{\text{is given by this beta distribution}}$
 
-That was kind of a lot, so here's a handy little table, which each step of the process
+That was kind of a lot, so lets recap:
+
+1. You've collected data $y$ and $n$
+2. Select the prior parameters $\alpha_0, \beta_0$
+3. Update the parameters with the data to get the posterior, which will have parameters $\alpha = \alpha_0 + y, \beta = \beta_0 + (n - y)$
+4. Infer the probability that the failure rate is less than the target, calculating $\mathbb{P}(\mu < \mu^*)$
 
 ## Doing the analysis for our sample
 
-https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.beta.html
+We'll use the [implementation of the beta distribution found in scipy](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.beta.html).
 
 ```python
 from scipy.stats import beta
