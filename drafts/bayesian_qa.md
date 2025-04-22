@@ -59,6 +59,25 @@ That was kind of a lot, so here's a handy little table, which each step of the p
 
 https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.beta.html
 
+```python
+from scipy.stats import beta
+
+y = 40
+n = 1000
+
+a_0 = 1./3
+b_0 = 1./3
+
+posterior = beta(a_0 + y, b_0 + n - y)
+
+n_simulations = 100000
+posterior_samples = posterior.rvs(n_simulations)
+
+print('Monte carlo estimate of P(Rate) < 5%: ', sum(posterior_samples < .05) / len(posterior_samples))
+
+print('CDF(5%) = ', posterior.cdf(.05))
+````
+
 ## Sidebar: Picking a prior
 
 _If you're just getting started, the recommended prior of 1/3, 1/3 is probably good enough. But using statistics responsibly does mean thinking through all the details of your method, so pinky promise me you'll come back and read this sometime, okay?_
