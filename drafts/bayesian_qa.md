@@ -84,9 +84,16 @@ _If you're just getting started, the recommended prior of 1/3, 1/3 is probably g
 
 A commonly used prior is ... . If you think more than one prior, applies, the safest thing is to try all of them and see how much they change your result.
 
+|Values of $\alpha, \beta$ | Fancy name | Notes |
+|-|-|-|
+|$(0, 0)$|Haldane|Improper prior|
+|$(1, 1)$|Uniform|Assigns equal value to all possibilities|
+|$(\frac{1}{2}, \frac{1}{2})$|Jeffreys|Jeffrey's rule reference prior|
+|$(\frac{1}{3}, \frac{1}{3})$|Neutral|Ensures median|
+
 Kerman paragraph 
 
-https://projecteuclid.org/journals/electronic-journal-of-statistics/volume-5/issue-none/Neutral-noninformative-and-informative-conjugate-beta-and-gamma-prior-distributions/10.1214/11-EJS648.full
+See [Kerman 2011](https://projecteuclid.org/journals/electronic-journal-of-statistics/volume-5/issue-none/Neutral-noninformative-and-informative-conjugate-beta-and-gamma-prior-distributions/10.1214/11-EJS648.full).
 
 # Extrapolating to the whole batch: Predictive simulation with the Beta-Binomial model
 
