@@ -9,11 +9,10 @@ image: bayes_neon.jpg
 
 # Do better QA with just a little bit of Bayesian statistics
 
-Whatever product you're making - software, drugs, lightbulbs, AI chat experiences, croissants, pulse oximeters, you name it - you eventually will need to figure out whether your product is good enough. This takes many forms:
-* Software
-* Lightbulbs
-* AI Chat
-* ?
+Whatever product you're making - software, drugs, lightbulbs, AI chat experiences, croissants, pulse oximeters, you name it - you eventually will need to figure out whether your product is good enough. This takes many forms, such as:
+* Drugs need to provide the advertised effect, without major side effects.
+* Lightbulbs need to last as many hours as they claim.
+* AI responses need to successfully provide answers to user queries, ideally close to 100% of the time.
 
 This process of measuring the good-enough-ness of the product is commonly called Quality Assurance (QA) or perhaps Quality Control (QC). But quality is a famously tricky thing to understand. <sup>[1](#foot1)</sup>
 
