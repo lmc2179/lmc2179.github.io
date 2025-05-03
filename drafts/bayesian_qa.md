@@ -42,7 +42,7 @@ Bayesian analysis is a little three-step dance that goes like this:
 
 The beta distribution is a relatively flexible distribution over the interval $[0, 1]$. 
 
-Conjugate prior:
+Conjugate prior:mn
 
 $\underbrace{\mu}_{\text{Our prior on the rate}} \sim \underbrace{Beta(\alpha_0, \beta_0)}_{\text{is a Beta distribution with params } \alpha_0, \beta_0}$
 
