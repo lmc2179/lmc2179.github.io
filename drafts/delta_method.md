@@ -25,6 +25,35 @@ These are hard because we know the SE of inputs, but not the outputs. If you tra
 
 # How it works - Univariate
 
+Each of the scenarios outlines has _a set of statistics with known standard errors_ (we'll call them $\theta$) as well as _a set of statistics with unknown standard errors_ (we'll call them $f(\theta)$). $f$ is the function mapping the two sets.
+
+* For the ratio $f(\theta_1, \theta_2) = \frac{\theta_2}{\theta_1}$
+* For the forex example, $f(\theta) = \alpha \theta$
+* For the churn/retention example, $f(\theta) = \theta ^{-1}$
+* For isoelastic input/output $f(\theta) = \alpha \theta^\beta$
+
+Let's start with the univariate case. If $f(\theta)$ is our output, then
+
+$\hat{SE}(f(\hat{\theta})) \approx \mid f^\prime (\hat{\theta}) \mid \times \hat{SE}(\hat{\theta}) $
+
+And so an approximate asymptotic confidence interva for $f(\hat{\theta})$ is 
+
+$f(\hat{\theta}) \pm z_{\alpha/2} \times \mid f^\prime (\hat{\theta}) \mid \times \hat{SE}(\hat{\theta})$
+
+Under this approximation, note that
+* The CI is larger for transformations that vary a lot at $\hat{\theta}$ due to the reliance on the first derivative
+* The CI is smaller when the SE of $\hat{\theta}$ is smaller
+
+The delta method tells us how much the function "inflates" the the SE of $\hat{\theta}$; it inflates it by $\mid f^\prime (\hat{\theta}) \mid$
+
+Keep in mind that this is asymptotic. You can compare w/ bootstrap to verify
+
+# Univariate example
+
+# How it works - Multivariate
+
+# Multivariate example
+
 # Alternatives to the delta method
 
 Jackknife/bootstrap
