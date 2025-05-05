@@ -1,3 +1,47 @@
+
+A step-by-step guide to propagating error using the Delta Method
+
+# Error Propagation is Everywhere
+
+Little sapling data scientists, coming up in the Garden of Analysis, learn early on that their best friend is the **sample mean**:
+
+$$\hat{\mu} = \frac{1}{n} \sum_{i=1}^{i=n} y_i$$
+
+They also learn that statements about the sample mean are most useful if you calculate the **standard error of the sample mean**
+
+$$\hat{SE}(\hat{\mu})= \frac{\sigma}{\sqrt{n}}$$
+
+This calculation is at the heart of many practical applications, especially, clinical trials and A/B tests.
+
+There are lots of situations which go beyond this, and include **functions of the mean**. For experimentation especially, we often learn about the special case of the **difference in means**. But we can easily find others:
+
+* Lift, or ratios
+* Multiply by a constant (forex, yield)
+* Retention <-> Churn
+* We estimated an increase of \Delta in the input; how does it translate to a delta on the output if we know the production function
+* Output of yearly revenue is a combination of many inputs
+
+These are hard because we know the SE of inputs, but not the outputs. If you transformation has a nice form (and a 1st derivative), the delta method lets you propagate the error from the ones you know, to the ones you don't.
+
+# How it works - Univariate
+
+# Alternatives to the delta method
+
+Jackknife/bootstrap
+
+Transform and OLS
+
+Delta method relies on more assumptions but is much faster than the bootstrap
+
+---------------------------
+---------------------------
+---------------------------
+---------------------------
+---------------------------
+---------------------------
+
+# Draft
+
 I need the standard error of something and it's not a "standard" statistic
 
 so you need the variance of the sampling distribution of some statistic
