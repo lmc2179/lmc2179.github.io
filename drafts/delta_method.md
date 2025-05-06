@@ -48,19 +48,68 @@ The delta method tells us how much the function "inflates" the the SE of $\hat{\
 
 Keep in mind that this is asymptotic. You can compare w/ bootstrap to verify
 
+All of statistics section 5.5, Thm 5.13
+
 # Univariate example
 
 # How it works - Multivariate
 
+$\hat{SE}[f(\hat{\theta})] \approx \sqrt{\nabla f (\hat{\theta})^T Cov(\hat{\theta}) \nabla f (\hat{\theta})}$
+
+Dimensions: (1) = (1 x k) (k x k) (k x 1)
+
+Recall that $\nabla f (\hat{\theta})$ is the kx1 column vector of partial derivatives
+
+When the elements of $\hat{\theta}$ are uncorrelated, then $Cov(\hat{\theta}) = I (\sigma_1^2, ..., \sigma_k^2)$, ie just the identity matrix with the main diagonals as the sd
+
+and
+
+$\hat{SE}[f(\hat{\theta})] = \sqrt{\sum_i \frac{df}{d\hat{\theta}}(\hat{\theta})^2 \times \sigma_i^2}$
+
 # Multivariate example
 
-# Alternatives to the delta method
+# Intuition about the key theorem from Shalizi
+
+1. Taylor series expand f (1st order/linear) around $\theta^*$, the true value. C.2, C.3, C.4.
+2. Use rules for linear combination of variance to get C.8
+
+# Other ideas: Alternatives to the delta method
 
 Jackknife/bootstrap
 
 Transform and OLS
 
 Delta method relies on more assumptions but is much faster than the bootstrap
+
+# Appendix:
+
+## Difference of means (uncorrelated)
+
+$\hat{\Delta} = \hat{\mu_2} - \hat{\mu_1}$
+
+$\hat{SE}(\hat{\theta}) = \sqrt{1 \times \hat{SE}(\hat{\mu_2})^2 + (-1) \times \hat{SE}(\hat{\mu_1})^2} = \sqrt{\hat{SE}(\hat{\mu_2})^2 - \hat{SE}(\hat{\mu_1})^2}$
+
+## Log of means
+
+## Mean plus a constant
+
+$\hat{\delta} = \alpha + \hat{\mu}$
+
+$\hat{SE}(\hat{\delta}) = \hat{SE}(\hat{\mu})$
+
+## Mean times a constant
+
+$\hat{\delta} = \alpha \times \hat{\mu}$
+
+$\hat{SE}(\hat{\delta}) = \alpha \times \hat{SE}(\hat{\mu})$
+
+# Appendix: Multivariate Central Limit Theorem for multiple RVs $X_1, ..., X_k$
+
+$MV Normal(\mu, Cov)$
+
+$\mu = (\mathbb{E}[\mu_1], ..., \mathbb{E}[\mu_k]$)
+
+$Cov = \frac{1}{n} \Sigma$, where $\Sigma$ is the covariance matrix of $X_1, ..., X_k$
 
 ---------------------------
 ---------------------------
