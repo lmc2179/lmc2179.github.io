@@ -3,15 +3,7 @@ A step-by-step guide to propagating error using the Delta Method
 
 # Error Propagation is Everywhere
 
-Little sapling data scientists, coming up in the Garden of Analysis, learn early on that their best friend is the **sample mean**:
-
-$$\hat{\mu} = \frac{1}{n} \sum_{i=1}^{i=n} y_i$$
-
-They also learn that statements about the sample mean are most useful if you calculate the **standard error of the sample mean**
-
-$$\hat{SE}(\hat{\mu})= \frac{\sigma}{\sqrt{n}}$$
-
-This calculation is at the heart of many practical applications, especially, clinical trials and A/B tests.
+Often, we know the mean and its standard error. We may know other statistics and their standard errors too, by doing things like fitting OLS models.
 
 There are lots of situations which go beyond this, and include **functions of the mean**. For experimentation especially, we often learn about the special case of the **difference in means**. But we can easily find others:
 
