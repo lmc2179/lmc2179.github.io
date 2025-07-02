@@ -46,7 +46,9 @@ All of statistics section 5.5, Thm 5.13
 
 See the appendix for worked examples that we "already know"
 
-Isoelastic example
+## Isoelastic example
+
+You estimate that the input is $\hat{\theta}$; how does this propagate to the output?
 
 $\frac{d}{dx} \alpha x^\beta = \beta \alpha x^{\beta - 1}$
 
