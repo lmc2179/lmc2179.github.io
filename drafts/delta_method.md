@@ -5,11 +5,11 @@ A step-by-step guide to propagating error using the Delta Method
 
 Often, we know the mean and its standard error. We may know other statistics and their standard errors too, by doing things like fitting OLS models.
 
-There are lots of situations which go beyond this, and include **functions of the mean**. For experimentation especially, we often learn about the special case of the **difference in means**. But we can easily find others:
+There are lots of situations which go beyond this, and include **functions of the mean**. For experimentation especially, we often learn about the special case of the **difference in means**. But we can easily find others, especially nonlinear ones:
 
-* Lift, or ratios
+* Lift, or ratios of two random variables
 * Multiply by a constant (forex, yield)
-* Retention <-> Churn
+* Retention <-> Churn (1/100 pct churn is 100 expected retention)
 * We estimated an increase of \Delta in the input; how does it translate to a delta on the output if we know the production function
 * Output of yearly revenue is a combination of many inputs
 
@@ -19,8 +19,8 @@ These are hard because we know the SE of inputs, but not the outputs. If you tra
 
 Each of the scenarios outlines has _a set of statistics with known standard errors_ (we'll call them $\theta$) as well as _a set of statistics with unknown standard errors_ (we'll call them $f(\theta)$). $f$ is the function mapping the two sets.
 
-* For the ratio $f(\theta_1, \theta_2) = \frac{\theta_2}{\theta_1}$
-* For the forex example, $f(\theta) = \alpha \theta$
+* For the ratio of two random variables, $f(\theta_1, \theta_2) = \frac{\theta_2}{\theta_1}$
+* For the forex example, $f(\theta) = \alpha \theta$, where $\alpha$ is the exchange rate
 * For the churn/retention example, $f(\theta) = \theta ^{-1}$
 * For isoelastic input/output $f(\theta) = \alpha \theta^\beta$
 
@@ -44,7 +44,27 @@ All of statistics section 5.5, Thm 5.13
 
 # Univariate example
 
+See the appendix for worked examples that we "already know"
+
+Isoelastic example
+
+$\frac{d}{dx} \alpha x^\beta = \beta \alpha x^{\beta - 1}$
+
+So the $SE$ is 
+
+$(\beta \alpha \hat{\theta}^{\beta - 1}) \times SE(\hat{\theta}) = SE(y)$
+
+Derive
+
+$f(\theta)$
+
+Calc
+
+Compare bootstrap
+
 # How it works - Multivariate
+
+Note that in this section $f: \mathbb{R}^k \rightarrow \mathbb{R}$
 
 $\hat{SE}[f(\hat{\theta})] \approx \sqrt{\nabla f (\hat{\theta})^T Cov(\hat{\theta}) \nabla f (\hat{\theta})}$
 
@@ -56,14 +76,24 @@ When the elements of $\hat{\theta}$ are uncorrelated, then $Cov(\hat{\theta}) = 
 
 and
 
-$\hat{SE}[f(\hat{\theta})] = \sqrt{\sum_i \frac{df}{d\hat{\theta}}(\hat{\theta})^2 \times \sigma_i^2}$
+$\hat{SE}[f(\hat{\theta})] = \sqrt{\sum_i \frac{df}{d\hat{\theta}}(\hat{\theta})^2 \times \sigma_i^2}$ [Uncorrelated case]
+
+Uncorrelated example: Rev from multiple inputs added together
+
+Challenge: Correlated RVs work but you need to know the correlation
 
 # Multivariate example
 
+Sum of isoelastic functions
+
 # Intuition about the key theorem from Shalizi
+
+Normal assumptions?
 
 1. Taylor series expand f (1st order/linear) around $\theta^*$, the true value. C.2, C.3, C.4.
 2. Use rules for linear combination of variance to get C.8
+
+Solve nonlinear combinations of variance by linearizing them with the taylor series
 
 # Other ideas: Alternatives to the delta method
 
@@ -71,7 +101,11 @@ Jackknife/bootstrap
 
 Transform and OLS
 
+Fisher info/hessian
+
 Delta method relies on more assumptions but is much faster than the bootstrap
+
+But a closed form is easiest to work with, both for speed and intuition
 
 # Appendix:
 
@@ -82,6 +116,8 @@ $\hat{\Delta} = \hat{\mu_2} - \hat{\mu_1}$
 $\hat{SE}(\hat{\theta}) = \sqrt{1 \times \hat{SE}(\hat{\mu_2})^2 + (-1) \times \hat{SE}(\hat{\mu_1})^2} = \sqrt{\hat{SE}(\hat{\mu_2})^2 - \hat{SE}(\hat{\mu_1})^2}$
 
 ## Log of means
+
+$\hat{l} = log(\hat{\mu}); \frac{d \hat{l}}{d \hat{\mu}} = \frac{1}{\hat{\mu}}$
 
 ## Mean plus a constant
 
