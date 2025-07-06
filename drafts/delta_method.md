@@ -3,26 +3,22 @@ A step-by-step guide to propagating error using the Delta Method
 
 # Error Propagation is Everywhere
 
-Often, we know the mean and its standard error. We may know other statistics and their standard errors too, by doing things like fitting OLS models.
+The whole point of statistical analysis is to quantify uncertainty. The results of even very complex analysis can often be summed up by a statement like: 
 
-There are lots of situations which go beyond this, and include **functions of the mean**. For experimentation especially, we often learn about the special case of the **difference in means**. But we can easily find others, especially nonlinear ones:
+> Under certain assumptions which seem plausible, the data indicates that a reasonable estimate for the random variable $\theta$ is $\hat{\theta}$, with a standard error of $\hat{SE}(\hat{\theta})$.
 
-* Lift, or ratios of two random variables
-* Multiply by a constant (forex, yield)
-* Retention <-> Churn (1/100 pct churn is 100 expected retention)
-* We estimated an increase of \Delta in the input; how does it translate to a delta on the output if we know the production function
-* Output of yearly revenue is a combination of many inputs
+We have various methods of extracting an estimate plus a standard error from the data - we know the standard error of the mean, we can use OLS, etc. We can then propagate error using error propagation rules (link). But what if your case is not covered by those rules? We can imagine some examples:
+
+* Lift, or ratios of two random variables $f(\theta_1, \theta_2) = \frac{\theta_2}{\theta_1}$
+* Multiply by a constant (forex, yield) $f(\theta) = \alpha \theta$, where $\alpha$ is the exchange rate
+* Retention <-> Churn (1/100 pct churn is 100 expected retention). $f(\theta) = \theta ^{-1}$
+* We estimated an increase of \Delta in the input; how does it translate to a delta on the output if we know the production function. $f(\theta) = \alpha \theta^\beta$
 
 These are hard because we know the SE of inputs, but not the outputs. If you transformation has a nice form (and a 1st derivative), the delta method lets you propagate the error from the ones you know, to the ones you don't.
 
 # How it works - Univariate
 
-Each of the scenarios outlines has _a set of statistics with known standard errors_ (we'll call them $\theta$) as well as _a set of statistics with unknown standard errors_ (we'll call them $f(\theta)$). $f$ is the function mapping the two sets.
-
-* For the ratio of two random variables, $f(\theta_1, \theta_2) = \frac{\theta_2}{\theta_1}$
-* For the forex example, $f(\theta) = \alpha \theta$, where $\alpha$ is the exchange rate
-* For the churn/retention example, $f(\theta) = \theta ^{-1}$
-* For isoelastic input/output $f(\theta) = \alpha \theta^\beta$
+Each of the scenarios outlines has _a set of statistics with known standard errors_ (we'll call them $\theta$) as well as _a set of statistics with unknown standard errors_ (we'll call them $f(\theta)$). $f$ is the function mapping the two sets. For example ...
 
 Let's start with the univariate case. If $f(\theta)$ is our output, then
 
