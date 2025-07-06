@@ -18,7 +18,7 @@ These are hard because we know the SE of inputs, but not the outputs. If you tra
 
 # How it works - Univariate
 
-Each of the scenarios outlines has _a set of statistics with known standard errors_ (we'll call them $\theta$) as well as _a set of statistics with unknown standard errors_ (we'll call them $f(\theta)$). $f$ is the function mapping the two sets. For example ...
+Each of the scenarios outlines has _a set of statistics with known standard errors_ (we'll call them $\theta$) as well as _a set of statistics with unknown standard errors_ (we'll call them $f(\theta)$). $f$ is the function mapping the two sets. For example ...5
 
 Let's start with the univariate case. If $f(\theta)$ is our output, then
 
