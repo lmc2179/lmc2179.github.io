@@ -88,7 +88,7 @@ Sum of isoelastic functions
 
 Normal assumptions?
 
-1. Taylor series expand f (1st order/linear) around $\theta^*$, the true value. C.2, C.3, C.4.
+1. Taylor series expand f (1st order/linear) around $\theta^*$, the true value. C.2 approximate the value at the MLE, C.3, C.4.
 2. Use rules for linear combination of variance to get C.8
 
 Solve nonlinear combinations of variance by linearizing them with the taylor series
