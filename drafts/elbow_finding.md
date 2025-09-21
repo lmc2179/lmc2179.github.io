@@ -142,3 +142,9 @@ def plot_osculating_circle_of_test_point(test_point):
 plot_osculating_circle_of_test_point(np.pi/2)
 plot_osculating_circle_of_test_point(-0.5)
 ```
+
+# Appendix: Wait, isn't the second derivative the curvature?? Curvature vs Concavity
+
+This was my initial reaction; you may be better informed than I am
+
+the second derivative is "concavity", which is similar to but not the same as the curvature
