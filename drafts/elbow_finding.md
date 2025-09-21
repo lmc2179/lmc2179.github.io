@@ -78,3 +78,42 @@ plt.show()
 # References
 
 _Finding a “Kneedle” in a Haystack: Detecting Knee Points in System Behavior_ https://raghavan.usc.edu/papers/kneedle-simplex11.pdf
+
+# Appendix: Osculating circle intuition
+
+The curvature at a point is the inverse of the radius of the osculating circle
+
+The osculating circle is tangent to the curve, and the radius points in the direction of the sign of the curvature (? I think)
+
+Let's consider the point on the curve $(x, f(x))$. The vector which is tangent to the curve at this point is $(1, f'(x))$, so the normal vector is $(-f'(x), 1)$.
+
+```python
+import numpy as np
+from scipy.stats import norm, t
+
+x = np.linspace(-3, 3, 30)
+f = lambda x: x**3
+y = f(x)
+
+from scipy.interpolate import make_smoothing_spline
+from matplotlib import pyplot as plt
+
+spline = make_smoothing_spline(x, y)
+
+curvature_fxn = lambda x: np.abs(spline.derivative(2)(x)) / (1 + np.abs(spline.derivative(1)(x))**2)**(3./2)
+
+radius_fxn = lambda x: 1./curvature_fxn(x)
+
+plt.plot(x, y)
+
+test_point = np.pi/2
+
+plt.scatter([test_point], [f(test_point)])
+
+direction = np.sign(spline.derivative(2)(test_point))
+
+radius = radius_fxn(test_point)
+
+plt.plot([test_point, test_point - (1./radius)*direction*spline.derivative(1)(test_point)], 
+         [f(test_point), f(test_point) + (1./radius)*direction*1])
+```
