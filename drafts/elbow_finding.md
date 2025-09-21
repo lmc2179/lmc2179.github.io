@@ -119,15 +119,15 @@ test_point = 0.5
 v = np.array([test_point, spline(test_point)])
 
 plt.plot(x, y)
-plt.scatter([v[0]], [v[1]])
+plt.scatter(*zip(v))
 
 t = np.array([1, spline.derivative(1)(test_point)])
 t /= np.linalg.norm(t)
 
 n = np.array([-t[1], t[0]])
 
-plt.plot([v[0], v[0] + t[0]], [v[1], v[1] + t[1]])
-plt.plot([v[0], v[0] + n[0]], [v[1], v[1] + n[1]])
+plt.plot(*zip(v, v + t))
+plt.plot(*zip(v, v + n))
 
 plt.ylim(-2, 2)
 plt.xlim(-3, 3)
