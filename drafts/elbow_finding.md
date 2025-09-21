@@ -87,11 +87,21 @@ The osculating circle is tangent to the curve, and the radius points in the dire
 
 Let's consider the point on the curve $(x, f(x))$. The vector which is tangent to the curve at this point is $(1, f'(x))$, so the normal vector is $(-f'(x), 1)$.
 
+We have the point of interest $v = (x, f(x))$
+
+Then we can get the tangent vector at this point, $t = (1, f'(x)) \times \frac{1}{\sqrt{1 + f'(x)^2}}$
+
+We can then compute the normal vector
+
+So if we know the curvature $\kappa$, then the osculating circle is centered at $c = v + n \kappa^{-1}$ and has radius $\kappa^{-1}$
+
+(I think I still need to include the sign of the second derivative? set $s = sign(f''(x))$ and then it becomes $c = v + n \kappa^{-1} s$)
+
 ```python
 import numpy as np
 from scipy.stats import norm, t
 
-x = np.linspace(-3, 3, 30)
+x = np.linspace(-3, 3, 100)
 f = lambda x: x**3
 y = f(x)
 
@@ -104,16 +114,24 @@ curvature_fxn = lambda x: np.abs(spline.derivative(2)(x)) / (1 + np.abs(spline.d
 
 radius_fxn = lambda x: 1./curvature_fxn(x)
 
+test_point = 0.5
+
+v = np.array([test_point, spline(test_point)])
+
 plt.plot(x, y)
+plt.scatter([v[0]], [v[1]])
 
-test_point = np.pi/2
+t = np.array([1, spline.derivative(1)(test_point)])
+t /= np.linalg.norm(t)
 
-plt.scatter([test_point], [f(test_point)])
+n = np.array([-t[1], t[0]])
 
-direction = np.sign(spline.derivative(2)(test_point))
+plt.plot([v[0], v[0] + t[0]], [v[1], v[1] + t[1]])
+plt.plot([v[0], v[0] + n[0]], [v[1], v[1] + n[1]])
 
-radius = radius_fxn(test_point)
+plt.ylim(-2, 2)
+plt.xlim(-3, 3)
 
-plt.plot([test_point, test_point - (1./radius)*direction*spline.derivative(1)(test_point)], 
-         [f(test_point), f(test_point) + (1./radius)*direction*1])
+circle1 = plt.Circle(v + n*radius_fxn(test_point), radius_fxn(test_point), color='r')
+plt.gca().add_patch(circle1)
 ```
