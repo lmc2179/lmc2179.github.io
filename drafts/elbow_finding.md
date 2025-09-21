@@ -102,7 +102,7 @@ import numpy as np
 from scipy.stats import norm, t
 
 x = np.linspace(-3, 3, 100)
-f = lambda x: x**3
+f = lambda x: np.sin(x)**3
 y = f(x)
 
 from scipy.interpolate import make_smoothing_spline
@@ -114,24 +114,31 @@ curvature_fxn = lambda x: np.abs(spline.derivative(2)(x)) / (1 + np.abs(spline.d
 
 radius_fxn = lambda x: 1./curvature_fxn(x)
 
-test_point = 0.5
-
-v = np.array([test_point, spline(test_point)])
-
 plt.plot(x, y)
-plt.scatter(*zip(v))
 
-t = np.array([1, spline.derivative(1)(test_point)])
-t /= np.linalg.norm(t)
+def plot_osculating_circle_of_test_point(test_point):
+    v = np.array([test_point, spline(test_point)])
 
-n = np.array([-t[1], t[0]])
+    plt.scatter(*zip(v))
 
-plt.plot(*zip(v, v + t))
-plt.plot(*zip(v, v + n))
+    t = np.array([1, spline.derivative(1)(test_point)])
+    t /= np.linalg.norm(t)
 
-plt.ylim(-2, 2)
-plt.xlim(-3, 3)
+    n = np.array([-t[1], t[0]])
 
-circle1 = plt.Circle(v + n*radius_fxn(test_point), radius_fxn(test_point), color='r')
-plt.gca().add_patch(circle1)
+    radius = radius_fxn(test_point)
+
+    s = np.sign(spline.derivative(2)(test_point))
+
+    plt.plot(*zip(v, v + t*radius))
+    plt.plot(*zip(v, v + n*radius*s))
+
+    plt.ylim(-2, 2)
+    plt.xlim(-3, 3)
+
+    circle1 = plt.Circle(v + n*radius*s, radius, color='r', fill=False)
+    plt.gca().add_patch(circle1)
+
+plot_osculating_circle_of_test_point(np.pi/2)
+plot_osculating_circle_of_test_point(-0.5)
 ```
