@@ -7,6 +7,69 @@ tags: [datascience]
 image: bad_day.png
 ---
 
+# The "where does the curve level out" problem is all over the place
+
+Lots of relationships have diminishing returns, where putting more raw material in the top gets less efficient as time goes on. <sup>[1](#foot1)</sup> For many data science practitioners, a familiar example is thinking about how many dimensions to retain when doing PCA or other reduction, but there are plenty of others.<sup>[2](#foot2)</sup> A cartoon version of this kind of relationship looks something like:
+
+Cartoon: Cost/Complexity on X axis, "Output" on the y-axis, knee-shaped diagram, maybe logistic
+
+Our intuition is that we want to stop at the point of diminishing returns. In a diagram like the one above, it's the "knee" or "elbow", where the curve is the most bent before it straightens out again.
+
+# Curvature
+
+Cartoon: The one from before. But shade in the "flat"/"curved" regions.
+
+we want to find the "most curved" point
+
+curvature is given by
+
+$\kappa = \frac{\mid f''(x) \mid}{(1 + \mid f'(x) \mid^2)^{3/2}}$
+
+It's a function of the first and second derivatives at that point <sup>[3](#foot3)</sup>
+
+Lets compare the shape of f and the curvature of f
+
+Cartoon: previous one, plus curvature at x overlaid
+
+The elbow/knee point is the point of max curvature
+
+The intuition is ... <sup>[4](#foot4)</sup>
+
+# Finite differences
+
+Key idea: Finite difference allows estimate of $f'(x)$ locally. we are basically using the definition 
+
+$f'(x) = \lim_{h \rightarrow 0} \frac{f(x+h)-f(x)}{h}$
+
+use np.gradient
+
+BUT if your observations of $f$ include any noise, for example if they are generated from cross-validation runs, they may need smoothing
+
+# Using Splines: Smoothing
+
+Smooth noise observations with splines, which allow easy calculation of the derivatives of the approximating spline
+
+scipy version; CV fitting for spline hyperparams
+
+we could just do finite diff now. derivative calculated from spline
+
+# Other ideas
+
+# Footnotes
+
+<a name="foot1">1</a>: On a previous episode of _Casual Inference_, we talked about how we might model these as [log-log relationships](https://lmc2179.github.io/posts/isoelastic.html). We won't make strict parametric assumptions in this post, but you may also find that formulation useful.
+
+<a name="foot2">2</a>: Some others:
+* Dimensions vs goodness of fit in dimensionality reduction
+* \# of clusters in k-means
+* Marketing spend vs traffic
+
+<a name="foot3">3</a>: Wait, isn't the second derivative the curvature??
+
+<a name="foot4">4</a>: Osculating circle plot
+
+# Draft
+
 # The knee finding problem is everywhere
 
 The theme: How much to spend before diminishing returns
