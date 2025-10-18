@@ -11,7 +11,21 @@ image: bad_day.png
 
 Lots of relationships have diminishing returns, where putting more raw material in the top gets less efficient as time goes on. <sup>[1](#foot1)</sup> For many data science practitioners, a familiar example is thinking about how many dimensions to retain when doing PCA or other reduction, but there are plenty of others.<sup>[2](#foot2)</sup> A cartoon version of this kind of relationship looks something like:
 
-Cartoon: Cost/Complexity on X axis, "Output" on the y-axis, knee-shaped diagram, maybe logistic
+```python
+from matplotlib import pyplot as plt
+import numpy as np
+
+plt.xkcd(scale=0.5)
+
+x = np.linspace(0, 1, 10)
+y = (1 / (1 + np.exp(-4*x))-0.5)
+
+plt.title('Diminishing returns')
+plt.plot(x, y, marker='o')
+plt.xlabel('Cost')
+plt.ylabel('Output')
+plt.show()
+```
 
 Our intuition is that we want to stop at the point of diminishing returns. In a diagram like the one above, it's the "knee" or "elbow", where the curve is the most bent before it straightens out again.
 
