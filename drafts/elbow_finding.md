@@ -27,6 +27,8 @@ plt.ylabel('Output')
 plt.show()
 ```
 
+This is https://en.wikipedia.org/wiki/Knee_of_a_curve
+
 Our intuition is that we want to stop at the point of diminishing returns. In a diagram like the one above, it's the "knee" or "elbow", where the curve is the most bent before it straightens out again.
 
 # Curvature
