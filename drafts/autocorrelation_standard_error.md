@@ -7,6 +7,8 @@ tags: [datascience]
 image: bad_day.png
 ---
 
+*See the 4x squares notebook for a detailed view and pseudocode of the simulations to be implemented*
+
 # Autocorrelation is everywhere, and if you ignore it your confidence intervals will all be wrong
 
 We're always interested in how metrics are changing over time. Are sales up quarter-over-quarter? Year-on-year? Do we need more coffee beans than last month?
