@@ -154,6 +154,35 @@ plt.plot(x_smooth, curvature_fxn(x_smooth))
 plt.show()
 ```
 
+# NMF Example
+
+```python
+# From https://www.nature.com/articles/srep00196#Sec8
+# "Flavor network and the principles of food pairing"
+with open('C:\\Users\\louis\\Downloads\\41598_2011_BFsrep00196_MOESM3_ESM\srep00196-s3.csv') as f:
+    contents = [l.strip().replace(',', ' ') for l in f.readlines()]
+
+from sklearn.feature_extraction.text import CountVectorizer
+
+vectorizer = CountVectorizer()
+X = vectorizer.fit_transform(contents)
+
+from sklearn.decomposition import NMF
+from tqdm import tqdm
+
+n_components = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+errors = []
+for n in tqdm(n_components):
+    model = NMF(n_components=n)
+    W = model.fit_transform(X)
+    H = model.components_
+    errors.append(model.reconstruction_err_)
+    
+from matplotlib import pyplot as plt
+
+plt.scatter(n_components, errors)
+```
+
 # References
 
 _Finding a “Kneedle” in a Haystack: Detecting Knee Points in System Behavior_ https://raghavan.usc.edu/papers/kneedle-simplex11.pdf
@@ -225,5 +254,6 @@ plot_osculating_circle_of_test_point(-0.5)
 # Appendix: Wait, isn't the second derivative the curvature?? Curvature vs Concavity
 
 This was my initial reaction; you may be better informed than I am
+
 
 the second derivative is "concavity", which is similar to but not the same as the curvature
