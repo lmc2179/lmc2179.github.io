@@ -7,9 +7,9 @@ tags: [datascience]
 image: bad_day.png
 ---
 
-# The "where does the curve level out" problem is all over the place
+# How many dimensions should I reduce to? How many clusters do I need? How much should I spend on my marketing campaign?
 
-Lots of relationships have diminishing returns, where putting more raw material in the top gets less efficient as time goes on. <sup>[1](#foot1)</sup> For many data science practitioners, a familiar example is thinking about how many dimensions to retain when doing PCA or other reduction, but there are plenty of others.<sup>[2](#foot2)</sup> A cartoon version of this kind of relationship looks something like:
+Lots of relationships have diminishing returns, where putting more raw material in the top gets less efficient as time goes on. <sup>[1](#foot1)</sup> For many data science practitioners, a familiar example is thinking about how many dimensions to retain when doing dimensionality reduction, but there are plenty of others.<sup>[2](#foot2)</sup> A cartoon version of this kind of relationship looks something like:
 
 ```python
 from matplotlib import pyplot as plt
@@ -30,6 +30,10 @@ plt.show()
 This is https://en.wikipedia.org/wiki/Knee_of_a_curve
 
 Our intuition is that we want to stop at the point of diminishing returns. In a diagram like the one above, it's the "knee" or "elbow", where the curve is the most bent before it straightens out again.
+
+Let's look at a real world example
+
+NMF example
 
 # Curvature
 
