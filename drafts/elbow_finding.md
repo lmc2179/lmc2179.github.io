@@ -39,7 +39,7 @@ Our intuition is that we want to stop at the point of diminishing returns. In a 
 
 Let's look at a real world example
 
-NMF example
+NMF example https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.NMF.html 
 
 # Curvature
 
