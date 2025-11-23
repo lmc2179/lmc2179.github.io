@@ -9,7 +9,9 @@ image: bad_day.png
 
 # Final assembly (Top to bottom)
 
-# Intro
+# Dealing with diminishing returns in modeling and beyond
+
+?
 
 # Draft II
 
