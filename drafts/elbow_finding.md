@@ -9,7 +9,7 @@ image: bad_day.png
 
 # Final assembly (Top to bottom)
 
-# Dealing with diminishing returns in modeling and beyond
+# Dealing with diminishing returns in dimensionality and beyond: the knee/elbow problem
 
 ?
 
