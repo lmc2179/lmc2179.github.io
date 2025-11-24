@@ -14,7 +14,6 @@ image: bad_day.png
 Lots of decisions faced by practicing data scientists involve relationships with diminishing returns:
 * When doing dimensionality reduction (PCA, NMF, Factor Analysis, etc), we need to select how many dimensions to project down to. More dimensions means lower reconstruction error, but we're hoping that a small number of the dimensions are enough to capture most of the structure in the data.
 * When doing clustering, we need to select how many clusters to find. More clusters means that you'll capture more of the variation in the data, but we're hoping that we a small number of clusters explains most of the variation.
-* 
 
 <sup>[1](#foot1)</sup>
 
