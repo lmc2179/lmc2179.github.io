@@ -12,7 +12,15 @@ image: bad_day.png
 # Dealing with diminishing returns in dimensionality reduction and beyond: finding the knee/elbow on the graph
 
 Lots of decisions faced by practicing data scientists involve relationships with diminishing returns:
-* When doing dimensionality reduction (PCA, NMF, Factor Analysis, etc), we need to select how many dimensions to project down to.
+* When doing dimensionality reduction (PCA, NMF, Factor Analysis, etc), we need to select how many dimensions to project down to. More dimensions means lower reconstruction error, but we're hoping that a small number of the dimensions are enough to capture most of the structure in the data.
+* When doing clustering, we need to select how many clusters to find. More clusters means that you'll capture more of the variation in the data, but we're hoping that we a small number of clusters explains most of the variation.
+* 
+
+<sup>[1](#foot1)</sup>
+
+# Footnotes
+
+<a name="foot1">1</a>
 
 # Draft II
 
@@ -86,16 +94,16 @@ we could just do finite diff now. derivative calculated from spline
 
 # Footnotes
 
-<a name="foot1">1</a>: On a previous episode of _Casual Inference_, we talked about how we might model these as [log-log relationships](https://lmc2179.github.io/posts/isoelastic.html). We won't make strict parametric assumptions in this post, but you may also find that formulation useful.
+1: On a previous episode of _Casual Inference_, we talked about how we might model these as [log-log relationships](https://lmc2179.github.io/posts/isoelastic.html). We won't make strict parametric assumptions in this post, but you may also find that formulation useful.
 
-<a name="foot2">2</a>: Some others:
+2: Some others:
 * Dimensions vs goodness of fit in dimensionality reduction
 * \# of clusters in k-means
 * Marketing spend vs traffic
 
-<a name="foot3">3</a>: Wait, isn't the second derivative the curvature??
+3: Wait, isn't the second derivative the curvature??
 
-<a name="foot4">4</a>: Osculating circle plot
+4: Osculating circle plot
 
 # Draft
 
