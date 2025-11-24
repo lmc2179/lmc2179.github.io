@@ -9,9 +9,10 @@ image: bad_day.png
 
 # Final assembly (Top to bottom)
 
-# Dealing with diminishing returns in dimensionality and beyond: the knee/elbow problem
+# Dealing with diminishing returns in dimensionality reduction and beyond: finding the knee/elbow on the graph
 
-?
+Lots of decisions faced by practicing data scientists involve relationships with diminishing returns:
+* When doing dimensionality reduction (PCA, NMF, Factor Analysis, etc), we need to select how many dimensions to project down to.
 
 # Draft II
 
