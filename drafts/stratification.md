@@ -2,6 +2,8 @@
 
 # The surprising effectiveness of stratification
 
+<sup>[1.1](#foot1.1)</sup>
+
 Many research questions which aid in decision making are the question of "how does T affect Y, controlling for X". this is such a common and useful question to ask that it is occasionally mistaken to be the entire enterprise of causal inference
 
 this problem has a familiar causal diagram, the confounding triangle (show it)
@@ -23,3 +25,7 @@ stratification is basically always the first step for me when doing an analysis 
 # Estimating the ATE with matching
 
 # Building an HTE model
+
+## Endnotes
+
+<a name="foot1.1">1.1</a>: A helpful reference, from which a number of these ideas were adapted directly, are the lecture notes for Stanford's Data Mining: 36-462/36-662 with Rob Tibshirani. [These notes](https://www.stat.cmu.edu/~ryantibs/datamining/lectures/18-val1.pdf) and [these notes](https://www.stat.cmu.edu/~ryantibs/datamining/lectures/19-val2.pdf) in particular are useful, as is section 7.10 of [ESL](https://web.stanford.edu/~hastie/ElemStatLearn/).
