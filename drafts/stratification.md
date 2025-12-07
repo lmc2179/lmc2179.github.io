@@ -15,3 +15,5 @@ $\underbrace{\Delta}_\textrm{Treatment effect} = \underbrace{\mathbb{E}[y \mid T
 or the conditional treatment effect, which is the treatment effect given some specific information $X$ which we know, the conditional treatment effect:
 
 $\underbrace{\delta(X)}_\textrm{Conditional Treatment effect} = \underbrace{\mathbb{E}[y \mid T = 1, X]}_\textrm{Average outcome when treated} - \underbrace{\mathbb{E}[y \mid T = 0, X]}_\textrm{Average outcome when control} $
+
+stratification is basically always the first step for me when doing an analysis like this, even though there are lots of directions it might take after that
