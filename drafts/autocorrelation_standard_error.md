@@ -15,7 +15,7 @@ We're always interested in how metrics are changing over time. Are sales up quar
 
 It's tempting to answer these questions with our usual tools, estimating the daily mean and standard error for each period and running a T-Test, or computing confidence intervals.
 
-There is something a little suspect here, though. If we read the fine print, all of our usual calculations of standard errors, confidence intervals, etc are all conditional on the data generating process being "IID". If we look at the daily sales numbers, that doesn't seem very likely - it would be pretty surprising if today, yesterday, and this time last year had the same distribution.
+There is something a little suspect here, though. If we read the fine print, all of our usual calculations of standard errors, confidence intervals, etc are all conditional on the data generating process being "IID". If we look at the daily sales numbers, that doesn't seem very likely - it would be pretty surprising if today, yesterday, and this time last year had the same distribution. And if we were to do time series modeling, a model which made this assumption would do pretty poorly - we know that most real life time series data has some trend, seasonality, etc.
 
 This turns out not to just be a little technical detail. If your data contains autocorrelation, then your standard errors, confidence intervals, and everything else will be off - by a lot!
 
@@ -39,9 +39,31 @@ If you collect some data $y_1, ..., y_n$ from an IID process with mean $\mu$ and
 
 ...then the distribution of the sample mean $\hat{\mu}$ **converges in distribution** to $N(\mu, \frac{\sigma^2}{n})$ when the sample size $n$ is large.
 
-Central Limit Theorem; picking items out of abag. More realistically, maybe picking voters from a pool
+Practitioners usually gloss over some of the details at this stage (at their own risk, see {footnote}), and then use the usual estimate of $\hat{SE}(\hat{\mu})$ mentioned above. In a lot of practical cases, this works just fine. Here's an example of the sampling distribution of $n=100$ draws from an exponential distribution with true mean $\mu = 1$.
 
-Demo sim shows that it works, of course it does
+```python
+from scipy.stats import expon, sem
+import numpy as np
+
+n_simulations = 100
+n_samples_per_sim = 100
+
+results = []
+
+covered = 0
+
+for i in range(n_simulations):
+	sample = expon(1).rvs(n_samples_per_sim)
+	sample_mean = np.mean(sample)
+	sample_se = sem(sample)
+	if sample_mean - 1.96*sample_se <= 1 <= sample_mean + 1.96*sample_se:
+		covered += 1
+coverage = covered / n_simulations
+print('The coverage is {}'.format(coverage))
+```
+
+This confirms what we expect, ie that the usual method works for a garden variety case like an exponential distribution
+
 
 What if we add mild autocorrelation, like 0.1. This is realistic; what about time series metrics, etc. You definitely have seen this
 
@@ -55,7 +77,11 @@ Robust standard errors. Cons: I think they're wider?
 
 # Fix 2: Model Autocorrelation directly
 
-Add lags to the model for as many periods as there is autocorrelation. This makes the \epsilon_t IID again. Con: Requires you to have a pretty good idea of how much autocorrelation there is
+Add lags to the model for as many periods as there is autocorrelation. This makes the \epsilon_t IID again. Con: Requires you to have a pretty good idea of how much autocorrelation there is; but maybe use an correlogram (autocorrelogram?) for that
+
+# Fix 3: Block bootstrap
+
+Demonstrate that the block bootstrap does this correctly
 
 # Appendix: Simulating the sampling distribution of $\hat{\mu}$ for both the IID and autocorrelated process
 
