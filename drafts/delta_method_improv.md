@@ -29,7 +29,7 @@ $$\hat{\mu} = \frac{1}{n} \sum_{i=1}^{i=n} y_i$$
 They also learn that statements about the sample mean are most useful if you calculate the **standard error of the sample mean**:
 
 $$\hat{SE}(\hat{\mu})= \frac{\sigma}{\sqrt{n}}$$
-
+m
 This calculation is at the heart of many practical applications, especially, clinical trials and A/B tests. It's a powerful tool, letting practitioners make inferences about populations in a very wide variety of situations. Armed with the sample mean, we can compute confidence intervals, hypothesis tests, and lots of other practically useful things.
 
 Let's start with the univariate case. If $f(\theta)$ is our output, then
