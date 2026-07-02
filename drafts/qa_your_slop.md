@@ -7,7 +7,9 @@ tags: [datascience]
 image: how_to_train_your_dragon.jpg
 ---
 
-# intro
+# QA your slop, you're embarrassing yourself
+
+# Basic failure rate statistics
 
 # Bayesian analysis fast
 
