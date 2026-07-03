@@ -9,11 +9,22 @@ image: how_to_train_your_dragon.jpg
 
 # QA your slop, you're embarrassing yourself
 
-# Basic failure rate statistics
+As far as I can tell, every tech company around has gone absolutely slop wild.
+
+If your brain is still working, you probably realize that you need to have some actual people check the output from time to time. But human attention is expensive. You can take batches of output and sample from them. This is about how to use statistics to figure out if your failure rate is good enough
+
+* What is the failure rate for this batch of outputs?
+* Is the failure rate within acceptable bounds?
+* How many absolute failures are likely given the test cases you saw?
 
 # Bayesian analysis fast
 
 Posterior = prior + data
+
+Bayesian analysis is a little three-step dance that goes like this:
+* Pick a prior
+* Observe the data
+* Update the prior to get the posterior. Use the posterior to calculate the probability  $\mu < 5\%$.
 
 <details>
   <summary> 🤔 Wait, what's a probability distribution? </summary>
@@ -39,6 +50,10 @@ Posterior = prior + data
 # Prior
 
 Beta(1, 1) prior
+
+$\underbrace{\mu}_{\text{Our prior on the rate}} \sim \underbrace{Beta(\alpha_0, \beta_0)}_{\text{is a Beta distribution with params } \alpha_0, \beta_0}$
+
+You can interpret the prior parameters as "hypothetical data" that summarizes your beliefs about the rate. 
 
 <details>
   <summary> 🤔 Why Beta(1, 1)? What about other choices </summary>
@@ -86,10 +101,18 @@ Update equation
   </table>
 </details>
 
+$\underbrace{\mu \mid y, n}_{\text{The posterior of the rate given the data}} \sim \underbrace{Beta(\alpha_0 + y, \beta_0 + N - y)}_{\text{is given by this beta distribution}}$
 
-# Posterior
+
+
+# Posterior analysis
 
 Beta(a, b) and 95% CI on fail rate
+
+
+
+
+
 
 <details>
   <summary> 🤔 What else can I do with the posterior? </summary>
@@ -97,6 +120,23 @@ Beta(a, b) and 95% CI on fail rate
     <tr>
       <td>
         <p>sampling and differencing</p>
+
+from scipy.stats import beta
+
+y = 40
+n = 1000
+
+a_0 = 1./3
+b_0 = 1./3
+
+posterior = beta(a_0 + y, b_0 + n - y)
+
+n_simulations = 100000
+posterior_samples = posterior.rvs(n_simulations)
+
+print('Monte carlo estimate of P(Rate) < 5%: ', sum(posterior_samples < .05) / len(posterior_samples))
+
+print('CDF(5%) = ', posterior.cdf(.05))
             <details>
             <summary> 🤔  What about </summary>
             <table bgcolor="#8f4040" width="90%">
