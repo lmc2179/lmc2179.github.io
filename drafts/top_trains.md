@@ -16,7 +16,7 @@ for line, color in [('JZ', 'brown'),
                     ('B', 'orange'), ('D', 'orange'), ('F', 'orange'), ('M', 'orange'), 
                     ('L', 'gray'), 
                     ('1', 'red'), ('2', 'red'), ('3', 'red'), 
-                    ('4', 'green'), ('5', 'green'), ('6', 'green'),
+                    ('4', 'green'), ('5', 'green'), ('6', 'green'), ('G', 'green'),
                     ('7', 'purple'),
                     ('A', 'blue'), ('C', 'blue'), ('E', 'blue'),
                     ('R', 'yellow'), ('N', 'yellow'), ('Q', 'yellow')]:
@@ -36,4 +36,6 @@ for line, color in [('JZ', 'brown'),
 
 plt.legend()
 plt.show()
+
+#res.plot()
 ```
