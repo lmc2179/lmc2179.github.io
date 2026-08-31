@@ -11,9 +11,11 @@ A shocking number of real world decisions are made by people on a zoom call squi
 
 Hm. I don't know about you, but I do not find this to be an easy chart to read. It looks like it has increased, but how much? Is there like, a dip in the middle there? It's really not obvious.
 
+You've probably had to deal with this before. The most common tool for dealing with this in practice is to smooth the time series with a moving average, or something similar. And it's a good solution!
+
 # Smoothing is the most common solution
 
-Probably the most common tool for dealing with this in practice is to smooth the time series with a moving average, or something similar.
+Lets take the moving average
 
 {Picture of moving average results}
 
@@ -26,6 +28,10 @@ A way of thinking about this problem which I have always found appealing is to i
 decomposition
 
 # Which train has increased its ridership the most?
+
+# Downsides of MSTL
+
+No standard errors - this is a big one . maybe block bootstrap
 
 # proof of concept
 
