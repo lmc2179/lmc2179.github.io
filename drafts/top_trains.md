@@ -3,13 +3,29 @@ https://data.ny.gov/Transportation/MTA-Subway-Customer-Journey-Focused-Metrics-B
 
 Title: Finding New York's Hottest Train with time series decomposition
 
-# Smoothing time series happens all the time
+# Lots of very important decisions are made by looking at time series data
 
-A shocking number of real world decisions are made by people on a zoom call squinting at a time series chart of a metric and saying "okay, I think I know what's going on here". But do they? In their defense, a time series can be hard to read. For example, the other day as I was sitting on the subway to go to my office (where I would sit on zoom calls squinting at time series plots), I found myself wondering whether there are more people on the subway than there had been a few years ago. Had the subway ridership increased? Well, that's easy, we can grab a data set from our good friends at the MTA, and look at train ridership over time. For example, here's the R train:
+A shocking number of real world decisions are made by people on a zoom call squinting at a time series chart of a metric and saying "okay, I think I know what's going on here". But do they? In their defense, a time series can be hard to read. For example, the other day as I was sitting on the subway to go to my office (where I would sit on zoom calls squinting at time series plots), I found myself wondering whether there are more people on the subway than there had been a few years ago. The subway certainly _felt_ more crowded, but maybe I'm just looking through rose tinted glasses. Had the subway ridership actually increased? Well, that's easy, we can grab a data set from our good friends at the MTA, and look at train ridership over time. For example, here's the R train:
 
 {plot of the R train ridership over time}
 
 Hm. I don't know about you, but I do not find this to be an easy chart to read. It looks like it has increased, but how much? Is there like, a dip in the middle there? It's really not obvious.
+
+# Smoothing is the most common solution
+
+Probably the most common tool for dealing with this in practice is to smooth the time series with a moving average, or something similar.
+
+{Picture of moving average results}
+
+That is an improvement, admittedly.
+
+# Decomposing the time series
+
+A way of thinking about this problem which I have always found appealing is to imagine that my time series is
+
+decomposition
+
+# Which train has increased its ridership the most?
 
 # proof of concept
 
