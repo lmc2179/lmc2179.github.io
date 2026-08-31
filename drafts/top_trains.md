@@ -5,35 +5,73 @@ Title: Finding New York's Hottest Train with time series decomposition
 
 # Lots of very important decisions are made by looking at time series data
 
-A shocking number of real world decisions are made by people on a zoom call squinting at a time series chart of a metric and saying "okay, I think I know what's going on here". But do they? In their defense, a time series can be hard to read. For example, the other day as I was sitting on the subway to go to my office (where I would sit on zoom calls squinting at time series plots), I found myself wondering whether there are more people on the subway than there had been a few years ago. The subway certainly _felt_ more crowded, but maybe I'm just looking through rose tinted glasses. Had the subway ridership actually increased? Well, that's easy, we can grab a data set from our good friends at the MTA, and look at train ridership over time. For example, here's the L train:
+A shocking number of real world decisions are made by people on a zoom call squinting at a time series chart of a metric and saying "okay, I think I know what's going on here". But do they? In their defense, a time series can be hard to read. For example, the other day as I was sitting on the subway to go to my office (where I would sit on zoom calls squinting at time series plots), I found myself wondering whether there are more people on the subway than there had been a few years ago. The subway certainly _felt_ more crowded, but maybe I'm just looking through rose tinted glasses at the New York of yesteryear (I wouldn't be the first). Had the subway ridership actually increased? Well, that's easy, we can grab a data set from our good friends at the MTA, and look at train ridership over time. For example, here's the L train, which I was commuting on:
 
 {code: import}
 
 {plot of the L train ridership over time}
 
-Hm. I do not find this to be an easy chart to read. What's the story here? It looks like it has increased, but how much? Is there like, a dip in the middle there? It's really not obvious.
+Okay, so...hm. I do not find this to be an easy chart to read. What's the story here? It looks like it has increased, but how much? Is there a dip in the middle there? What is the overall trend?
 
 You've probably had to deal with this before. The most common tool for dealing with this in practice is to smooth the time series with a moving average, or something similar. And it's a good solution!
 
-# Smoothing is the most common solution
+# Smoothing is the most common solution, and it's a pretty good one
 
-Lets take the moving average
+The idea of a moving average is simple: average each point with the ones near it in order to make the curve smoother. 
 
 {Picture of moving average results}
 
 That is an improvement, admittedly.
 
-# Decomposing the time series
+This solution hints that there is a trend underlying the data, something like
 
-A way of thinking about this problem which I have always found appealing is to imagine that my time series is
+$$Data_t = Trend_t + Month_t + Noise_t$$
 
-decomposition 
+or maybe if you're feeling really fancy, you might write it with Greek letters:
+
+$$y_t = \mu_t + \beta_t + \epsilon_t$$
+
+$\underbrace{r_t^{UK} - r_{t-1}^{UK}}_\textrm{UK revenue growth}$
+
+(For what it's worth, I recommend the Greek letter version. People are always very impressed when data scientists use Greek letters.)
+
+We're removing the monthly cycle and the noise with our moving average, ideally leaving just the trend behind. This is a good trick, but it always feels a little brittle to me. If we had more than one seasonal cycle (for example, daily and monthly cycles), we'd have to do some work to extend our method.
+
+It also raises a natural question - can I see the other parts of the equation, ie the monthly cycle and the noise? They might have information I could use too.
+
+# Get the full picture by decomposing the time series with (M)STL
+
+We can decompose the time series using MSTL
+
+{L train MSTL results}
+
+{L train plus trend}
+
+How does the trend look?
+
+{Seasonal}
+
+Does it tell us anything about the seasonal cycle?
+
+{Residuals}
+
+What do the residuals look like?
 
 # Which train has increased its ridership the most?
 
+Show all of the lines
+
+Show them as % growth
+
+Show the top 5
+
+Show the bottom 5
+
 # Downsides of MSTL
 
-No standard errors - this is a big one . maybe block bootstrap
+No standard errors - this is a big one . maybe block bootstrap could fix this
+
+Consider building a more complex regression model, esp an ARMA model
 
 # proof of concept
 
