@@ -53,9 +53,19 @@ How does the trend look?
 
 Does it tell us anything about the seasonal cycle?
 
+October is busiest, a well documented fact https://www.nytimes.com/2013/11/21/nyregion/in-october-a-day-for-the-new-york-city-subways-ridership-record-book.html 
+
+September is low
+
+February is always a big dip after jan; though it is the shortest
+
+res.seasonal/res.trend is neat too - seasonal effects cause the trend to move around -15-+10 % depending
+
 {Residuals}
 
 What do the residuals look like?
+
+Congestion pricing
 
 # Which train has increased its ridership the most?
 
