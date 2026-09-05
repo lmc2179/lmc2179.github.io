@@ -45,6 +45,10 @@ We can decompose the time series using MSTL
 
 {L train MSTL results}
 
+All of these add up to the time series we actually observed
+
+Mention the equation again
+
 {L train plus trend}
 
 How does the trend look?
