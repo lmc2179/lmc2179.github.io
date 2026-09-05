@@ -41,7 +41,7 @@ It also raises a natural question - can I see the other parts of the equation, i
 
 We can decompose the time series using MSTL
 
-MSTL paper
+MSTL paper https://arxiv.org/pdf/2107.13462
 
 {L train MSTL results}
 
