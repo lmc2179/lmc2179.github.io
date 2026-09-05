@@ -83,6 +83,30 @@ Show the top 5
 
 Show the bottom 5
 
+|    | line   |     |
+|---:|:-------|:----|
+|  0 | JZ 🟤  |     |
+|  1 | B 🟠   |     |
+|  2 | D 🟠   |     |
+|  3 | F 🟠   |     |
+|  4 | M 🟠   |    |
+|  5 | L 🔘   |     |
+|  6 | 1 🔴   |     |
+|  7 | 2 🔴   |     |
+|  8 | 3 🔴   |     |
+|  9 | 4 🟢   |     |
+| 10 | 5 🟢   |     |
+| 11 | 6 🟢   |     |
+| 12 | G 🟢   |     |
+| 13 | 7 🟣   |     |
+| 14 | A 🔵   |     |
+| 15 | C 🔵   |     |
+| 16 | E 🔵   |     |
+| 17 | N 🟡   |     |
+| 18 | Q 🟡   |     |
+| 19 | R 🟡   |     |
+| 20 | W 🟡   |     |
+
 # Downsides of MSTL
 
 No standard errors - this is a big one . maybe block bootstrap could fix this
