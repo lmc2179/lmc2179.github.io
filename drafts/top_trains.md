@@ -11,17 +11,17 @@ A shocking number of real world decisions are made by people on a zoom call squi
 
 {plot of the L train ridership over time}
 
-Okay, so...hm. I do not find this to be an easy chart to read. What's the story here? It looks like it has increased, but how much? Is there a dip in the middle there? What is the overall trend?
+Okay, so...hm. I do not find this to be an easy chart to read. What's the story here? It looks like it has increased, but how much? Is there a dip in the middle there? What can we say about the overall trend, other than "it looks like it's going up"? What about monthly seasonality, is that affecting how this looks?
 
 You've probably had to deal with this before. The most common tool for dealing with this in practice is to smooth the time series with a moving average, or something similar. And it's a good solution!
 
 # Smoothing is the most common solution, and it's a pretty good one
 
-The idea of a moving average is simple: average each point with the ones near it in order to make the curve smoother. 
+The idea of a moving average is simple: average each point with the ones near it in order to make the curve smoother. Sudden spikes will get smoothed out as we combine them with their neighbors. By making the window size 12, we are attempting to remove the 12 month cycle and noise, leaving just the overall long-term trend.
 
 {Picture of moving average results}
 
-That is an improvement, admittedly.
+That is an improvement, admittedly. It's now much easier to read, for example, that ridership started around the 3 million-ish mark and as of mid-2026 is around the 4 million-ish mark.
 
 This solution hints that there is a smooth trend underlying the data, something like
 
@@ -40,6 +40,8 @@ It also raises a natural question - can I see the other parts of the equation, i
 # Get the full picture by decomposing the time series with (M)STL
 
 We can decompose the time series using MSTL
+
+MSTL paper
 
 {L train MSTL results}
 
