@@ -65,7 +65,9 @@ res.seasonal/res.trend is neat too - seasonal effects cause the trend to move ar
 
 What do the residuals look like?
 
-Congestion pricing
+The biggest "surprise" is a much larger ridership in Jan 2025
+
+oh wow Congestion pricing
 
 # Which train has increased its ridership the most?
 
