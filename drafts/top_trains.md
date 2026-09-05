@@ -23,15 +23,13 @@ The idea of a moving average is simple: average each point with the ones near it
 
 That is an improvement, admittedly.
 
-This solution hints that there is a trend underlying the data, something like
+This solution hints that there is a smooth trend underlying the data, something like
 
 $$Data_t = Trend_t + Month_t + Noise_t$$
 
 or maybe if you're feeling really fancy, you might write it with Greek letters:
 
-$$y_t = \mu_t + \beta_t + \epsilon_t$$
-
-$\underbrace{r_t^{UK} - r_{t-1}^{UK}}_\textrm{UK revenue growth}$
+$$\underbrace{y_t}_\textrm{Observed} = \underbrace{\mu_t}_\textrm{Trend component} + \underbrace{\beta_t}_\textrm{Monthly component} + \underbrace{\epsilon_t}_\textrm{Noise component}$$
 
 (For what it's worth, I recommend the Greek letter version. People are always very impressed when data scientists use Greek letters.)
 
