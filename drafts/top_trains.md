@@ -88,7 +88,7 @@ MSTL stands for "Multiple Seasonal-Trend decomposition using LOESS", which is ad
 * **Seasonal:** The cyclic behavior - in our example of month-level data, this is the 12 month cycle. The **M** in in **M**STL comes from the fact that it supports multiple seasonalities (ie, daily _and_ monthly).
 * **Residual:** Everything left over. In theory, this is just normally distributed noise. In practice, examining the residuals helps us understand where the model doesn't fit well. 
 
-It's easy to calculate this decomposition in statsmodels:
+It's easy to calculate this decomposition in statsmodels, and plot the different components:
 
 ```python
 res = MSTL(l_train_peak_df['num_passengers'], periods=(12)).fit()
@@ -99,9 +99,9 @@ plt.show()
 
 ![alt text](image-8.png)
 
-All of these add up to the time series we actually observed
+All of these add up to the time series we actually observed. They are our estimates of the right hand side of the equation for an additive time series we had before:
 
-Mention the equation again
+$$\underbrace{y_t}_\textrm{Observed} = \underbrace{\mu_t}_\textrm{Trend component} + \underbrace{\beta_t}_\textrm{Monthly component} + \underbrace{\epsilon_t}_\textrm{Noise component}$$
 
 Let's look at each component separately and see what we can learn.
 
