@@ -39,9 +39,15 @@ It also raises a natural question - can I see the other parts of the equation, i
 
 # Get the full picture by decomposing the time series with (M)STL
 
-We can decompose the time series using MSTL
+We can decompose the time series into its pieces using the [MSTL procedure](https://www.statsmodels.org/devel/generated/statsmodels.tsa.seasonal.MSTL.html) as [implemented in statsmodels](https://www.statsmodels.org/devel/generated/statsmodels.tsa.seasonal.MSTL.html).
 
-MSTL paper https://arxiv.org/pdf/2107.13462
+MSTL stands for "Multiple Seasonal-Trend decomposition using LOESS", which is admittedly a bit of a mouthful. The method decomposes the **observed time series** into three components:
+
+* **Trend:** The smooth long-term trajectory of the time series, with seasonal factors and noise removed.
+* **Seasonal:** The cyclic behavior - in our example of month-level data, this is the 12 month cycle. The **M** in in **M**STL comes from the fact that it supports multiple seasonalities (ie, daily _and_ monthly).
+* **Residual:** Everything left over. In theory, this is just normally distributed noise. In practice, examining the residuals helps us understand where the model doesn't fit well. 
+
+It's easy to calculate this decomposition in statsmodels:
 
 {L train MSTL results}
 
@@ -49,9 +55,17 @@ All of these add up to the time series we actually observed
 
 Mention the equation again
 
+Let's look at each component separately and see what we can learn.
+
+### Trend component
+
+Here's the observed time series, plus the trend component:
+
 {L train plus trend}
 
 How does the trend look?
+
+### Seasonal component
 
 {Seasonal}
 
@@ -64,6 +78,8 @@ September is low
 February is always a big dip after jan; though it is the shortest
 
 res.seasonal/res.trend is neat too - seasonal effects cause the trend to move around -15-+10 % depending
+
+### Residual component
 
 {Residuals}
 
