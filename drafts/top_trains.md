@@ -5,11 +5,41 @@ Title: Finding New York's Hottest Train with time series decomposition
 
 # Lots of very important decisions are made by looking at time series data
 
-A shocking number of real world decisions are made by people on a zoom call squinting at a time series chart of a metric and saying "okay, I think I know what's going on here". But do they? In their defense, a time series can be hard to read. For example, the other day as I was sitting on the subway to go to my office (where I would sit on zoom calls squinting at time series plots), I found myself wondering whether there are more people on the subway than there had been a few years ago. The subway certainly _felt_ more crowded, but maybe I'm just looking through rose tinted glasses at the New York of yesteryear (I wouldn't be the first). Had the subway ridership actually increased? Well, that's easy, we can grab a data set from our good friends at the MTA, and look at train ridership over time. For example, here's the L train, which I was commuting on:
+A shocking number of real world decisions are made by people on a zoom call squinting at a time series chart of a metric and saying "okay, I think I know what's going on here". But do they? In their defense, a time series can be hard to read. For example, the other day as I was sitting on the subway to go to my office (where I would sit on zoom calls squinting at time series plots), I found myself wondering whether there are more people on the subway than there had been a few years ago. The subway certainly _felt_ more crowded, but maybe I'm just looking through rose tinted glasses at the New York of yesteryear (I wouldn't be the first). Had the subway ridership actually increased? That's a data question! We can grab a data set from our good friends at the MTA, and look at train ridership over time. For example, here's the **monthly ridership of the L train**, which I was commuting on:
 
-{code: import}
+```python
+# Import the data I downloaded from https://data.ny.gov/Transportation/MTA-Daily-Ridership-Data-2020-2025/vxuj-8kew/about_data
 
-{plot of the L train ridership over time}
+import pandas as pd
+import numpy as np
+from matplotlib import pyplot as plt
+import matplotlib.ticker as ticker
+import seaborn as sns
+from statsmodels.tsa.seasonal import MSTL
+
+plt.rcParams["figure.figsize"] = (10, 8)
+
+df = pd.read_csv(r'MTA_Subway_Customer_Journey-Focused_Metrics__Beginning_2015_20260829.csv')
+
+df = df[df['month'] >= '2023-01-01']
+df = df[df['period'] == 'peak']
+df['num_passengers'] = df['num_passengers'].str.replace(',', '').astype(float)
+
+# L train plot
+def millions(x, pos):
+    return f'{x*1e-6:.1f}M'
+
+l_train_peak_df = df[df['line']=='L']
+l_train_peak_df.index = pd.to_datetime(l_train_peak_df.month)
+
+plt.title('Monthly Ridership on the (L) train')
+plt.gca().yaxis.set_major_formatter(ticker.FuncFormatter(millions))
+plt.plot(l_train_peak_df.num_passengers, marker='o', markersize=12, color='grey', label='Monthly Riders')
+plt.legend()
+plt.show()
+```
+
+![alt text](image-6.png)
 
 Okay, so...hm. I do not find this to be an easy chart to read. What's the story here? It looks like it has increased, but how much? Is there a dip in the middle there? What can we say about the overall trend, other than "it looks like it's going up"? What about monthly seasonality, is that affecting how this looks?
 
