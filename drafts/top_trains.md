@@ -49,7 +49,18 @@ You've probably had to deal with this before. The most common tool for dealing w
 
 The idea of a moving average is simple: average each point with the ones near it in order to make the curve smoother. Sudden spikes will get smoothed out as we combine them with their neighbors. By making the window size 12, we are attempting to remove the 12 month cycle and noise, leaving just the overall long-term trend.
 
-{Picture of moving average results}
+```python
+plt.title('Monthly Ridership on the (L) train with smoothing')
+plt.gca().yaxis.set_major_formatter(ticker.FuncFormatter(millions))
+plt.plot(l_train_peak_df.num_passengers, marker='o', markersize=12, color='grey', label='Monthly Riders')
+plt.plot(l_train_peak_df.num_passengers.ewm(alpha=0.3).mean(), color='black', linestyle='dashed', label='Exponentially Weighted Mean')
+plt.plot(l_train_peak_df.num_passengers.rolling(window=12, center=True).mean(), color='black', linestyle='dotted', label='Rolling average')
+plt.plot(l_train_peak_df.num_passengers.rolling(win_type='triang', window=12, center=True).mean(), color='black', linestyle='solid', label='Rolling average (Triangular weights)')
+plt.legend()
+plt.show()
+```
+
+![alt text](image-7.png)
 
 That is an improvement, admittedly. It's now much easier to read, for example, that ridership started around the 3 million-ish mark and as of mid-2026 is around the 4 million-ish mark.
 
@@ -79,7 +90,14 @@ MSTL stands for "Multiple Seasonal-Trend decomposition using LOESS", which is ad
 
 It's easy to calculate this decomposition in statsmodels:
 
-{L train MSTL results}
+```python
+res = MSTL(l_train_peak_df['num_passengers'], periods=(12)).fit()
+
+res.plot()
+plt.show()
+```
+
+![alt text](image-8.png)
 
 All of these add up to the time series we actually observed
 
@@ -91,13 +109,36 @@ Let's look at each component separately and see what we can learn.
 
 Here's the observed time series, plus the trend component:
 
-{L train plus trend}
+```python
+# Trend view
+
+plt.title('Monthly Ridership on the (L) train with MSTL trend component')
+plt.gca().yaxis.set_major_formatter(ticker.FuncFormatter(millions))
+plt.plot(l_train_peak_df.num_passengers, marker='o', markersize=12, color='grey', label='Monthly Riders')
+plt.plot(res.trend, color='black', linestyle='dashed', label='Trend component')
+plt.legend()
+plt.show()
+```
+
+![alt text](image-9.png)
 
 How does the trend look?
 
 ### Seasonal component
 
-{Seasonal}
+```python
+# Seasonal view
+
+plt.title('Monthly Ridership on the (L) train - MSTL seasonal component only')
+plt.gca().yaxis.set_major_formatter(ticker.FuncFormatter(millions))
+plt.plot(res.seasonal, marker='o', markersize=10)
+plt.axhline(0, color='grey', alpha=0.5)
+for i in [0, 12, 24, 36]:
+    plt.axvline(l_train_peak_df.index[i], linestyle='dashed', alpha=0.5, color='grey')
+plt.show()
+```
+
+![alt text](image-10.png)
 
 Does it tell us anything about the seasonal cycle?
 
@@ -111,7 +152,19 @@ res.seasonal/res.trend is neat too - seasonal effects cause the trend to move ar
 
 ### Residual component
 
-{Residuals}
+```python
+# Residual view
+
+plt.title('Monthly Ridership on the (L) train - MSTL residual component only')
+plt.gca().yaxis.set_major_formatter(ticker.FuncFormatter(millions))
+plt.plot(res.resid, marker='o', markersize=10, linewidth=0)
+plt.axhline(0, color='grey', alpha=0.5)
+for i in [0, 12, 24, 36]:
+    plt.axvline(l_train_peak_df.index[i], linestyle='dashed', color='grey', alpha=0.5)
+plt.show()
+```
+
+![alt text](image-11.png)
 
 What do the residuals look like?
 
