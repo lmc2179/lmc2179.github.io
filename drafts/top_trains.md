@@ -174,13 +174,17 @@ oh wow Congestion pricing
 
 # Which train has increased its ridership the most?
 
-Show all of the lines
+One thing that's nice about this sort of decomposition is that it lets you analyze the trend series, or multiple trend series, to understand what has been happening over the long term. For example, we can ask a question like: **Which subway line has increased monthly ridership the most since 2023?**
 
-Show them as % growth
+We can plot the trend-only views of all the lines:
 
-Show the top 5
+[plot of all the lines]
 
-Show the bottom 5
+We can also compute the % growth since the first observation
+
+[Show them as % growth]
+
+Okay, that's a little bit busy. Let's look at the summary table
 
 |    | line   |     |
 |---:|:-------|:----|
@@ -205,6 +209,8 @@ Show the bottom 5
 | 18 | Q 🟡   |     |
 | 19 | R 🟡   |     |
 | 20 | W 🟡   |     |
+
+The big winners are ...
 
 # Downsides of MSTL
 
