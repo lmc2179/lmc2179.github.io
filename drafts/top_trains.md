@@ -180,6 +180,10 @@ We can plot the trend-only views of all the lines:
 
 [plot of all the lines]
 
+That's pretty clear - the 6 train is the clear winner!
+
+Another thing we could consider - percent growth
+
 Okay, that's a little bit busy. Let's look at the summary table
 
 |    | line   |     |
