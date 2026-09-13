@@ -180,10 +180,6 @@ We can plot the trend-only views of all the lines:
 
 [plot of all the lines]
 
-We can also compute the % growth since the first observation
-
-[Show them as % growth]
-
 Okay, that's a little bit busy. Let's look at the summary table
 
 |    | line   |     |
