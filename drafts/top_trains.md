@@ -45,7 +45,7 @@ plt.legend()
 plt.show()
 ```
 
-![alt text](image-6.png)
+![alt text](https://lmc2179.github.io/drafts/image-6.png)
 
 Okay, so...hm. I do not find this to be an easy chart to read. What's the story here? It looks like it has increased, but how much? Is there a dip in the middle there? What can we say about the overall trend, other than "it looks like it's going up"? What about monthly seasonality, is that affecting how this looks?
 
@@ -66,7 +66,7 @@ plt.legend()
 plt.show()
 ```
 
-![alt text](image-7.png)
+![alt text](https://lmc2179.github.io/drafts/image-7.png)
 
 That is an improvement, admittedly. It's now much easier to read, for example, that ridership started around the 3 million-ish mark and as of mid-2026 is around the 4 million-ish mark.
 
@@ -103,7 +103,7 @@ res.plot()
 plt.show()
 ```
 
-![alt text](image-8.png)
+![alt text](https://lmc2179.github.io/drafts/image-8.png)
 
 All of these add up to the time series we actually observed. They are our estimates of the right hand side of the equation for an additive time series we had before:
 
@@ -126,7 +126,7 @@ plt.legend()
 plt.show()
 ```
 
-![alt text](image-9.png)
+![alt text](https://lmc2179.github.io/drafts/image-9.png)
 
 This makes things clearer - it gives us a single smooth line for the trend. We can see a dip in 2024, followed by a recovery over '25 and '26. 
 
@@ -144,7 +144,7 @@ for i in [0, 12, 24, 36]:
 plt.show()
 ```
 
-![alt text](image-10.png)
+![alt text](https://lmc2179.github.io/drafts/image-10.png)
 
 What does this tell us about the seasonal cycles of L train usage?
 * October is busiest month, a fact that is well known ([see the NYT for more](https://www.nytimes.com/2013/11/21/nyregion/in-october-a-day-for-the-new-york-city-subways-ridership-record-book.html)) .
@@ -169,7 +169,7 @@ for i in [0, 12, 24, 36]:
 plt.show()
 ```
 
-![alt text](image-11.png)
+![alt text](https://lmc2179.github.io/drafts/image-11.png)
 
 The model seems to fit poorly around the start of 2025; the ridership in January is way higher than the model's estimate. What could have happenened in January 2025 that suddenly caused ridership to jump?
 
@@ -210,7 +210,7 @@ for line, color, bullet in [('JZ', 'brown', '🟤'),
 print(pd.DataFrame(rows, columns=['Line', 'Absolute Change', 'Percent change']).to_markdown())
 ```
 
-![alt text](image-12.png)
+![alt text](https://lmc2179.github.io/drafts/image-12.png)
 
 That's pretty clear - the 6 train is the clear winner! Its trend increased more or less continuously from 2023 to right now in 2026. We could also consider percent growth, as of course subway lines all have different levels of normal traffic.
 
