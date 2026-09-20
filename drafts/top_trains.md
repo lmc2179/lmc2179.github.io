@@ -4,9 +4,10 @@ title: "Finding New York's Hottest Train with time series decomposition"
 author: "Louis Cialdella"
 categories: posts
 tags: [datascience]
-image: top_trains.png
+image: top_trains.jpg
 ---
  
+_Credit for the title photo goes to [Taylen Lundequalm](https://www.pexels.com/photo/subway-train-and-station-in-new-york-19978700/)_, found on [pexels.com](pexels.com).
 
 # Lots of very important decisions are made by looking at time series data
 
