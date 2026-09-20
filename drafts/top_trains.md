@@ -1,11 +1,16 @@
-
-https://data.ny.gov/Transportation/MTA-Subway-Customer-Journey-Focused-Metrics-Beginn/r7qk-6tcy/about_data 
-
-Title: Finding New York's Hottest Train with time series decomposition
+---
+layout: post
+title: "Finding New York's Hottest Train with time series decomposition"
+author: "Louis Cialdella"
+categories: posts
+tags: [datascience]
+image: top_trains.png
+---
+ 
 
 # Lots of very important decisions are made by looking at time series data
 
-A shocking number of real world decisions are made by people on a zoom call squinting at a time series chart of a metric and saying "okay, I think I know what's going on here". But do they? In their defense, a time series can be hard to read. For example, the other day as I was sitting on the subway to go to my office (where I would sit on zoom calls squinting at time series plots), I found myself wondering whether there are more people on the subway than there had been a few years ago. The subway certainly _felt_ more crowded, but maybe I'm just looking through rose tinted glasses at the New York of yesteryear (I wouldn't be the first). Had the subway ridership actually increased? That's a data question! We can grab a data set from our good friends at the MTA, and look at train ridership over time. For example, here's the **monthly ridership of the L train**, which I was commuting on:
+A shocking number of real world decisions are made by people on a zoom call squinting at a time series chart of a metric and saying "okay, I think I know what's going on here". But do they? In their defense, a time series can be hard to read. For example, the other day as I was sitting on the subway to go to my office (where I would sit on zoom calls squinting at time series plots), I found myself wondering whether there are more people on the subway than there had been a few years ago. The subway certainly _felt_ more crowded, but maybe I'm just looking through rose tinted glasses at the New York of yesteryear (I wouldn't be the first). Had the subway ridership actually increased? That's a data question! We can grab a [data set](https://data.ny.gov/Transportation/MTA-Subway-Customer-Journey-Focused-Metrics-Beginn/r7qk-6tcy/about_data) from our good friends at the MTA, and look at train ridership over time. For example, here's the **monthly ridership of the L train**, which I was commuting on:
 
 ```python
 # Import the data I downloaded from https://data.ny.gov/Transportation/MTA-Daily-Ridership-Data-2020-2025/vxuj-8kew/about_data
@@ -107,7 +112,7 @@ Let's look at each component separately and see what we can learn.
 
 ### Trend component
 
-Here's the observed time series, plus the trend component:
+Here's the observed time series, plus the smooth long-term trend component:
 
 ```python
 # Trend view
@@ -122,7 +127,7 @@ plt.show()
 
 ![alt text](image-9.png)
 
-How does the trend look?
+This makes things clearer - it gives us a single smooth line for the trend. We can see a dip in 2024, followed by a recovery over '25 and '26. 
 
 ### Seasonal component
 
@@ -140,17 +145,16 @@ plt.show()
 
 ![alt text](image-10.png)
 
-Does it tell us anything about the seasonal cycle?
+What does this tell us about the seasonal cycles of L train usage?
+* October is busiest month, a fact that is well known ([see the NYT for more](https://www.nytimes.com/2013/11/21/nyregion/in-october-a-day-for-the-new-york-city-subways-ridership-record-book.html)) .
+* September, on the other hand, is a very low ridership month.
+* February tends to be a big dip after January - but it's worth keeping in mind that February has fewer days, which is probably part of the explanation (the bitter cold of the subway in February probably doesn't help).
 
-October is busiest, a well documented fact https://www.nytimes.com/2013/11/21/nyregion/in-october-a-day-for-the-new-york-city-subways-ridership-record-book.html 
-
-September is low
-
-February is always a big dip after jan; though it is the shortest
-
-res.seasonal/res.trend is neat too - seasonal effects cause the trend to move around -15-+10 % depending
+Comparing the seasonal and trend components using `res.seasonal/res.trend` is interesting too - that will show you how large the "seasonal effect" is compared to the long-term trend.
 
 ### Residual component
+
+Lastly, lets look at the residual component. The residuals tell us where a smooth trend + monthly cycle _don't_ account for what's measured. Residuals much larger than the rest are where the model is "surprised" by a sudden change in some month. If the model captures all the relevant structure, then the residuals will look like a normally distributed fuzz around zero.
 
 ```python
 # Residual view
@@ -166,103 +170,81 @@ plt.show()
 
 ![alt text](image-11.png)
 
-What do the residuals look like?
+The model seems to fit poorly around the start of 2025; the ridership in January is way higher than the model's estimate. What could have happenened in January 2025 that suddenly caused ridership to jump?
 
-The biggest "surprise" is a much larger ridership in Jan 2025
-
-oh wow Congestion pricing
+We don't have to look far for an explanation - [on January 5, 2025, New York City implemented its congestion pricing program](https://en.wikipedia.org/wiki/Congestion_pricing_in_New_York_City), a toll on driving in Manhattan south of 61st street. It seems reasonable to conclude that as the L train serves Manhattan and Brooklyn, some drivers chose to substitute a drive into the city with a ride on the L train.
 
 # Which train has increased its ridership the most?
 
-One thing that's nice about this sort of decomposition is that it lets you analyze the trend series, or multiple trend series, to understand what has been happening over the long term. For example, we can ask a question like: **Which subway line has increased monthly ridership the most since 2023?**
+One thing that's nice about this sort of decomposition is that it lets you analyze the trend series, or multiple trend series, to understand what has been happening over the long term. For example, we can ask a question like: **Which subway line has increased monthly ridership the most since 2023?** Using the trend line helps us isolate long-term changes in each series, without worrying that we're accidentally looking at transient effects or the result of seasonal variation.
 
 We can plot the trend-only views of all the lines:
 
-[plot of all the lines]
-
-That's pretty clear - the 6 train is the clear winner!
-
-Another thing we could consider - percent growth
-
-Okay, that's a little bit busy. Let's look at the summary table
-
-|    | line   |     |
-|---:|:-------|:----|
-|  0 | JZ 🟤  |     |
-|  1 | B 🟠   |     |
-|  2 | D 🟠   |     |
-|  3 | F 🟠   |     |
-|  4 | M 🟠   |    |
-|  5 | L 🔘   |     |
-|  6 | 1 🔴   |     |
-|  7 | 2 🔴   |     |
-|  8 | 3 🔴   |     |
-|  9 | 4 🟢   |     |
-| 10 | 5 🟢   |     |
-| 11 | 6 🟢   |     |
-| 12 | G 🟢   |     |
-| 13 | 7 🟣   |     |
-| 14 | A 🔵   |     |
-| 15 | C 🔵   |     |
-| 16 | E 🔵   |     |
-| 17 | N 🟡   |     |
-| 18 | Q 🟡   |     |
-| 19 | R 🟡   |     |
-| 20 | W 🟡   |     |
-
-The big winners are ...
-
-https://www.governor.ny.gov/news/governor-hochul-highlights-record-breaking-year-performance-and-ridership-mta-2025
-
-# Downsides of MSTL
-
-No standard errors - this is a big one . maybe block bootstrap could fix this
-
-Consider building a more complex regression model, esp an ARMA model
-
-# proof of concept
-
-Extract details for each train. which one has seen major trend changes recently
-
 ```python
-import pandas as pd
+plt.gca().yaxis.set_major_formatter(ticker.FuncFormatter(millions))
+plt.title('Change in Monthly ridership from Jan 2023')
 
-df = pd.read_csv(r'C:\Users\louis\Downloads\MTA_Subway_Customer_Journey-Focused_Metrics__Beginning_2015_20260829.csv')
+rows = []
 
-df = df[df['month'] >= '2023-01-01']
-df = df[df['period'] == 'peak']
-df['num_passengers'] = df['num_passengers'].str.replace(',', '').astype(float)
-
-for line, color in [('JZ', 'brown'), 
-                    ('B', 'orange'), ('D', 'orange'), ('F', 'orange'), ('M', 'orange'), 
-                    ('L', 'gray'), 
-                    ('1', 'red'), ('2', 'red'), ('3', 'red'), 
-                    ('4', 'green'), ('5', 'green'), ('6', 'green'), ('G', 'green'),
-                    ('7', 'purple'),
-                    ('A', 'blue'), ('C', 'blue'), ('E', 'blue'),
-                    ('R', 'yellow'), ('N', 'yellow'), ('Q', 'yellow'), ('W', 'yellow'),
-                    ('R', 'gray'), ]:
+for line, color, bullet in [('JZ', 'brown', '🟤'), 
+                    ('B', 'orange', '🟠'), ('D', 'orange', '🟠'), ('F', 'orange', '🟠'), ('M', 'orange', '🟠'), 
+                    ('L', 'gray', '🔘'), 
+                    ('1', 'red', '🔴'), ('2', 'red', '🔴'), ('3', 'red', '🔴'), 
+                    ('4', 'green', '🟢'), ('5', 'green', '🟢'), ('6', 'green', '🟢'), ('G', 'lightgreen', '🟢'),
+                    ('7', 'purple', '🟣'),
+                    ('A', 'blue', '🔵'), ('C', 'blue', '🔵'), ('E', 'blue', '🔵'),
+                    ('N', 'olive', '🟡'), ('Q', 'olive', '🟡'), ('R', 'olive', '🟡'), ('W', 'olive', '🟡')]:
     line_peak_df = df[df['line']==line]
     line_peak_df.index = pd.to_datetime(line_peak_df.month)
     
-    from matplotlib import pyplot as plt
-    import seaborn as sns
-   
-    plt.rcParams["figure.figsize"] = (12, 10)
-    
-    from statsmodels.tsa.seasonal import MSTL, STL
     res = MSTL(line_peak_df['num_passengers'], periods=(12)).fit()
+    change_in_ridership = res.trend - res.trend[0]
+    plt.plot(change_in_ridership, color=color)
+    plt.text(line_peak_df.index[-1], change_in_ridership[-1], line, color=color)
     
-    plt.plot(res.trend, label=line, color=color)
-    print(line, res.trend.iloc[-1] / res.trend.iloc[0] - 1)
+    absolute_change = str(round((res.trend.iloc[-1] - res.trend.iloc[0])/1000000, 3)) + 'M'
+    percent_change = str(100*round(res.trend.iloc[-1] / res.trend.iloc[0] - 1, 3)) + '%'
+    rows.append([line+' '+bullet, absolute_change, percent_change])
 
-plt.legend()
-plt.show()
-
-res.plot()
-plt.show()
-
-plt.plot(line_peak_df.num_passengers, marker='o', markersize=12)
-plt.plot(line_peak_df.num_passengers.ewm(alpha=0.2).mean())
-plt.show()
+print(pd.DataFrame(rows, columns=['Line', 'Absolute Change', 'Percent change']).to_markdown())
 ```
+
+![alt text](image-12.png)
+
+That's pretty clear - the 6 train is the clear winner! Its trend increased more or less continuously from 2023 to right now in 2026. We could also consider percent growth, as of course subway lines all have different levels of normal traffic.
+
+Okay, that's a little bit busy. Let's look at the summary table for both absolute and percent growth:
+
+|    | Line   | Absolute Change   | Percent change      |
+|---:|:-------|:------------------|:--------------------|
+|  0 | JZ 🟤  | 0.413M            | 28.6% |
+|  1 | B 🟠   | 0.641M            | 23.4% |
+|  2 | D 🟠   | 0.351M            | 13.1% |
+|  3 | F 🟠   | 1.135M            | 24.3%               |
+|  4 | M 🟠   | 0.87M             | 39.9% 🏆 |
+|  5 | L 🔘   | 0.908M            | 28.6% |
+|  6 | 1 🔴   | 0.817M            | 15.4%               |
+|  7 | 2 🔴   | 0.459M            | 12.8%               |
+|  8 | 3 🔴   | 0.282M            | 10.4%               |
+|  9 | 4 🟢   | 0.944M            | 26.0%               |
+| 10 | 5 🟢   | 0.765M            | 25.1%               |
+| 11 | 6 🟢   | 1.503M 🏆           | 29.5%               |
+| 12 | G 🟢   | 0.277M            | 17.7%               |
+| 13 | 7 🟣   | 0.234M            | 4.6%                |
+| 14 | A 🔵   | 1.289M            | 31.1%               |
+| 15 | C 🔵   | 0.324M            | 16.0%               |
+| 16 | E 🔵   | 0.644M            | 15.3% |
+| 17 | N 🟡   | 0.798M            | 31.3%               |
+| 18 | Q 🟡   | 0.552M            | 16.3%               |
+| 19 | R 🟡   | 1.038M            | 25.8%               |
+| 20 | W 🟡   | 0.282M            | 18.8%               |
+
+The big winners are the 6 train and the M train! The M is one of my local trains out here on the Brooklyn side, good work lads. The 6 train even got called out in the [Governor's Yearly MTA highlights](https://www.governor.ny.gov/news/governor-hochul-highlights-record-breaking-year-performance-and-ridership-mta-2025) as the train with the most ridership!
+
+# Downsides of MSTL
+
+We've seen lots of ways MSTL is useful in getting a closer look at time series data. What are some of the downsides of this approach?
+* The model is flexible enough to add multiple seasonality types on top, but modeling exogenous shocks isn't easy - we can't, for example, easily insert a "congestion pricing" term.
+* This method doesn't give us any standard errors around our values. This is unfortunate and a pretty big downside, and isn't trivial to fix because of the autocorrelation of the time series (ie, you can't just do a bootstrap, though maybe you could use a block bootstrap).
+
+MSTL is a great way to understand the different components of the time series, but if these downsides are a problem for your use case, you may want to consider a more powerful modeling approach (like an ARIMA model).
