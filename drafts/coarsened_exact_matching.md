@@ -82,6 +82,8 @@ def cem(df, y_col, treatment_status_col, control_level, treated_level, match_col
 results = cem(df, y_col, t_col, t0_value, t1_value, X_cols)
 ```
 
+This is still not _really_ the ATE - it is the ATE on the matching subpopulation
+
 # Draft version
 
 ```python
