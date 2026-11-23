@@ -22,19 +22,6 @@ Underlying causal model, questions about how the data was collected
 import pandas as pd
 import numpy as np
 
-df = pd.read_csv('https://vincentarelbundock.github.io/Rdatasets/csv/ggplot2/diamonds.csv')
-
-df['carat'] = df['carat'].round(1)
-
-y_col = 'price'
-X_cols = ['clarity', 'color', 'cut']
-t_col = 'carat'
-
-cut_levels = ['Fair', 'Good', 'Very Good', 'Premium', 'Ideal']
-
-t0_value = 0.5
-t1_value = 1.0
-
 def cem(df, y_col, treatment_status_col, control_level, treated_level, match_cols):
     df_c, df_t = df[df[treatment_status_col] == control_level], df[df[treatment_status_col] == treated_level]
     df_bin_c = df_c.groupby(match_cols).agg(
@@ -79,7 +66,29 @@ def cem(df, y_col, treatment_status_col, control_level, treated_level, match_col
     match_statistics = (t_match_pct, c_match_pct)
     return treatment_effects, standard_errors, match_statistics
 
-results = cem(df, y_col, t_col, t0_value, t1_value, X_cols)
+from matplotlib import pyplot as plt
+
+df = pd.read_csv('https://vincentarelbundock.github.io/Rdatasets/csv/ggplot2/diamonds.csv')
+
+df['carat'] = df['carat'].round(1)
+
+y_col = 'price'
+X_cols = ['clarity', 'color', 'cut']
+t_col = 'carat'
+
+carat_levels = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0]
+
+for carat_c, carat_t in zip(carat_levels[:-1], carat_levels[1:]):
+    results = cem(df, y_col, t_col, carat_c, carat_t, X_cols)
+    att = results[0][0]
+    plt.scatter([carat_t], [att])
+
+# Carat vs Price
+plt.scatter(df['carat'], df['price'])
+
+# All the way from min to max - compare with plots above
+cem(df, y_col, t_col, 0.2, 2.0, X_cols)
+
 ```
 
 This is still not _really_ the ATE - it is the ATE on the matching subpopulation
