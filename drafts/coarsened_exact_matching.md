@@ -1,6 +1,6 @@
 # 
 
-Example: Diamond data set; effect of cut on price
+Example: Diamond data set; effect of size (carat) on price
 
 Underlying causal model, questions about how the data was collected
 
@@ -77,11 +77,15 @@ X_cols = ['clarity', 'color', 'cut']
 t_col = 'carat'
 
 carat_levels = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0]
+results = [cem(df, y_col, t_col, carat_c, carat_t, X_cols) for carat_c, carat_t in zip(carat_levels[:-1], carat_levels[1:])]
+att = np.array([r[0][0] for r in results])
+se = np.array([r[1][0] for r in results])
+plt.plot(carat_levels[1:], att)
+plt.vlines(carat_levels[1:], att + 3*se, att - 3*se)
+plt.ylim(0)
+plt.show()
 
-for carat_c, carat_t in zip(carat_levels[:-1], carat_levels[1:]):
-    results = cem(df, y_col, t_col, carat_c, carat_t, X_cols)
-    att = results[0][0]
-    plt.scatter([carat_t], [att])
+print(sum(att))
 
 # Carat vs Price
 plt.scatter(df['carat'], df['price'])
