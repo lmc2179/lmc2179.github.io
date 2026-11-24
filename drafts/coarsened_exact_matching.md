@@ -87,7 +87,7 @@ plt.show()
 
 print(sum(att))
 
-# Carat vs Price
+# plot of carat vs price
 plt.scatter(df['carat'], df['price'])
 
 # All the way from min to max - compare with plots above
